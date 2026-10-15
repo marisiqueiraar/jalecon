@@ -1,0 +1,319 @@
+<title>Manual da Marca Jalecon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
+<style>
+/* Layout: manual em colunas estreitas de leitura, com faixas de exemplo largas; a diagonal do "V" é o único recurso gráfico recorrente */
+:root{
+  --tinta:#1F2440; --tinta-70:#4A4F6E; --jaleco:#F7F8FA; --nevoa:#E9EBF2; --damasco:#E8A27C; --argila:#9C5A36;
+  --salvia:#8FAE9B; --salvia-esc:#3F6B57; --ambar-esc:#8A6416; --noite:#141728;
+  --bg:#F7F8FA; --surface:#FFFFFF; --surface-2:#E9EBF2; --fg:#1F2440; --fg-2:#4A4F6E; --line:#D7DAE5; --accent-text:#9C5A36; --ok:#3F6B57;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"DM Sans", "Segoe UI", Arial, sans-serif;
+  --step--1:.85rem; --step-0:1rem; --step-1:1.25rem; --step-2:1.6rem; --step-3:2.2rem; --step-4:3.2rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141728; --surface:#1B1F36; --surface-2:#242944; --fg:#EEF0F6; --fg-2:#B9BDD0; --line:#2F3556; --accent-text:#F0B48F; --ok:#9FC3AE; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141728; --surface:#1B1F36; --surface-2:#242944; --fg:#EEF0F6; --fg-2:#B9BDD0; --line:#2F3556; --accent-text:#F0B48F; --ok:#9FC3AE; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:var(--step-0);line-height:1.6;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.01em;text-wrap:balance;line-height:1.15;margin:0}
+h2{font-size:var(--step-3)}
+h3{font-size:var(--step-1)}
+p{margin:0;max-width:66ch}
+.eyebrow{font-size:var(--step--1);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text);font-weight:600}
+section{padding-block:56px;border-top:1px solid var(--line);display:grid;gap:24px}
+.lead{font-size:var(--step-1);color:var(--fg-2)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start;min-width:0}
+.small{font-size:var(--step--1);color:var(--fg-2)}
+code,.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.85em}
+/* capa */
+.cover{padding-block:72px 56px;display:grid;gap:28px;position:relative;overflow:hidden}
+.cover .logo{width:min(100%,460px)}
+.cover h1{font-size:var(--step-4);max-width:16ch}
+.diag{position:absolute;right:-60px;top:-40px;width:340px;height:340px;opacity:.9;pointer-events:none}
+.only-dark{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .only-light{display:none}:root:not([data-theme="light"]) .only-dark{display:block}}
+:root[data-theme="dark"] .only-light{display:none} :root[data-theme="dark"] .only-dark{display:block}
+/* logos */
+.stage{border-radius:14px;padding:32px;display:grid;place-items:center;min-height:180px}
+.stage.light{background:#F7F8FA;border:1px solid var(--line)} .stage.dark{background:#1F2440} .stage.white{background:#fff;border:1px solid var(--line)}
+.stage img{max-height:110px;width:auto;max-width:100%}
+.dont .stage img{max-height:70px}
+.dont .x{color:var(--accent-text);font-weight:600}
+/* cores */
+.sw{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--surface);display:grid;min-width:0}
+.sw .chip{height:110px;display:flex;align-items:flex-end;padding:12px;font-family:var(--display);font-size:var(--step-1)}
+.sw .meta{padding:14px;display:grid;gap:6px}
+.sw .meta b{font-size:var(--step-0)}
+table{border-collapse:collapse;width:100%;font-size:var(--step--1)}
+th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--fg-2);font-weight:600}
+.tablebox{overflow-x:auto}
+.avoid{display:flex;gap:12px;align-items:flex-start}
+.avoid i{flex:0 0 36px;height:36px;border-radius:50%;display:block;position:relative}
+.avoid i::after{content:"";position:absolute;left:-2px;right:-2px;top:50%;height:2px;background:var(--fg);transform:rotate(-45deg)}
+/* tipografia */
+.specimen{font-family:var(--display);font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.05}
+.scale div{display:flex;gap:16px;align-items:baseline;border-bottom:1px solid var(--line);padding-block:8px;flex-wrap:wrap}
+.scale span.s{width:110px;flex:0 0 110px;color:var(--fg-2);font-size:var(--step--1)}
+/* voz */
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px}
+.say{border-radius:12px;padding:16px;background:var(--surface);border:1px solid var(--line)}
+.say.no{background:var(--surface-2)}
+.say .tag{font-size:var(--step--1);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.say.yes .tag{color:var(--ok)} .say.no .tag{color:var(--accent-text)}
+/* aplicações */
+.post{aspect-ratio:4/5;max-width:100%;border-radius:12px;background:#1F2440;color:#F7F8FA;padding:24px;display:grid;grid-template-rows:auto 1fr auto;position:relative;overflow:hidden}
+.post h4{font-family:var(--display);font-size:1.6rem;line-height:1.15;margin:0;font-weight:600}
+.post .foot{font-size:.72rem;opacity:.85;display:flex;justify-content:space-between;gap:8px}
+.post .v{position:absolute;right:-30px;bottom:-30px;width:180px;opacity:.18}
+.post.light{background:#F7F8FA;color:#1F2440;border:1px solid var(--line)}
+.bcard{aspect-ratio:85/55;border-radius:10px;background:#fff;color:#1F2440;border:1px solid var(--line);padding:18px;display:grid;align-content:space-between;max-width:100%}
+.bcard.back{background:#1F2440;place-items:center}
+.seal{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px;background:var(--surface);font-size:var(--step--1);font-weight:600}
+.seal svg{width:22px;height:22px}
+.ui{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:12px;max-width:380px}
+.ui .row{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.pill{font-size:.75rem;border-radius:999px;padding:3px 10px;font-weight:600}
+.pill.ok{background:#E3EEE7;color:#2F5544}.pill.warn{background:#F6EBD3;color:#7A5810}
+.btn{display:inline-block;background:var(--tinta);color:#F7F8FA;border-radius:10px;padding:10px 16px;font-weight:600;text-align:center}
+:root[data-theme="dark"] .btn{background:#F7F8FA;color:#1F2440}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{background:#F7F8FA;color:#1F2440}}
+.esp{display:grid;gap:8px}
+.esp .bars{display:flex;height:56px;border-radius:10px;overflow:hidden}
+.esp .bars span{flex:1}
+pre{background:var(--surface-2);border-radius:12px;padding:16px;overflow-x:auto;font-size:.8rem;line-height:1.5;margin:0}
+a{color:var(--accent-text)}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--damasco);outline-offset:3px}
+footer{padding-block:40px;border-top:1px solid var(--line);color:var(--fg-2);font-size:var(--step--1)}
+</style>
+
+<div class="wrap">
+
+<header class="cover">
+  <svg class="diag" viewBox="0 0 100 100" aria-hidden="true"><polygon points="24,36 37,36 50,64 44,76" fill="var(--surface-2)"/><polygon points="44,76 50,64 67,24 80,24" fill="#E8A27C" opacity=".55"/></svg>
+  <img class="logo only-light" src="logos/jalecon-logo-horizontal.svg" alt="Jalecon">
+  <img class="logo only-dark" src="logos/jalecon-logo-horizontal-negativo.svg" alt="Jalecon">
+  <div class="eyebrow">Manual da marca · versão 1.0 · outubro de 2026</div>
+  <h1>Marketing médico com ética de consultório.</h1>
+  <p class="lead">Este manual define como a Jalecon aparece no mundo: símbolo, cores, tipos, voz e aplicações. Ele também orienta as identidades que a plataforma gera para cada médico.</p>
+</header>
+
+<section id="essencia">
+  <div class="eyebrow">Essência</div>
+  <h2>Quem somos</h2>
+  <div class="grid g2">
+    <div class="card"><h3>Propósito</h3><p>Ajudar médicos a serem encontrados e escolhidos pelos pacientes certos, sem tirar tempo da clínica e sem arriscar o CRM.</p></div>
+    <div class="card"><h3>Arquétipo: o Sábio Cuidador</h3><p>O colega mais experiente, que orienta com calma e cuida para que nada saia errado. Sabe as regras, explica sem jargão e nunca faz alarde.</p></div>
+  </div>
+  <div class="tablebox"><table>
+    <tr><th>Atributo</th><th>Significa</th><th>Não significa</th></tr>
+    <tr><td><b>Confiável</b></td><td>Precisa, ética, transparente sobre o uso de IA, sempre com fonte</td><td>Fria, burocrática, jurídica demais</td></tr>
+    <tr><td><b>Moderna</b></td><td>Simples, rápida, tecnológica sem jargão</td><td>Futurista, neon, "tech bro"</td></tr>
+    <tr><td><b>Humana</b></td><td>Acolhedora, próxima, fala como um colega</td><td>Informal demais, "influencer", sensacionalista</td></tr>
+  </table></div>
+</section>
+
+<section id="simbolo">
+  <div class="eyebrow">Símbolo</div>
+  <h2>A gola que aprova</h2>
+  <div class="grid g2">
+    <div class="stage light"><img src="logos/jalecon-simbolo.svg" alt="Símbolo Jalecon: duas lapelas formando um sinal de aprovação" style="max-height:160px"></div>
+    <div class="card">
+      <p>O símbolo é a gola em "V" de um jaleco visto de frente. As duas lapelas se encontram num ponto e formam um sinal de aprovação.</p>
+      <p><b>A lapela tinta</b> representa o médico e a revisão humana. <b>A lapela damasco</b> representa a inteligência da plataforma. Elas só formam o sinal quando se encontram: nada é publicado sem as duas.</p>
+      <p class="small">Por isso o lado mais longo é o damasco: a IA faz o trabalho pesado, mas a aprovação depende do lado humano.</p>
+    </div>
+  </div>
+</section>
+
+<section id="logo">
+  <div class="eyebrow">Logotipo</div>
+  <h2>Versões</h2>
+  <div class="grid g2">
+    <div class="grid" style="gap:8px"><div class="stage light"><img src="logos/jalecon-logo-horizontal.svg" alt="Logo horizontal"></div><span class="small">Horizontal · versão principal, sobre fundos claros</span></div>
+    <div class="grid" style="gap:8px"><div class="stage dark"><img src="logos/jalecon-logo-horizontal-negativo.svg" alt="Logo horizontal negativo"></div><span class="small">Horizontal negativo · sobre tinta ou fotos escuras</span></div>
+    <div class="grid" style="gap:8px"><div class="stage light"><img src="logos/jalecon-logo-vertical.svg" alt="Logo vertical com assinatura" style="max-height:170px"></div><span class="small">Vertical com assinatura · capas, eventos, materiais impressos</span></div>
+    <div class="grid" style="gap:8px"><div class="stage white" style="grid-template-columns:repeat(3,auto);gap:20px"><img src="logos/jalecon-icone.svg" alt="Ícone" style="max-height:80px"><img src="logos/jalecon-icone-claro.svg" alt="Ícone claro" style="max-height:80px;border:1px solid var(--line);border-radius:20px"><img src="logos/jalecon-icone.svg" alt="Ícone pequeno" style="max-height:32px"></div><span class="small">Ícone · app, avatar, favicon (mínimo 16 px)</span></div>
+  </div>
+  <div class="grid g3">
+    <div class="card"><h3>Área de proteção</h3><p>Deixe ao redor do logo um espaço livre igual à altura do "a" de jalecon. Nenhum texto, borda ou imagem entra nessa área.</p></div>
+    <div class="card"><h3>Tamanho mínimo</h3><p>Horizontal: 96 px de largura na tela ou 25 mm no impresso. Ícone: 16 px. Abaixo disso, use só o ícone.</p></div>
+    <div class="card"><h3>Nome escrito</h3><p>No texto corrido, escreva <b>Jalecon</b> (inicial maiúscula). No logo, sempre em minúsculas. Nunca "JalecON", "JALECON" ou "Jalecon.ia".</p></div>
+  </div>
+  <h3>Usos incorretos</h3>
+  <div class="grid g4 dont">
+    <div class="grid" style="gap:6px"><div class="stage light"><img src="logos/jalecon-logo-horizontal.svg" alt="" style="transform:scaleX(1.4)"></div><span class="small"><span class="x">Não</span> distorcer</span></div>
+    <div class="grid" style="gap:6px"><div class="stage light"><img src="logos/jalecon-logo-horizontal.svg" alt="" style="filter:hue-rotate(140deg) saturate(3)"></div><span class="small"><span class="x">Não</span> trocar as cores</span></div>
+    <div class="grid" style="gap:6px"><div class="stage light"><img src="logos/jalecon-logo-horizontal.svg" alt="" style="transform:rotate(-12deg)"></div><span class="small"><span class="x">Não</span> girar</span></div>
+    <div class="grid" style="gap:6px"><div class="stage" style="background:repeating-linear-gradient(45deg,#E8A27C 0 10px,#8FAE9B 10px 20px)"><img src="logos/jalecon-logo-horizontal.svg" alt=""></div><span class="small"><span class="x">Não</span> aplicar sobre fundos poluídos</span></div>
+  </div>
+</section>
+
+<section id="cores">
+  <div class="eyebrow">Cores</div>
+  <h2>Do branco do jaleco à tinta da assinatura</h2>
+  <p class="lead">A paleta parte de dois objetos do dia a dia do médico: o jaleco branco e a tinta com que ele assina e carimba o CRM. O damasco traz o calor humano. Nada de azul-clínico, verde-hospitalar ou vermelho de alerta.</p>
+  <div class="grid g3">
+    <div class="sw"><div class="chip" style="background:#1F2440;color:#F7F8FA">Tinta</div><div class="meta"><b>#1F2440 · RGB 31 36 64</b><span class="small">Primária. Índigo profundo da tinta de caneta. Transmite competência e seriedade sem a frieza do azul hospitalar. Texto e fundos fortes.</span></div></div>
+    <div class="sw"><div class="chip" style="background:#F7F8FA;color:#1F2440;border-bottom:1px solid var(--line)">Jaleco</div><div class="meta"><b>#F7F8FA · RGB 247 248 250</b><span class="small">Base. O branco do jaleco, levemente frio. Limpeza, cuidado, espaço para respirar.</span></div></div>
+    <div class="sw"><div class="chip" style="background:#E8A27C;color:#1F2440">Damasco</div><div class="meta"><b>#E8A27C · RGB 232 162 124</b><span class="small">Acento humano. Calor e acolhimento com baixa saturação, sem a urgência do vermelho. Só em formas e destaques, nunca em texto sobre branco.</span></div></div>
+    <div class="sw"><div class="chip" style="background:#8FAE9B;color:#1F2440">Sálvia</div><div class="meta"><b>#8FAE9B · escura #3F6B57</b><span class="small">Aprovação e conformidade. Verde acinzentado e calmo, longe do verde cirúrgico. Indica "checado".</span></div></div>
+    <div class="sw"><div class="chip" style="background:#E9EBF2;color:#1F2440">Névoa</div><div class="meta"><b>#E9EBF2 · RGB 233 235 242</b><span class="small">Superfícies e áreas de apoio. Neutro com leve tom da tinta.</span></div></div>
+    <div class="sw"><div class="chip" style="background:#9C5A36;color:#F7F8FA">Argila</div><div class="meta"><b>#9C5A36 · RGB 156 90 54</b><span class="small">Versão escura do damasco para texto de destaque, links e avisos de bloqueio do Guardião.</span></div></div>
+  </div>
+  <h3>Contraste (WCAG)</h3>
+  <div class="tablebox"><table>
+    <tr><th>Combinação</th><th>Contraste</th><th>Uso</th></tr>
+    <tr><td>Tinta sobre Jaleco</td><td class="mono">13,7:1</td><td>Texto principal</td></tr>
+    <tr><td>Jaleco sobre Tinta</td><td class="mono">13,7:1</td><td>Texto em fundo escuro</td></tr>
+    <tr><td>Damasco sobre Tinta</td><td class="mono">7,1:1</td><td>Destaques em fundo escuro</td></tr>
+    <tr><td>Argila sobre Jaleco</td><td class="mono">4,8:1</td><td>Links e avisos (AA)</td></tr>
+    <tr><td>Sálvia escura sobre Jaleco</td><td class="mono">5,5:1</td><td>Status "aprovado"</td></tr>
+    <tr><td>Damasco sobre Jaleco</td><td class="mono">1,9:1</td><td><b>Proibido para texto.</b> Só formas.</td></tr>
+  </table></div>
+  <h3>Cores que evitamos, e por quê</h3>
+  <div class="grid g2">
+    <div class="avoid"><i style="background:#C62828"></i><p><b>Vermelho.</b> Sangue, emergência, erro. Na rotina médica é sinal de alarme; na comunicação, soa como urgência ou sensacionalismo.</p></div>
+    <div class="avoid"><i style="background:#111"></i><p><b>Preto dominante.</b> Associado a luto. Usamos a tinta índigo no lugar.</p></div>
+    <div class="avoid"><i style="background:#6A1B9A"></i><p><b>Roxo.</b> No Brasil, ligado a luto e ritos fúnebres.</p></div>
+    <div class="avoid"><i style="background:#00897B"></i><p><b>Verde-hospitalar e azul-clínico.</b> Dominam a categoria (agendas, prontuários, concorrentes). Usá-los nos tornaria invisíveis.</p></div>
+    <div class="avoid"><i style="background:#FFD600"></i><p><b>Amarelo saturado.</b> Alerta e advertência. Para avisos de interface usamos âmbar escuro (#8A6416), discreto.</p></div>
+  </div>
+</section>
+
+<section id="tipografia">
+  <div class="eyebrow">Tipografia</div>
+  <h2>Uma serifa que dá credibilidade, uma sans que conversa</h2>
+  <div class="grid g2">
+    <div class="card"><div class="specimen">Fraunces</div><p><b>Títulos e logotipo.</b> Serifa contemporânea, com curvas suaves. Remete à tradição editorial das publicações científicas sem parecer antiga. Pesos 500 e 600. Use com moderação: títulos, números de destaque, citações.</p></div>
+    <div class="card"><div class="specimen" style="font-family:var(--body);font-weight:500">DM Sans</div><p><b>Texto, interface e legendas.</b> Sans geométrica aberta, muito legível em tela pequena. Pesos 400, 500 e 600.</p></div>
+  </div>
+  <div class="scale card">
+    <div><span class="s">Título 1 · 52/56</span><span style="font-family:var(--display);font-size:var(--step-4);font-weight:600">Agenda cheia</span></div>
+    <div><span class="s">Título 2 · 35/40</span><span style="font-family:var(--display);font-size:var(--step-3);font-weight:600">Sem arriscar o CRM</span></div>
+    <div><span class="s">Título 3 · 20/26</span><span style="font-family:var(--display);font-size:var(--step-1);font-weight:600">Checado pelo Guardião</span></div>
+    <div><span class="s">Texto · 16/26</span><span>Seu post está pronto e dentro das regras do CFM.</span></div>
+    <div><span class="s">Legenda · 13/20</span><span class="small">Dra. Ana Lima · CRM-SP 000000 · MÉDICA · RQE 0000</span></div>
+  </div>
+  <p class="small">Alternativas de sistema (quando as fontes não puderem ser instaladas): Georgia para títulos, Arial para texto. As duas famílias estão no Google Fonts, Google Slides e Google Docs.</p>
+</section>
+
+<section id="voz">
+  <div class="eyebrow">Tom de voz</div>
+  <h2>Falamos como um colega experiente</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Claro</h3><p>Frases curtas, voz ativa, sem jargão de marketing. O médico entende em uma leitura.</p></div>
+    <div class="card"><h3>Responsável</h3><p>Nunca prometemos resultado. Mostramos fonte, regra e motivo. Dizemos "checado", nunca "garantido".</p></div>
+    <div class="card"><h3>Acolhedor</h3><p>Reconhecemos a rotina do médico. Tom calmo, sem urgência artificial nem exclamações em excesso.</p></div>
+  </div>
+  <h3>Na prática</h3>
+  <div class="pair">
+    <div class="say yes"><div class="tag">Dizemos</div><p>"Seu calendário de novembro está pronto. 3 posts precisam da sua aprovação."</p></div>
+    <div class="say no"><div class="tag">Evitamos</div><p>"Bora bombar seu Insta!!! Conteúdo viral garantido 🚀"</p></div>
+    <div class="say yes"><div class="tag">Dizemos</div><p>"Este texto promete resultado, o que a Resolução CFM 2.336/2023 não permite. Sugerimos: 'O tratamento pode ajudar a…'"</p></div>
+    <div class="say no"><div class="tag">Evitamos</div><p>"Erro! Post bloqueado."</p></div>
+    <div class="say yes"><div class="tag">Dizemos</div><p>"Mais pacientes certos na sua agenda."</p></div>
+    <div class="say no"><div class="tag">Evitamos</div><p>"Lote sua agenda em 7 dias ou seu dinheiro de volta."</p></div>
+  </div>
+  <div class="tablebox"><table>
+    <tr><th>Preferimos</th><th>Em vez de</th></tr>
+    <tr><td>paciente, consulta, agenda</td><td>cliente, lead, conversão (com o médico)</td></tr>
+    <tr><td>conteúdo educativo</td><td>conteúdo viral</td></tr>
+    <tr><td>checado pelo Guardião</td><td>aprovado juridicamente, garantido</td></tr>
+    <tr><td>criado com IA e revisado por você</td><td>feito por robô, automático</td></tr>
+    <tr><td>presença digital</td><td>hype, engajamento a qualquer custo</td></tr>
+  </table></div>
+</section>
+
+<section id="elementos">
+  <div class="eyebrow">Elementos gráficos</div>
+  <h2>A diagonal e o selo</h2>
+  <div class="grid g2">
+    <div class="card"><h3>A diagonal do V</h3><p>O ângulo da lapela damasco (cerca de 67°) é o único recurso gráfico recorrente: em cantos de posts, divisões de página e animações de carregamento. Use uma diagonal por peça, nunca como padrão repetido.</p></div>
+    <div class="card"><h3>Selo "Checado pelo Guardião"</h3><p>Aparece em toda peça aprovada pela checagem de conformidade, na plataforma e nos relatórios.</p>
+      <span class="seal"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#3F6B57"/><polygon points="24,40 35,40 49,66 43,76" fill="#F7F8FA"/><polygon points="43,76 49,66 66,28 77,28" fill="#E8A27C"/></svg>Checado pelo Guardião · CFM 2.336/2023</span>
+    </div>
+  </div>
+</section>
+
+<section id="aplicacoes">
+  <div class="eyebrow">Aplicações</div>
+  <h2>A marca em uso</h2>
+  <div class="grid g3">
+    <div class="grid" style="gap:8px">
+      <div class="post"><span class="small" style="color:#E8A27C;font-weight:600;letter-spacing:.1em">JALECON · DICA</span><h4 style="align-self:center">3 sinais de que seu Instagram médico pode estar fora das regras do CFM</h4><div class="foot"><span>@jalecon</span><span>1/5</span></div>
+        <svg class="v" viewBox="0 0 100 100" aria-hidden="true"><polygon points="24,36 37,36 50,64 44,76" fill="#F7F8FA"/><polygon points="44,76 50,64 67,24 80,24" fill="#E8A27C"/></svg></div>
+      <span class="small">Post da Jalecon (Instagram 4:5)</span>
+    </div>
+    <div class="grid" style="gap:8px">
+      <div class="ui">
+        <div class="row"><b>Post de 12/11</b><span class="pill ok">Checado</span></div>
+        <p class="small">"Dor no joelho ao correr: quando procurar um ortopedista?"</p>
+        <div class="row"><span class="small">Assinatura CRM + RQE</span><span class="pill ok">OK</span></div>
+        <div class="row"><span class="small">Promessa de resultado</span><span class="pill ok">Nenhuma</span></div>
+        <div class="row"><span class="small">Imagem de paciente</span><span class="pill warn">Confirmar consentimento</span></div>
+        <span class="btn">Aprovar e agendar</span>
+      </div>
+      <span class="small">Interface do produto</span>
+    </div>
+    <div class="grid" style="gap:8px">
+      <div class="bcard"><img src="logos/jalecon-logo-horizontal.svg" alt="" style="height:26px;width:auto"><div><b style="font-family:var(--display)">Nome Sobrenome</b><div class="small" style="color:#4A4F6E">Sucesso do Cliente · jalecon.com.br</div></div></div>
+      <div class="bcard back"><img src="logos/jalecon-icone-claro.svg" alt="" style="height:54px;width:auto"></div>
+      <span class="small">Cartão de visita (85 × 55 mm)</span>
+    </div>
+  </div>
+</section>
+
+<section id="medicos">
+  <div class="eyebrow">Identidades geradas</div>
+  <h2>Cada médico com a própria marca</h2>
+  <p class="lead">A Jalecon não coloca a própria marca nos conteúdos do médico. A plataforma gera uma identidade para cada profissional a partir da especialidade, do público e da personalidade dele. As famílias abaixo são pontos de partida; o diagnóstico ajusta cada uma.</p>
+  <div class="grid g3">
+    <div class="esp card"><b>Pediatria · "Algodão"</b><div class="bars"><span style="background:#F2B8A2"></span><span style="background:#A9C8E8"></span><span style="background:#F3DE9B"></span><span style="background:#3D4A66"></span></div><span class="small">Suave e acolhedora. Fala com mães e pais.</span></div>
+    <div class="esp card"><b>Psiquiatria · "Quietude"</b><div class="bars"><span style="background:#9DB4A5"></span><span style="background:#D9D3C7"></span><span style="background:#3E5A5B"></span><span style="background:#EDEAE4"></span></div><span class="small">Calma e discreta. Reduz estigma, transmite sigilo.</span></div>
+    <div class="esp card"><b>Ortopedia · "Movimento"</b><div class="bars"><span style="background:#2E3440"></span><span style="background:#3A7BD5"></span><span style="background:#E98A4B"></span><span style="background:#EEF1F5"></span></div><span class="small">Energia e precisão. Esporte e retorno à atividade.</span></div>
+    <div class="esp card"><b>Gastroenterologia · "Equilíbrio"</b><div class="bars"><span style="background:#7C8B5A"></span><span style="background:#E6DCC6"></span><span style="background:#2F3B2E"></span><span style="background:#C99A6B"></span></div><span class="small">Natural e didática. Saúde intestinal sem tabu.</span></div>
+    <div class="esp card"><b>Cardiologia · "Ritmo"</b><div class="bars"><span style="background:#22304A"></span><span style="background:#D99A9A"></span><span style="background:#F4EFEC"></span><span style="background:#6C8EAD"></span></div><span class="small">Sóbria e confiável. Prevenção e qualidade de vida.</span></div>
+    <div class="esp card"><b>Cirurgia geral · "Precisão"</b><div class="bars"><span style="background:#36454F"></span><span style="background:#6C8EAD"></span><span style="background:#F5F6F7"></span><span style="background:#B8C4CF"></span></div><span class="small">Técnica e segura. Explica procedimentos com clareza.</span></div>
+  </div>
+  <div class="card"><h3>Regras que valem para toda identidade gerada</h3>
+    <ul style="margin:0;padding-left:20px;display:grid;gap:6px">
+      <li>Toda peça traz nome, CRM, a palavra "MÉDICO(A)" e, se citar especialidade, o RQE (Res. CFM 2.336/2023).</li>
+      <li>Contraste mínimo de 4,5:1 para texto.</li>
+      <li>Vermelho só como cor secundária e nunca em mensagens de urgência.</li>
+      <li>Nenhuma imagem de paciente sem consentimento registrado na plataforma.</li>
+      <li>A Jalecon não assina as peças do médico; a assinatura é dele.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="tokens">
+  <div class="eyebrow">Para designers e desenvolvedores</div>
+  <h2>Tokens</h2>
+<pre><code>:root {
+  --jalecon-tinta: #1F2440;     /* primária */
+  --jalecon-tinta-70: #4A4F6E;  /* texto secundário */
+  --jalecon-jaleco: #F7F8FA;    /* base */
+  --jalecon-nevoa: #E9EBF2;     /* superfícies */
+  --jalecon-damasco: #E8A27C;   /* acento (não usar em texto sobre claro) */
+  --jalecon-argila: #9C5A36;    /* acento para texto e links */
+  --jalecon-salvia: #8FAE9B;    /* aprovado */
+  --jalecon-salvia-esc: #3F6B57;
+  --jalecon-ambar-esc: #8A6416; /* aviso */
+  --jalecon-noite: #141728;     /* fundo no modo escuro */
+  --jalecon-font-display: "Fraunces", Georgia, serif;
+  --jalecon-font-body: "DM Sans", Arial, sans-serif;
+  --jalecon-radius: 14px;
+}</code></pre>
+</section>
+
+<footer>Jalecon · Grupo 1 · Digital Innovation Strategy · Insper · 2026. Projeto acadêmico.</footer>
+</div>

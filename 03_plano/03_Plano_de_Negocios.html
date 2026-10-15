@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Jalecon: Plano de Negócios</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;font-size:11pt;line-height:1.35;color:#1F2440}
+p{margin:0 0 8pt 0}
+h1{font-size:24pt;color:#1F2440;margin:0 0 4pt 0}
+h2{font-size:16pt;color:#1F2440;margin:18pt 0 6pt 0}
+h3{font-size:12.5pt;color:#4A4F6E;margin:12pt 0 4pt 0}
+table{border-collapse:collapse;width:100%;margin:6pt 0 10pt 0}
+th{background:#1F2440;color:#ffffff;text-align:left;padding:4pt;font-size:9.5pt}
+td{border:1px solid #D7DAE5;padding:4pt;vertical-align:top;font-size:9.5pt;line-height:1.25}
+.nota{background:#E9EBF2;padding:6pt 8pt;margin:8pt 0}
+.small{font-size:9pt;color:#4A4F6E}
+</style>
+</head>
+<body>
+
+<h1>Jalecon: Plano de Negócios</h1>
+<p class="small">Grupo 1 · Digital Innovation Strategy · Insper · Documento 03 de 06 · Versão 1.0, outubro/2026. Números financeiros extraídos do arquivo Jalecon_Modelo_Financeiro.xlsx (cenário base, salvo indicação).</p>
+
+<h2>Sumário executivo</h2>
+<p><b>Recomendação: a Jalecon é viável como SaaS de presença médica com conformidade embutida, e deve captar um pré-seed de R$ 3,3 milhões para chegar ao seed em 16 meses com cerca de 375 clientes e R$ 3 milhões de receita recorrente anualizada.</b></p>
+<p>A Jalecon resolve o problema de médicos com consultório particular que precisam atrair pacientes mas não têm tempo, não querem pagar agências caras e têm medo de infringir as regras de publicidade do CFM. A plataforma faz um diagnóstico inteligente, cria marca, site, conteúdo e campanhas com IA, deixa o médico revisar conversando e checa cada peça contra uma biblioteca normativa atualizada (Guardião). O resultado é medido até a consulta agendada.</p>
+<p>O mercado é grande e mal atendido no meio: 636 mil médicos, dos quais 48% trabalham sem contrato formal (cerca de 305 mil que precisam gerar a própria demanda). Hoje eles escolhem entre geradores de post baratos (R$ 50 a R$ 600/mês) e agências caras (R$ 1,5 mil a R$ 12 mil/mês). A Jalecon cobra de R$ 297 a R$ 1.497/mês (e R$ 3.900 para clínicas) e entrega o escopo de uma agência com conformidade verificável.</p>
+<table>
+<tr><th>Indicador (cenário base)</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th><th>Ano 4</th><th>Ano 5</th></tr>
+<tr><td>Clientes ativos (fim do ano)</td><td>185</td><td>709</td><td>1.870</td><td>3.791</td><td>6.465</td></tr>
+<tr><td>ARR (fim do ano)</td><td>R$ 1,3 mi</td><td>R$ 5,9 mi</td><td>R$ 18,3 mi</td><td>R$ 39,9 mi</td><td>R$ 72,4 mi</td></tr>
+<tr><td>Receita bruta</td><td>R$ 0,9 mi</td><td>R$ 4,5 mi</td><td>R$ 15,1 mi</td><td>R$ 35,8 mi</td><td>R$ 69,1 mi</td></tr>
+<tr><td>Margem bruta</td><td>82%</td><td>81%</td><td>80%</td><td>78%</td><td>77%</td></tr>
+<tr><td>EBITDA</td><td>(R$ 1,8 mi)</td><td>(R$ 2,5 mi)</td><td>R$ 0,5 mi</td><td>R$ 8,0 mi</td><td>R$ 24,9 mi</td></tr>
+</table>
+<p>O equilíbrio operacional chega no mês 30 no cenário base (mês 21 no otimista, mês 46 no conservador). O maior risco é a premissa de custo de aquisição (CAC de R$ 1.800 no ano 1) e a disposição de pagar, ambas a validar com as entrevistas do Kit de Validação.</p>
+
+<h2>Problema e oportunidade</h2>
+<p>A análise completa está no documento 01 (Estratégia). Em resumo:</p>
+<ul>
+<li><b>Mais concorrência por paciente:</b> 448 escolas médicas e 48.491 vagas por ano (2024); capitais com mais de 7 médicos por mil habitantes.</li>
+<li><b>Mais médicos por conta própria:</b> médicos sem contrato formal passaram de 30% (2015) para 48% (2025).</li>
+<li><b>Paciente digital:</b> avaliações online são o fator decisivo na escolha do especialista (Doctoralia); 12% dos brasileiros já usam IA para orientação inicial de saúde.</li>
+<li><b>Regra mais detalhada:</b> a Resolução CFM 2.336/2023 liberou mais formatos e exigiu mais identificação (CRM, RQE); a Resolução CFM 2.454/2026 normatiza o uso de IA na medicina. Errar ficou mais fácil.</li>
+<li><b>IA tornou o escopo de agência barato de produzir</b>, o que permite um preço intermediário com margem bruta acima de 75%.</li>
+</ul>
+
+<h2>Solução e produto</h2>
+<h3>Módulos</h3>
+<table>
+<tr><th>Módulo</th><th>O que faz</th><th>Por que importa</th></tr>
+<tr><td><b>Anamnese</b> (diagnóstico)</td><td>Formulário conversacional sobre especialidade, RQE, público, objetivos, tempo, orçamento e presença atual. Gera relatório com nota de presença digital, lacunas, plano recomendado e oportunidades adicionais.</td><td>Porta de entrada gratuita (gera contatos qualificados) e base da personalização. Indica o plano e os serviços adicionais certos.</td></tr>
+<tr><td><b>Estúdio</b> (criação)</td><td>Agentes de IA criam identidade visual, site com SEO local, perfil no Google, calendário editorial, posts, carrosséis, roteiros de vídeo e campanhas.</td><td>Entrega o escopo de uma agência em minutos.</td></tr>
+<tr><td><b>Revisão conversacional</b></td><td>O médico, ou um gestor de conta nos planos superiores, ajusta cada peça conversando ("mais acolhedor", "tire esse termo"). Cada ajuste vira preferência registrada.</td><td>Controle sem trabalho manual; gera dados de preferência que melhoram a IA ("inteligência revisando inteligência").</td></tr>
+<tr><td><b>Guardião</b> (conformidade)</td><td>Checa cada peça contra a biblioteca normativa (CFM, LGPD, CDC, ANVISA, políticas da Meta e do Google). Bloqueia, explica a regra e sugere correção. Guarda trilha de auditoria. A biblioteca é versionada e rechecada a cada mudança de norma.</td><td>Resolve o maior medo do médico e é a parte mais difícil de copiar.</td></tr>
+<tr><td><b>Pulso</b> (resultados)</td><td>Painel que liga conteúdo, visitas, contatos no WhatsApp e consultas agendadas. Relatório mensal com recomendações.</td><td>Mostra retorno em consultas, o que reduz cancelamentos.</td></tr>
+</table>
+<h3>Escopo do MVP (meses 1 a 6)</h3>
+<p>Anamnese completa; identidade visual; calendário e posts para Instagram com publicação automática; site de uma página com SEO local; Guardião com as regras da Resolução 2.336/2023 e do Código de Ética; revisão conversacional; relatório mensal simples. Ficam para depois: campanhas pagas, integração com agendas, WhatsApp com agendamento, vídeo e o marketplace de especialistas humanos.</p>
+<h3>Roteiro de produto</h3>
+<table>
+<tr><th>Período</th><th>Entregas</th></tr>
+<tr><td>Meses 1 a 3</td><td>Validação com médicos, protótipo, biblioteca normativa v1, piloto fechado com 15 a 20 médicos (gratuito ou com desconto).</td></tr>
+<tr><td>Meses 4 a 6</td><td>MVP pago em São Paulo; planos Essencial e Consultório; publicação no Instagram e no Google.</td></tr>
+<tr><td>Meses 7 a 12</td><td>Plano Autoridade com gestor de conta; campanhas pagas; integração com WhatsApp e agendas mais usadas; painel de conversão.</td></tr>
+<tr><td>Ano 2</td><td>Plano Clínica (multiusuário); expansão para outras capitais; benchmarks por especialidade; início da biblioteca do CFO (odontologia).</td></tr>
+<tr><td>Anos 3 a 5</td><td>Outras profissões de saúde (CFO, CFN, COFFITO, CFP); marketplace de especialistas humanos; vídeo gerado com IA; parcerias com seguradoras de responsabilidade civil.</td></tr>
+</table>
+
+<h2>Mercado</h2>
+<table>
+<tr><th>Recorte</th><th>Quantidade</th><th>Valor anual</th><th>Como foi calculado</th></tr>
+<tr><td><b>TAM</b>: todos os médicos</td><td>635.706</td><td>R$ 5,6 bilhões</td><td>Médicos em atividade × receita anual média por conta (R$ 8.866: plano Consultório + serviços adicionais)</td></tr>
+<tr><td><b>SAM</b>: médicos autônomos/PJ</td><td>305.139</td><td>R$ 2,7 bilhões</td><td>48% sem contrato formal</td></tr>
+<tr><td><b>Primeiro segmento</b>: autônomos no Sudeste</td><td>~169 mil</td><td>R$ 1,5 bilhão</td><td>Aproximação pela participação do Sudeste nos especialistas (55,4%)</td></tr>
+<tr><td><b>SOM</b> no ano 5 (cenário base)</td><td>6.465 clientes</td><td>R$ 72 milhões de ARR</td><td>2,1% do SAM</td></tr>
+<tr><td><b>Expansão</b>: dentistas, psicólogos, nutricionistas, fisioterapeutas</td><td>~1,35 milhão (estimativa a confirmar)</td><td>TAM ampliado de ~R$ 17,6 bilhões</td><td>Números dos conselhos a confirmar</td></tr>
+</table>
+
+<h2>Concorrência</h2>
+<table>
+<tr><th>Capacidade</th><th>Jalecon</th><th>Pulmo / InstaMed / Doutor Conteúdo</th><th>CreatorMed / MedContent AI</th><th>Medyno</th><th>Agência especializada</th><th>Canva / ChatGPT</th></tr>
+<tr><td>Diagnóstico e plano personalizado</td><td>Sim</td><td>Não</td><td>Parcial</td><td>Parcial</td><td>Sim</td><td>Não</td></tr>
+<tr><td>Identidade visual própria do médico</td><td>Sim</td><td>Não</td><td>Não</td><td>Parcial</td><td>Sim</td><td>Manual</td></tr>
+<tr><td>Posts e calendário</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Parcial</td><td>Sim</td><td>Manual</td></tr>
+<tr><td>Site e Google</td><td>Sim</td><td>Não</td><td>Não</td><td>Sim</td><td>Sim</td><td>Não</td></tr>
+<tr><td>Campanhas pagas</td><td>Sim (plano Autoridade)</td><td>Não</td><td>Não</td><td>Não</td><td>Sim</td><td>Não</td></tr>
+<tr><td>Conformidade verificável com trilha de auditoria</td><td>Sim</td><td>Autodeclarada</td><td>Não informado</td><td>Revisão humana</td><td>Varia</td><td>Não</td></tr>
+<tr><td>Revisão conversacional</td><td>Sim</td><td>Não</td><td>Não</td><td>Não</td><td>Por reunião</td><td>Parcial</td></tr>
+<tr><td>Medição até a consulta agendada</td><td>Sim (fase 2)</td><td>Não</td><td>Não</td><td>Não</td><td>Às vezes</td><td>Não</td></tr>
+<tr><td>Preço mensal</td><td>R$ 297 a 1.497</td><td>R$ 50 a 297</td><td>R$ 0 a 597</td><td>Não localizado</td><td>R$ 1,5 mil a 12 mil</td><td>R$ 0 a 100</td></tr>
+</table>
+<p class="small">Fontes: sites e buscas sobre cada empresa em outubro/2026 (ver documento 01). Capacidades de concorrentes podem ter mudado; conferir antes da banca.</p>
+
+<h2>Modelo de negócio (Business Model Canvas)</h2>
+<table>
+<tr><th>Bloco</th><th>Conteúdo</th></tr>
+<tr><td><b>Segmentos de clientes</b></td><td>Médicos especialistas com consultório particular (São Paulo primeiro); recém-formados (plano de entrada); clínicas com vários médicos; depois outras profissões de saúde.</td></tr>
+<tr><td><b>Proposta de valor</b></td><td>Presença médica completa (marca, site, conteúdo, campanhas) criada por IA, ajustada numa conversa e checada contra as regras do CFM antes de ir ao ar, com resultado medido em consultas.</td></tr>
+<tr><td><b>Canais</b></td><td>Diagnóstico gratuito online; mídia paga (Meta, Google); conteúdo educativo próprio sobre regras do CFM; parcerias (residências, sociedades de especialidade, contadores médicos, coworkings de consultório); indicação entre médicos; congressos.</td></tr>
+<tr><td><b>Relacionamento</b></td><td>Autosserviço assistido por IA; gestor de conta nos planos Autoridade e Clínica; comunidade e conteúdo; relatório mensal.</td></tr>
+<tr><td><b>Fontes de receita</b></td><td>Assinatura mensal ou anual em quatro planos; taxa de implantação; serviços adicionais (check-up de conformidade avulso, gestão de tráfego, ensaio de fotos via parceiros, domínio e e-mail).</td></tr>
+<tr><td><b>Recursos-chave</b></td><td>Biblioteca normativa curada; agentes de IA e prompts por especialidade; dados de preferência e de conversão; equipe de produto e IA; médicos revisores; marca de confiança.</td></tr>
+<tr><td><b>Atividades-chave</b></td><td>Desenvolver e avaliar os agentes; manter a biblioteca normativa; revisão científica; aquisição e sucesso do cliente; integrações (Meta, Google, WhatsApp, agendas).</td></tr>
+<tr><td><b>Parcerias-chave</b></td><td>Provedores de IA (Anthropic e modelos de imagem); Meta e Google (APIs oficiais); escritório de direito médico; sociedades de especialidade e residências; plataformas de agenda; fotógrafos e videomakers.</td></tr>
+<tr><td><b>Estrutura de custos</b></td><td>Pessoas (maior custo); mídia paga; IA e infraestrutura (cerca de 8% a 10% da receita); gestores de conta; jurídico e curadoria; impostos e meios de pagamento.</td></tr>
+</table>
+
+<h2>Planos e preços</h2>
+<table>
+<tr><th>Plano</th><th>Preço mensal</th><th>Implantação</th><th>Para quem</th><th>Inclui</th></tr>
+<tr><td><b>Essencial</b></td><td>R$ 297</td><td>Isenta</td><td>Recém-formados e quem está começando</td><td>Diagnóstico, identidade básica, página única, 12 conteúdos/mês, Guardião, revisão conversacional</td></tr>
+<tr><td><b>Consultório</b></td><td>R$ 697</td><td>R$ 490</td><td>Especialista com consultório (plano principal)</td><td>Tudo do Essencial + identidade completa, site com SEO local, perfil no Google, 24 conteúdos/mês, roteiros de vídeo, relatório mensal</td></tr>
+<tr><td><b>Autoridade</b></td><td>R$ 1.497</td><td>R$ 990</td><td>Quem quer crescer rápido</td><td>Tudo do Consultório + gestor de conta humano, campanhas pagas (verba à parte), integração com agenda e WhatsApp, painel de conversão</td></tr>
+<tr><td><b>Clínica</b></td><td>R$ 3.900</td><td>R$ 2.900</td><td>Clínicas com até 5 médicos (a partir do ano 2)</td><td>Marca da clínica + perfis dos médicos, multiusuário, gestor dedicado</td></tr>
+</table>
+<p><b>Lógica de preço.</b> O plano Consultório custa menos de metade do pacote mais barato de uma agência de saúde (R$ 1,5 mil) e mais que um gerador de posts, porque entrega site, Google, identidade e conformidade. O plano anual tem 15% de desconto (premissa: 30% dos clientes). A faixa de preço será testada com o método Van Westendorp nas entrevistas.</p>
+<p><b>Ponto de atenção da economia por cliente.</b> No plano Essencial, a relação LTV/CAC é de 2,4x quando o cliente vem por mídia paga. Por isso ele deve ser vendido por parcerias (residências, faculdades) e autosserviço, sem mídia paga dedicada. Nos demais planos a relação é saudável: 9,4x no Consultório e 18x no Autoridade, com retorno do CAC entre 2 e 4 meses.</p>
+<table>
+<tr><th>Por cliente, por mês (ano 1)</th><th>Essencial</th><th>Consultório</th><th>Autoridade</th><th>Clínica</th></tr>
+<tr><td>Preço efetivo</td><td>R$ 284</td><td>R$ 666</td><td>R$ 1.430</td><td>R$ 3.725</td></tr>
+<tr><td>Margem de contribuição</td><td>R$ 213 (75%)</td><td>R$ 509 (76%)</td><td>R$ 810 (57%)</td><td>R$ 2.306 (62%)</td></tr>
+<tr><td>Churn mensal</td><td>5,0%</td><td>3,0%</td><td>2,5%</td><td>2,0%</td></tr>
+<tr><td>LTV</td><td>R$ 4,3 mil</td><td>R$ 17,0 mil</td><td>R$ 32,4 mil</td><td>R$ 115 mil</td></tr>
+<tr><td>LTV / CAC (CAC R$ 1.800)</td><td>2,4x</td><td>9,4x</td><td>18,0x</td><td>64,1x</td></tr>
+<tr><td>Retorno do CAC</td><td>8,5 meses</td><td>3,5 meses</td><td>2,2 meses</td><td>0,8 mês</td></tr>
+</table>
+
+<h2>Entrada no mercado</h2>
+<h3>Funil</h3>
+<ol>
+<li><b>Atração:</b> conteúdo educativo sobre as regras do CFM ("seu Instagram está dentro da regra?"), mídia paga segmentada por especialidade e região, parcerias.</li>
+<li><b>Diagnóstico gratuito (Anamnese):</b> o médico recebe a nota de presença digital e um check-up de conformidade do perfil atual. É a isca e já mostra o produto.</li>
+<li><b>Teste de 14 dias</b> com a primeira versão de marca, site e calendário.</li>
+<li><b>Assinatura</b> no plano recomendado pelo diagnóstico.</li>
+<li><b>Expansão:</b> serviços adicionais e mudança de plano sugeridos pelo Pulso.</li>
+</ol>
+<h3>Canais e metas (cenário base)</h3>
+<table>
+<tr><th>Canal</th><th>Papel</th><th>Ano 1</th><th>Ano 3</th></tr>
+<tr><td>Mídia paga e inbound</td><td>Principal motor de volume</td><td>R$ 25 mil/mês, CAC R$ 1.800</td><td>R$ 150 mil/mês, CAC R$ 1.557</td></tr>
+<tr><td>Parcerias</td><td>Residências, sociedades, contadores, coworkings</td><td>4 clientes/mês</td><td>25 clientes/mês</td></tr>
+<tr><td>Indicação</td><td>Médico indica médico (programa com desconto)</td><td>1% da base/mês</td><td>1% da base/mês</td></tr>
+<tr><td>Marca e eventos</td><td>Congressos de especialidade, palestras sobre publicidade médica</td><td>R$ 2 mil/mês</td><td>R$ 15 mil/mês</td></tr>
+</table>
+<h3>Primeiros 100 clientes</h3>
+<ol>
+<li>Rede do grupo: os médicos que o grupo já tem acesso (cirurgia geral, gastro, psiquiatria, pediatria, cardiologia, ortopedia) entram como piloto.</li>
+<li>Indicação dos pilotos com benefício de 1 mês grátis para ambos.</li>
+<li>Conteúdo sobre a Resolução 2.336/2023 e a 2.454/2026 no LinkedIn e Instagram, com o diagnóstico gratuito como chamada.</li>
+<li>Parceria com 2 coworkings de consultório em São Paulo.</li>
+</ol>
+
+<h2>Operação e tecnologia</h2>
+<h3>Arquitetura</h3>
+<ul>
+<li><b>Agentes de IA</b> sobre modelos Claude (Anthropic): Sonnet 5.5 para criação e revisão; Haiku 5.5 para tarefas de alto volume (classificação, checagens simples); processamento em lote com 50% de desconto para calendários mensais. Modelos de imagem de terceiros para artes.</li>
+<li><b>Agentes críticos</b> revisam os agentes criadores (marca, clareza, precisão científica, conformidade) antes do humano.</li>
+<li><b>Guardião:</b> base de regras versionada + modelo que verifica cada peça e explica a decisão.</li>
+<li><b>Integrações oficiais:</b> Meta (Instagram/Facebook), Google (perfil da empresa e anúncios), WhatsApp Business, plataformas de agenda.</li>
+<li><b>Dados:</b> nenhum dado clínico de paciente entra no sistema; imagens de pacientes só com consentimento registrado; dados hospedados no Brasil ou com cláusulas da LGPD.</li>
+</ul>
+<h3>Custo de IA por cliente</h3>
+<p>Estimativa por conta/mês: US$ 4 (Essencial), US$ 9 (Consultório), US$ 18 (Autoridade), US$ 45 (Clínica). Base: 0,6 a 1,5 milhão de tokens por conta/mês com Claude Sonnet 5.5 (US$ 2 por milhão de tokens de entrada e US$ 10 de saída), cache das instruções fixas e imagens geradas. Em reais, a IA custa de 6% a 8% do preço.</p>
+<h3>Revisão humana</h3>
+<p>Planos Autoridade e Clínica têm gestor de conta (um gestor para cada 40 contas Autoridade ou 20 contas Clínica). Médicos revisores por especialidade conferem a precisão científica de amostras de conteúdo e treinam os agentes.</p>
+<h3>Atualização da biblioteca normativa</h3>
+<p>Um agente monitora semanalmente o Diário Oficial, o CFM e os CRMs; um advogado de direito médico valida a interpretação; a nova versão entra em vigor com data; todo conteúdo agendado é rechecado e o cliente é avisado.</p>
+
+<h2>Equipe e governança</h2>
+<table>
+<tr><th>Pessoa</th><th>Papel proposto</th><th>Experiência</th></tr>
+<tr><td>Mariana Siqueira</td><td>Produto, tecnologia e pessoas</td><td>Produto, tecnologia e gestão de pessoas</td></tr>
+<tr><td>Vitor Zaim</td><td>Marketing e crescimento</td><td>Marketing digital</td></tr>
+<tr><td>Fabiana Sarkis</td><td>Projetos e operação do produto</td><td>Produto e gestão de projetos</td></tr>
+<tr><td>Maria Eduarda (a confirmar: a Ficha 1 lista Manuella Gama)</td><td>Finanças e captação</td><td>Finanças</td></tr>
+<tr><td>Alessandra Santos</td><td>Operações e sucesso do cliente</td><td>Operações e logística</td></tr>
+<tr><td>Daniela Rezende Luna</td><td>Pesquisa com clientes e validação</td><td>Em formação (graduação)</td></tr>
+</table>
+<p><b>Conselho consultivo proposto:</b> um advogado de direito médico (curadoria do Guardião), dois médicos de especialidades diferentes e um especialista em SaaS para pequenos negócios.</p>
+<p><b>Contratações do ano 1:</b> 2 engenheiros de software, 1 engenheiro de IA, 1 designer de produto, 1 vendedor, 1 pessoa de sucesso do cliente e 1 médico revisor (PJ). Quadro total de 12 pessoas no ano 1, 35 no ano 3 e 64 no ano 5.</p>
+
+<h2>Projeções financeiras</h2>
+<h3>Comparação de cenários</h3>
+<table>
+<tr><th>Indicador</th><th>Conservador</th><th>Base</th><th>Otimista</th></tr>
+<tr><td>Clientes ativos no ano 3</td><td>1.059</td><td>1.870</td><td>2.883</td></tr>
+<tr><td>Clientes ativos no ano 5</td><td>3.530</td><td>6.465</td><td>10.308</td></tr>
+<tr><td>ARR no ano 5</td><td>R$ 40,2 mi</td><td>R$ 72,4 mi</td><td>R$ 114,1 mi</td></tr>
+<tr><td>EBITDA do ano 5</td><td>R$ 5,1 mi</td><td>R$ 24,9 mi</td><td>R$ 51,3 mi</td></tr>
+<tr><td>Primeiro mês com EBITDA positivo</td><td>46</td><td>30</td><td>21</td></tr>
+<tr><td>Menor saldo de caixa</td><td>(R$ 3,2 mi)</td><td>R$ 0,6 mi</td><td>R$ 1,5 mi</td></tr>
+</table>
+<p>O que muda entre cenários: CAC (30% maior ou 20% menor), churn (30% maior ou 20% menor), parcerias e indicação, serviços adicionais, orçamento de mídia e tamanho/momento da rodada seed. No conservador, o caixa fica negativo antes do equilíbrio: o plano B é adiar contratações do ano 2 e captar uma ponte. As premissas detalhadas estão na aba Premissas do modelo.</p>
+<h3>Principais premissas</h3>
+<ul>
+<li>Preços conforme a tabela de planos; 30% em plano anual com 15% de desconto.</li>
+<li>Mix de novos clientes no ano 1: 40% Essencial, 50% Consultório, 10% Autoridade.</li>
+<li>Churn mensal no ano 1 de 5% (Essencial) a 2% (Clínica), melhorando 8% ao ano.</li>
+<li>CAC de mídia paga de R$ 1.800 no ano 1, caindo 7% ao ano.</li>
+<li>Impostos: Simples Nacional (11%) até R$ 4,8 milhões de receita anual; depois cerca de 16,3%.</li>
+<li>Pró-labore dos fundadores de R$ 5 mil no ano 1.</li>
+</ul>
+
+<h2>Captação</h2>
+<p><b>Pré-seed de R$ 3,3 milhões</b> (cerca de US$ 610 mil), calculado pelo modelo: cobre a queima acumulada até o seed (R$ 2,7 milhões em 15 meses) mais 3 meses de reserva.</p>
+<table>
+<tr><th>Uso dos recursos (saídas dos meses 1 a 15: R$ 4,2 mi, das quais R$ 1,4 mi cobertas por receita)</th><th>Participação</th></tr>
+<tr><td>Produto, tecnologia e IA (engenharia, IA, design)</td><td>~43%</td></tr>
+<tr><td>Entrada no mercado (mídia, vendas, sucesso do cliente, marca)</td><td>~27%</td></tr>
+<tr><td>Pró-labore dos fundadores</td><td>~15%</td></tr>
+<tr><td>Operação, custo do serviço (IA, infraestrutura) e administrativo</td><td>~10%</td></tr>
+<tr><td>Conformidade e conteúdo médico (jurídico, curadoria, médicos revisores)</td><td>~5%</td></tr>
+</table>
+<p><b>Marcos até o seed (mês 16):</b> cerca de 375 clientes pagantes; R$ 3 milhões de ARR; churn mensal abaixo de 3,5%; LTV/CAC acima de 3x no plano Consultório; Guardião com regras do CFM, LGPD, CDC e ANVISA; primeiros dados de conversão em consultas.</p>
+<p><b>Seed de R$ 8 milhões no mês 16</b> (premissa) para expandir para outras capitais e lançar o plano Clínica.</p>
+
+<h2>Riscos e mitigação</h2>
+<table>
+<tr><th>Risco</th><th>Probabilidade</th><th>Impacto</th><th>Mitigação</th></tr>
+<tr><td>Médicos não pagam o preço proposto</td><td>Média</td><td>Alto</td><td>Van Westendorp e pré-venda antes do MVP; plano Essencial como entrada.</td></tr>
+<tr><td>CAC acima de R$ 1.800</td><td>Média</td><td>Alto</td><td>Diagnóstico gratuito como isca; parcerias e indicação; testes de campanha com R$ 5 mil antes de escalar.</td></tr>
+<tr><td>Erro de conformidade publicado</td><td>Baixa</td><td>Muito alto</td><td>Aprovação humana obrigatória, Guardião, curadoria jurídica, termos de uso, seguro no futuro.</td></tr>
+<tr><td>Concorrentes copiam o recurso de conformidade</td><td>Alta</td><td>Médio</td><td>Vantagem está na base curada, nos dados de conversão e na integração completa, não no recurso isolado.</td></tr>
+<tr><td>Mudanças nas APIs da Meta ou do Google</td><td>Média</td><td>Médio</td><td>Uso de APIs oficiais, site e Google como ativos próprios do médico, multicanal.</td></tr>
+<tr><td>Custo ou disponibilidade dos modelos de IA</td><td>Baixa</td><td>Médio</td><td>Arquitetura multimodelo, cache e processamento em lote; IA é menos de 10% da receita.</td></tr>
+<tr><td>Churn acima do previsto</td><td>Média</td><td>Alto</td><td>Mostrar consultas geradas, plano anual, sucesso do cliente ativo, custos de troca.</td></tr>
+<tr><td>LGPD e dados sensíveis</td><td>Baixa</td><td>Alto</td><td>Sem dados clínicos, consentimento registrado, encarregado de dados, hospedagem adequada.</td></tr>
+</table>
+
+<h2>Cronograma de 24 meses</h2>
+<table>
+<tr><th>Quando</th><th>Marco</th><th>Indicador de sucesso</th></tr>
+<tr><td>Nov/2026 a jan/2027</td><td>Validação com 20 a 30 médicos; pré-venda; protótipo navegável</td><td>Hipóteses H1 a H6 do documento 01 com critério atingido; 10 pré-vendas</td></tr>
+<tr><td>Jan/2027</td><td>Pré-seed fechado; início das contratações</td><td>R$ 3,3 milhões captados</td></tr>
+<tr><td>Abr/2027</td><td>Piloto pago com 20 médicos</td><td>NPS acima de 50; 70% aprovam conteúdo em menos de 3 minutos</td></tr>
+<tr><td>Jun/2027</td><td>Lançamento em São Paulo</td><td>100 clientes</td></tr>
+<tr><td>Dez/2027</td><td>Plano Autoridade e integrações</td><td>185 clientes; ARR de R$ 1,3 milhão</td></tr>
+<tr><td>Abr/2028</td><td>Rodada seed</td><td>375 clientes; ARR de R$ 3 milhões</td></tr>
+<tr><td>Dez/2028</td><td>Plano Clínica; outras capitais</td><td>709 clientes; ARR de R$ 5,9 milhões</td></tr>
+</table>
+
+<h2>Métrica principal</h2>
+<p><b>Consultas agendadas por médico por mês atribuídas à Jalecon.</b> É a métrica que liga o valor para o cliente (agenda cheia) à retenção da empresa. Métricas de apoio: tempo médio de aprovação de uma peça, % de peças aprovadas sem ajuste, alertas do Guardião por mil peças, churn por plano, LTV/CAC.</p>
+
+<h2>Fontes</h2>
+<p class="small">Demografia Médica no Brasil 2025 (FMUSP, AMB, Ministério da Saúde) via Medway, CNN Brasil, Medicina S/A e Estratégia MED; Resoluções CFM 2.336/2023 e 2.454/2026 (portal do CFM); Doctoralia, Perfil do Paciente Digital (via Medicina S/A); sites de Pulmo, InstaMed, Doutor Conteúdo, CreatorMed, MedContent AI, ConteudoMed; preços de agências (FarmaCerto, Plus Business, eClinica, HBA Marketing); preços de modelos de IA (documentação da Anthropic, outubro/2026). Links completos no documento 01 e na aba Fontes_e_Notas do modelo financeiro.</p>
+</body>
+</html>

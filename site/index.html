@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Jalecon Demo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
+<style>
+/* Layout: app de celular centralizado; no desktop vira um aparelho sobre a mesa, no celular ocupa a tela toda */
+:root{
+  --bg:#E4E6EE; --app:#F7F8FA; --surface:#FFFFFF; --surface-2:#E9EBF2; --line:#D7DAE5;
+  --fg:#1F2440; --fg-2:#4A4F6E; --fg-3:#6B7090;
+  --ink:#1F2440; --on-ink:#F7F8FA; --apricot:#E8A27C; --clay:#9C5A36; --clay-bg:#F6E7DD;
+  --sage:#8FAE9B; --ok:#3F6B57; --ok-bg:#E3EEE7; --warn:#8A6416; --warn-bg:#F6EBD3;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"DM Sans", "Segoe UI", Arial, sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1020; --app:#141728; --surface:#1B1F36; --surface-2:#242944; --line:#2F3556;
+  --fg:#EEF0F6; --fg-2:#B9BDD0; --fg-3:#8E93AE; --ink:#F7F8FA; --on-ink:#1F2440; --clay:#F0B48F; --clay-bg:#3A2A2A;
+  --ok:#9FC3AE; --ok-bg:#20352B; --warn:#E3C27A; --warn-bg:#3A3220; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1020; --app:#141728; --surface:#1B1F36; --surface-2:#242944; --line:#2F3556;
+  --fg:#EEF0F6; --fg-2:#B9BDD0; --fg-3:#8E93AE; --ink:#F7F8FA; --on-ink:#1F2440; --clay:#F0B48F; --clay-bg:#3A2A2A;
+  --ok:#9FC3AE; --ok-bg:#20352B; --warn:#E3C27A; --warn-bg:#3A3220; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--apricot);outline-offset:2px}
+.stage{min-height:100%;display:flex;justify-content:center;align-items:flex-start;gap:32px;padding-block:24px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.side{max-width:300px;position:sticky;top:24px;display:grid;gap:14px;padding-top:12px}
+.side h1{font-family:var(--display);font-size:28px;line-height:1.15;margin:0;font-weight:600}
+.side p{margin:0;color:var(--fg-2);font-size:14px}
+.tour{display:grid;gap:6px}
+.tour button{display:flex;gap:10px;align-items:center;text-align:left;background:transparent;border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:var(--fg-2)}
+.tour button.on{background:var(--surface);color:var(--fg);border-color:var(--apricot)}
+.tour b{font-variant-numeric:tabular-nums;color:var(--clay);width:16px}
+.app{width:100%;max-width:420px;min-height:820px;height:calc(100vh - 48px);max-height:900px;background:var(--app);border-radius:32px;box-shadow:0 24px 64px rgba(20,23,40,.22);display:flex;flex-direction:column;overflow:hidden;position:relative;border:1px solid var(--line)}
+@media (max-width:760px){
+  .side{display:none}
+  .stage{padding:0}
+  .app{max-width:none;height:100%;min-height:100%;max-height:none;border-radius:0;border:0;box-shadow:none}
+}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 18px 10px;border-bottom:1px solid var(--line);background:var(--app)}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:20px}
+.brand svg{width:28px;height:28px}
+.who{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fg-3)}
+.avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;color:#fff}
+.scroll{flex:1;overflow-y:auto;padding:18px;display:grid;gap:14px;align-content:start}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);background:var(--surface);padding-bottom:env(safe-area-inset-bottom, 0px)}
+.nav button{background:none;border:0;padding:10px 0 12px;display:grid;justify-items:center;gap:3px;font-size:11px;color:var(--fg-3)}
+.nav button svg{width:22px;height:22px}
+.nav button.on{color:var(--fg);font-weight:600}
+.nav button.on svg{color:var(--clay)}
+.badge-dot{position:relative}
+.badge-dot::after{content:attr(data-n);position:absolute;top:-4px;right:-10px;background:var(--clay);color:#fff;font-size:10px;border-radius:999px;padding:0 5px;line-height:16px}
+h2.t{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.2;margin:0;text-wrap:balance}
+h3.t{font-family:var(--display);font-weight:600;font-size:18px;margin:0}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--clay)}
+.muted{color:var(--fg-2)}
+.small{font-size:12.5px;color:var(--fg-3)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px;min-width:0}
+.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:600;background:var(--ink);color:var(--on-ink);text-align:center;width:100%}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;align-items:center}
+.between{justify-content:space-between}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 12px;font-size:13.5px}
+.chip.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.field{display:grid;gap:6px}
+.field label{font-size:13px;font-weight:600}
+.field input{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 12px;width:100%}
+.progress{height:6px;background:var(--surface-2);border-radius:999px;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--apricot);border-radius:999px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.block{background:var(--clay-bg);color:var(--clay)}
+.pill.info{background:var(--surface-2);color:var(--fg-2)}
+.score{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.ring{width:96px;height:96px}
+.bar{display:grid;grid-template-columns:96px 1fr 30px;gap:8px;align-items:center;font-size:13px}
+.bar .track{height:8px;background:var(--surface-2);border-radius:999px;overflow:hidden}
+.bar .track span{display:block;height:100%;border-radius:999px;background:var(--ink)}
+.num{font-variant-numeric:tabular-nums}
+.plan{border:2px solid var(--apricot)}
+.list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.list li{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.list li svg{flex:0 0 18px;width:18px;height:18px;margin-top:2px}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.swatches div{aspect-ratio:1;border-radius:10px;border:1px solid var(--line);display:flex;align-items:flex-end;padding:6px;font-size:10px;font-family:ui-monospace,Menlo,monospace}
+.mono-logo{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font-family:var(--display);font-size:26px;font-weight:600}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:11px;text-align:center}
+.cal .h{color:var(--fg-3);font-weight:600;padding:2px 0}
+.cal .d{aspect-ratio:1;border-radius:8px;display:grid;place-items:center;position:relative;color:var(--fg-2);background:transparent;border:0;padding:0}
+.cal .d.has{background:var(--surface);border:1px solid var(--line);color:var(--fg);font-weight:600}
+.cal .d .dot{position:absolute;bottom:4px;width:6px;height:6px;border-radius:50%}
+.post-item{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:left;width:100%}
+.post-item .date{text-align:center;font-size:11px;color:var(--fg-3);line-height:1.2}
+.post-item .date b{display:block;font-size:18px;color:var(--fg);font-family:var(--display)}
+.post-item .tt{font-size:13.5px;font-weight:600;line-height:1.3}
+.preview{border-radius:14px;padding:20px;display:grid;gap:10px;aspect-ratio:4/5;align-content:space-between;overflow:hidden;position:relative}
+.preview h4{font-family:var(--display);font-size:22px;line-height:1.2;margin:0;font-weight:600}
+.preview .sig{font-size:10.5px;opacity:.9}
+.chat{display:grid;gap:10px}
+.msg{max-width:88%;border-radius:14px;padding:10px 12px;font-size:14px;line-height:1.45}
+.msg.ai{background:var(--surface);border:1px solid var(--line);justify-self:start;border-bottom-left-radius:4px}
+.msg.me{background:var(--ink);color:var(--on-ink);justify-self:end;border-bottom-right-radius:4px}
+.msg .who{font-size:11px;font-weight:600;color:var(--clay);margin-bottom:2px}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:var(--surface)}
+.composer input{flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:var(--app)}
+.composer button{border:0;border-radius:999px;background:var(--ink);color:var(--on-ink);padding:0 16px;font-weight:600}
+.check{display:grid;grid-template-columns:20px 1fr auto;gap:8px;align-items:start;font-size:13px;padding:8px 0;border-top:1px solid var(--line)}
+.check:first-of-type{border-top:0}
+.check svg{width:18px;height:18px;margin-top:1px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:2px}
+.kpi b{font-family:var(--display);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.kpi.hero{grid-column:span 2;background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.kpi.hero .small{color:inherit;opacity:.8}
+.funnel{display:grid;gap:6px}
+.funnel div{display:grid;grid-template-columns:110px 1fr 54px;gap:8px;align-items:center;font-size:13px}
+.funnel span.b{height:10px;border-radius:999px;background:var(--apricot);display:block}
+.site{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#FFFFFF;color:#1F2440}
+.site .hero{padding:18px;display:grid;gap:8px}
+.site .hero h4{font-family:var(--display);font-size:22px;margin:0;line-height:1.2}
+.site .foot{font-size:10.5px;padding:10px 18px;border-top:1px solid #E3E5EC;color:#4A4F6E}
+.toast{position:absolute;left:16px;right:16px;bottom:84px;background:var(--ink);color:var(--on-ink);border-radius:12px;padding:12px 14px;font-size:13.5px;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:opacity .3s, transform .3s}
+.toast[hidden]{display:none}
+.tag-ex{font-size:11px;background:var(--warn-bg);color:var(--warn);border-radius:6px;padding:2px 6px;font-weight:600}
+.prefs{display:flex;flex-wrap:wrap;gap:6px}
+.prefs span{font-size:11.5px;background:var(--ok-bg);color:var(--ok);border-radius:999px;padding:3px 9px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+</head>
+<body>
+<div class="stage">
+  <aside class="side" aria-label="Roteiro da demonstração">
+    <svg viewBox="0 0 100 100" width="44" height="44" aria-hidden="true"><rect width="100" height="100" rx="24" fill="#1F2440"/><polygon points="24,36 37,36 50,64 44,76" fill="#F7F8FA"/><polygon points="44,76 50,64 67,24 80,24" fill="#E8A27C"/></svg>
+    <h1>Demo da Jalecon</h1>
+    <p>Protótipo navegável do app do médico. Todos os dados são fictícios. Siga o roteiro ou navegue livremente pelo aparelho.</p>
+    <div class="tour" id="tour"></div>
+    <p class="small">Projeto acadêmico · Grupo 1 · Digital Innovation Strategy · Insper</p>
+  </aside>
+  <main class="app" id="app" aria-live="polite"></main>
+</div>
+
+<script>
+(function(){
+"use strict";
+var ICON = {
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+  brand:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 6h4l3 7 3-7h4l-7 14z"/></svg>',
+  site:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>',
+  ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
+  warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  logo:'<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="#1F2440"/><polygon points="24,36 37,36 50,64 44,76" fill="#F7F8FA"/><polygon points="44,76 50,64 67,24 80,24" fill="#E8A27C"/></svg>'
+};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];});}
+
+/* ---------- dados por especialidade (fictícios) ---------- */
+var SPEC = {
+  ortopedia:{label:"Ortopedia",full:"Ortopedia e Traumatologia",family:"Movimento",pal:["#2E3440","#3A7BD5","#E98A4B","#EEF1F5"],tone:"Energia e precisão",
+    posts:[["03","Carrossel","3 sinais de que a dor no joelho merece consulta"],["06","Roteiro de vídeo","Alongamentos antes da corrida de domingo"],["12","Carrossel","Elimine a dor no joelho de vez","flag"],["17","Post","Tendinite: o que é e como se trata"],["21","Stories","Bastidores do consultório"],["26","Carrossel","Mitos e verdades sobre artrose"]],
+    flag:{bad:"Elimine a dor no joelho de vez",good:"Dor no joelho ao correr: o tratamento certo pode ajudar a aliviar",soft:"Dor no joelho ao correr? Você não precisa conviver com ela: vamos entender a causa juntos"},
+    proc:"cirurgia de menisco",local:12},
+  pediatria:{label:"Pediatria",full:"Pediatria",family:"Algodão",pal:["#3D4A66","#F2B8A2","#A9C8E8","#F3DE9B"],tone:"Suave e acolhedora",
+    posts:[["02","Carrossel","Febre no bebê: quando ir ao pronto-socorro"],["05","Post","Calendário de vacinas do primeiro ano"],["11","Carrossel","Acabe com as cólicas do seu bebê em 3 dias","flag"],["16","Roteiro de vídeo","Como montar a lancheira da escola"],["20","Stories","Pergunta dos pais da semana"],["25","Carrossel","Sono do bebê por idade"]],
+    flag:{bad:"Acabe com as cólicas do seu bebê em 3 dias",good:"Cólicas do bebê: algumas medidas podem ajudar a aliviar",soft:"Cólicas do bebê: você não está sozinha. Algumas medidas simples podem ajudar"},
+    proc:"consulta de puericultura",local:18},
+  psiquiatria:{label:"Psiquiatria",full:"Psiquiatria",family:"Quietude",pal:["#3E5A5B","#9DB4A5","#D9D3C7","#EDEAE4"],tone:"Calma e discreta",
+    posts:[["03","Carrossel","Ansiedade ou estresse? Como diferenciar"],["07","Post","O que esperar da primeira consulta"],["12","Carrossel","Cure sua ansiedade com o tratamento certo","flag"],["17","Roteiro de vídeo","Higiene do sono em 4 passos"],["21","Stories","Mitos sobre medicação psiquiátrica"],["27","Carrossel","Quando procurar ajuda para o burnout"]],
+    flag:{bad:"Cure sua ansiedade com o tratamento certo",good:"Ansiedade: o tratamento adequado pode ajudar a controlá-la",soft:"Ansiedade tem tratamento. Buscar ajuda é um passo de cuidado, no seu tempo"},
+    proc:"avaliação psiquiátrica",local:15},
+  gastro:{label:"Gastroenterologia",full:"Gastroenterologia",family:"Equilíbrio",pal:["#2F3B2E","#7C8B5A","#C99A6B","#E6DCC6"],tone:"Natural e didática",
+    posts:[["04","Carrossel","Azia frequente: quando investigar"],["08","Post","Fibras: quanto comer por dia"],["13","Carrossel","Intestino perfeito garantido com esta dieta","flag"],["18","Roteiro de vídeo","Como é o preparo da colonoscopia"],["22","Stories","Pergunta da semana: probióticos"],["27","Carrossel","Sinais de alerta no intestino"]],
+    flag:{bad:"Intestino perfeito garantido com esta dieta",good:"Alguns hábitos alimentares podem ajudar o funcionamento do intestino",soft:"Seu intestino agradece pequenas mudanças. Veja hábitos que podem ajudar"},
+    proc:"colonoscopia",local:10},
+  cardio:{label:"Cardiologia",full:"Cardiologia",family:"Ritmo",pal:["#22304A","#6C8EAD","#D99A9A","#F4EFEC"],tone:"Sóbria e confiável",
+    posts:[["02","Carrossel","Pressão alta não dói: por que medir"],["06","Post","Check-up cardiológico: quem deve fazer"],["11","Carrossel","Zere seu risco de infarto","flag"],["16","Roteiro de vídeo","Exercício e coração depois dos 40"],["20","Stories","Bastidores do teste ergométrico"],["25","Carrossel","Colesterol: mitos e verdades"]],
+    flag:{bad:"Zere seu risco de infarto",good:"Hábitos saudáveis ajudam a reduzir o risco cardiovascular",soft:"Cuidar do coração começa com hábitos simples. Veja o que ajuda a reduzir o risco"},
+    proc:"check-up cardiológico",local:14},
+  cirurgia:{label:"Cirurgia geral",full:"Cirurgia Geral",family:"Precisão",pal:["#36454F","#6C8EAD","#B8C4CF","#F5F6F7"],tone:"Técnica e segura",
+    posts:[["03","Carrossel","Hérnia inguinal: sintomas e quando operar"],["07","Post","Como é a recuperação da vesícula por vídeo"],["12","Carrossel","Cirurgia de hérnia sem dor e sem riscos","flag"],["17","Roteiro de vídeo","O que levar no dia da cirurgia"],["21","Stories","Pergunta da semana: dieta no pós-operatório"],["26","Carrossel","Cirurgia por vídeo x aberta"]],
+    flag:{bad:"Cirurgia de hérnia sem dor e sem riscos",good:"Cirurgia de hérnia: como é a recuperação e quais cuidados ter",soft:"Vai operar a hérnia? Veja, com calma, como é a recuperação e os cuidados"},
+    proc:"cirurgia de hérnia",local:9}
+};
+var SPEC_KEYS=["ortopedia","pediatria","psiquiatria","gastro","cardio","cirurgia"];
+
+var Q = [
+  {id:"spec",title:"Qual é a sua especialidade?",help:"Usamos isso para a linha editorial, a identidade visual e as regras específicas.",type:"chips",opts:SPEC_KEYS.map(function(k){return [k,SPEC[k].label];})},
+  {id:"id",title:"Como você aparece nas peças?",help:"A Resolução CFM 2.336/2023 exige nome, CRM com a palavra MÉDICO e RQE quando houver especialidade.",type:"fields"},
+  {id:"moment",title:"Em que momento você está?",type:"chips",opts:[["novo","Abrindo o consultório"],["estab","Consultório há anos"],["clinica","Clínica com outros médicos"]]},
+  {id:"goal",title:"O que você mais quer agora?",type:"chips",opts:[["pacientes","Mais pacientes particulares"],["autoridade","Ser referência na área"],["procedimento","Divulgar um procedimento"],["google","Melhorar avaliações no Google"]]},
+  {id:"presence",title:"Como está sua presença hoje?",type:"multi",opts:[["insta","Tenho Instagram profissional"],["site","Tenho site"],["gmb","Tenho perfil no Google"],["rqe","Minha bio mostra CRM e RQE"]]},
+  {id:"freq",title:"Quantos posts você publica por mês?",type:"chips",opts:[["0","Nenhum"],["1","1 a 4"],["5","5 a 12"],["13","Mais de 12"]]},
+  {id:"time",title:"Quanto tempo por semana você tem para isso?",type:"chips",opts:[["30","Menos de 1 hora"],["120","1 a 3 horas"],["240","Mais de 3 horas"]]},
+  {id:"budget",title:"Quanto você investe hoje em marketing por mês?",type:"chips",opts:[["300","Até R$ 500"],["1000","R$ 500 a 1.500"],["3000","Mais de R$ 1.500"]]},
+  {id:"tone",title:"Como você quer soar?",type:"chips",opts:[["acolhedor","Acolhedor"],["tecnico","Técnico"],["proximo","Próximo e leve"]]}
+];
+
+var S = {
+  screen:"welcome", step:0,
+  a:{spec:"ortopedia",name:"Dr. Rafael Moura",crm:"CRM-SP 000000",rqe:"RQE 00000",moment:"estab",goal:"pacientes",presence:{insta:true,site:false,gmb:true,rqe:false},freq:"1",time:"30",budget:"1000",tone:"acolhedor"},
+  palAlt:0, review:null, approved:{}, toast:"", prefs:[]
+};
+function spec(){return SPEC[S.a.spec];}
+
+/* ---------- diagnóstico: função pura ---------- */
+function diagnose(a){
+  var p=a.presence, f=+a.freq;
+  var insta = !p.insta ? 5 : (f===0?20:f===1?40:f===5?62:75);
+  var site = p.site ? 65 : 0;
+  var google = p.gmb ? 55 : 10;
+  var issues=[];
+  if(!p.rqe) issues.push("Bio sem CRM com a palavra MÉDICO e RQE");
+  if(p.insta && f>0) issues.push("1 post antigo com promessa de resultado");
+  var conf = Math.max(20, 100 - (p.rqe?0:30) - (p.insta&&f>0?20:0));
+  var total = Math.round(insta*.3 + site*.25 + google*.25 + conf*.2);
+  var plan="consultorio", why=[];
+  if(a.moment==="clinica"){plan="clinica";why.push("Você atende com outros médicos: a marca da clínica e os perfis individuais ficam juntos.");}
+  else if(a.moment==="novo" && +a.budget<=300){plan="essencial";why.push("Você está começando e o orçamento é enxuto: o Essencial monta a base certa.");}
+  else if(a.goal==="procedimento" || +a.budget>=3000 || (+a.time<=30 && +a.budget>=1000 && a.goal!=="google")){plan="autoridade";why.push(+a.time<=30?"Você tem menos de 1 hora por semana: uma gestora de conta revisa por você.":"Seu objetivo pede campanhas pagas e acompanhamento próximo.");}
+  else {why.push("Você já tem consultório e quer constância: site, Google e conteúdo no mesmo lugar.");}
+  if(!p.site) why.push("Você ainda não tem site: ele entra no plano, com SEO local.");
+  var ups=[];
+  if(issues.length) ups.push(["Check-up de conformidade dos posts antigos","R$ 197 avulso","Revisamos seu histórico e indicamos o que ajustar ou arquivar."]);
+  if(plan!=="autoridade" && plan!=="clinica" && (a.goal==="procedimento"||a.goal==="pacientes")) ups.push(["Campanha de "+spec().proc,"no plano Autoridade","Anúncios para quem busca "+spec().proc+" perto do seu consultório."]);
+  ups.push(["Ensaio de fotos no consultório","parceiro, a partir de R$ 690","Fotos reais aumentam a confiança mais do que imagens de banco."]);
+  if(a.goal==="google"||!p.gmb) ups.push(["Pedido de avaliações após a consulta","incluso no Autoridade","Mensagem automática e ética pedindo avaliação no Google."]);
+  return {total:total, parts:[["Instagram",insta],["Site",site],["Google",google],["Conformidade",conf]], issues:issues, plan:plan, why:why, ups:ups};
+}
+var PLANS={essencial:["Essencial","R$ 297/mês","Diagnóstico, marca básica, página, 12 conteúdos por mês, Guardião"],consultorio:["Consultório","R$ 697/mês","Marca completa, site com SEO local, Google, 24 conteúdos, relatório mensal"],autoridade:["Autoridade","R$ 1.497/mês","Tudo do Consultório + gestora de conta, campanhas, agenda e WhatsApp"],clinica:["Clínica","R$ 3.900/mês","Marca da clínica, perfis de até 5 médicos, gestor dedicado"]};
+
+/* ---------- telas ---------- */
+var TOUR=[["welcome","Boas-vindas"],["quiz","Anamnese (diagnóstico)"],["report","Relatório e plano"],["brand","Marca gerada"],["calendar","Calendário do mês"],["review","Revisão com o Guardião"],["site","Site e Google"],["pulse","Pulso: resultados"]];
+function top(){
+  var s=spec(), initials=S.a.name.replace(/^(Dra?\.)\s*/,"").split(" ").map(function(w){return w[0];}).slice(0,2).join("");
+  return '<header class="top"><div class="brand">'+ICON.logo+'jalecon</div><div class="who"><span class="tag-ex">exemplo</span><span class="avatar" style="background:'+s.pal[0]+'">'+esc(initials)+'</span></div></header>';
+}
+function nav(cur){
+  var pend = pendingCount();
+  var items=[["pulse","Início",ICON.home],["calendar","Calendário",ICON.cal],["review","Revisão",ICON.chat],["brand","Marca",ICON.brand],["site","Site",ICON.site]];
+  return '<nav class="nav" aria-label="Navegação do app">'+items.map(function(i){
+    var lab = i[0]==="review"&&pend? '<span class="badge-dot" data-n="'+pend+'">'+i[1]+'</span>' : i[1];
+    return '<button data-go="'+i[0]+'" class="'+(cur===i[0]?"on":"")+'" aria-current="'+(cur===i[0]?"page":"false")+'">'+i[2]+'<span>'+lab+'</span></button>';
+  }).join("")+'</nav>';
+}
+function guardCount(){var n=0;spec().posts.forEach(function(p){var k=S.a.spec+p[0];var fixed=S.review&&S.review.day===p[0]&&S.review.fixed;if(p[3]==="flag"&&!S.approved[k]&&!fixed)n++;});return n;}
+function pendingCount(){var n=0;spec().posts.forEach(function(p){if(!S.approved[S.a.spec+p[0]] && (p[3]==="flag"||p[0]==="17"||p[0]==="16")) n++;});return n;}
+
+function vWelcome(){
+  return top()+'<div class="scroll">'+
+  '<div class="eyebrow">Bem-vindo à Jalecon</div>'+
+  '<h2 class="t">Seu marketing médico pronto, ético e medido em consultas.</h2>'+
+  '<p class="muted">Responda 9 perguntas rápidas. Em seguida você recebe a nota da sua presença digital, um check-up de conformidade e o plano que faz sentido para você.</p>'+
+  '<div class="card"><ul class="list">'+
+  ['Leva cerca de 2 minutos','Nenhum dado de paciente é solicitado','O diagnóstico é gratuito'].map(function(t){return '<li><span style="color:var(--ok)">'+ICON.ok+'</span>'+t+'</li>';}).join("")+
+  '</ul></div>'+
+  '<button class="btn" data-act="startQuiz">Fazer meu diagnóstico</button>'+
+  '<button class="btn ghost" data-go="pulse">Ver uma conta de exemplo</button>'+
+  '<p class="small">As respostas já vêm preenchidas com um médico fictício. Mude o que quiser para ver o resultado mudar.</p>'+
+  '</div>';
+}
+function vQuiz(){
+  var q=Q[S.step], a=S.a, body="";
+  if(q.type==="chips"){
+    body='<div class="chips" role="radiogroup" aria-label="'+esc(q.title)+'">'+q.opts.map(function(o){var on=a[q.id]===o[0];return '<button class="chip '+(on?"on":"")+'" role="radio" aria-checked="'+on+'" data-set="'+q.id+'" data-val="'+o[0]+'">'+esc(o[1])+'</button>';}).join("")+'</div>';
+  } else if(q.type==="multi"){
+    body='<div class="chips">'+q.opts.map(function(o){var on=!!a.presence[o[0]];return '<button class="chip '+(on?"on":"")+'" aria-pressed="'+on+'" data-tog="'+o[0]+'">'+esc(o[1])+'</button>';}).join("")+'</div>';
+  } else {
+    body='<div class="field"><label for="f-name">Nome como aparece nas peças</label><input id="f-name" data-field="name" value="'+esc(a.name)+'"></div>'+
+         '<div class="row"><div class="field" style="flex:1"><label for="f-crm">CRM/UF</label><input id="f-crm" data-field="crm" value="'+esc(a.crm)+'"></div>'+
+         '<div class="field" style="flex:1"><label for="f-rqe">RQE</label><input id="f-rqe" data-field="rqe" value="'+esc(a.rqe)+'"></div></div>';
+  }
+  var pct=Math.round((S.step+1)/Q.length*100);
+  return top()+'<div class="scroll">'+
+   '<div class="row between"><span class="eyebrow">Anamnese · '+(S.step+1)+' de '+Q.length+'</span><span class="small num">'+pct+'%</span></div>'+
+   '<div class="progress" aria-hidden="true"><span style="width:'+pct+'%"></span></div>'+
+   '<h2 class="t">'+esc(q.title)+'</h2>'+(q.help?'<p class="muted">'+esc(q.help)+'</p>':'')+body+
+   '<div class="row" style="margin-top:8px">'+(S.step>0?'<button class="btn ghost" data-act="back" style="flex:1">Voltar</button>':'')+
+   '<button class="btn" data-act="next" style="flex:2">'+(S.step===Q.length-1?"Ver meu diagnóstico":"Continuar")+'</button></div>'+
+   '</div>';
+}
+function ring(v){
+  var r=40,c=2*Math.PI*r,off=c*(1-v/100);
+  return '<svg class="ring" viewBox="0 0 96 96" role="img" aria-label="Nota '+v+' de 100"><circle cx="48" cy="48" r="'+r+'" fill="none" stroke="var(--surface-2)" stroke-width="10"/><circle cx="48" cy="48" r="'+r+'" fill="none" stroke="var(--apricot)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 48 48)"/><text x="48" y="54" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="26" font-weight="600" fill="var(--fg)">'+v+'</text></svg>';
+}
+function vReport(){
+  var d=diagnose(S.a), s=spec(), pl=PLANS[d.plan];
+  return top()+'<div class="scroll">'+
+  '<div class="eyebrow">Seu diagnóstico</div><h2 class="t">'+esc(S.a.name)+', '+esc(s.label.toLowerCase())+'</h2>'+
+  '<div class="card"><div class="score">'+ring(d.total)+'<div><b>Nota de presença digital</b><p class="small">Média dos especialistas da sua área no seu bairro: 58 (exemplo)</p></div></div>'+
+  d.parts.map(function(p){return '<div class="bar"><span>'+p[0]+'</span><span class="track"><span style="width:'+p[1]+'%;background:'+(p[0]==="Conformidade"?"var(--sage)":"var(--ink)")+'"></span></span><span class="num">'+p[1]+'</span></div>';}).join("")+'</div>'+
+  '<div class="card"><h3 class="t">Check-up de conformidade</h3>'+(d.issues.length?'<ul class="list">'+d.issues.map(function(i){return '<li><span style="color:var(--clay)">'+ICON.warn+'</span>'+esc(i)+'</li>';}).join("")+'</ul><p class="small">Base: Resolução CFM 2.336/2023. Nada foi publicado ainda; é só um alerta.</p>':'<p class="muted">Nenhum ponto de atenção encontrado.</p>')+'</div>'+
+  '<div class="card"><h3 class="t">Concorrência local</h3><p class="muted">'+s.local+' profissionais de '+esc(s.label.toLowerCase())+' em até 3 km aparecem no Google. 4 deles têm site e publicam toda semana.</p></div>'+
+  '<div class="card plan"><div class="row between"><span class="eyebrow">Plano recomendado</span><span class="pill ok">14 dias grátis</span></div><h3 class="t">'+pl[0]+' · '+pl[1]+'</h3><p class="muted">'+pl[2]+'</p><ul class="list">'+d.why.map(function(w){return '<li><span style="color:var(--ok)">'+ICON.ok+'</span>'+esc(w)+'</li>';}).join("")+'</ul></div>'+
+  '<div class="card"><h3 class="t">Oportunidades para depois</h3>'+d.ups.map(function(u){return '<div class="row between" style="align-items:flex-start;border-top:1px solid var(--line);padding-top:10px"><div><b style="font-size:14px">'+esc(u[0])+'</b><p class="small" style="margin:2px 0 0">'+esc(u[2])+'</p></div><span class="pill info">'+esc(u[1])+'</span></div>';}).join("")+'</div>'+
+  '<button class="btn" data-go="brand">Começar teste e gerar minha marca</button>'+
+  '<button class="btn ghost" data-act="redo">Refazer respostas</button>'+
+  '</div>';
+}
+function palette(){var s=spec();var p=s.pal.slice();for(var i=0;i<S.palAlt;i++)p.push(p.shift());return p;}
+function vBrand(){
+  var s=spec(), p=palette(), initials=S.a.name.replace(/^(Dra?\.)\s*/,"").split(" ").map(function(w){return w[0];}).slice(0,2).join("");
+  var tone={acolhedor:"Acolhedor",tecnico:"Técnico",proximo:"Próximo e leve"}[S.a.tone];
+  return top()+'<div class="scroll">'+
+  '<div class="eyebrow">Marca gerada · família "'+s.family+'"</div><h2 class="t">Sua identidade, pronta para revisar</h2>'+
+  '<div class="card"><div class="row"><div class="mono-logo" style="background:'+p[0]+';color:'+p[3]+'">'+esc(initials)+'</div><div><b style="font-family:var(--display);font-size:18px">'+esc(S.a.name)+'</b><div class="small">'+esc(s.full)+' · '+esc(S.a.crm)+' · MÉDICO · '+esc(S.a.rqe)+'</div></div></div>'+
+  '<div class="swatches">'+p.map(function(c,i){var dark=i===0;return '<div style="background:'+c+';color:'+(dark?"#fff":"#1F2440")+'">'+c+'</div>';}).join("")+'</div>'+
+  '<p class="small">Tom visual: '+esc(s.tone.toLowerCase())+'. Tipografia: Fraunces nos títulos e DM Sans no texto.</p>'+
+  '<button class="btn ghost" data-act="altPal">Gerar outra combinação</button></div>'+
+  '<div class="card"><h3 class="t">Bio do Instagram</h3><p style="margin:0;font-size:14px">'+esc(S.a.name)+' · '+esc(s.full)+'<br>'+esc(S.a.crm)+' · MÉDICO · '+esc(S.a.rqe)+'<br>Consultório em São Paulo · agende pelo link</p><span class="pill ok">'+ICON.ok.replace('<svg','<svg width="14" height="14"')+'Checado pelo Guardião</span></div>'+
+  '<div class="card"><h3 class="t">Tom de voz: '+esc(tone)+'</h3><p class="muted" style="margin:0">"'+esc(s.flag.soft)+'."</p><p class="small">Cada ajuste que você fizer nas revisões ensina a Jalecon a escrever mais como você.</p></div>'+
+  '<button class="btn" data-go="calendar">Ver meu calendário de novembro</button>'+
+  '</div>';
+}
+function postStatus(pp){
+  var key=S.a.spec+pp[0];
+  if(S.approved[key]) return ["Agendado","ok"];
+  if(pp[3]==="flag") return ["Guardião pediu ajuste","block"];
+  if(pp[0]==="16"||pp[0]==="17") return ["Aguardando você","warn"];
+  return ["Aprovado","ok"];
+}
+function vCalendar(){
+  var s=spec(), days=[], postDays={};
+  s.posts.forEach(function(p){postDays[+p[0]]=p;});
+  var head=["D","S","T","Q","Q","S","S"].map(function(d){return '<div class="h">'+d+'</div>';}).join("");
+  for(var i=0;i<0;i++) days.push('<div></div>');
+  for(var d=1; d<=30; d++){
+    var p=postDays[d];
+    if(p){var st=postStatus(p);var col=st[1]==="ok"?"var(--sage)":st[1]==="block"?"var(--clay)":"var(--warn)";
+      days.push('<button class="d has" data-open="'+p[0]+'" aria-label="Dia '+d+': '+esc(p[2])+'">'+d+'<span class="dot" style="background:'+col+'"></span></button>');}
+    else days.push('<div class="d">'+d+'</div>');
+  }
+  return top()+'<div class="scroll">'+
+  '<div class="row between"><div><div class="eyebrow">Calendário</div><h2 class="t">Novembro de 2026</h2></div><span class="pill info">'+s.posts.length+' peças</span></div>'+
+  '<div class="card"><div class="cal">'+head+days.join("")+'</div>'+
+  '<div class="row small" style="gap:14px;flex-wrap:wrap"><span><span style="color:var(--sage)">●</span> aprovado</span><span><span style="color:var(--warn)">●</span> aguardando você</span><span><span style="color:var(--clay)">●</span> ajuste do Guardião</span></div></div>'+
+  s.posts.map(function(p){var st=postStatus(p);return '<button class="post-item" data-open="'+p[0]+'"><div class="date"><b>'+p[0]+'</b>nov</div><div><div class="small">'+esc(p[1])+'</div><div class="tt">'+esc(S.review&&S.review.day===p[0]&&S.review.fixed?S.review.title:p[2])+'</div></div><span class="pill '+st[1]+'">'+st[0]+'</span></button>';}).join("")+
+  '</div>'+nav("calendar");
+}
+function startReview(day){
+  var s=spec(), p=null;
+  s.posts.forEach(function(x){if(x[0]===day)p=x;});
+  if(!p) p=s.posts[2];
+  var flagged = p[3]==="flag";
+  S.review={day:p[0],type:p[1],title:p[2],fixed:!flagged,short:false,soft:false,img:0,
+    msgs:[["ai","Jalecon","Preparei o "+p[1].toLowerCase()+" \""+p[2]+"\" para "+p[0]+"/11, no tom "+({acolhedor:"acolhedor",tecnico:"técnico",proximo:"próximo"}[S.a.tone])+"."+(flagged?" O Guardião encontrou um ponto a ajustar antes da publicação.":" O Guardião não encontrou problemas.")]]};
+  if(flagged) S.review.msgs.push(["ai","Guardião","\""+s.flag.bad+"\" promete resultado, o que a Resolução CFM 2.336/2023 não permite. Sugestão: \""+s.flag.good+"\"."]);
+}
+function vReview(){
+  if(!S.review){var s0=spec();var f=null;s0.posts.forEach(function(x){if(x[3]==="flag")f=x[0];});startReview(f);}
+  var s=spec(), r=S.review, p=palette();
+  var key=S.a.spec+r.day, done=!!S.approved[key];
+  var title=r.title;
+  var checks=[
+    ["Nome, CRM e MÉDICO na peça",true],
+    ["RQE da especialidade",true],
+    ["Promessa de resultado",r.fixed],
+    ["Imagem de paciente",true],
+    ["Superlativos e sensacionalismo",true],
+    ["Marca de medicamento ou produto",true]
+  ];
+  var bg=[p[0],p[1],p[2]][r.img%3], fg= r.img%3===0? p[3] : "#1F2440";
+  if(r.img%3===1 && (s.family==="Movimento"||s.family==="Ritmo"||s.family==="Precisão")) fg="#FFFFFF";
+  return top()+'<div class="scroll">'+
+  '<div class="row between"><div><div class="eyebrow">Revisão · '+esc(r.type)+' de '+r.day+'/11</div><h2 class="t" style="font-size:20px">Ajuste conversando</h2></div>'+(done?'<span class="pill ok">Agendado</span>':(r.fixed?'<span class="pill ok">Pronto para aprovar</span>':'<span class="pill block">Ajuste pendente</span>'))+'</div>'+
+  '<div class="preview" style="background:'+bg+';color:'+fg+'"><span class="small" style="color:inherit;opacity:.85;font-weight:600;letter-spacing:.08em">'+esc(s.label.toUpperCase())+' · 1/5</span><h4>'+esc(title)+'</h4>'+
+  (r.short?'':'<p style="margin:0;font-size:13px;opacity:.9">Entenda as causas mais comuns, quando procurar avaliação e o que esperar da consulta.</p>')+
+  '<div class="sig">'+esc(S.a.name)+' · '+esc(S.a.crm)+' · MÉDICO · '+esc(s.full)+' · '+esc(S.a.rqe)+'</div></div>'+
+  '<div class="card"><div class="row between"><h3 class="t">Guardião</h3><span class="small">biblioteca v2026.10</span></div>'+
+  checks.map(function(c){return '<div class="check"><span style="color:'+(c[1]?"var(--ok)":"var(--clay)")+'">'+(c[1]?ICON.ok:ICON.warn)+'</span><span>'+c[0]+'</span><span class="pill '+(c[1]?"ok":"block")+'">'+(c[1]?"OK":"Ajustar")+'</span></div>';}).join("")+'</div>'+
+  '<div class="chat" aria-label="Conversa de revisão">'+r.msgs.map(function(m){return '<div class="msg '+(m[0]==="me"?"me":"ai")+'">'+(m[0]!=="me"?'<div class="who">'+esc(m[1])+'</div>':'')+esc(m[2])+'</div>';}).join("")+'</div>'+
+  (S.prefs.length?'<div class="card" style="gap:6px"><span class="small">A Jalecon aprendeu com você</span><div class="prefs">'+S.prefs.map(function(x){return '<span>'+esc(x)+'</span>';}).join("")+'</div></div>':'')+
+  (done?'':'<div class="chips">'+(!r.fixed?'<button class="chip" data-say="Aplicar a sugestão do Guardião">Aplicar sugestão do Guardião</button>':'')+'<button class="chip" data-say="Deixe mais acolhedor">Mais acolhedor</button><button class="chip" data-say="Encurte o texto">Mais curto</button><button class="chip" data-say="Troque a cor da capa">Trocar capa</button></div>')+
+  '<button class="btn" data-act="approve" '+(r.fixed&&!done?"":"disabled")+'>'+(done?"Agendado para "+r.day+"/11 às 19h":"Aprovar e agendar")+'</button>'+
+  '<p class="small">No plano Autoridade, sua gestora de conta também pode revisar nesta conversa.</p>'+
+  '</div>'+(done?'':'<form class="composer" data-form="chat"><label for="say" class="small" style="position:absolute;left:-9999px">Mensagem</label><input id="say" autocomplete="off" placeholder="Peça um ajuste, por exemplo: cite a corrida"><button type="submit">Enviar</button></form>')+nav("review");
+}
+function reply(text){
+  var r=S.review, s=spec(), t=text.toLowerCase();
+  r.msgs.push(["me","Você",text]);
+  if(/sugest|guardi|aplicar|corrig/.test(t)){
+    r.fixed=true; r.title=s.flag.good;
+    r.msgs.push(["ai","Jalecon","Pronto. Troquei o título por \""+s.flag.good+"\". O Guardião rechecou: tudo certo."]);
+    addPref("Evitar promessas como \"de vez\" e \"garantido\"");
+  } else if(/acolhed|human|carinh|gentil/.test(t)){
+    r.soft=true; r.title= r.fixed ? s.flag.soft : r.title;
+    r.msgs.push(["ai","Jalecon", r.fixed?"Deixei o texto mais acolhedor: \""+s.flag.soft+"\".":"Posso deixar mais acolhedor, mas antes preciso corrigir a promessa de resultado. Quer aplicar a sugestão do Guardião?"]);
+    addPref("Tom acolhedor nos títulos");
+  } else if(/curt|encurt|resum|menor/.test(t)){
+    r.short=true; r.msgs.push(["ai","Jalecon","Encurtei a capa e deixei o detalhe para os próximos cartões do carrossel."]);
+    addPref("Capas com pouco texto");
+  } else if(/capa|imagem|foto|cor/.test(t)){
+    r.img++; r.msgs.push(["ai","Jalecon","Troquei a cor da capa mantendo a sua paleta. Imagens de pacientes nunca são usadas sem consentimento registrado."]);
+  } else if(/cura|garant|100%|definitiv|melhor de/.test(t)){
+    r.msgs.push(["ai","Guardião","Não posso usar esse termo: ele promete resultado ou é superlativo, o que a Resolução CFM 2.336/2023 não permite. Que tal uma versão educativa?"]);
+  } else {
+    r.msgs.push(["ai","Jalecon","Entendi: \""+text+"\". Ajustei o texto e vou lembrar disso nas próximas peças."]);
+    addPref(text.length>40?text.slice(0,40)+"…":text);
+  }
+}
+function addPref(p){if(S.prefs.indexOf(p)<0)S.prefs.push(p);}
+function vSite(){
+  var s=spec(), p=palette();
+  return top()+'<div class="scroll">'+
+  '<div class="eyebrow">Site e Google</div><h2 class="t">Seu site está no ar</h2>'+
+  '<div class="site"><div class="hero" style="background:'+p[3]+'"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:'+p[0]+'">'+esc(s.full.toUpperCase())+' · SÃO PAULO</span><h4 style="color:'+p[0]+'">'+esc(S.a.name)+'</h4><p style="margin:0;font-size:13px;color:#4A4F6E">Atendimento particular com hora marcada. '+esc(s.flag.good)+'.</p><span style="display:inline-block;justify-self:start;background:'+p[0]+';color:#fff;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:600">Agendar pelo WhatsApp</span></div>'+
+  '<div style="padding:14px 18px;display:grid;gap:6px;font-size:13px"><b>Tratamentos</b><span style="color:#4A4F6E">Avaliação, '+esc(s.proc)+', acompanhamento</span><b>Endereço</b><span style="color:#4A4F6E">Rua de exemplo, 100 · Pinheiros</span></div>'+
+  '<div class="foot">'+esc(S.a.name)+' · '+esc(S.a.crm)+' · MÉDICO · '+esc(S.a.rqe)+' · Diretor técnico conforme Res. CFM 2.336/2023</div></div>'+
+  '<div class="card"><div class="row between"><h3 class="t">Perfil no Google</h3><span class="pill ok">Verificado</span></div><p class="muted" style="margin:0">4,9 de 5 · 38 avaliações · horário, endereço e link de agendamento atualizados.</p><p class="small">Respostas às avaliações também passam pelo Guardião: nada de expor dados de pacientes.</p></div>'+
+  '<div class="card"><h3 class="t">SEO local</h3><ul class="list"><li><span style="color:var(--ok)">'+ICON.ok+'</span>"'+esc(s.label.toLowerCase())+' em pinheiros" · posição 4</li><li><span style="color:var(--ok)">'+ICON.ok+'</span>"'+esc(s.proc)+' são paulo" · posição 11</li></ul><p class="small">Posições fictícias para demonstração.</p></div>'+
+  '</div>'+nav("site");
+}
+function spark(vals){
+  var w=300,h=60,max=Math.max.apply(null,vals),pts=vals.map(function(v,i){return [i*(w/(vals.length-1)), h-6-(v/max)*(h-14)];});
+  var d=pts.map(function(p,i){return (i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1);}).join(" ");
+  var last=pts[pts.length-1];
+  return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" height="60" role="img" aria-label="Consultas por semana: '+vals.join(", ")+'"><line x1="0" y1="'+(h-6)+'" x2="'+w+'" y2="'+(h-6)+'" stroke="var(--line)"/><path d="'+d+' L'+w+' '+(h-6)+' L0 '+(h-6)+' Z" fill="var(--apricot)" opacity=".18"/><path d="'+d+'" fill="none" stroke="var(--clay)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="4" fill="var(--clay)"/></svg>';
+}
+function vPulse(){
+  var s=spec(), d=diagnose(S.a);
+  var f=[["Alcance","18.400",100],["Visitas ao site","1.240",62],["Contatos no WhatsApp","86",34],["Consultas agendadas","23",18]];
+  return top()+'<div class="scroll">'+
+  '<div class="eyebrow">Pulso · outubro de 2026</div><h2 class="t">Bom dia, '+esc(S.a.name.split(" ").slice(0,2).join(" "))+'</h2>'+
+  '<div class="kpis"><div class="kpi hero"><span class="small">Consultas agendadas pela sua presença digital</span><b>23</b><span class="small">+9 em relação a setembro · 14 particulares novos</span>'+spark([2,3,3,5,4,6,7,8])+'</div>'+
+  '<div class="kpi"><span class="small">Nota de presença</span><b>'+Math.min(96,d.total+29)+'</b><span class="small">era '+d.total+' no diagnóstico</span></div>'+
+  '<div class="kpi"><span class="small">Alertas do Guardião</span><b>'+guardCount()+'</b><span class="small">'+(guardCount()?"peça aguarda ajuste":"tudo em dia")+'</span></div></div>'+
+  '<div class="card"><h3 class="t">Do conteúdo à consulta</h3><div class="funnel">'+f.map(function(x){return '<div><span>'+x[0]+'</span><span class="b" style="width:'+x[2]+'%"></span><span class="num" style="text-align:right">'+x[1]+'</span></div>';}).join("")+'</div><p class="small">Consultas medidas pela integração com a agenda e o WhatsApp.</p></div>'+
+  '<div class="card"><div class="row between"><h3 class="t">Recomendação do mês</h3><span class="pill info">IA</span></div><p class="muted" style="margin:0">Peças sobre "'+esc(s.posts[0][2].toLowerCase())+'" geraram 3 vezes mais contatos. Sugerimos uma série de 4 posts sobre o tema em dezembro.</p><button class="btn ghost" data-go="calendar">Ver no calendário</button></div>'+
+  '<div class="card plan"><span class="eyebrow">Oportunidade</span><b>Campanha de '+esc(s.proc)+'</b><p class="small" style="margin:0">No plano Autoridade: anúncios para quem busca '+esc(s.proc)+' a até 5 km, com gestora de conta. Estimativa de 8 a 12 consultas a mais por mês (exemplo).</p></div>'+
+  '<button class="btn ghost" data-act="restart">Refazer o diagnóstico</button>'+
+  '</div>'+nav("pulse");
+}
+
+/* ---------- render e eventos ---------- */
+var app=document.getElementById("app"), tourEl=document.getElementById("tour"), toastTimer=null;
+function render(){
+  var v={welcome:vWelcome,quiz:vQuiz,report:vReport,brand:vBrand,calendar:vCalendar,review:vReview,site:vSite,pulse:vPulse}[S.screen]();
+  var showNavScreens={brand:1};
+  if(showNavScreens[S.screen]) v+=nav("brand");
+  app.innerHTML=v+'<div class="toast" id="toast" role="status" '+(S.toast?"":"hidden")+'>'+esc(S.toast)+'</div>';
+  tourEl.innerHTML=TOUR.map(function(t,i){return '<button data-go="'+t[0]+'" class="'+(S.screen===t[0]?"on":"")+'"><b>'+(i+1)+'</b>'+t[1]+'</button>';}).join("");
+  var sc=app.querySelector(".scroll"); if(sc && S._keepScroll){sc.scrollTop=S._keepScroll;} S._keepScroll=0;
+  try{localStorage.setItem("jalecon-demo",JSON.stringify({a:S.a,approved:S.approved,prefs:S.prefs}));}catch(e){}
+}
+function go(screen){
+  S.screen=screen;
+  if(screen==="quiz") S.step=S.step||0;
+  if(screen==="review" && !S.review){var f=null;spec().posts.forEach(function(x){if(x[3]==="flag")f=x[0];});startReview(f);}
+  render();
+  var sc=app.querySelector(".scroll"); if(sc) sc.scrollTop=0;
+}
+function toast(msg){S.toast=msg;render();clearTimeout(toastTimer);toastTimer=setTimeout(function(){S.toast="";var t=document.getElementById("toast");if(t)t.hidden=true;},3200);}
+document.addEventListener("click",function(e){
+  var el=e.target.closest("button"); if(!el) return;
+  if(el.dataset.go){ if(el.dataset.go==="quiz"){S.step=0;} go(el.dataset.go); return; }
+  if(el.dataset.set){ S.a[el.dataset.set]=el.dataset.val; if(el.dataset.set==="spec"){S.review=null;S.palAlt=0;} render(); return; }
+  if(el.dataset.tog){ S.a.presence[el.dataset.tog]=!S.a.presence[el.dataset.tog]; render(); return; }
+  if(el.dataset.open){ startReview(el.dataset.open); go("review"); return; }
+  if(el.dataset.say){ var sc=app.querySelector(".scroll"); S._keepScroll=sc?sc.scrollHeight:0; reply(el.dataset.say); render(); var sc2=app.querySelector(".scroll"); if(sc2) sc2.scrollTop=sc2.scrollHeight; return; }
+  var act=el.dataset.act;
+  if(act==="startQuiz"){S.step=0;go("quiz");}
+  else if(act==="next"){ if(S.step<Q.length-1){S.step++;render();} else go("report"); }
+  else if(act==="back"){ if(S.step>0){S.step--;render();} }
+  else if(act==="redo"){S.step=0;go("quiz");}
+  else if(act==="restart"){S.step=0;S.review=null;S.approved={};S.prefs=[];go("quiz");}
+  else if(act==="altPal"){S.palAlt=(S.palAlt+1)%4;render();}
+  else if(act==="approve"){ var r=S.review; S.approved[S.a.spec+r.day]=true; toast("Agendado para "+r.day+"/11 às 19h. Checado pelo Guardião."); }
+});
+document.addEventListener("input",function(e){var f=e.target.dataset&&e.target.dataset.field; if(f){S.a[f]=e.target.value;}});
+document.addEventListener("submit",function(e){
+  if(e.target.dataset.form==="chat"){e.preventDefault(); var inp=e.target.querySelector("input"); var v=inp.value.trim(); if(!v) return; reply(v); render(); var sc=app.querySelector(".scroll"); if(sc) sc.scrollTop=sc.scrollHeight; var ni=document.getElementById("say"); if(ni) ni.focus();}
+});
+try{var saved=JSON.parse(localStorage.getItem("jalecon-demo")||"null"); if(saved&&saved.a&&SPEC[saved.a.spec]){S.a=saved.a;S.approved=saved.approved||{};S.prefs=saved.prefs||[];}}catch(e){}
+var h=(location.hash||"").replace("#",""); if(h && {welcome:1,quiz:1,report:1,brand:1,calendar:1,review:1,site:1,pulse:1}[h]) S.screen=h;
+render();
+})();
+</script>
+
+</body>
+</html>

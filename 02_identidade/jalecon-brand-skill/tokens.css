@@ -1,0 +1,26 @@
+/* Jalecon design tokens v1.0 */
+:root {
+  /* Cores de marca */
+  --jalecon-tinta: #1F2440;       /* primária: texto, fundos fortes */
+  --jalecon-tinta-70: #4A4F6E;    /* texto secundário */
+  --jalecon-jaleco: #F7F8FA;      /* base / fundo claro */
+  --jalecon-branco: #FFFFFF;      /* superfícies elevadas */
+  --jalecon-nevoa: #E9EBF2;       /* superfícies de apoio */
+  --jalecon-linha: #D7DAE5;       /* bordas e divisórias */
+  --jalecon-damasco: #E8A27C;     /* acento: só formas e destaques, nunca texto sobre claro */
+  --jalecon-argila: #9C5A36;      /* acento para texto, links, bloqueios */
+  --jalecon-salvia: #8FAE9B;      /* aprovado / conformidade */
+  --jalecon-salvia-esc: #3F6B57;  /* texto de status aprovado */
+  --jalecon-ambar-esc: #8A6416;   /* aviso */
+  --jalecon-noite: #141728;       /* fundo modo escuro */
+  --jalecon-noite-sup: #1B1F36;   /* superfície modo escuro */
+  /* Tipografia */
+  --jalecon-font-display: "Fraunces", Georgia, "Times New Roman", serif; /* 500/600, títulos */
+  --jalecon-font-body: "DM Sans", "Segoe UI", Arial, sans-serif;          /* 400/500/600 */
+  --jalecon-step--1: 0.85rem; --jalecon-step-0: 1rem; --jalecon-step-1: 1.25rem;
+  --jalecon-step-2: 1.6rem; --jalecon-step-3: 2.2rem; --jalecon-step-4: 3.2rem;
+  /* Forma */
+  --jalecon-radius-sm: 8px; --jalecon-radius: 14px; --jalecon-radius-icon: 24%;
+  --jalecon-space: 8px; /* múltiplos de 8 */
+  --jalecon-diagonal: 67deg; /* ângulo da lapela damasco */
+}
