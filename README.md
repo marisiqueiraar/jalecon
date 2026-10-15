@@ -18,7 +18,9 @@ Plataforma que cria e gerencia a presença digital de médicos com IA: diagnóst
 | `site/` | Site publicado na Vercel: demo navegável (`/`), manual da marca (`/marca`) e arquivos para download (`/arquivos`) |
 | `01_estrategia/` | Estratégia, posicionamento e estudo de nomes |
 | `02_identidade/` | Logos (SVG e PNG), manual da marca, skill de diretrizes de marca para o Claude Design |
-| `03_plano/` | Plano de negócios e modelo financeiro (`Jalecon_Modelo_Financeiro.xlsx` e o script que o gera) |
+| `00_Pendencias_e_Proximos_Passos.html` | Pendências por frente (marca e INPI, domínio, validação, modelo, jurídico, demo, pitch, time) |
+| `03_plano/` | Plano de negócios e modelo financeiro (`Jalecon_Modelo_Financeiro.xlsx` e o script que o gera; a versão de trabalho com fórmulas está no Google Sheets do grupo) |
+| `04_pitch/` | Fonte do pitch deck (19 slides); versão editável em Google Slides na pasta 04 do Drive |
 | `05_demo/` | Código-fonte da demo |
 | `06_validacao/` | Kit de validação com médicos (roteiro, questionário, planilha de síntese) |
 
