@@ -4,6 +4,13 @@ Marketing médico com ética de consultório. Projeto do Grupo 1 da disciplina D
 
 Plataforma que cria e gerencia a presença digital de médicos com IA: diagnóstico inteligente, marca, site, conteúdo e campanhas, revisão conversacional pelo médico e checagem de conformidade com as regras do CFM (Guardião), com resultado medido em consultas agendadas.
 
+## Links
+
+- Demo: https://jalecon.vercel.app
+- Manual da marca: https://jalecon.vercel.app/marca/
+- Arquivos (modelo financeiro, logos, diretrizes de marca): https://jalecon.vercel.app/arquivos/
+- Contato: falejalecon@gmail.com
+
 ## Conteúdo do repositório
 
 | Pasta | O que tem |
