@@ -359,7 +359,7 @@ def build_model(idx):
     row("arr", "ARR (MRR × 12)", lambda c, p, m: f"={c}{rows['mrr']}*12", BRL)
     row("arpa", "Receita recorrente média por cliente (ARPA)", lambda c, p, m: f"=IFERROR({c}{rows['mrr']}/{c}{rows['ativos']},0)", BRL)
     row("churn_t", "Churn mensal total (% da base do mês anterior)", lambda c, p, m: "=0" if m == 1 else f"=IFERROR(SUM({c}{{chu0}}:{c}{{chu3}})/{p}{rows['ativos']},0)", PCT)
-    row("be_flag", "Mês com EBITDA positivo (auxiliar)", lambda c, p, m: f"=IF({c}{rows['ebitda']}>0,{c}$3,999)", NUM)
+    row("be_flag", "Mês com EBITDA positivo daí em diante (auxiliar)", lambda c, p, m: f"=IF(MIN({c}{rows['ebitda']}:${lastL}{rows['ebitda']})>0,{c}$3,999)", NUM)
 
     # resolver placeholders {key}
     for rown in range(6, rr[0]):
@@ -456,7 +456,7 @@ comps = [
     ("ARR no fim do ano 5 (R$)", lambda s: "=" + yend(s, "arr", 5), BRL),
     ("Receita bruta do ano 5 (R$)", lambda s: "=" + ysum(s, "rec", 5), BRL),
     ("EBITDA do ano 5 (R$)", lambda s: "=" + ysum(s, "ebitda", 5), BRL),
-    ("Primeiro mês com EBITDA positivo", lambda s: f"=MIN({s}!${L(FC)}${MROWS[2]['be_flag']}:${lastL}${MROWS[2]['be_flag']})", NUM),
+    ("Mês do equilíbrio (EBITDA positivo daí em diante)", lambda s: f"=MIN({s}!${L(FC)}${MROWS[2]['be_flag']}:${lastL}${MROWS[2]['be_flag']})", NUM),
     ("Menor saldo de caixa no período (R$)", lambda s: f"=MIN({s}!${L(FC)}${MROWS[2]['caixa']}:${lastL}${MROWS[2]['caixa']})", BRL),
     ("Total captado no período (R$)", lambda s: f"=SUM({s}!${L(FC)}${MROWS[2]['aporte']}:${lastL}${MROWS[2]['aporte']})", BRL),
 ]
@@ -465,7 +465,7 @@ for lab, fn, fmt in comps:
     for j, s in enumerate(["Modelo_Conservador", "Modelo_Base", "Modelo_Otimista"]):
         cell(R, f"{L(2+j)}{r}", fn(s), GREEN, fmt)
     r += 1
-cell(R, f"A{r}", "Leitura: 999 em 'primeiro mês com EBITDA positivo' significa que o cenário não chega ao equilíbrio em 60 meses. Caixa negativo indica necessidade de captação adicional.", Font(name=FONT, italic=True, size=9))
+cell(R, f"A{r}", "Leitura: 999 em 'mês do equilíbrio' significa que o cenário não chega ao equilíbrio em 60 meses. Caixa negativo indica necessidade de captação adicional.", Font(name=FONT, italic=True, size=9))
 r += 2
 
 section(R, r, "Necessidade de caixa antes da rodada seed (cenário base)", 7); r += 1
