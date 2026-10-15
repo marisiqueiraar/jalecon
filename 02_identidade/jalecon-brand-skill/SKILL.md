@@ -3,7 +3,7 @@ name: jalecon-brand
 description: Diretrizes de marca da Jalecon (plataforma de marketing médico com IA e conformidade CFM). Use sempre que criar slides, telas, posts, páginas, documentos ou qualquer peça visual ou texto com a marca Jalecon, ou quando pedirem "na identidade da Jalecon". Define logotipos, cores, tipografia, tom de voz, elementos gráficos e regras para as identidades geradas para médicos.
 ---
 
-# Jalecon: diretrizes de marca
+# Jalecon: diretrizes de marca (v1.1)
 
 Jalecon é uma plataforma que cria e gerencia a presença digital de médicos com IA, com revisão humana conversacional e checagem de conformidade com as regras do CFM. Assinatura: **"Marketing médico com ética de consultório."**
 
@@ -47,10 +47,11 @@ Cores proibidas como cor de marca: vermelho (sangue/emergência), preto dominant
 
 ## Tipografia
 
-- **Fraunces** (Google Fonts), pesos 500 e 600: títulos, números de destaque, citações. Use com moderação. Fallback: Georgia.
-- **DM Sans** (Google Fonts), pesos 400, 500, 600: texto, interface, legendas. Fallback: Arial.
+- **Fraunces Soft** (Google Fonts, eixo SOFT = 100), pesos 500 e 600: títulos, números de destaque, citações. Use com moderação. Fallback: Georgia. Link: `https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..600,100&display=swap`
+- **Nunito Sans** (Google Fonts), pesos 400, 600, 700: texto, interface, legendas. Humanista, levemente arredondada. Fallback: Arial.
+- As duas famílias têm licença aberta (SIL OFL), o que permite embutir nos sites e posts gerados para os médicos. Não use fontes de bancos com licença por instalação (como Envato Elements) em peças que a plataforma distribui.
 - Escala: 52 / 35 / 25 / 20 / 16 / 13 px. Títulos com `text-wrap: balance`; texto corrido com até ~66 caracteres por linha.
-- Rótulos em caixa-alta: DM Sans 600, 13 px, espaçamento 0,12–0,14em, cor Argila (claro) ou Damasco (escuro).
+- Rótulos em caixa-alta: Nunito Sans 600, 13 px, espaçamento 0,12–0,14em, cor Argila (claro) ou Damasco (escuro).
 
 ## Elementos gráficos
 
@@ -94,6 +95,6 @@ Regras obrigatórias em toda peça de médico (Res. CFM 2.336/2023): nome + CRM/
 
 1. Logo correto para o fundo, com área de proteção.
 2. Só cores da paleta; damasco nunca como texto sobre claro.
-3. Fraunces só em títulos; DM Sans no resto.
+3. Fraunces Soft só em títulos; Nunito Sans no resto.
 4. Nenhuma promessa de resultado; tom calmo e claro.
 5. Em peças de médico: CRM, "MÉDICO(A)" e RQE presentes.

@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..600,100&family=Nunito+Sans:wght@400;600;700&display=swap">
 <style>
 /* Layout: app de celular centralizado; no desktop vira um aparelho sobre a mesa, no celular ocupa a tela toda */
 :root{
@@ -11,7 +11,7 @@
   --ink:#1F2440; --on-ink:#F7F8FA; --apricot:#E8A27C; --clay:#9C5A36; --clay-bg:#F6E7DD;
   --sage:#8FAE9B; --ok:#3F6B57; --ok-bg:#E3EEE7; --warn:#8A6416; --warn-bg:#F6EBD3;
   --display:"Fraunces", Georgia, "Times New Roman", serif;
-  --body:"DM Sans", "Segoe UI", Arial, sans-serif;
+  --body:"Nunito Sans", "Segoe UI", Arial, sans-serif;
   --r:14px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -312,7 +312,7 @@ function vBrand(){
   '<div class="eyebrow">Marca gerada · família "'+s.family+'"</div><h2 class="t">Sua identidade, pronta para revisar</h2>'+
   '<div class="card"><div class="row"><div class="mono-logo" style="background:'+p[0]+';color:'+p[3]+'">'+esc(initials)+'</div><div><b style="font-family:var(--display);font-size:18px">'+esc(S.a.name)+'</b><div class="small">'+esc(s.full)+' · '+esc(S.a.crm)+' · MÉDICO · '+esc(S.a.rqe)+'</div></div></div>'+
   '<div class="swatches">'+p.map(function(c,i){var dark=i===0;return '<div style="background:'+c+';color:'+(dark?"#fff":"#1F2440")+'">'+c+'</div>';}).join("")+'</div>'+
-  '<p class="small">Tom visual: '+esc(s.tone.toLowerCase())+'. Tipografia: Fraunces nos títulos e DM Sans no texto.</p>'+
+  '<p class="small">Tom visual: '+esc(s.tone.toLowerCase())+'. Tipografia: Fraunces Soft nos títulos e Nunito Sans no texto.</p>'+
   '<button class="btn ghost" data-act="altPal">Gerar outra combinação</button></div>'+
   '<div class="card"><h3 class="t">Bio do Instagram</h3><p style="margin:0;font-size:14px">'+esc(S.a.name)+' · '+esc(s.full)+'<br>'+esc(S.a.crm)+' · MÉDICO · '+esc(S.a.rqe)+'<br>Consultório em São Paulo · agende pelo link</p><span class="pill ok">'+ICON.ok.replace('<svg','<svg width="14" height="14"')+'Checado pelo Guardião</span></div>'+
   '<div class="card"><h3 class="t">Tom de voz: '+esc(tone)+'</h3><p class="muted" style="margin:0">"'+esc(s.flag.soft)+'."</p><p class="small">Cada ajuste que você fizer nas revisões ensina a Jalecon a escrever mais como você.</p></div>'+

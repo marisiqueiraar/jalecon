@@ -1,4 +1,4 @@
-/* Jalecon design tokens v1.0 */
+/* Jalecon design tokens v1.1 */
 :root {
   /* Cores de marca */
   --jalecon-tinta: #1F2440;       /* primária: texto, fundos fortes */
@@ -15,8 +15,8 @@
   --jalecon-noite: #141728;       /* fundo modo escuro */
   --jalecon-noite-sup: #1B1F36;   /* superfície modo escuro */
   /* Tipografia */
-  --jalecon-font-display: "Fraunces", Georgia, "Times New Roman", serif; /* 500/600, títulos */
-  --jalecon-font-body: "DM Sans", "Segoe UI", Arial, sans-serif;          /* 400/500/600 */
+  --jalecon-font-display: "Fraunces", Georgia, "Times New Roman", serif; /* 500/600, SOFT 100, títulos */
+  --jalecon-font-body: "Nunito Sans", "Segoe UI", Arial, sans-serif;      /* 400/600/700 */
   --jalecon-step--1: 0.85rem; --jalecon-step-0: 1rem; --jalecon-step-1: 1.25rem;
   --jalecon-step-2: 1.6rem; --jalecon-step-3: 2.2rem; --jalecon-step-4: 3.2rem;
   /* Forma */
