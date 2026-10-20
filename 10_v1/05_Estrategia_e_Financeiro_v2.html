@@ -1,0 +1,139 @@
+<html><head><meta charset="utf-8"></head><body>
+<h1>Jalecon v1: estratégia e financeiro v2</h1>
+<p>Grupo 1 · Insper · 20 de outubro de 2026. Frentes F5 e F6 do plano v1. Planilha: "04 · Modelo financeiro v2" (Google Sheets, com fórmulas).</p>
+
+<h2>Resumo</h2>
+<ol>
+<li><b>Como software por assinatura (o desenho do v0), a Jalecon não passa nos critérios de corte.</b> Com churn e CAC de mercado, o plano principal tem LTV/CAC de 2,2 e a receita anualizada fica em R$ 37 milhões no ano 7. Exigiria R$ 9,6 milhões até o equilíbrio, no mês 53. O modelo só passa no cenário otimista.</li>
+<li><b>Como agência operada por agentes de IA, os números passam no cenário base.</b> Nesse desenho, uma equipe de agentes executa tudo, um especialista humano supervisiona dezenas de contas e parte do preço é cobrada por consulta gerada. O LTV/CAC fica em 8,0, a receita anualizada chega a R$ 50 milhões no mês 58, usando 0,7% do mercado, e o capital necessário é de R$ 4,9 milhões, com equilíbrio no mês 31.</li>
+<li><b>O Modelo B depende de quatro apostas que ainda não foram testadas:</b> churn de até cerca de 4% ao mês, o médico aceitar cerca de R$ 1.800 por mês, cada especialista dar conta de 40 a 70 contas, e conseguirmos medir as consultas geradas. Se as quatro falharem juntas, o modelo quebra: LTV/CAC de 1,2 e R$ 36 milhões de capital necessário.</li>
+<li><b>Recomendação de direção, ainda sem o veredito:</b> seguir com o Modelo B como hipótese principal e testar as quatro apostas com um piloto pago de 60 a 90 dias com 5 médicos antes de captar. O veredito final (30/out) junta isso com as entrevistas.</li>
+</ol>
+
+<h2>1. Por que mudar o desenho</h2>
+<ul>
+<li><b>Gerar posts com IA virou produto comum:</b> InstaMed, Pulmo e outros cobram de R$ 50 a R$ 200, e vários já anunciam "conforme o CFM". Vender só software coloca a Jalecon nessa briga de preço.</li>
+<li><b>O que o médico paga caro é a execução:</b> R$ 2.500 a R$ 8.000 por mês a agências (mediana de cerca de R$ 3.250), por marca, site, Google, anúncios e alguém responsável pelo resultado.</li>
+<li><b>Quem venceu lá fora vendeu pacientes ou infraestrutura, não conteúdo.</b> A Zocdoc cobra por paciente agendado. A Weave é o telefone do consultório. A PatientPop, que vendia marketing por assinatura, acabou fundida.</li>
+<li><b>Agentes de IA mudam o custo de uma agência.</b> Numa agência tradicional, cada pessoa atende de 10 a 15 contas. Com agentes fazendo a produção e um especialista supervisionando, a meta é de 40 a 70 contas por pessoa. Isso permite entregar o resultado de agência pela metade do preço, com margem bruta perto de 70%.</li>
+</ul>
+
+<h2>2. Os dois modelos lado a lado</h2>
+<table border="1" cellpadding="6">
+<tr><th></th><th>Modelo A: software por assinatura</th><th>Modelo B: agência operada por agentes</th></tr>
+<tr><td>Quem faz o trabalho</td><td>O médico, com ajuda da IA</td><td>A equipe de agentes; o médico só aprova</td></tr>
+<tr><td>Planos</td><td>R$ 297, R$ 697, R$ 1.497 e R$ 3.900 (clínica)</td><td>Presença por R$ 990; Agenda Cheia por R$ 1.790 mais R$ 30 por consulta nova agendada; Clínica por R$ 4.500 mais variável</td></tr>
+<tr><td>Concorre com</td><td>InstaMed, Pulmo, Canva com ChatGPT (R$ 50 a R$ 200)</td><td>Freelancers e agências (R$ 1.500 a R$ 8.000) e Doctoralia (R$ 429 a R$ 877)</td></tr>
+<tr><td>O que segura o cliente</td><td>Pouco: trocar de ferramenta é fácil</td><td>Site e Google gerenciados, atendimento no WhatsApp e consultas medidas</td></tr>
+<tr><td>Margem bruta no ano 5 (base)</td><td>84%</td><td>72%</td></tr>
+<tr><td>LTV/CAC do plano principal (base)</td><td>2,2 (não passa)</td><td>8,0</td></tr>
+<tr><td>Receita anualizada no ano 7 (base)</td><td>R$ 37 milhões</td><td>R$ 99 milhões</td></tr>
+<tr><td>Capital até o equilíbrio (base)</td><td>R$ 9,6 milhões (equilíbrio no mês 53)</td><td>R$ 4,9 milhões (equilíbrio no mês 31)</td></tr>
+<tr><td>Receita por pessoa no ano 5</td><td>R$ 334 mil</td><td>R$ 440 mil</td></tr>
+</table>
+
+<h2>3. Estratégia recomendada (Modelo B)</h2>
+<h3>Proposta de valor</h3>
+<p><b>"Sua equipe de marketing completa, operada por IA e supervisionada por um especialista. Nada vai ao ar sem passar nas regras do CFM, e parte do preço só é cobrada quando um paciente novo agenda."</b></p>
+<p><b>A conta que o médico faz:</b> com consulta particular de R$ 500 (premissa a confirmar nas entrevistas), o plano Agenda Cheia se paga com cerca de 4 consultas novas por mês. A meta do cenário base é 10, o que dá cerca de R$ 5.000 em primeiras consultas para R$ 2.090 pagos, sem contar retornos e procedimentos.</p>
+
+<h3>Quem atender primeiro</h3>
+<ul>
+<li><b>Perfil:</b> especialistas com consultório em São Paulo e boa parte de pacientes particulares, em especialidades com consulta de valor alto e decisão do paciente pela internet. Os candidatos são ortopedia, dermatologia, psiquiatria, ginecologia e cirurgia (de hérnia, de vesícula).</li>
+<li><b>Ainda não:</b> recém-formados e quem vive de convênio. O plano de R$ 297 do v0 sai: com mídia paga, ele perde dinheiro (LTV/CAC de 0,7).</li>
+</ul>
+
+<h3>Como chegar ao médico (do canal mais barato ao mais caro)</h3>
+<ol>
+<li><b>Check-up gratuito de conformidade:</b> o médico cola a bio ou um post e o Guardião mostra o que fere as regras. É a porta de entrada, já funciona na demo e conversa com o medo criado pela fiscalização do CFM por IA (junho de 2026).</li>
+<li><b>Parcerias:</b> contadores de médicos, coworkings de consultório, sociedades de especialidade, residências e o clube de benefícios da iClinic.</li>
+<li><b>Indicação entre médicos:</b> um mês grátis para quem indica.</li>
+<li><b>Mídia paga:</b> só depois de medir conversão nos canais acima.</li>
+</ol>
+
+<h3>Como se diferenciar da Doctoralia</h3>
+<p><b>"A marca é sua, o site é seu, o paciente é seu."</b> A Doctoralia vende visibilidade dentro do portal dela e é criticada por fidelidade de 12 meses e falta de resultado (só 58% voltariam a fazer negócio). A Jalecon constrói os ativos do próprio médico (domínio, site, perfil no Google) e mostra as consultas geradas todo mês. O contrato é mensal; o plano anual tem desconto.</p>
+
+<h3>O que fica difícil de copiar com o tempo</h3>
+<ul>
+<li><b>Dados de conversão por especialidade e cidade:</b> qual conteúdo e qual anúncio viram consulta.</li>
+<li><b>Base normativa curada:</b> 39 regras hoje, com histórico de cada peça aprovada, o que serve de defesa do médico se o CRM questionar.</li>
+<li><b>Operação de agentes com custo baixo por conta:</b> é a eficiência que nenhuma agência tradicional alcança.</li>
+<li><b>Presença na rotina do consultório:</b> WhatsApp e agenda.</li>
+</ul>
+<p><b>Avaliação honesta:</b> esse fosso é moderado. A Doctoralia ou uma agência grande com IA poderiam copiar em 12 a 18 meses. A vantagem precisa vir da velocidade e dos dados.</p>
+
+<h3>Como a operação funciona</h3>
+<ul>
+<li><b>Seis agentes:</b> estrategista, redator, designer, Guardião, gestor de tráfego e analista. O especialista humano revisa amostras, cuida das exceções e conversa com o médico uma vez por mês.</li>
+<li><b>Etapas de aprovação:</b> nada é publicado nem gasta verba de anúncio sem aprovação do médico, e cada aprovação fica registrada.</li>
+<li><b>Médico revisor:</b> confere por amostragem a precisão científica dos conteúdos, por especialidade.</li>
+<li><b>Medição de resultado:</b> link de WhatsApp com rastreio e integração com a agenda. É o que sustenta a cobrança por consulta, e precisa ser transparente para o médico confiar.</li>
+</ul>
+
+<h2>4. Financeiro v2: os números</h2>
+<h3>Cenários (cada premissa tem fonte na aba Premissas)</h3>
+<table border="1" cellpadding="6">
+<tr><th>Indicador</th><th>A conservador</th><th>A base</th><th>A otimista</th><th>B conservador</th><th>B base</th><th>B otimista</th></tr>
+<tr><td>Receita anualizada no ano 5</td><td>R$ 9,4 mi</td><td>R$ 20,9 mi</td><td>R$ 50,9 mi</td><td>R$ 22,3 mi</td><td>R$ 52,9 mi</td><td>R$ 120,3 mi</td></tr>
+<tr><td>Receita anualizada no ano 7</td><td>R$ 16,3 mi</td><td>R$ 37,0 mi</td><td>R$ 97,8 mi</td><td>R$ 40,3 mi</td><td>R$ 99,4 mi</td><td>R$ 248,8 mi</td></tr>
+<tr><td>Mês do equilíbrio</td><td>não chega</td><td>53</td><td>28</td><td>80</td><td>31</td><td>26</td></tr>
+<tr><td>Capital necessário</td><td>R$ 37,2 mi</td><td>R$ 9,6 mi</td><td>R$ 3,8 mi</td><td>R$ 22,2 mi</td><td>R$ 4,9 mi</td><td>R$ 2,0 mi</td></tr>
+<tr><td>Margem bruta no ano 5</td><td>78%</td><td>84%</td><td>87%</td><td>61%</td><td>72%</td><td>81%</td></tr>
+<tr><td>LTV/CAC do plano principal</td><td>1,3</td><td>2,2</td><td>4,7</td><td>3,5</td><td>8,0</td><td>19,6</td></tr>
+<tr><td>Clientes no ano 5</td><td>949</td><td>2.126</td><td>4.564</td><td>1.141</td><td>2.591</td><td>5.094</td></tr>
+</table>
+<p>Base de comparação: o v0 projetava R$ 72 milhões de receita anualizada e 6.465 clientes no ano 5, com equilíbrio no mês 30. Com premissas de mercado, o mesmo desenho (Modelo A) chega a R$ 21 milhões e 2.126 clientes.</p>
+
+<h3>Testes de estresse do Modelo B (uma aposta falhando por vez)</h3>
+<table border="1" cellpadding="6">
+<tr><th>Se...</th><th>Receita anualizada no ano 7</th><th>Capital necessário</th><th>LTV/CAC</th><th>Margem bruta</th></tr>
+<tr><td>Nada falhar (base)</td><td>R$ 99 mi</td><td>R$ 4,9 mi</td><td>8,0</td><td>72%</td></tr>
+<tr><td>O churn for igual ao do software (5,5% ao mês)</td><td>R$ 69 mi</td><td>R$ 5,5 mi</td><td>4,4</td><td>73%</td></tr>
+<tr><td>Cada especialista der conta só de metade das contas</td><td>R$ 99 mi</td><td>R$ 6,1 mi</td><td>6,5</td><td>58% (abaixo do corte de 70%)</td></tr>
+<tr><td>Não der para cobrar por consulta</td><td>R$ 89 mi</td><td>R$ 5,6 mi</td><td>6,5</td><td>69% (no limite)</td></tr>
+<tr><td>O preço precisar ser 30% menor</td><td>R$ 73 mi</td><td>R$ 7,9 mi</td><td>5,2</td><td>63% (abaixo do corte)</td></tr>
+<tr><td>Tudo isso junto</td><td>R$ 43 mi</td><td>R$ 36,1 mi</td><td>1,2</td><td>35%</td></tr>
+<tr><td>Sem expansão para dentistas</td><td>R$ 59 mi</td><td>R$ 5,8 mi</td><td>8,0</td><td>72%</td></tr>
+</table>
+<p><b>Leitura:</b> uma aposta falhando sozinha não derruba o Modelo B, mas várias juntas derrubam. A margem bruta é o ponto mais frágil. Ela depende de quantas contas cada especialista consegue supervisionar, e isso só se mede operando.</p>
+
+<h3>Capital</h3>
+<p>No cenário base, o Modelo B queima cerca de R$ 1,8 milhão no primeiro ano e chega ao pior caixa, de R$ 4,9 milhões, no ano 3. Recomendamos captar por etapas:</p>
+<ul>
+<li><b>Pré-seed de cerca de R$ 2,5 milhões:</b> cobre produto, piloto e os primeiros 15 meses.</li>
+<li><b>Seed:</b> só depois de provar churn, consultas atribuídas e contas por especialista com clientes pagantes.</li>
+</ul>
+<p>No cenário conservador, o capital necessário sobe para R$ 22 milhões. Nesse caso, a recomendação seria não escalar.</p>
+
+<h2>5. Critérios de corte: leitura preliminar</h2>
+<table border="1" cellpadding="6">
+<tr><th>Critério</th><th>Modelo A</th><th>Modelo B</th></tr>
+<tr><td>H6 margem bruta de 70% ou mais</td><td>Passa nos três cenários</td><td>Passa no base e no otimista; falha no conservador (61%)</td></tr>
+<tr><td>H6 LTV/CAC de 3 ou mais</td><td>Só passa no otimista</td><td>Passa nos três (3,5 no conservador)</td></tr>
+<tr><td>H6 recuperação do CAC em até 12 meses</td><td>Passa nos três</td><td>Passa nos três</td></tr>
+<tr><td>H7 R$ 50 milhões em até 7 anos, com no máximo 3% do mercado</td><td>Só passa no otimista</td><td>Passa no base (mês 58, 0,7% do mercado) e no otimista; falha no conservador</td></tr>
+</table>
+<p>H1 a H3 (dor, disposição a pagar e conformidade como motivo de compra) dependem das entrevistas, que agora testam também a segunda oferta (R$ 1.790 mais R$ 30 por consulta).</p>
+
+<h2>6. O teste mais barato antes de captar: piloto de 60 a 90 dias</h2>
+<ul>
+<li><b>Quem:</b> 5 médicos pagantes (ainda que com desconto, por exemplo R$ 990 por mês), entre os entrevistados que disserem "sim" ou "talvez".</li>
+<li><b>Como:</b> o grupo opera manualmente o que os agentes fariam, com ajuda de IA (modelo concierge), e registra as horas gastas por conta.</li>
+<li><b>O que medir:</b>
+<ul>
+<li>consultas novas atribuídas por médico por mês (meta: 6 ou mais);</li>
+<li>horas humanas por conta por mês (meta: 4 horas ou menos, o que equivale a cerca de 40 contas por pessoa);</li>
+<li>renovação no fim do piloto (meta: 4 de 5);</li>
+<li>quantas peças o Guardião precisou corrigir.</li>
+</ul></li>
+<li><b>Se as metas não forem atingidas:</b> o Modelo B volta às premissas do conservador, e a resposta tende a ser "negócio viável sem capital de risco" ou "não investir".</li>
+</ul>
+
+<h2>7. Próximos passos até 30/out</h2>
+<ol>
+<li>Entrevistas com as duas ofertas (de 21 a 28/out).</li>
+<li>Contraprova: uma revisão crítica independente tenta derrubar a tese do Modelo B (29/out).</li>
+<li>Memorando de investimento com o veredito e deck v1 coerente com ele (30/out).</li>
+</ol>
+</body></html>
