@@ -1,0 +1,370 @@
+<html><head><meta charset="utf-8"></head><body>
+<h1>Jalecon, Modelo B: contraprova (frente F7)</h1>
+<p>Revisor independente, no papel de membro cético de comitê de investimento. Data: 20/10/2026.</p>
+<p><b>Nota da equipe:</b> esta contraprova avalia o modelo v2. As correções aceitas entraram no modelo v2.1 (planilha "04 · Modelo financeiro v2.1"), e o veredito da equipe está no memorando 08.</p>
+<p><b>O que li:</b> plano v1 (H1 a H8 e critérios de corte), relatório 03 (mercado e concorrência), documento 05 (estratégia e financeiro v2), PRD do Modelo B, pesquisa/concorrencia.md, benchmarks.md e regulatorio.md, e o código do modelo (build_model_v2.py, sensibilidade_v2.py, resultados_sensibilidade.json).</p>
+<p><b>O que rodei:</b> reescrevi o modelo em Python (pymodel.py) e comparei a réplica com o xlsx recalculado no LibreOffice. Ela bate no centavo nos três cenários da equipe e também no meu conjunto cético de premissas (rodado nos dois motores). As correções de mecânica foram aplicadas só na réplica, porque o build_model_v2.py não as aceita por override. Todos os scripts estão em 10_v1/contraprova/ (pymodel.py, cenarios.py, decomp.py, minimos.py, run.py). Não alterei nada no repositório da equipe.</p>
+<p><b>Limite das buscas:</b> fiz 11 buscas na web. O WebFetch não funciona neste ambiente, então os trechos jurídicos vêm de resumos de busca, com o link de origem. Os textos oficiais precisam ser conferidos à mão.</p>
+<h2>Veredito do revisor</h2>
+<p><b>Eu não investiria no Modelo B como está.</b> Na minha leitura, o Modelo B não passa nos critérios. Ele parece passar porque os critérios foram reinterpretados sem que ninguém dissesse isso, e porque as quatro premissas que decidem tudo são suposições sem dado: churn de 3%, capacidade de 40 a 70 contas por pessoa, CAC de R$ 5.500 e 10 consultas atribuídas por mês.</p>
+<p>O motivo mais forte para não investir é a <b>margem bruta</b>. O critério H6 (margem de 70% ou mais) só passa se cada especialista humano atender quase tantas contas quanto um produto de software atende sem humano. O cenário base da equipe fica 2,4 pontos acima do corte (72,4%). Qualquer um dos custos abaixo, sozinho, derruba a margem para baixo de 70%:</p>
+<ul>
+<li>custo de implantação (R$ 600 ou mais por cliente novo);</li>
+<li>especialista custando R$ 12 mil em vez de R$ 10 mil;</li>
+<li>capacidade do cenário conservador da própria equipe;</li>
+<li>perder a cobrança por consulta.</li>
+</ul>
+<p>E um piloto que atinja <b>exatamente</b> as metas que a equipe propôs (4 horas por conta, ou seja, 40 contas por pessoa, e 6 consultas por mês) entrega margem de 64%, abaixo do corte.</p>
+<p>Há também um risco ético-regulatório que a pesquisa da equipe não examinou: cobrar do médico <b>por paciente novo agendado</b> cai na letra do art. 59 do Código de Ética Médica ("oferecer ou aceitar remuneração ou vantagens por paciente encaminhado ou recebido"). Esse risco ameaça justamente a parte do modelo que deveria imitar a Zocdoc.</p>
+<p>Com as premissas pré-registradas no plano v1 (churn de referência de SaaS para pequenas empresas, e CAC calculado pelo mesmo método usado no Modelo A), o Modelo B dá:</p>
+<table border="1" cellpadding="6">
+<tr><th>Indicador</th><th>Modelo B pela regra pré-registrada</th><th>Critério</th></tr>
+<tr><td>LTV/CAC</td><td>2,0</td><td>3 ou mais</td></tr>
+<tr><td>Margem bruta no ano 5</td><td>68%</td><td>70% ou mais</td></tr>
+<tr><td>Receita anualizada no ano 7</td><td>R$ 49 milhões</td><td>R$ 50 milhões ou mais</td></tr>
+</table>
+<p>Ou seja, <b>falha em H6 e em H7</b>, como o Modelo A. O enquadramento honesto hoje é <b>"negócio de serviço com tecnologia, possivelmente viável sem capital de risco, a provar"</b>, e não "investir".</p>
+<h2>1. Os números em uma tabela</h2>
+<p>Valores em reais nominais, com o seletor de cenário da planilha. "Base corrigido" é o base da própria equipe com os erros de mecânica da seção 3 consertados. O asterisco (*) indica que o modelo não chega ao equilíbrio em 84 meses; nesse caso, o capital é a queima acumulada em 7 anos, e não um teto.</p>
+<table border="1" cellpadding="6">
+<tr><th>Cenário</th><th>Modelo</th><th>ARR ano 5 (R$ mi)</th><th>ARR ano 7 (R$ mi)</th><th>ARR ano 7 só com mensalidades</th><th>Capital necessário (R$ mi)</th><th>Mês de equilíbrio</th><th>Margem bruta ano 5</th><th>LTV/CAC do plano principal</th><th>Recuperação do CAC (meses)</th><th>Mês em que o ARR chega a R$ 50 mi</th><th>CAC usado (R$)</th></tr>
+<tr><td>Base da equipe</td><td>A</td><td>20,9</td><td>37,0</td><td>37,0</td><td>9,6</td><td>53</td><td>84%</td><td>2,2</td><td>8,2</td><td>não chega</td><td>4.500</td></tr>
+<tr><td>Base da equipe</td><td>B</td><td>52,9</td><td>99,4</td><td>88,6</td><td>4,9</td><td>31</td><td>72%</td><td>8,0</td><td>4,1</td><td>58</td><td>5.500</td></tr>
+<tr><td>Base corrigido (só mecânica)</td><td>A</td><td>20,9</td><td>37,0</td><td>37,0</td><td>14,2</td><td>65</td><td>82%</td><td>2,1</td><td>8,8</td><td>não chega</td><td>4.500</td></tr>
+<tr><td>Base corrigido (só mecânica)</td><td>B</td><td>52,9</td><td>99,4</td><td>88,6</td><td>6,2</td><td>39</td><td><b>69%</b></td><td>7,5</td><td>4,5</td><td>58</td><td>5.500</td></tr>
+<tr><td>Regra pré-registrada do plano v1</td><td>A</td><td>19,9</td><td>35,2</td><td>35,2</td><td>15,6</td><td>67</td><td>82%</td><td>2,0</td><td>9,6</td><td>não chega</td><td>4.900</td></tr>
+<tr><td>Regra pré-registrada do plano v1</td><td>B</td><td>28,9</td><td><b>49,3</b></td><td>44,0</td><td>12,8</td><td>63</td><td><b>68%</b></td><td><b>2,0</b></td><td>9,5</td><td><b>não chega</b></td><td>11.600</td></tr>
+<tr><td>Cético moderado</td><td>A</td><td>12,8</td><td>22,4</td><td>22,4</td><td>32,4*</td><td>não chega</td><td>78%</td><td>1,5</td><td>11,8</td><td>não chega</td><td>5.500</td></tr>
+<tr><td>Cético moderado</td><td>B</td><td>27,1</td><td>48,7</td><td>44,9</td><td>24,9</td><td>83</td><td>52%</td><td>2,8</td><td>9,2</td><td>não chega</td><td>7.500</td></tr>
+<tr><td><b>Cético</b></td><td>A</td><td><b>9,0</b></td><td><b>15,8</b></td><td>15,8</td><td><b>48,7</b>*</td><td><b>não chega</b></td><td><b>70%</b></td><td><b>1,1</b></td><td>14,8</td><td>não chega</td><td>6.000</td></tr>
+<tr><td><b>Cético</b></td><td>B</td><td><b>16,9</b></td><td><b>29,9</b></td><td>27,9</td><td><b>60,5</b>*</td><td><b>não chega</b></td><td><b>30%</b></td><td><b>1,1</b></td><td>19,4</td><td>não chega</td><td>9.000</td></tr>
+<tr><td>Cético, sem cobrança por consulta</td><td>B</td><td>15,8</td><td>27,9</td><td>27,9</td><td>64,0*</td><td>não chega</td><td>26%</td><td>0,9</td><td>25,5</td><td>não chega</td><td>9.000</td></tr>
+<tr><td>Cético, sem dentistas</td><td>B</td><td>12,6</td><td>21,6</td><td>20,1</td><td>57,1*</td><td>não chega</td><td>31%</td><td>1,1</td><td>19,4</td><td>não chega</td><td>9.000</td></tr>
+</table>
+<p>Leitura: o Modelo B só é melhor que o A enquanto as premissas que ninguém mediu forem favoráveis. Com a regra pré-registrada, os dois falham. No cenário cético, os dois são inviáveis, e o B queima mais caixa, porque o custo humano dele cresce junto com a base de clientes.</p>
+<h2>2. Problemas, em ordem de gravidade</h2>
+<h3>P1. A margem bruta de 70% só passa com capacidade humana de software · <b>FATAL para o veredito "investir"</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li><b>Ninguém confere tudo.</b> A Agenda Cheia na base tem 40 contas por pessoa; a Presença, 70. O piloto proposto mira 4 horas por conta, ou seja, cerca de 40 contas com 100% da jornada de 160 horas dedicada às contas, sem férias, reuniões ou gestão. O PRD diz que o especialista "revisa tudo" na implantação, faz uma conversa mensal com cada médico, revisa amostras de 10% a 20% das peças, acompanha os anúncios toda semana e audita o WhatsApp.</li>
+<li><b>Referências de agência.</b> Blogs do setor falam em 5 a 8 contas por gerente de conta e em 20 a 30 nas agências de pacote em volume, e isso com produção (design, texto, tráfego) feita por outras pessoas. Ver <a href="https://izidigitalmarketing.com/blog/agency-account-manager/">IZI Digital</a> e <a href="https://pushleads.com/agency-growth-blueprint/marketing-agency-growth-benchmarks/">PushLeads</a>. A comparação da equipe, "agência tradicional atende 10 a 15 contas por pessoa", compara a carteira de um gerente de conta com toda a equipe humana de entrega do Modelo B.</li>
+<li><b>Salário.</b> Um gestor de tráfego pleno ganha de R$ 5 mil a R$ 8 mil (fonte fraca: <a href="https://monitordomercado.com.br/noticias/326278-o-mercado-de-trafego-pago-vive-escassez-de-profissionais-qualificados-e-salarios-sobem-rapido/">Monitor do Mercado</a>; <a href="https://www.salario.com.br/profissao/gerente-de-trafego-cbo-141605">CAGED via Salário.com.br</a>). Com encargos de CLT, o custo fica entre R$ 9 mil e R$ 14 mil. O modelo usa R$ 10 mil e não tem coordenação nem utilização abaixo de 100%.</li>
+<li><b>Margens de produtos de IA.</b> Pesquisas de mercado apontam margens de 45% a 60% para produtos de IA. Empresas com margem abaixo de 70% são avaliadas como serviço (<a href="https://livmo.com/blog/software-enabled-services-valuation-the-saas-margin-gap">Livmo</a>, <a href="https://www.cloudzero.com/blog/ai-gross-margin/">CloudZero</a>). As fontes são blogs e pesquisas, não balanços auditados.</li>
+</ul>
+<p><b>Impacto nos números</b></p>
+<ul>
+<li><b>Base da equipe:</b> 72,4%. Cada item abaixo, sozinho, leva a margem para:</li>
+</ul>
+<table border="1" cellpadding="6">
+<tr><th>Mudança isolada</th><th>Margem no ano 5</th></tr>
+<tr><td>Implantação de R$ 600 por cliente novo</td><td>69,6%</td></tr>
+<tr><td>Implantação de R$ 800 por cliente novo</td><td>68,6%</td></tr>
+<tr><td>Especialista a R$ 12 mil</td><td>69,4%</td></tr>
+<tr><td>Especialista a R$ 13,5 mil</td><td>67,1%</td></tr>
+<tr><td>Capacidade do cenário conservador da equipe (55, 30 e 12 contas)</td><td>67,9%</td></tr>
+<tr><td>Sem cobrança por consulta</td><td>69,2%</td></tr>
+<tr><td>Sem taxa de implantação</td><td>70,9%</td></tr>
+</table>
+<ul>
+<li><b>O teste de estresse da própria equipe já mostra isso.</b> Três dos cinco testes de uma aposta só ficam abaixo do corte: metade das contas (58%), sem consulta (69%) e preço 30% menor (63%). Mesmo assim, o documento 05 conclui que "uma aposta falhando sozinha não derruba o Modelo B". Pelo critério H6, derruba.</li>
+<li><b>Piloto com as metas exatas</b> (40 contas em todos os planos e 6 consultas), com o resto do base corrigido: <b>margem de 63,7%</b>.</li>
+<li><b>Para chegar a 70%</b> com o base corrigido, são necessárias <b>44 contas ou mais por especialista na Agenda Cheia</b> (e cerca de 77 na Presença), ou preço de R$ 1.881 ou mais.</li>
+<li><b>Com o cético moderado</b>, mesmo devolvendo preço, salário e consultas da equipe, a margem é de 60%, e passar exigiria <b>59 contas ou mais na Agenda Cheia</b> (cerca de 108 na Presença).</li>
+</ul>
+<p><b>O que resolveria</b></p>
+<ul>
+<li>Medir horas por conta com clientes pagantes <b>por 6 meses ou mais</b>, incluindo implantação e retrabalho.</li>
+<li>Fixar a meta do piloto pelo valor que passa no critério: até cerca de 2,5 horas por conta da Agenda Cheia, já com a implantação.</li>
+<li>Ou aceitar margem de serviço (de 50% a 60%) e assumir que o negócio é de outro tipo (ver P8).</li>
+</ul>
+<h3>P2. Cobrar por consulta atribuída pode ser infração ética para o médico · <b>GRAVE, potencialmente FATAL para o componente "por resultado"</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li><b>A letra do código.</b> O CEM (Res. CFM 2.217/2018), Capítulo VIII (Remuneração profissional), art. 59, veda ao médico "oferecer ou aceitar remuneração ou vantagens por paciente encaminhado ou recebido, bem como por atendimentos não prestados" (<a href="https://transparencia.cfm.org.br/codigo-de-etica-medica/">texto via CFM</a>, <a href="https://portal.cfm.org.br/images/PDF/cem2019.pdf">cem2019.pdf</a>). R$ 30 por "primeira consulta de paciente novo" é, literalmente, remuneração oferecida pelo médico por paciente recebido.</li>
+<li><b>Parecer CRM-MG nº 139/2016.</b> Empresas que retêm percentual do valor da consulta ou recebem comissão por indicar paciente praticam "intermediação de serviço médico com fins lucrativos", em desacordo com as resoluções do CFM e com o art. 63 do CEM (<a href="https://sistemas.cfm.org.br/normas/arquivos/pareceres/MG/2016/139_2016.pdf">PDF</a>).</li>
+<li><b>Resolução CFM 2.460/2026</b>, em vigor desde 15/06/2026. Proíbe comissões, cashback e vantagens ligadas à contratação de médicos e à indicação de serviços assistenciais, e alcança expressamente "empresas intermediadoras, plataformas digitais" (<a href="https://portal.cfm.org.br/noticias/cfm-proibe-cashback-e-vantagens-economicas-vinculadas-a-contratacao-de-medicos/">CFM</a>, <a href="https://conjur.com.br/2026-ago-03/o-que-a-nova-resolucao-do-conselho-federal-de-medicina-proibe-para-medicos/">Conjur</a>, <a href="https://www.vgvadvogados.com.br/resolucao-cfm-cashback-medicos">VGV</a>). O foco dela são plantões e encaminhamentos, não marketing. Ainda assim, ela mostra para onde o CFM está indo no tema "dinheiro atrelado a paciente".</li>
+<li><b>Lacuna nas buscas.</b> <b>Não encontrei parecer específico</b> sobre agência cobrando por paciente captado, nem a favor nem contra. Também cabem ser lidos: art. 58 (exercício mercantilista), art. 69 (vantagem por encaminhamento) e art. 72 (vínculo com cartões de desconto e consórcios). A redação desses três artigos vem da minha memória e não foi conferida nesta sessão.</li>
+<li><b>O próprio análogo da equipe mostra o custo.</b> A Zocdoc precisou de <b>parecer favorável do OIG</b> (2019) sobre a lei antipropina dos EUA, de acordo com autoridades de Nova York sobre divisão de honorários, e de anos de litígio <i>qui tam</i> até a vitória no 2º Circuito, em 2025 (<a href="https://rivkinradler.com/rivkin-rounds/zocdoc-fees-get-anti-kickback-approval">Rivkin Radler</a>, <a href="https://www.venable.com/insights/publications/2025/05/defense-friendly-anti-kickback-statute-and-false">Venable</a>).</li>
+<li><b>O que a equipe pesquisou.</b> O regulatorio.md cobre só publicidade (Res. 2.336/2023, CEM arts. 111 a 117 e 75). O Capítulo VIII, sobre remuneração, ficou de fora. A Doctoralia, que tem advogados, cobra mensalidade, e não por agendamento, no Brasil.</li>
+</ul>
+<p><b>Impacto nos números</b></p>
+<ul>
+<li>Sem a cobrança variável, o base da equipe cai para margem de 69% (abaixo do corte), LTV/CAC de 6,5 e ARR de R$ 89 milhões no ano 7.</li>
+<li>O efeito maior está fora da planilha. Se a cobrança for proibida, o argumento de venda "pague por paciente" deixa de existir, e o médico prudente (o que tem medo do CRM, o cliente-alvo de H3) recusa o contrato.</li>
+</ul>
+<p><b>O que resolveria</b></p>
+<ul>
+<li>Consulta formal ao CREMESP e ao CFM, mais parecer de escritório de direito médico, <b>antes</b> do piloto.</li>
+<li>Ter um desenho alternativo pronto, sem dinheiro por paciente: bônus por metas de alcance ou de contatos, ou garantia de devolução da mensalidade. Mesmo esses desenhos precisam passar pelo parecer.</li>
+</ul>
+<h3>P3. Os critérios pré-registrados foram reinterpretados depois que o Modelo A falhou · <b>GRAVE (método)</b></h3>
+<p>O Modelo B foi desenhado <b>depois</b> que se soube quais premissas derrubavam o Modelo A (churn, CAC e margem). Cada premissa nova do B fica logo acima do corte: margem 2,4 pontos acima dos 70%, churn abaixo da referência e CAC baixo. É o "jardim dos caminhos que se bifurcam" que o plano v1 dizia querer evitar. Em quatro pontos, o B "passa" porque o critério mudou de sentido:</p>
+<table border="1" cellpadding="6">
+<tr><th>Critério pré-registrado</th><th>Como o Modelo B foi avaliado</th></tr>
+<tr><td><b>H2:</b> "O médico paga de R$ 300 a R$ 1.500"; passa com mediana do preço "justo" de R$ 500 ou mais</td><td>O plano principal custa R$ 2.090 (R$ 1.790 mais a parte variável), fora da faixa testada. Passar em H2 com mediana de R$ 500 não diz nada sobre R$ 2.090.</td></tr>
+<tr><td><b>H5:</b> espaço "por menos de R$ 1.000 por mês"</td><td>O B saiu desse espaço e foi para a faixa de freelancers e agências de entrada (R$ 1.500 a R$ 4.000). Lá a concorrência é densa: a WE Marketing Médico usava <b>exatamente os mesmos preços, R$ 990, R$ 1.790 e R$ 2.990</b>, e abandonou os planos fixos (concorrencia.md, linha 55). A Agência do Médico já vende "sem fidelidade".</td></tr>
+<tr><td><b>H6:</b> "churn de referência para SaaS de pequenas empresas"</td><td>O B usa churn de agência com contrato (de 2,2% a 3,5%), não a referência pré-registrada (de 4% a 7%).</td></tr>
+<tr><td><b>H4 e H7:</b> mercado de 150 mil médicos</td><td>O denominador continua o mesmo com preço três vezes maior. O próprio relatório 03 estima cerca de 60 mil médicos que pagam por marketing hoje, a qualquer preço. A parcela que paga R$ 2 mil por mês é desconhecida.</td></tr>
+</table>
+<p><b>H1 a H3 não têm dado nenhum.</b> As entrevistas acontecem de 21 a 28/out. A recomendação "seguir com o Modelo B" vem antes de qualquer evidência primária. Todas as premissas críticas do B estão marcadas como "Suposição" na própria planilha.</p>
+<p><b>Impacto:</b> com a regra pré-registrada (churn de 5,5% na Agenda Cheia e CAC equivalente a 9,5 meses de contribuição, o mesmo método do Modelo A), o B dá LTV/CAC de 2,0, margem de 68%, ARR de R$ 49,3 milhões no ano 7 e capital de R$ 12,8 milhões. <b>Falha em H6 e em H7.</b></p>
+<p><b>O que resolveria:</b> registrar critérios novos para o Modelo B <b>antes</b> do piloto e das entrevistas, com faixa de preço, faixa de churn e capacidade, e aplicar a regra do plano v1: o pivô é uma hipótese nova, não um resultado.</p>
+<h3>P4. O Modelo B ganhou retenção de agência sem ter contrato nem atendimento de agência · <b>GRAVE</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>O documento 05 diz que "o contrato é mensal". A fonte do churn no modelo diz "agências <b>com contrato</b> retêm de 1,6% a 2,4%". O benchmarks.md avisa que os números de agência são "um piso otimista".</li>
+<li>Outras referências apontam churn maior:</li>
+<ul>
+<li>churn mensal típico de agências de 2% a 8% (<a href="https://www.vendasta.com/content-library/insights/agency-benchmarks-report/">Vendasta</a>);</li>
+<li>24% das agências dizem que o cliente típico sai em menos de um ano;</li>
+<li>marketing local acima de US$ 100: 50% ao ano, ou 5,6% ao mês;</li>
+<li>a Yelp teve <b>adição líquida zero</b> de anunciantes quando tirou o prazo dos contratos;</li>
+<li>só 58% dos clientes da Doctoralia voltariam a fazer negócio.</li>
+</ul>
+<li><b>Assimetria dentro do próprio modelo:</b></li>
+<ul>
+<li>A <b>Presença</b> (55% dos clientes novos, R$ 990) entrega praticamente o mesmo que o Consultório do Modelo A (site, Google e Instagram), feito pela equipe. Ela tem <b>menos</b> contato humano que o plano Autoridade do Modelo A (1 especialista para 70 contas, contra 1 para 40) e recebe churn de 3,5%, contra 5,5% do Consultório.</li>
+<li>A curva de churn é plana. Não há o pico dos primeiros 90 dias, que é quando a maioria dos clientes de marketing para pequenas empresas cancela (<a href="https://intandem.vcita.com/blog/thought-leadership/how-to-reduce-churn-for-marketing-companies">vcita</a>: 67% dos que cancelam saem em até 6 meses, número de fornecedor).</li>
+</ul>
+</ul>
+<p><b>Impacto:</b> com churn de 5,5% na Presença, o LTV/CAC dela cai de 3,1 para <b>1,9</b>. Com churn de 5,5% em todos os planos do base, o ARR do ano 7 cai para R$ 69 milhões (teste da equipe).</p>
+<p><b>O que resolveria:</b> medir retenção em uma coorte de 6 meses ou mais, sem contrato anual, e decidir antes como o modelo trata quem cancela na implantação.</p>
+<h3>P5. O CAC do Modelo B não usa o método aplicado ao Modelo A · <b>GRAVE</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>No Modelo A, o CAC veio de uma referência: recuperação em 8 a 11 meses de lucro bruto, o que deu de R$ 4.500 a R$ 6.100. No Modelo B, o CAC de R$ 5.500 é uma afirmação ("ticket maior pede venda assistida").</li>
+<li>Em múltiplos da mensalidade, o CAC é de <b>6,5 vezes no A</b> (R$ 4.500 para R$ 697) e de <b>2,6 vezes no B</b> (R$ 5.500 para R$ 2.090).</li>
+<li>A fonte escrita na planilha diz "recuperação do CAC em cerca de 8 meses no cenário base" (linha 207). O modelo calcula <b>4,1 meses</b>. Se fossem de fato 8 meses, o CAC seria de R$ 10,6 mil e o LTV/CAC cairia de 8,0 para 4,2, mesmo com churn de 3%.</li>
+<li>O CAC fica constante enquanto a mídia cresce 17 vezes (de R$ 20 mil para R$ 340 mil por mês), num segmento muito menor que o dos 150 mil médicos.</li>
+</ul>
+<p><b>Impacto:</b> com CAC de R$ 11.600 (9,5 meses de contribuição) e churn de referência, o LTV/CAC é 2,0. Aliás, o "CAC na mídia" efetivo do modelo <b>cai para R$ 3.235</b> depois do mês 25 por causa do erro E1.</p>
+<p><b>O que resolveria:</b> fazer um teste de aquisição pago, com orçamento de R$ 20 mil a R$ 30 mil, antes de qualquer número de CAC entrar no memorando.</p>
+<h3>P6. O piloto, como desenhado, não consegue reprovar a tese · <b>GRAVE (é a porta de decisão)</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>Com 5 médicos, "renovação de 4 em 5 depois de 3 meses" é compatível com churn de <b>7,2% ao mês</b>.</li>
+<li>A chance de passar nesse teste é de 94% com churn real de 3%, de 82% com 5,5% e de 75% com 7%. O teste não distingue o caso base do fracasso.</li>
+<li>As metas do piloto (4 horas por conta e 6 consultas) produzem margem de <b>64%</b>, abaixo do corte, mesmo se forem atingidas.</li>
+</ul>
+<p><b>Impacto:</b> um "sim" do piloto não muda o veredito, embora o documento 05 o trate como o sinal para captar.</p>
+<p><b>O que resolveria:</b></p>
+<ul>
+<li>Metas derivadas dos limiares da seção 4: 2,5 horas por conta ou menos, já com a implantação; churn implícito de 4% ou menos ao mês em 6 meses ou mais; CAC medido.</li>
+<li>Ao menos 15 a 20 contas pagantes.</li>
+<li>Contar como cancelamento também quem sai durante a implantação.</li>
+</ul>
+<h3>P7. A expansão para dentistas carrega 40% do ARR do ano 7 e está superestimada por um erro · <b>GRAVE</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>Sem dentistas, o ARR do ano 7 do Modelo B cai de <b>R$ 99 milhões para R$ 59 milhões</b>, e os R$ 50 milhões chegam no <b>mês 76</b>, não no 58.</li>
+<li>O fator de 1,7 multiplica até os clientes vindos de mídia <b>sem aumentar o gasto com mídia</b> (erro E1).</li>
+<li>Odontologia tem norma própria (CFO 196/2019), concorrente com IA a R$ 49 a R$ 129 (Sorriai) e nenhuma evidência de que o dentista pague R$ 2 mil por mês.</li>
+</ul>
+<p><b>Impacto:</b> ver E1 na seção 3.</p>
+<p><b>O que resolveria:</b> tirar os dentistas do cenário base e tratá-los como opção.</p>
+<h3>P8. "Agência operada por agentes" é negócio de serviço, avaliado como serviço · <b>GRAVE</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>Com margem abaixo de 70%, o mercado avalia a empresa como serviço com software, de 2 a 4 vezes a receita, e não de 4 a 8 vezes o ARR (<a href="https://livmo.com/blog/software-enabled-services-valuation-the-saas-margin-gap">Livmo</a>).</li>
+<li>Os análogos do próprio material:</li>
+<ul>
+<li>PatientPop: captou mais de US$ 125 milhões e acabou fundida;</li>
+<li>Scorpion: virou ativo de private equity;</li>
+<li>iClinic: vendida por R$ 182,7 milhões.</li>
+</ul>
+<li><b>O custo humano escala com a receita.</b> No ano 7 do base, são 105 especialistas. No cético, o B queima mais caixa que o A justamente por isso.</li>
+</ul>
+<p><b>Impacto:</b> mesmo o caso base corrigido (R$ 99 milhões no ano 7, margem de 69%) vale algo como R$ 200 a 400 milhões. Depois da diluição de seed e Série A, isso é um retorno modesto para um fundo. O cético não chega lá.</p>
+<p><b>O que resolveria:</b> se o piloto confirmar margem de serviço, a resposta certa pelo plano v1 é "negócio viável sem capital de risco", com crescimento financiado pela própria receita.</p>
+<h3>P9. Disposição a pagar R$ 2 mil por uma "agência sem pessoas" · <b>GRAVE</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>O relatório 03 diz: "o médico que já tem agência raramente troca relacionamento humano por software".</li>
+<li><b>O custo total do médico</b> é R$ 1.790 mais R$ 300 de consultas mais a verba de anúncio, que agências recomendam a partir de R$ 1.000 a R$ 3.000 (concorrencia.md, seção 4d). Isso dá <b>R$ 3.000 a R$ 5.000 por mês</b>, perto da mediana de agência humana (R$ 3.250 mais mídia).</li>
+<li>A conta do documento 05 ("R$ 5.000 em primeiras consultas para R$ 2.090 pagos") omite a verba de anúncio.</li>
+<li>"Metade do preço de agência" não confere: R$ 2.090 são 64% da mediana, e essa mediana vem de blogs de agência (concorrencia.md, linha 180: "provavelmente estão infladas").</li>
+</ul>
+<p><b>O que resolveria:</b> fazer as entrevistas com o preço total (mensalidade, variável e mídia), e testar a pré-venda com pagamento, não apenas a intenção declarada.</p>
+<h3>P10. Atribuição de consultas: incentivo torto e disputa a cada fatura · <b>MODERADO a GRAVE</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>A definição contratual atribui à Jalecon qualquer primeira consulta agendada até 30 dias depois de contato por <b>Perfil da Empresa no Google ou Instagram</b>. São canais que o médico já tinha, e por onde chegam pacientes indicados que pesquisam o nome dele.</li>
+<li>A secretária, que registra o "como nos conheceu?", é funcionária do médico, e o analista que calcula as consultas é um agente da própria Jalecon.</li>
+<li>A queixa nº 1 contra a Doctoralia é "não gera pacientes".</li>
+</ul>
+<p><b>Impacto:</b> a premissa de 10 consultas por mês desde o primeiro mês de cada cliente não tem base. Cada contestação reduz a receita variável e aumenta o churn. Com 5 consultas, a receita variável cai pela metade.</p>
+<p><b>O que resolveria:</b> medir só o incremental (links e números exclusivos de anúncios e do site novo, com grupo de controle) e excluir buscas pelo nome do médico.</p>
+<h3>P11. Políticas de anúncio em saúde reduzem as consultas por real investido · <b>MODERADO</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li><b>Google:</b> saúde é categoria sensível, sem remarketing nem público próprio (regulatorio.md, 4.5).</li>
+<li><b>Meta:</b> sem segmentação por condição de saúde e, desde 2025, com restrição a eventos de conversão de fundo de funil para marcas de saúde e bem-estar. O alcance por país não foi confirmado (<a href="https://www.haus.io/blog/meta-announces-new-health-wellness-conversion-restrictions">Haus</a>, <a href="https://getangler.ai/blog/what-metas-2025-data-restrictions-mean-for-health-and-wellness-brands">Angler</a>).</li>
+<li><b>CFM:</b> a Res. 2.336/2023 corta justamente os textos que mais convertem (promessa de resultado e urgência).</li>
+<li><b>Cronograma:</b> o PRD põe anúncios e WhatsApp na fase 2 (meses 5 a 8 depois do pré-seed), mas o modelo vende a Agenda Cheia com receita variável desde o mês 4.</li>
+</ul>
+<p><b>O que resolveria:</b> medir o custo por consulta real por especialidade no piloto, e adiar a Agenda Cheia no modelo.</p>
+<h3>P12. Resposta da Doctoralia e da Afya · <b>MODERADO a GRAVE</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>A Doctoralia já tem botão de agendamento no Google, site a R$ 99, Feegow, força de vendas própria e o <b>Noa Booking</b>, com plano de estender o agendamento para WhatsApp e SMS (<a href="https://customers.twilio.com/en-us/docplanner0">Twilio</a>).</li>
+<li>A Presença (55% do mix) é exatamente o que a Doctoralia pode empacotar como adicional, com CAC perto de zero.</li>
+<li>O próprio documento 05 admite que o fosso é "moderado" e pode ser copiado em 12 a 18 meses.</li>
+</ul>
+<p><b>O que resolveria:</b> definir a vantagem por algo medível (custo por consulta ou retenção comprovadamente melhor), não pela marca.</p>
+<h3>P13. LGPD, WhatsApp e IA no atendimento · <b>MODERADO</b></h3>
+<p><b>Evidência</b></p>
+<ul>
+<li>A Jalecon vira operadora de dados sensíveis de saúde de milhares de pacientes, com conversas no WhatsApp.</li>
+<li>Um vazamento é um evento de reputação para todos os clientes ao mesmo tempo.</li>
+<li>A Res. CFM 2.454/2026 exige transparência no uso de IA.</li>
+<li>O WhatsApp Business permite robô de atendimento da própria empresa. Desde 15/01/2026, proíbe apenas assistentes de uso geral (<a href="https://techcrunch.com/2025/10/18/whatssapp-changes-its-terms-to-bar-general-purpose-chatbots-from-its-platform">TechCrunch</a>). Esse risco é menor.</li>
+<li>O modelo não tem DPO, teste de invasão, seguro cibernético nem seguro de responsabilidade profissional.</li>
+</ul>
+<p><b>O que resolveria:</b> parecer jurídico e orçamento de segurança no custo fixo, antes da fase 2.</p>
+<h3>P14. Tributos otimistas e reforma tributária fora do modelo · <b>MODERADO</b></h3>
+<p>Afeta os dois modelos, e mais o B, porque a folha não gera crédito de CBS.</p>
+<p><b>Evidência</b></p>
+<ul>
+<li><b>Simples Nacional:</b></li>
+<ul>
+<li>o regime é vedado a empresa com pessoa jurídica no quadro societário (LC 123/2006, art. 3º, § 4º), o que é incompatível com captar de fundo por participação societária;</li>
+<li>no Anexo III, a alíquota efetiva entre R$ 1,8 milhão e R$ 4,8 milhão fica entre 14% e 19%, não 11%;</li>
+<li>a exclusão do regime segue o ano-calendário, não os 12 meses móveis do modelo.</li>
+</ul>
+<li><b>Lucro presumido de 16,3%:</b> implica ISS de cerca de 2%. Com ISS de 5%, a carga passa de 19%.</li>
+<li><b>Reforma tributária:</b> a CBS de cerca de 8,7% a 9,3% substitui PIS e Cofins (3,65%) a partir de 2027, sem crédito sobre a folha. O IBS substitui o ISS gradualmente entre 2029 e 2033 (<a href="https://www.meucontadoronline.com.br/blog/reforma-tributaria-2027-prestadores-de-servicos/">meucontadoronline</a>, <a href="https://www.reformatributaria.com/setor-de-servicos-optantes-pelo-lucro-presumido-simples-nacional-em-risco-o-tsunami-tributario-que-vem-por-ai-em-2027/">reformatributaria.com</a>). Os 7 anos do modelo caem inteiros na transição.</li>
+</ul>
+<p><b>Impacto:</b> imposto do regime cheio de 19,5% sozinho tira 1,1 ponto da margem do B. No cenário cético usei 15% e 20%, o que ainda é generoso diante da reforma.</p>
+<p><b>O que resolveria:</b> pedir parecer contábil sobre o regime, com cenário de repasse de preço.</p>
+<h3>P15. Custos omitidos · <b>MODERADO</b> (em conjunto, decisivos para H6)</h3>
+<ul>
+<li>Implantação: marca, site e perfil no Google em 10 dias úteis, com o especialista "revisando tudo".</li>
+<li>O "mês grátis" pago a quem indica.</li>
+<li>Inadimplência, que fica em 2% a 5% no Brasil para pequenas empresas. O modelo só tem 3% de taxas de pagamento.</li>
+<li>Médico revisor (prestador PJ) e seguro de responsabilidade.</li>
+<li>Coordenação dos especialistas.</li>
+<li>Reajuste salarial acima do preço: o modelo é nominal e fica plano por 7 anos.</li>
+<li>Descontos do plano anual e do piloto (R$ 990).</li>
+<li>Taxa de implantação cobrada à vista e integralmente, quando o mercado costuma isentar.</li>
+</ul>
+<h3>P16. Canais baratos sem evidência · <b>MODERADO</b></h3>
+<ul>
+<li>Parcerias (de 4 a 50 clientes por mês, multiplicadas por 1,7 com dentistas) e indicação (1% da base por mês) respondem por <b>54% dos clientes novos</b> do Modelo B no ano 5, ao custo de R$ 2.000 ou de zero.</li>
+<li>O volume é o mesmo para um ticket três vezes maior que o do Modelo A.</li>
+<li>Por isso, o CAC médio do Modelo B no ano 5 é de R$ 3.700, abaixo do próprio CAC de mídia.</li>
+</ul>
+<h2>3. Erros de mecânica do modelo e efeito de cada um</h2>
+<p>As linhas citadas são do build_model_v2.py. Os efeitos foram medidos sobre o cenário base, um erro por vez, e somados na linha "base corrigido" da tabela da seção 1.</p>
+<table border="1" cellpadding="6">
+<tr><th>#</th><th>Onde</th><th>Erro</th><th>Efeito numérico</th></tr>
+<tr><td>E1</td><td>Linha 277: n_midia = midia/CAC*exp; linha 341: d_midia = midia</td><td>O fator de expansão para dentistas (1,7) multiplica os clientes vindos de mídia <b>sem gastar mais com mídia</b>. O CAC de mídia efetivo cai de R$ 5.500 para <b>R$ 3.235</b> depois do mês 25 (no A, de R$ 4.500 para R$ 2.647).</td><td>Se a mídia cresce na mesma proporção: B com capital de R$ 4,9 → 5,4 milhões e equilíbrio no mês 31 → 33; A com capital de R$ 9,6 → 13,1 milhões e equilíbrio no mês 53 → 64. Se o orçamento fica fixo: B com ARR do ano 7 de R$ 99,4 → <b>77,4 milhões</b> e R$ 50 milhões no mês 58 → <b>66</b>; A com ARR de R$ 37 → 28 milhões e equilíbrio no mês 74.</td></tr>
+<tr><td>E2</td><td>Linha 383 (aba Unidade)</td><td>A contribuição do LTV usa o imposto do Simples (11%), mas a empresa paga a alíquota cheia (16,3%) a partir do ano 2 ou 3, ou seja, durante quase toda a vida do cliente.</td><td>LTV/CAC do B de 8,04 → 7,64; recuperação do CAC de 4,1 → 4,5 meses. LTV/CAC do A de 2,22 → 2,18.</td></tr>
+<tr><td>E3</td><td>Linha 305 (receita de implantação) e linhas 327 a 331 (custo do serviço)</td><td>A taxa de implantação (R$ 990 a R$ 3.900) é receita no ato, sem nenhum custo de implantação.</td><td>Com R$ 800 de custo humano por cliente novo no B, a margem do ano 5 vai de 72,4% para <b>68,6%</b> e falha em H6. O ponto de corte é cerca de R$ 500 por cliente.</td></tr>
+<tr><td>E4</td><td>Linha 280 (indicação), sem custo nas linhas 337 a 346</td><td>O "um mês grátis para quem indica" (documento 05) não tem custo.</td><td>Pequeno: capital de R$ 4,9 → 5,0 milhões.</td></tr>
+<tr><td>E5</td><td>Linhas 312 e 313</td><td>O ARR (critério H7) inclui a receita variável por consulta, que é 10,8% da receita mensal no mês 60 e depende de uso.</td><td>ARR do ano 7 só com mensalidades: R$ 88,6 milhões, contra 99,4. Os R$ 50 milhões chegam no mês 62, não no 58.</td></tr>
+<tr><td>E6</td><td>Linha 207 (nota da fonte do B_cac)</td><td>A nota diz "recuperação em cerca de 8 meses"; o modelo calcula 4,1.</td><td>Se fossem 8 meses, o CAC seria de R$ 10,6 mil e o LTV/CAC cairia de 8,0 para 4,2.</td></tr>
+<tr><td>E7</td><td>Linha 476 (critério só na Agenda Cheia)</td><td>H6 é medido só no "plano principal", mas a Presença responde por 55% dos clientes novos.</td><td>A Presença tem LTV/CAC de 3,06 e recupera o CAC em 9,3 meses, no limite do corte. Com churn de 5,5%, o LTV/CAC dela cai para 1,9. Ponderado pelo mix, o LTV/CAC é de 6,4, não 8,0.</td></tr>
+<tr><td>E8</td><td>Linha 172 (start=1) e linha 129 (lançamento no mês 4)</td><td>A Agenda Cheia, com anúncios, WhatsApp e cobrança variável, é vendida desde o mês 4. Pelo PRD, ela só fica pronta na fase 2 (meses 5 a 8 depois do pré-seed).</td><td>Antecipa receita e consultas em 4 a 8 meses. Efeito pequeno no valor, mas o modelo vende um produto que ainda não existe.</td></tr>
+<tr><td>E9</td><td>Linhas 130, 131 e 321</td><td>Simples com investidor PJ, alíquota do Anexo III, critério de 12 meses móveis e reforma tributária (ver P14).</td><td>Imposto do regime cheio de 19,5%: margem do B de 72,4% → 71,2%. A reforma pode somar de 5 a 15 pontos de imposto sobre a receita até 2033 se não houver repasse (não modelado).</td></tr>
+<tr><td>E10</td><td>Linha 302 (mercado endereçável)</td><td>O mercado do B é o mesmo do A (150 mil médicos mais 180 mil dentistas) com preço três vezes maior. A participação de 0,7% no mês 58 subestima a penetração no segmento que paga preço de agência.</td><td>Qualitativo: H7 é avaliado contra o denominador errado.</td></tr>
+<tr><td>E11</td><td>Linhas 278 e 342</td><td>Parcerias com o mesmo volume para tickets de R$ 697 e de R$ 2.090, multiplicadas pelo fator dos dentistas, a R$ 2.000 de comissão.</td><td>É 39% dos clientes novos do B no ano 5. Com multiplicador de 0,6 (o conservador da equipe), o capital e o equilíbrio pioram bastante; ver o cenário cético.</td></tr>
+<tr><td>E12</td><td>Linha 296</td><td>Churn constante, sem cancelamento extra na implantação nem nos 90 primeiros dias.</td><td>Infla a vida média e o LTV. Não quantificado.</td></tr>
+<tr><td>E13</td><td>Linha 472</td><td>"Capital necessário" é o pior caixa acumulado, sem reserva nem capital de giro. Quando o modelo não chega ao equilíbrio, o número é apenas a queima até o mês 84.</td><td>O documento 05 apresenta R$ 22 milhões como teto do conservador, mas é só um piso.</td></tr>
+</table>
+<p>Também vale para os dois modelos: preços e salários ficam nominais e planos por 7 anos. A soma de E1 a E5 está na linha "base corrigido": no B, margem de 69% (falha), capital de R$ 6,2 milhões e equilíbrio no mês 39.</p>
+<h2>4. Conjunto cético de premissas e justificativa</h2>
+<p>A base de partida é o cenário conservador da própria equipe, mais as correções E1 a E4, mais os itens abaixo. O "cético moderado" fica a meio caminho (valores entre parênteses).</p>
+<table border="1" cellpadding="6">
+<tr><th>Premissa</th><th>Base da equipe (B)</th><th>Cético (moderado)</th><th>Justificativa</th></tr>
+<tr><td>Churn: Presença, Agenda Cheia e Clínica</td><td>3,5%, 3%, 2,2%</td><td>5,5%, 4,5%, 3% (5%, 4%, 2,5%)</td><td>Contrato mensal. Vendasta: 5,6% acima de US$ 100 e de 2% a 8% em agências. A Presença compete com ferramentas de R$ 100 a R$ 500 e com a Doctoralia, então recebe o mesmo churn do Consultório do Modelo A.</td></tr>
+<tr><td>Contas por especialista: P, G e K</td><td>70, 40, 15</td><td>45, 25, 10 (55, 30, 12)</td><td>Com 120 horas produtivas no mês e 4 a 5 horas por conta da Agenda Cheia (a meta do piloto é 4 horas com 100% de utilização). Agências: 5 a 8 contas por gerente, até 20 a 30 nas de pacote.</td></tr>
+<tr><td>Custo do especialista</td><td>R$ 10 mil</td><td>R$ 13,5 mil (R$ 12 mil)</td><td>Salário pleno de R$ 5 mil a R$ 8 mil com encargos, mais 12% de coordenação.</td></tr>
+<tr><td>Custo direto por conta: P, G e K</td><td>R$ 120, 220, 500</td><td>R$ 185, 315, 700 (R$ 150, 250, 550)</td><td>Valores do conservador da equipe, mais cerca de R$ 30 de médico revisor e de seguro.</td></tr>
+<tr><td>Preço efetivo</td><td>R$ 990, 1.790, 4.500</td><td>10% abaixo (5% abaixo)</td><td>Desconto do plano anual (documento 05) e preço de piloto de R$ 990. 27% das agências já receberam pedido de desconto por causa de IA.</td></tr>
+<tr><td>Consultas atribuídas por mês: Agenda Cheia e Clínica</td><td>10 e 35</td><td>5 e 18 (6 e 25)</td><td>A meta do piloto é 6. Há contestações e restrições de anúncio em saúde.</td></tr>
+<tr><td>Taxa de implantação cobrada</td><td>100%</td><td>50% (75%)</td><td>O mercado isenta a implantação para fechar a venda.</td></tr>
+<tr><td>Custo de implantação</td><td>0</td><td>R$ 800 no B e R$ 150 no A</td><td>10 a 12 horas de especialista mais ferramentas.</td></tr>
+<tr><td>CAC de mídia</td><td>R$ 5.500</td><td>R$ 9.000 (R$ 7.500)</td><td>O mesmo método do Modelo A: 8 a 11 meses de contribuição.</td></tr>
+<tr><td>Indicação e parcerias</td><td>1% e 1,0 vez</td><td>0,5% e 0,6 vez (0,75% e 0,8 vez)</td><td>Valores do conservador da equipe; não há evidência de canal.</td></tr>
+<tr><td>Dentistas</td><td>mês 25, mais 70%</td><td>mês 37, mais 40% (mês 31, mais 50%)</td><td>Conservador da equipe; exige norma própria e tem concorrência pronta.</td></tr>
+<tr><td>Impostos (Simples e regime cheio) e meios de pagamento</td><td>11%, 16,3% e 3%</td><td>15%, 20% e 5% (13%, 18% e 4%)</td><td>Ver P14. O 5% inclui 2% de inadimplência.</td></tr>
+<tr><td>Despesas fixas e salários</td><td>base</td><td>conservador da equipe</td><td></td></tr>
+</table>
+<p>Para o Modelo A usei a lógica equivalente:</p>
+<ul>
+<li>churn de 8%, 6%, 4,5% e 3% nos quatro planos;</li>
+<li>30 e 15 contas por gestor no Autoridade e no Clínica, com gestor a R$ 10,5 mil;</li>
+<li>preços 10% menores e metade da taxa de implantação;</li>
+<li>CAC de R$ 6.000;</li>
+<li>os mesmos impostos e canais.</li>
+</ul>
+<p><b>Resultados do cético:</b></p>
+<table border="1" cellpadding="6">
+<tr><th>Indicador</th><th>Modelo A</th><th>Modelo B</th><th>B sem cobrança por consulta</th></tr>
+<tr><td>ARR no ano 5</td><td>R$ 9,0 milhões</td><td>R$ 16,9 milhões</td><td></td></tr>
+<tr><td>ARR no ano 7</td><td>R$ 15,8 milhões</td><td>R$ 29,9 milhões</td><td>R$ 27,9 milhões</td></tr>
+<tr><td>Equilíbrio</td><td>não chega</td><td>não chega</td><td>não chega</td></tr>
+<tr><td>Queima em 7 anos</td><td>R$ 48,7 milhões</td><td>R$ 60,5 milhões</td><td>R$ 64 milhões</td></tr>
+<tr><td>Margem bruta no ano 5</td><td>70%</td><td>30%</td><td>26%</td></tr>
+<tr><td>LTV/CAC</td><td>1,1</td><td>1,1</td><td>0,9</td></tr>
+<tr><td>Recuperação do CAC</td><td>14,8 meses</td><td>19,4 meses</td><td></td></tr>
+</table>
+<p>No cenário cético, a contribuição mensal do Modelo B por plano fica assim:</p>
+<table border="1" cellpadding="6">
+<tr><th>Plano</th><th>Contribuição por mês</th><th>LTV/CAC</th></tr>
+<tr><td>Presença</td><td>R$ 183</td><td>0,3</td></tr>
+<tr><td>Agenda Cheia</td><td>R$ 465</td><td>1,1</td></tr>
+<tr><td>Clínica</td><td>R$ 1.393</td><td>5,3</td></tr>
+</table>
+<p><b>Só o plano Clínica se paga.</b> Isso sugere que, se houver negócio, ele está em clínicas e não no médico sozinho, que era a saída "pivotar" prevista no plano v1.</p>
+<h2>5. Condições mínimas para o Modelo B passar em cada critério</h2>
+<p>Cada linha muda <b>uma variável por vez</b>. Churn, capacidade e preço da Agenda Cheia carregam os outros planos na mesma proporção. Calculado com minimos.py, por busca binária na réplica do modelo.</p>
+<table border="1" cellpadding="6">
+<tr><th>Critério</th><th>Variável</th><th>Valor atual (base corrigido / moderado / cético)</th><th>Limite com o base corrigido</th><th>Limite com o moderado</th><th>Limite com o cético</th></tr>
+<tr><td>H6: margem bruta de 70% ou mais</td><td>Contas por especialista na Agenda Cheia</td><td>40 / 30 / 25</td><td><b>44 ou mais</b></td><td><b>93 ou mais</b></td><td>não passa nem com 400</td></tr>
+<tr><td></td><td>Preço fixo da Agenda Cheia</td><td>R$ 1.790 / 1.700 / 1.610</td><td>R$ 1.881 ou mais</td><td>R$ 2.793 ou mais</td><td>R$ 3.878 ou mais</td></tr>
+<tr><td>H6: LTV/CAC de 3 ou mais</td><td>Churn da Agenda Cheia</td><td>3% / 4% / 4,5%</td><td>até 7,7%</td><td><b>até 3,7%</b></td><td>até 1,7%</td></tr>
+<tr><td></td><td>CAC</td><td>R$ 5.500 / 7.500 / 9.000</td><td>até R$ 13.750</td><td>até R$ 6.900</td><td>até R$ 3.430</td></tr>
+<tr><td></td><td>Preço da Agenda Cheia</td><td></td><td>R$ 898 ou mais</td><td>R$ 1.788 ou mais</td><td>R$ 2.586 ou mais</td></tr>
+<tr><td></td><td>Contas por especialista</td><td></td><td>10 ou mais</td><td>36 ou mais</td><td>não passa</td></tr>
+<tr><td>H6: recuperação do CAC em até 12 meses</td><td>CAC</td><td></td><td>até R$ 14.600</td><td>até R$ 9.800</td><td>até R$ 5.580</td></tr>
+<tr><td></td><td>Contas por especialista</td><td></td><td>10 ou mais</td><td>20 ou mais</td><td>53 ou mais</td></tr>
+<tr><td>H7: R$ 50 milhões de ARR em até 7 anos, com até 3% do mercado</td><td>Churn da Agenda Cheia</td><td></td><td>até 7,5%</td><td><b>até 3,8%</b></td><td>até 1,6%</td></tr>
+<tr><td></td><td>CAC</td><td></td><td>passa em toda a faixa</td><td>até R$ 7.150</td><td>até R$ 4.050</td></tr>
+<tr><td></td><td>Preço da Agenda Cheia</td><td></td><td>R$ 792 ou mais</td><td>R$ 1.748 ou mais</td><td>R$ 2.770 ou mais</td></tr>
+<tr><td>Equilíbrio até o mês 60 (referência, não é critério)</td><td>Churn / CAC / preço / contas</td><td></td><td>até 7,7% / até R$ 27.300 / R$ 1.224 ou mais / 14 ou mais</td><td>até 1,4% / até R$ 3.900 / R$ 2.125 ou mais / 184 ou mais</td><td>não passa / até R$ 1.070 / R$ 3.380 ou mais / não passa</td></tr>
+</table>
+<p><b>Condição conjunta.</b> Peguei o cético moderado e devolvi o preço da equipe (R$ 990 e R$ 1.790), as 10 consultas e o salário de R$ 10 mil. O resultado:</p>
+<ul>
+<li>margem de 60%, LTV/CAC de 3,5, ARR de R$ 53 milhões no ano 7 (com a parte variável), equilíbrio no mês 66 e capital de R$ 16 milhões;</li>
+<li>para a margem chegar a 70%, faltariam <b>59 contas ou mais por especialista na Agenda Cheia</b>;</li>
+<li>os limites de churn passam a ser de até 4,7% para LTV/CAC de 3 e até 4,4% para H7, e o limite de CAC passa a ser de até R$ 8.500 a R$ 8.800.</li>
+</ul>
+<p><b>Em uma frase:</b> para passar em tudo, o Modelo B precisa ao mesmo tempo de churn de 4% ou menos sem contrato, CAC de R$ 7.000 ou menos, preço de R$ 1.790 aceito, 10 consultas cobráveis (portanto, legais) e <b>mais de 55 contas da Agenda Cheia por especialista</b>. Esta última é a premissa menos plausível, e o piloto proposto não a testa no nível necessário.</p>
+<h2>6. O que a equipe fez bem</h2>
+<ul>
+<li><b>Critérios antes dos dados.</b> Fixou critérios de corte antes de olhar os dados e admitiu por escrito que o "não" é resultado válido. Foi isso que permitiu esta contraprova.</li>
+<li><b>Auditoria do v0.</b> O mercado encolheu de 305 mil para 150 mil médicos, o churn e o CAC do v0 foram corrigidos, a Doctoralia foi incluída e a afirmação de "conformidade verificável" foi derrubada.</li>
+<li><b>Modelo rastreável.</b> Cada premissa tem fonte, a planilha tem fórmulas, há testes de estresse e o teste de "tudo junto" mostra a quebra (R$ 36 milhões de capital) em vez de escondê-la.</li>
+<li><b>Apostas nomeadas.</b> Disse quais são as quatro apostas e propôs um piloto concierge que mede horas por conta. É a ideia certa; falta calibrar as metas.</li>
+<li><b>PRD cuidadoso.</b> Aprovação humana, trilha de auditoria, nada vai ao ar sem o Guardião, separação entre dado clínico e administrativo, contrato de operador LGPD e honestidade sobre o fosso "moderado".</li>
+<li><b>Pesquisa com rótulos de confiança.</b> A pesquisa regulatória de publicidade é boa e marca o que não foi confirmado.</li>
+</ul>
+<h2>Fontes consultadas nesta contraprova</h2>
+<ul>
+<li>CEM, art. 59: https://transparencia.cfm.org.br/codigo-de-etica-medica/ · https://portal.cfm.org.br/images/PDF/cem2019.pdf</li>
+<li>Parecer CRM-MG 139/2016: https://sistemas.cfm.org.br/normas/arquivos/pareceres/MG/2016/139_2016.pdf</li>
+<li>Res. CFM 2.460/2026: https://portal.cfm.org.br/noticias/cfm-proibe-cashback-e-vantagens-economicas-vinculadas-a-contratacao-de-medicos/ · https://conjur.com.br/2026-ago-03/o-que-a-nova-resolucao-do-conselho-federal-de-medicina-proibe-para-medicos/ · https://www.vgvadvogados.com.br/resolucao-cfm-cashback-medicos · https://www.klalaw.com.br/resolucao-do-cfm-proibe-cashback-e-comissoes-na-medicina/</li>
+<li>Res. CFM 2.178/2018 (apps de consulta): https://www.contabeis.com.br/legislacao/2895236/resolucao-cfm-21782018/</li>
+<li>Zocdoc e a lei antipropina dos EUA: https://rivkinradler.com/rivkin-rounds/zocdoc-fees-get-anti-kickback-approval · https://www.venable.com/insights/publications/2025/05/defense-friendly-anti-kickback-statute-and-false</li>
+<li>Contas por gerente de agência: https://izidigitalmarketing.com/blog/agency-account-manager/ · https://pushleads.com/agency-growth-blueprint/marketing-agency-growth-benchmarks/ · https://databox.com/how-many-accounts</li>
+<li>Margem e múltiplos de serviço com software e de IA: https://livmo.com/blog/software-enabled-services-valuation-the-saas-margin-gap · https://www.cloudzero.com/blog/ai-gross-margin/</li>
+<li>Reforma tributária: https://www.meucontadoronline.com.br/blog/reforma-tributaria-2027-prestadores-de-servicos/ · https://www.reformatributaria.com/setor-de-servicos-optantes-pelo-lucro-presumido-simples-nacional-em-risco-o-tsunami-tributario-que-vem-por-ai-em-2027/ · https://www.omie.com.br/blog/carga-tributaria-2027-efeito-cbs-custo-liquido/</li>
+<li>Restrições da Meta para saúde: https://www.haus.io/blog/meta-announces-new-health-wellness-conversion-restrictions · https://getangler.ai/blog/what-metas-2025-data-restrictions-mean-for-health-and-wellness-brands</li>
+<li>Termos do WhatsApp Business para IA: https://techcrunch.com/2025/10/18/whatssapp-changes-its-terms-to-bar-general-purpose-chatbots-from-its-platform</li>
+<li>Doctoralia (Noa Booking): https://customers.twilio.com/en-us/docplanner0 · https://medicinasa.com.br/noa-notes-doctoralia/embed/</li>
+<li>Churn em marketing para pequenas empresas: https://intandem.vcita.com/blog/thought-leadership/how-to-reduce-churn-for-marketing-companies · https://www.insidermonkey.com/blog/townsquare-media-inc-nysetsq-q2-2023-earnings-call-transcript-1182112/</li>
+<li>Salários: https://www.salario.com.br/profissao/gerente-de-trafego-cbo-141605 · https://monitordomercado.com.br/noticias/326278-o-mercado-de-trafego-pago-vive-escassez-de-profissionais-qualificados-e-salarios-sobem-rapido/</li>
+<li>As demais referências (Vendasta, Yelp, PatientPop, WE Marketing Médico, Doctoralia no Reclame Aqui e outras) estão no próprio material da equipe (benchmarks.md e concorrencia.md).</li>
+</ul>
+</body></html>

@@ -127,7 +127,7 @@ def shead():
 sec("1. Gerais")
 shead()
 scen("lancamento", "Mês de lançamento comercial (antes: produto e piloto)", "mês", 5, 4, 4, NUM, "Plano v0: 3 meses de piloto antes da venda")
-scen("imp_baixo", "Impostos sobre a receita até R$ 4,8 mi nos últimos 12 meses", "%", 0.11, 0.11, 0.11, PCT, "Simples Nacional com fator R (software e serviços); plano v0")
+scen("imp_baixo", "Impostos sobre a receita até R$ 4,8 mi nos últimos 12 meses", "%", 0.163, 0.163, 0.163, PCT, "v2.1: lucro presumido desde o início. O Simples não admite sócio pessoa jurídica, o que impede investidor institucional (contraprova)")
 scen("imp_alto", "Impostos sobre a receita acima de R$ 4,8 mi nos últimos 12 meses", "%", 0.163, 0.163, 0.163, PCT, "Lucro presumido para serviços: PIS, COFINS, ISS, IRPJ e CSLL (aprox.)")
 scen("meios_pg", "Meios de pagamento", "% da receita", 0.03, 0.03, 0.03, PCT, "Cartão e boleto recorrentes")
 scen("sam_med", "Mercado endereçável: médicos que dependem de atrair pacientes particulares", "médicos", 115000, 150000, 230000, NUM, "Relatório 03, seção 1: 635,7 mil médicos × 48% em consultório × 50% dependem de pacientes particulares")
@@ -168,9 +168,9 @@ PLANS = {
         ("K", "Clínica", 3900, 2900, (0.03, 0.03, 0.05), (0.035, 0.025, 0.02), (325, 250, 200), (15, 20, 25), None, 13),
     ],
     "B": [
-        ("P", "Presença", 990, 990, (0.55, 0.55, 0.50), (0.045, 0.035, 0.025), (155, 120, 95), (55, 70, 90), None, 1),
-        ("G", "Agenda Cheia", 1790, 1490, (0.40, 0.40, 0.42), (0.04, 0.03, 0.02), (285, 220, 175), (30, 40, 50), (6, 10, 15), 1),
-        ("K", "Clínica", 4500, 3900, (0.05, 0.05, 0.08), (0.03, 0.022, 0.015), (650, 500, 400), (12, 15, 20), (20, 35, 50), 13),
+        ("P", "Presença", 990, 990, (0.55, 0.55, 0.50), (0.07, 0.055, 0.035), (155, 120, 95), (35, 50, 70), None, 1),
+        ("G", "Agenda Cheia", 1790, 1490, (0.40, 0.40, 0.42), (0.065, 0.05, 0.03), (285, 220, 175), (20, 30, 40), (6, 10, 15), 9),
+        ("K", "Clínica", 4500, 3900, (0.05, 0.05, 0.08), (0.035, 0.025, 0.022), (650, 500, 400), (8, 12, 15), (20, 35, 50), 13),
     ],
 }
 MODEL_SRC = {
@@ -181,9 +181,9 @@ MODEL_SRC = {
     },
     "B": {
         "preco": "Faixa entre a Doctoralia (R$ 429 a R$ 877) e a mediana de agências (R$ 3.250)", "mix": "Suposição",
-        "churn": "Agências com contrato retêm de 1,6% a 2,4% ao mês; resultado medido e site hospedado ajudam a reter (relatório 03)",
+        "churn": "v2.1: regra pré-registrada (referência de software para pequenas empresas, 4% a 7%), porque o contrato é mensal. O valor de agência com contrato (2% a 3,5%) virou o cenário otimista",
         "custo": "Agentes de IA (mais peças, anúncios, atendimento no WhatsApp), imagens, hospedagem, API do WhatsApp",
-        "esp": "Especialista humano que supervisiona os agentes (agência tradicional: 10 a 15 contas por pessoa)",
+        "esp": "v2.1: agências trabalham com 5 a 30 contas por gerente (contraprova). O otimista (40 a 70) é a aposta a provar no piloto",
     },
 }
 
@@ -204,15 +204,15 @@ for k, name, price, setup, mix, churn, custo, esp, var, start in PLANS["A"]:
 
 sec("5. Modelo B: agência operada por agentes")
 shead()
-scen("B_cac", "CAC na mídia paga (venda consultiva)", "R$", 7500, 5500, 4000, BRL, "Ticket maior pede venda assistida; recuperação do CAC em cerca de 8 meses no cenário base")
+scen("B_cac", "CAC na mídia paga (venda consultiva)", "R$", 9000, 6500, 5000, BRL, "v2.1: mesmo método do Modelo A (recuperação do CAC em cerca de 8 meses sobre a contribuição ponderada pelos planos)")
 scen("B_comissao", "Custo por cliente vindo de parceria (comissão)", "R$", 2500, 2000, 1600, BRL, "Comissão de cerca de 1,5 mensalidade")
 scen("B_custo_esp", "Custo mensal do especialista que supervisiona as contas", "R$", 11000, 10000, 9000, BRL, "Profissional de marketing pleno ou sênior")
-scen("B_valor_consulta", "Preço por consulta nova agendada e atribuída à Jalecon", "R$", 30, 30, 30, BRL, "Componente por resultado, inspirado na Zocdoc (US$ 35 a US$ 110 por paciente novo)")
+scen("B_valor_consulta", "Preço por consulta nova agendada e atribuída à Jalecon", "R$", 0, 0, 0, BRL, "v2.1: desligado. Cobrar por paciente recebido pode ferir o art. 59 do Código de Ética Médica (contraprova); só volta com parecer jurídico favorável")
 for k, name, price, setup, mix, churn, custo, esp, var, start in PLANS["B"]:
     s = MODEL_SRC["B"]
     scen(f"B_{k}_preco", f"{name}: preço mensal fixo", "R$", price, price, price, BRL, s["preco"])
     scen(f"B_{k}_setup", f"{name}: taxa de implantação", "R$", setup, setup, setup, BRL, s["preco"])
-    scen(f"B_{k}_mix", f"{name}: participação nos novos clientes", "%", *mix, PCT, s["mix"] + (" (a partir do mês 13; antes vai para Agenda Cheia)" if start > 1 else ""))
+    scen(f"B_{k}_mix", f"{name}: participação nos novos clientes", "%", *mix, PCT, s["mix"] + ((" (a partir do mês 13; antes vai para Agenda Cheia ou Presença)" if k == "K" else " (a partir do mês 9, como no PRD; antes vai para Presença)") if start > 1 else ""))
     scen(f"B_{k}_churn", f"{name}: churn mensal", "%", *churn, PCT, s["churn"])
     scen(f"B_{k}_custo", f"{name}: custo direto por conta por mês (agentes, ferramentas)", "R$", *custo, BRL, s["custo"])
     scen(f"B_{k}_esp", f"{name}: contas por especialista humano", "contas", *esp, NUM, s["esp"])
@@ -226,6 +226,13 @@ scen("crit_ltvcac", "H6: LTV/CAC mínimo no plano principal", "x", 3, 3, 3, MULT
 scen("crit_payback", "H6: recuperação máxima do CAC", "meses", 12, 12, 12, NUM, "Plano v1, seção 2")
 scen("crit_arr", "H7: receita recorrente anual mínima em até 7 anos", "R$", 50000000, 50000000, 50000000, BRL, "Plano v1, seção 2")
 scen("crit_pen", "H7: participação máxima do mercado endereçável quando atingir esse valor", "%", 0.03, 0.03, 0.03, PCT, "Plano v1, seção 2")
+
+sec("7. Ajustes da contraprova (v2.1, 20/10/2026)")
+shead()
+scen("A_impl", "Modelo A: custo de implantação por cliente novo", "R$", 200, 150, 100, BRL, "Onboarding assistido; antes a taxa de implantação era receita sem custo (contraprova)")
+scen("B_impl", "Modelo B: custo de implantação por cliente novo", "R$", 900, 600, 400, BRL, "Cerca de 6 horas de especialista mais ferramentas para marca, site e perfil no Google")
+scen("A_ind", "Modelo A: custo por cliente indicado (mês grátis)", "R$", 697, 697, 697, BRL, "Programa de indicação: um mês grátis; antes sem custo (contraprova)")
+scen("B_ind", "Modelo B: custo por cliente indicado (mês grátis)", "R$", 1300, 1300, 1300, BRL, "Um mês grátis na mensalidade média ponderada")
 
 
 def ycell(key, year_ref):
@@ -273,8 +280,8 @@ def model_sheet(m):
     line("exp", "Fator de expansão para dentistas", lambda i, c: f"=IF({ref('mes', c)}>={A['exp_mes']},1+{A['exp_fator']},1)", MULT)
     r += 1
     section(ws, r, "Aquisição", 2); r += 1
-    line("midia", "Mídia paga no mês", lambda i, c: f"={ycell('midia', ref('ano', c))}*{ref('ativo', c)}", BRL)
-    line("n_midia", "Novos clientes por mídia paga", lambda i, c: f"={ref('midia', c)}/{A[m + '_cac']}*{ref('exp', c)}", NUM1)
+    line("midia", "Mídia paga no mês", lambda i, c: f"={ycell('midia', ref('ano', c))}*{ref('ativo', c)}*{ref('exp', c)}", BRL)
+    line("n_midia", "Novos clientes por mídia paga", lambda i, c: f"={ref('midia', c)}/{A[m + '_cac']}", NUM1)
     line("n_parc", "Novos clientes por parcerias", lambda i, c: f"={ycell('parc', ref('ano', c))}*{A['parc_mult']}*{ref('ativo', c)}*{ref('exp', c)}", NUM1)
     plans = PLANS[m]
     line("n_ind", "Novos clientes por indicação", lambda i, c: f"={prev('tot_ativos', c)}*{A['indic']}*{ref('ativo', c)}" if c > 3 else "=0", NUM1)
@@ -288,6 +295,10 @@ def model_sheet(m):
         mixref = A[f"{m}_{k}_mix"]
         if k == "K":
             line(f"mix_{k}", "Participação nos novos", lambda i, c, mixref=mixref: f"=IF({ref('mes', c)}>=13,{mixref},0)", PCT)
+        elif m == "B" and k == "P":
+            line(f"mix_{k}", "Participação nos novos", lambda i, c, mixref=mixref: f"={mixref}+IF({ref('mes', c)}<9,{A['B_G_mix']}+IF({ref('mes', c)}<13,{A['B_K_mix']},0),0)", PCT)
+        elif m == "B" and k == "G":
+            line(f"mix_{k}", "Participação nos novos", lambda i, c, mixref=mixref: f"=IF({ref('mes', c)}>=9,{mixref}+IF({ref('mes', c)}<13,{A['B_K_mix']},0),0)", PCT)
         elif k == main_plan:
             line(f"mix_{k}", "Participação nos novos", lambda i, c, mixref=mixref: f"={mixref}+IF({ref('mes', c)}<13,{A[m + '_K_mix']},0)", PCT)
         else:
@@ -324,7 +335,7 @@ def model_sheet(m):
 
     r += 1
     section(ws, r, "Custo do serviço", 2); r += 1
-    line("cogs_dir", "Custo direto (IA, ferramentas, hospedagem)", lambda i, c: "=" + "+".join(f"{ref('ativos_' + p[0], c)}*{A[f'{m}_{p[0]}_custo']}" for p in plans), BRL)
+    line("cogs_dir", "Custo direto (IA, ferramentas, hospedagem, implantação)", lambda i, c: "=" + "+".join(f"{ref('ativos_' + p[0], c)}*{A[f'{m}_{p[0]}_custo']}" for p in plans) + f"+{ref('n_tot', c)}*{A[m + '_impl']}", BRL)
     esp_plans = [p for p in plans if p[7]]
     line("esp_n", "Especialistas humanos nas contas (pessoas)", lambda i, c: "=" + "+".join(f"{ref('ativos_' + p[0], c)}/{A[f'{m}_{p[0]}_esp']}" for p in esp_plans), NUM1)
     line("cogs_esp", "Custo dos especialistas", lambda i, c: f"={ref('esp_n', c)}*{A[m + '_custo_esp']}", BRL)
@@ -339,7 +350,7 @@ def model_sheet(m):
     line("d_ga", "Administrativo, jurídico e conformidade", lambda i, c: f"={ycell('hc_ga', ref('ano', c))}*{A['custo_ga']}", BRL)
     line("d_fund", "Pró-labore dos fundadores", lambda i, c: f"={ycell('prolabore', ref('ano', c))}*{A['fundadores']}", BRL)
     line("d_midia", "Mídia paga", lambda i, c: f"={ref('midia', c)}", BRL)
-    line("d_parc", "Comissões de parceria", lambda i, c: f"={ref('n_parc', c)}*{A[m + '_comissao']}", BRL)
+    line("d_parc", "Comissões de parceria e meses grátis de indicação", lambda i, c: f"={ref('n_parc', c)}*{A[m + '_comissao']}+{ref('n_ind', c)}*{A[m + '_ind']}", BRL)
     line("d_marca", "Marca e eventos", lambda i, c: f"={ref('midia', c)}*{A['marca_pct']}", BRL)
     line("d_outras", "Outras despesas", lambda i, c: f"={A['outras_fixo']}+{ref('rec', c)}*{A['outras_pct']}", BRL)
     line("d_exp", "Custo único da expansão", lambda i, c: f"=IF({ref('mes', c)}={A['exp_mes']},{A['exp_custo']},0)", BRL)
@@ -368,7 +379,7 @@ U.column_dimensions["A"].width = 44
 for c in range(2, 10):
     U.column_dimensions[L(c)].width = 15
 put(U, 1, 1, "Economia por cliente, por plano (cenário selecionado)", TITLE)
-put(U, 2, 1, "Contribuição = mensalidade e consultas, menos impostos (alíquota inicial), meios de pagamento, custo direto e parte do especialista humano.")
+put(U, 2, 1, "Contribuição = mensalidade e consultas, menos impostos (alíquota cheia), meios de pagamento, custo direto e parte do especialista humano. LTV = contribuição / churn + taxa de implantação - custo de implantação.")
 labels = ["Plano", "Receita mensal", "Contribuição mensal", "Margem de contribuição", "Churn mensal", "LTV", "CAC mídia paga", "LTV/CAC", "Recuperação do CAC (meses)"]
 r = 4
 UREF = {}
@@ -380,10 +391,10 @@ for m in ("A", "B"):
         varterm = f"+{A[f'B_{k}_consultas']}*{A['B_valor_consulta']}" if var else ""
         put(U, r, 2, f"={A[f'{m}_{k}_preco']}{varterm}", fmt=BRL)
         espterm = f"-{A[m + '_custo_esp']}/{A[f'{m}_{k}_esp']}" if esp else ""
-        put(U, r, 3, f"=B{r}*(1-{A['imp_baixo']}-{A['meios_pg']})-{A[f'{m}_{k}_custo']}{espterm}", fmt=BRL)
+        put(U, r, 3, f"=B{r}*(1-{A['imp_alto']}-{A['meios_pg']})-{A[f'{m}_{k}_custo']}{espterm}", fmt=BRL)
         put(U, r, 4, f"=C{r}/B{r}", fmt=PCT)
         put(U, r, 5, f"={A[f'{m}_{k}_churn']}", fmt=PCT)
-        put(U, r, 6, f"=C{r}/E{r}", fmt=BRL)
+        put(U, r, 6, f"=C{r}/E{r}+{A[f'{m}_{k}_setup']}-{A[m + '_impl']}", fmt=BRL)
         put(U, r, 7, f"={A[m + '_cac']}", fmt=BRL)
         put(U, r, 8, f"=F{r}/G{r}", fmt=MULT)
         put(U, r, 9, f"=G{r}/C{r}", fmt=NUM1)
@@ -485,6 +496,10 @@ keyrow("Participação no mercado nesse mês", f'=IF(ISNUMBER(B{pa}),{at("A", "p
 keyrow("Receita por pessoa no ano 5", f"=SUMIF('Modelo A'!$C$3:${L(2 + N)}$3,5,{rng('A', 'rec')})/{at('A', 'hc', 60)}",
        f"=SUMIF('Modelo B'!$C$3:${L(2 + N)}$3,5,{rng('B', 'rec')})/{at('B', 'hc', 60)}", BRL)
 keyrow("Clientes ativos no ano 5", f"={at('A', 'tot_ativos', 60)}", f"={at('B', 'tot_ativos', 60)}", NUM)
+wa = "+".join(f"{A[f'A_{p[0]}_mix']}*Unidade!F{UREF[('A', p[0])]}" for p in PLANS["A"])
+wb_ = "+".join(f"{A[f'B_{p[0]}_mix']}*Unidade!F{UREF[('B', p[0])]}" for p in PLANS["B"])
+keyrow("LTV/CAC ponderado pelo mix de novos clientes (mídia paga)", f"=({wa})/{A['A_cac']}", f"=({wb_})/{A['B_cac']}", MULT,
+       (f"={A['crit_ltvcac']}", MULT), '=IF({v}>=' + A["crit_ltvcac"] + ',"Sim","Não")')
 
 r += 1
 put(S, r, 1, "Como ler: H6 exige as três linhas com 'Sim' (margem, LTV/CAC e recuperação do CAC). H7 exige chegar a R$ 50 mi de receita anualizada em até 7 anos com no máximo 3% do mercado endereçável.")
@@ -503,6 +518,7 @@ texts = [
     ("Abas: Resumo (comparação e critérios de corte), Leia-me, Unidade (economia por cliente), Premissas (tudo o que pode ser mudado), Modelo A e Modelo B (mês a mês, 84 meses), Cenarios e Sensibilidade (geradas por script).", BLACK),
     ("Premissas em azul. Troque o cenário em Premissas!C3. Cada premissa tem a fonte na coluna G; as referências vêm do relatório 03 (mercado e concorrência).", BLACK),
     ("O caixa é calculado sem captação: o pior caixa acumulado é o capital necessário até o equilíbrio (sem reserva). A captação recomendada soma 6 meses de reserva a esse valor.", BLACK),
+    ("Versão 2.1 (20/10/2026): incorpora a contraprova. Impostos de lucro presumido desde o início; churn, CAC e capacidade dos especialistas do Modelo B pela regra pré-registrada; cobrança por consulta desligada (art. 59 do Código de Ética Médica); custos de implantação e de indicação; mídia proporcional à expansão; Agenda Cheia a partir do mês 9.", BLACK),
     ("Limitações: churn e CAC ainda são referências de mercado, não medição própria; não há sazonalidade; as consultas atribuídas no Modelo B são suposição a validar em piloto.", BLACK),
 ]
 for i, (t, f) in enumerate(texts, start=1):

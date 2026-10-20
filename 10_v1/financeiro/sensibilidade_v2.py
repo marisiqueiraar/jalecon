@@ -23,6 +23,7 @@ OUTPUTS = [
     ("cap", "Capital necessário (pior caixa acumulado)"),
     ("mb5", "Margem bruta no ano 5"),
     ("ltvcac", "LTV/CAC do plano principal (Consultório / Agenda Cheia), mídia paga"),
+    ("ltvpond", "LTV/CAC ponderado pelo mix de novos clientes (mídia paga)"),
     ("payback", "Recuperação do CAC do plano principal (meses)"),
     ("m50", "Mês em que a receita anualizada chega a R$ 50 mi"),
     ("pen50", "Participação no mercado nesse mês"),
@@ -64,12 +65,13 @@ for c, nome in ((1, "Conservador"), (2, "Base"), (3, "Otimista")):
     cases[f"cen_{c}"] = {"cenario": c}
 # estresses do Modelo B: e se as apostas centrais falharem?
 STRESS = [
-    ("B com churn igual ao do Modelo A", {"B_P_churn": 0.055, "B_G_churn": 0.055, "B_K_churn": 0.035}),
-    ("B com metade das contas por especialista", {"B_P_esp": 35, "B_G_esp": 20, "B_K_esp": 8}),
-    ("B sem receita por consulta", {"B_G_consultas": 0, "B_K_consultas": 0}),
-    ("B com preço 30% menor (R$ 690 / R$ 1.250)", {"B_P_preco": 690, "B_G_preco": 1250, "B_K_preco": 3150}),
-    ("B com tudo isso junto", {"B_P_churn": 0.055, "B_G_churn": 0.055, "B_K_churn": 0.035, "B_P_esp": 35, "B_G_esp": 20, "B_K_esp": 8,
-                               "B_G_consultas": 0, "B_K_consultas": 0, "B_P_preco": 690, "B_G_preco": 1250, "B_K_preco": 3150}),
+    ("B se as apostas se confirmarem (churn de agência, 40 a 70 contas por especialista, CAC R$ 5.500)",
+     {"B_P_churn": 0.035, "B_G_churn": 0.03, "B_K_churn": 0.022, "B_P_esp": 70, "B_G_esp": 40, "B_K_esp": 15, "B_cac": 5500}),
+    ("B com cobrança de R$ 30 por consulta (só com parecer jurídico favorável)", {"B_valor_consulta": 30}),
+    ("B com as apostas confirmadas e cobrança por consulta (o base da v2)",
+     {"B_P_churn": 0.035, "B_G_churn": 0.03, "B_K_churn": 0.022, "B_P_esp": 70, "B_G_esp": 40, "B_K_esp": 15, "B_cac": 5500, "B_valor_consulta": 30}),
+    ("B com o dobro de contas por especialista, sem mudar o resto", {"B_P_esp": 100, "B_G_esp": 60, "B_K_esp": 24}),
+    ("B com churn de agência com contrato, sem mudar o resto", {"B_P_churn": 0.035, "B_G_churn": 0.03, "B_K_churn": 0.022}),
     ("Sem expansão para dentistas", {"exp_mes": 999}),
 ]
 for i, (label, ov) in enumerate(STRESS):
@@ -87,12 +89,13 @@ TORNADO = {
         ("Custo direto do Consultório", "A_C_custo", 80, 30),
     ],
     "B": [
-        ("Churn da Agenda Cheia", "B_G_churn", 0.05, 0.02),
-        ("Churn da Presença", "B_P_churn", 0.055, 0.025),
-        ("CAC na mídia paga", "B_cac", 7500, 4000),
+        ("Churn da Agenda Cheia", "B_G_churn", 0.065, 0.03),
+        ("Churn da Presença", "B_P_churn", 0.07, 0.035),
+        ("CAC na mídia paga", "B_cac", 9000, 5000),
         ("Preço da Agenda Cheia", "B_G_preco", 1290, 2290),
-        ("Contas por especialista (Agenda Cheia)", "B_G_esp", 20, 60),
-        ("Consultas atribuídas por cliente", "B_G_consultas", 0, 20),
+        ("Contas por especialista (Agenda Cheia)", "B_G_esp", 20, 50),
+        ("Contas por especialista (Presença)", "B_P_esp", 35, 90),
+        ("Preço por consulta atribuída", "B_valor_consulta", 0, 30),
         ("Custo dos agentes por conta (Agenda Cheia)", "B_G_custo", 400, 150),
         ("Indicação (% da base por mês)", "indic", 0.005, 0.015),
     ],
@@ -114,7 +117,7 @@ BOLD = Font(name="Arial", bold=True)
 TITLE = Font(name="Arial", bold=True, size=14, color="1F2440")
 H2 = Font(name="Arial", bold=True, color="FFFFFF")
 HFILL = PatternFill("solid", fgColor="1F2440")
-FMT = {"arr5": 'R$ #,##0', "arr7": 'R$ #,##0', "cap": 'R$ #,##0', "rpp": 'R$ #,##0', "mb5": '0.0%', "pen50": '0.0%', "ltvcac": '0.0"x"', "payback": '0.0', "eq": '0', "m50": '0', "cli5": '#,##0'}
+FMT = {"ltvpond": '0.0"x"', "arr5": 'R$ #,##0', "arr7": 'R$ #,##0', "cap": 'R$ #,##0', "rpp": 'R$ #,##0', "mb5": '0.0%', "pen50": '0.0%', "ltvcac": '0.0"x"', "payback": '0.0', "eq": '0', "m50": '0', "cli5": '#,##0'}
 
 
 def hdr(ws, r, labels):
