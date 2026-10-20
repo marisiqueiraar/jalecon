@@ -1,0 +1,176 @@
+<html><head><meta charset="utf-8"></head><body>
+<h1>Jalecon: documento de produto (PRD) do Modelo B</h1>
+<p>Grupo 1 · Insper · 20 de outubro de 2026. Versão 1.0. Frente F3 do plano v1.</p>
+<p><b>O que é:</b> uma agência de marketing médico operada por agentes de IA e supervisionada por especialistas humanos. O médico aprova; a equipe executa marca, site, Google, conteúdo, anúncios e atendimento no WhatsApp; e cada peça passa pelo Guardião antes de ir ao ar.</p>
+<p><b>Relação com outros documentos:</b> estratégia e números no documento 05; regras do Guardião na pesquisa regulatória; demo funcional em jalecon.vercel.app.</p>
+
+<h2>1. Problema e objetivo</h2>
+<p><b>Problema:</b> o médico com consultório particular precisa de pacientes novos, mas não tem tempo para fazer marketing, acha agência cara (de R$ 2.500 a R$ 8.000 por mês) e tem medo de infringir as regras do CFM, cuja fiscalização ficou mais rigorosa com o monitoramento por IA lançado em 2026. As ferramentas baratas geram posts, mas deixam o trabalho e o risco com o médico.</p>
+<p><b>Objetivo do produto:</b> gerar consultas novas para o médico, com segurança e sem exigir mais do que 15 minutos por semana dele.</p>
+<p><b>Métrica principal:</b> consultas novas agendadas por médico por mês, atribuídas à Jalecon.</p>
+<p><b>Métricas que sustentam o negócio</b> (vêm do financeiro v2):</p>
+<table border="1" cellpadding="6">
+<tr><th>Métrica</th><th>Meta do piloto</th><th>Meta do MVP (mês 12)</th><th>Por que importa</th></tr>
+<tr><td>Consultas novas atribuídas por médico por mês (Agenda Cheia)</td><td>6 ou mais</td><td>10 ou mais</td><td>Prova o valor e sustenta a cobrança por consulta</td></tr>
+<tr><td>Horas humanas por conta por mês</td><td>4 ou menos</td><td>2,5 ou menos</td><td>Define quantas contas cada especialista atende, e com isso a margem bruta</td></tr>
+<tr><td>Churn mensal</td><td>Renovação de 4 em 5 no fim do piloto</td><td>3% ou menos</td><td>A premissa mais sensível do modelo</td></tr>
+<tr><td>Tempo do médico por semana</td><td>15 minutos ou menos</td><td>10 minutos ou menos</td><td>É a promessa de valor</td></tr>
+<tr><td>Peças aprovadas pelo médico sem pedido de ajuste</td><td>60% ou mais</td><td>80% ou mais</td><td>Mede qualidade e reduz horas humanas</td></tr>
+<tr><td>Peças publicadas com problema regulatório descoberto depois</td><td>Zero</td><td>Zero</td><td>Um caso grave destrói a confiança na marca</td></tr>
+</table>
+
+<h2>2. Quem usa</h2>
+<table border="1" cellpadding="6">
+<tr><th>Papel</th><th>O que faz</th><th>Onde</th></tr>
+<tr><td><b>Médico (cliente)</b></td><td>Responde o diagnóstico, aprova o plano do mês, aprova ou ajusta peças conversando, autoriza verba de anúncio, vê o relatório</td><td>App web no celular e WhatsApp</td></tr>
+<tr><td><b>Secretária do médico (opcional)</b></td><td>Recebe os pacientes vindos do WhatsApp e confirma agendamentos</td><td>WhatsApp e agenda</td></tr>
+<tr><td><b>Especialista de contas (Jalecon)</b></td><td>Supervisiona de 40 a 70 contas, revisa amostras, resolve exceções, faz a conversa mensal com o médico</td><td>Console interno</td></tr>
+<tr><td><b>Médico revisor (Jalecon, PJ)</b></td><td>Confere por amostragem a precisão científica por especialidade e valida temas sensíveis</td><td>Console interno</td></tr>
+<tr><td><b>Responsável por conformidade (Jalecon)</b></td><td>Mantém a base de regras, valida mudanças com advogado de direito médico e trata incidentes</td><td>Console interno</td></tr>
+</table>
+
+<h2>3. Jornada do médico, de ponta a ponta</h2>
+<ol>
+<li><b>Entrada (grátis):</b> o médico faz o check-up de conformidade do perfil atual. O Guardião analisa a bio e os últimos posts e mostra os riscos. Em seguida, o diagnóstico gera a nota de presença digital e recomenda um plano.</li>
+<li><b>Contratação:</b> o médico escolhe o plano, assina o termo de uso e de responsabilidade e conecta as contas (Instagram, Perfil da Empresa no Google, WhatsApp Business, conta de anúncios) por meio de autorização oficial das plataformas.</li>
+<li><b>Implantação (até 10 dias úteis):</b> os agentes propõem identidade visual, site e perfil no Google. O médico aprova numa única tela. O especialista confere tudo antes de publicar.</li>
+<li><b>Ciclo mensal:</b> o estrategista propõe o plano do mês, o médico aprova o plano (não peça por peça, se quiser) e os agentes produzem. O Guardião checa cada peça. O médico recebe as peças agrupadas para aprovar ou ajustar conversando. Depois, a publicação segue o calendário.</li>
+<li><b>Anúncios (Agenda Cheia):</b> o gestor de tráfego propõe a campanha e a verba. Nada é gasto sem o "sim" do médico. A otimização é semanal, dentro do teto aprovado.</li>
+<li><b>Atendimento (Agenda Cheia):</b> o paciente chama no WhatsApp. O agente de atendimento tira dúvidas administrativas (endereço, convênios aceitos, valor, horários) e agenda ou passa para a secretária. Ele nunca dá orientação clínica.</li>
+<li><b>Resultado:</b> o painel mostra peças publicadas, alcance, contatos e consultas agendadas. O relatório mensal traz recomendações e a cobrança variável, com a lista das consultas atribuídas para conferência.</li>
+</ol>
+
+<h2>4. Os agentes</h2>
+<p><b>Regra geral:</b> agentes produzem, verificam uns aos outros e preparam a decisão. Quem decide o que vai ao ar e quanto se gasta é sempre um humano: o médico, ou o especialista dentro de limites que o médico aprovou.</p>
+<table border="1" cellpadding="6">
+<tr><th>Agente</th><th>Entrada</th><th>Saída</th><th>Pode fazer sozinho</th><th>Chama um humano quando</th><th>Modelo de IA</th></tr>
+<tr><td><b>Estrategista</b></td><td>Diagnóstico, objetivos, resultados do mês anterior, sazonalidade, preferências aprendidas</td><td>Plano do mês: temas, formatos, frequência, campanha sugerida</td><td>Montar a proposta</td><td>O tema toca procedimento sensível ou o resultado do mês anterior caiu mais de 30%</td><td>Claude Opus 5.5 (uma vez por mês)</td></tr>
+<tr><td><b>Redator</b></td><td>Plano, tom de voz, preferências, base de conteúdo da especialidade</td><td>Textos de posts, carrosséis, roteiros, site, anúncios</td><td>Escrever e reescrever</td><td>O médico pede algo que o Guardião bloqueia duas vezes seguidas</td><td>Claude Sonnet 5.5</td></tr>
+<tr><td><b>Designer</b></td><td>Identidade visual, texto aprovado</td><td>Artes e capas em modelos da marca</td><td>Montar a arte com modelos aprovados</td><td>A peça precisa de foto real do médico ou do consultório</td><td>Modelos de imagem de terceiros e modelos de layout próprios</td></tr>
+<tr><td><b>Guardião</b></td><td>Qualquer texto ou peça</td><td>Aprovado, alerta ou bloqueio, com regra, artigo, trecho e sugestão</td><td>Bloquear</td><td>Regra marcada como "em validação", caso ambíguo ou reclamação de paciente ou do CRM</td><td>Motor de regras (determinístico) mais Claude Haiku 5.5 para casos de contexto</td></tr>
+<tr><td><b>Gestor de tráfego</b></td><td>Objetivo, verba aprovada, políticas de saúde da Meta e do Google</td><td>Campanhas, públicos, anúncios, ajustes semanais</td><td>Ajustar lances e públicos dentro da verba e das regras</td><td>Para gastar acima do teto, criar campanha nova ou quando um anúncio é reprovado pela plataforma</td><td>Claude Sonnet 5.5 com APIs de anúncios</td></tr>
+<tr><td><b>Atendente</b> (fase 2)</td><td>Mensagem do paciente no WhatsApp, informações administrativas do consultório</td><td>Respostas administrativas e agendamento</td><td>Responder dúvidas administrativas e oferecer horários</td><td>Qualquer pergunta clínica, urgência, reclamação ou pedido de falar com humano (aviso de urgência e encaminhamento imediato)</td><td>Claude Haiku 5.5</td></tr>
+<tr><td><b>Analista</b></td><td>Dados das plataformas, eventos de WhatsApp e agenda</td><td>Painel, relatório mensal, consultas atribuídas, recomendações</td><td>Calcular e redigir</td><td>A atribuição for contestada pelo médico</td><td>Claude Sonnet 5.5</td></tr>
+</table>
+
+<h2>5. Quem aprova o quê</h2>
+<table border="1" cellpadding="6">
+<tr><th>Ação</th><th>Agente sozinho</th><th>Especialista</th><th>Médico</th></tr>
+<tr><td>Rascunho de peça</td><td>Sim</td><td></td><td></td></tr>
+<tr><td>Publicar peça com alerta do Guardião</td><td>Não</td><td>Revisa</td><td>Aprova sabendo do alerta</td></tr>
+<tr><td>Publicar peça com bloqueio do Guardião</td><td>Não</td><td>Não</td><td>Não: precisa corrigir</td></tr>
+<tr><td>Publicar peça sem alerta</td><td>Não</td><td>Amostra de 10% a 20%</td><td>Aprova (pode aprovar o plano do mês inteiro de uma vez)</td></tr>
+<tr><td>Identidade visual, site, perfil no Google</td><td>Não</td><td>Revisa tudo</td><td>Aprova</td></tr>
+<tr><td>Verba de anúncio e campanha nova</td><td>Não</td><td>Revisa</td><td>Aprova o teto mensal</td></tr>
+<tr><td>Ajuste semanal de anúncio dentro do teto</td><td>Sim</td><td>Vê no resumo</td><td></td></tr>
+<tr><td>Resposta administrativa no WhatsApp</td><td>Sim</td><td>Amostra semanal</td><td>Pode ver tudo</td></tr>
+<tr><td>Resposta a pergunta clínica</td><td>Nunca</td><td></td><td>Responde o médico ou a secretária</td></tr>
+</table>
+<p>Cada aprovação fica registrada com data, versão da peça, versão das regras do Guardião e quem aprovou. Esse histórico de auditoria serve de defesa do médico e é parte do valor vendido.</p>
+
+<h2>6. Guardião: requisitos</h2>
+<ul>
+<li><b>Duas camadas:</b> um motor de regras determinístico (como na demo, 39 regras) e uma camada de IA para contexto. O motor sempre roda. A camada de IA pode endurecer a decisão, mas nunca liberar algo que o motor bloqueou.</li>
+<li><b>Regras versionadas:</b> cada regra tem fonte, artigo, gravidade, exemplos e estado ("confirmada" ou "em validação"). Uma mudança de norma gera nova versão, rechecagem de tudo o que está agendado e aviso ao médico.</li>
+<li><b>Cobertura além do texto:</b> legenda, texto dentro da imagem (lido por OCR), roteiro de vídeo, site, anúncios e respostas do atendente.</li>
+<li><b>Normas cobertas:</b> Resolução CFM 2.336/2023, Código de Ética Médica, Resolução CFM 2.454/2026 no que se aplicar, Código de Defesa do Consumidor, LGPD, regras da ANVISA para medicamentos e as políticas de saúde da Meta e do Google.</li>
+<li><b>Meta de qualidade:</b> nenhuma peça publicada com problema grave. Toda peça que um médico, paciente ou o CRM apontar vira caso de teste.</li>
+<li><b>Antes de lançar:</b> as 12 regras "em validação" precisam ser conferidas por advogado de direito médico nos textos oficiais.</li>
+<li><b>Aviso permanente:</b> checagem automática não é parecer jurídico. A responsabilidade ética é do médico, e o termo de uso deixa isso claro.</li>
+</ul>
+
+<h2>7. Medição de consultas atribuídas</h2>
+<p>É o requisito mais delicado: sustenta a cobrança variável e a confiança do médico.</p>
+<ul>
+<li><b>Definição contratual:</b> uma consulta atribuída é uma primeira consulta de paciente novo, agendada até 30 dias depois de um contato originado em canal operado pela Jalecon (site, perfil no Google, Instagram, anúncio ou WhatsApp com rastreio) e confirmada como realizada ou agendada pela secretária ou pela agenda.</li>
+<li><b>Como medir:</b>
+<ul>
+<li>links e botões de WhatsApp com código de origem;</li>
+<li>número de WhatsApp Business conectado à API oficial;</li>
+<li>formulário de agendamento no site;</li>
+<li>a pergunta "como nos conheceu?" registrada pela secretária;</li>
+<li>integração com agenda (Google Agenda primeiro; iClinic e Feegow depois).</li>
+</ul></li>
+<li><b>Transparência:</b> o médico vê a lista de consultas atribuídas, com data e canal, sem dados clínicos, e pode contestar qualquer uma antes da cobrança. Contestações acima de 10% acendem alerta para o especialista.</li>
+<li><b>Teto da cobrança variável:</b> um limite mensal combinado (por exemplo, 30 consultas), para o médico não ter surpresa.</li>
+</ul>
+
+<h2>8. Dados, privacidade e segurança</h2>
+<ul>
+<li><b>Dado de saúde é dado sensível (LGPD).</b> O WhatsApp vai receber sintomas e informações de pacientes. Exigências:
+<ul>
+<li>base legal definida com advogado;</li>
+<li>contrato de operador com o médico, que é o controlador;</li>
+<li>coletar o mínimo necessário;</li>
+<li>prazo de retenção curto;</li>
+<li>criptografia;</li>
+<li>acesso restrito e registrado;</li>
+<li>não usar conversas de pacientes para treinar modelos.</li>
+</ul></li>
+<li><b>Sem prontuário:</b> a Jalecon não guarda prontuário nem dado clínico além do que chegar espontaneamente no WhatsApp, e isso é apagado no prazo definido.</li>
+<li><b>Imagens de pacientes:</b> só com consentimento registrado e regras do Guardião aplicadas (paciente não identificável, antes e depois só nas condições da norma).</li>
+<li><b>Credenciais das plataformas:</b> só por autorização oficial (OAuth), nunca com senha do médico.</li>
+<li><b>Provedores de IA:</b> contrato que proíba uso dos dados para treinamento e hospedagem com cláusulas da LGPD.</li>
+</ul>
+
+<h2>9. Escopo por fase</h2>
+<table border="1" cellpadding="6">
+<tr><th>Fase</th><th>Quando</th><th>O que entra</th><th>O que fica de fora</th></tr>
+<tr><td><b>0. Piloto concierge</b></td><td>Nov/2026 a jan/2027, antes de captar</td><td>5 médicos pagantes. O grupo opera com ajuda de IA (Claude) e o Guardião da demo. Planilhas e ferramentas prontas para publicar. Medição por links rastreados e pela secretária. Registro de horas por conta.</td><td>Software próprio além da demo, anúncios automatizados, atendente no WhatsApp</td></tr>
+<tr><td><b>1. MVP</b></td><td>Meses 1 a 4 após o pré-seed</td><td>App do médico (aprovação e ajuste por conversa, painel). Console do especialista. Agentes estrategista, redator, designer, Guardião e analista. Publicação no Instagram e no Perfil da Empresa do Google. Site do médico. Links rastreados. Relatório mensal. Plano Presença.</td><td>Anúncios, atendente, integrações de agenda além do Google</td></tr>
+<tr><td><b>2. Agenda Cheia</b></td><td>Meses 5 a 8</td><td>Gestor de tráfego (Google Ads primeiro, depois Meta), atendente no WhatsApp, Google Agenda, cobrança variável por consulta</td><td>Clínicas multiusuário</td></tr>
+<tr><td><b>3. Escala</b></td><td>Meses 9 a 18</td><td>Plano Clínica, integrações com iClinic e Feegow, benchmarks por especialidade, preparação da expansão para dentistas (regras do CFO 196/2019)</td><td></td></tr>
+</table>
+
+<h2>10. Arquitetura (visão geral)</h2>
+<ul>
+<li><b>Aplicações:</b> app web do médico, pensado para celular (a demo atual é o protótipo dele), e console interno do especialista, com fila de exceções, amostras para revisar e visão das contas.</li>
+<li><b>Orquestração dos agentes:</b> fluxos definidos em código (não agentes livres). Cada etapa chama o Claude pela API com ferramentas específicas e grava o resultado e a decisão. A produção mensal roda em lote, que custa 50% menos. O conteúdo fixo dos prompts e a base da especialidade ficam em cache.</li>
+<li><b>Guardião:</b> serviço separado com a base de regras versionada. Todos os fluxos são obrigados a passar por ele antes de publicar.</li>
+<li><b>Integrações:</b>
+<ul>
+<li>Instagram (API oficial da Meta para publicação);</li>
+<li>Perfil da Empresa no Google;</li>
+<li>Google Ads e Meta Ads;</li>
+<li>WhatsApp Business Platform;</li>
+<li>Google Agenda;</li>
+<li>domínios e hospedagem de sites;</li>
+<li>provedor de imagens.</li>
+</ul>
+Políticas e limites de cada API precisam ser conferidos antes do MVP, em especial as regras de saúde para anúncios e para mensagens.</li>
+<li><b>Dados:</b> banco relacional para contas, peças, aprovações e regras. Armazenamento separado e criptografado para conversas do WhatsApp, com prazo de exclusão. Registro de auditoria imutável das aprovações.</li>
+</ul>
+
+<h2>11. Custo direto por conta</h2>
+<table border="1" cellpadding="6">
+<tr><th>Item (por mês, plano Agenda Cheia)</th><th>Estimativa</th><th>Base</th></tr>
+<tr><td>IA de texto: plano, 24 peças com revisões entre agentes, ajustes, anúncios, atendimento, relatório</td><td>R$ 13</td><td>Preços públicos do Claude (Opus 5.5 US$ 4/US$ 20, Sonnet 5.5 US$ 2/US$ 10 e Haiku 5.5 US$ 0,10/US$ 0,50 por milhão de tokens de entrada e de saída), com cache, a R$ 5,50 por dólar</td></tr>
+<tr><td>Imagens geradas (cerca de 30)</td><td>R$ 7</td><td>Cerca de US$ 0,04 por imagem (a confirmar com o fornecedor)</td></tr>
+<tr><td>WhatsApp Business Platform, hospedagem do site, domínio, ferramentas e monitoramento</td><td>R$ 60 a R$ 150</td><td>Estimativa; tarifas do WhatsApp por conversa a confirmar</td></tr>
+<tr><td><b>Total direto</b></td><td><b>R$ 80 a R$ 170</b></td><td>O financeiro v2 usa R$ 220 no cenário base: premissa conservadora</td></tr>
+<tr><td>Especialista humano (40 contas por pessoa, R$ 10 mil por mês)</td><td>R$ 250</td><td><b>É o maior custo por conta e o que decide a margem</b></td></tr>
+</table>
+<p><b>Conclusão de produto:</b> o custo de IA é baixo e não é o problema. O produto precisa ser desenhado para reduzir o tempo humano por conta: aprovação em lote, exceções bem filtradas, revisão por amostragem e agentes que se corrigem entre si. Cada hora economizada por conta aumenta a margem mais do que qualquer economia de IA.</p>
+
+<h2>12. Critérios de aceite do MVP</h2>
+<ol>
+<li>Um médico novo sai do diagnóstico com site, perfil no Google e primeiro mês de conteúdo aprovados em até 10 dias úteis.</li>
+<li>O médico aprova o mês inteiro em até 15 minutos no celular.</li>
+<li>Nenhuma peça vai ao ar sem passar pelo Guardião e sem aprovação registrada. Isso é testado automaticamente em cada versão.</li>
+<li>O console permite que um especialista acompanhe 40 contas com até 2,5 horas por conta por mês, medidas no próprio console.</li>
+<li>O relatório mensal mostra as consultas atribuídas com origem e permite contestação.</li>
+<li>As conversas de WhatsApp (fase 2) nunca contêm resposta clínica: verificado por amostragem e por testes com perguntas clínicas.</li>
+</ol>
+
+<h2>13. Riscos de produto e perguntas em aberto</h2>
+<table border="1" cellpadding="6">
+<tr><th>Risco ou pergunta</th><th>Como vamos responder</th></tr>
+<tr><td>O médico aceita a cobrança por consulta e confia na atribuição?</td><td>Entrevistas (segunda oferta) e piloto, com lista transparente e contestação</td></tr>
+<tr><td>Um especialista consegue mesmo cuidar de 40 contas?</td><td>Registro de horas no piloto; o console é desenhado em torno disso</td></tr>
+<tr><td>As políticas da Meta e do Google para saúde limitam os anúncios?</td><td>Começar pelo Google Ads (pesquisa por especialidade e cidade); o Guardião inclui as políticas das plataformas</td></tr>
+<tr><td>A qualidade do conteúdo gerado convence médicos exigentes?</td><td>Médico revisor por especialidade, preferências aprendidas, meta de 80% de aprovação sem ajuste</td></tr>
+<tr><td>Responsabilidade se uma peça aprovada gerar processo ético</td><td>Termo de uso, histórico de auditoria, seguro de responsabilidade no futuro, advogado de direito médico no conselho</td></tr>
+<tr><td>Dados de pacientes no WhatsApp (LGPD)</td><td>Parecer jurídico antes da fase 2; contrato de operador; retenção curta</td></tr>
+<tr><td>Resolução CFM 2.454/2026 (pedido de suspensão no TRF1)</td><td>Acompanhar; o produto não toma decisão clínica e informa quando o atendimento é feito por assistente virtual</td></tr>
+</table>
+</body></html>
