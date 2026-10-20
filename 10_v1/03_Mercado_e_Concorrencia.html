@@ -1,0 +1,140 @@
+<html><head><meta charset="utf-8"></head><body>
+<h1>Jalecon v1: mercado, concorrência e auditoria do v0</h1>
+<p>Grupo 1 · Insper · 20 de outubro de 2026. Frentes F0 e F1 do plano v1.</p>
+<p><b>Como os dados foram coletados:</b> buscas na web feitas em 19 e 20 de outubro de 2026. O ambiente de pesquisa não conseguiu abrir as páginas diretamente; por isso, os números vêm dos trechos que o buscador mostra, sempre com o link de origem. Quase todos os preços de concorrentes são informados pelas próprias empresas. Antes da banca, vale abrir à mão as páginas dos cinco concorrentes mais próximos e conferir.</p>
+
+<h2>Resumo em cinco pontos</h2>
+<ol>
+<li><b>O mercado de médicos existe, mas é menor do que o v0 dizia.</b> Cerca de 150 mil médicos dependem de atrair pacientes particulares (a faixa vai de 115 mil a 230 mil), e não 305 mil. O mercado endereçável fica em torno de R$ 1,1 bilhão por ano, no limite do critério de corte.</li>
+<li><b>Criar posts com IA para médicos já virou produto comum, e barato.</b> Pelo menos oito produtos fazem isso por R$ 28 a R$ 229 por mês, e vários já anunciam "conforme o CFM". O InstaMed faz quase exatamente o núcleo da Jalecon por R$ 97 a R$ 199.</li>
+<li><b>O espaço que sobra é o pacote completo medido em pacientes.</b> Nenhum software junta site, Google, Instagram e anúncios, com IA e conformidade, na faixa de R$ 300 a R$ 1.500. Hoje o médico monta isso com várias peças ou paga freelancer e agência (mediana de cerca de R$ 3.250 por mês).</li>
+<li><b>O concorrente que mais importa não estava no v0: a Doctoralia.</b> Ela já recebe dos médicos R$ 429 a R$ 679 por mês, vende site, tem o botão de agendamento no Google e IA própria. O ponto fraco dela é a confiança: só 58% dos clientes voltariam a fazer negócio.</li>
+<li><b>As premissas do modelo v0 são otimistas onde mais importa.</b> As referências de mercado apontam churn de 4% a 6% ao mês (o v0 usa 3%) e CAC de R$ 3.500 a R$ 6.000 (o v0 usa R$ 1.800). Com esses números, o plano principal não chega a LTV/CAC de 3.</li>
+</ol>
+
+<h2>1. Tamanho de mercado, de baixo para cima</h2>
+<table border="1" cellpadding="6">
+<tr><th>Etapa</th><th>Faixa</th><th>Valor central</th><th>Base</th><th>Confiança</th></tr>
+<tr><td>Médicos em atividade</td><td></td><td>635.706</td><td>Demografia Médica 2025 (FMUSP, AMB, Ministério da Saúde), projeção para o fim de 2025</td><td>Alta</td></tr>
+<tr><td>Atuam em consultório (próprio, compartilhado ou em clínica)</td><td>45% a 60%</td><td>48%: cerca de 305 mil</td><td>Demografia Médica 2015 (59,9% atuam em consultório); levantamentos de 2014 e 2019 (45% e 48% com consultório próprio ou particular), via fonte secundária</td><td>Média</td></tr>
+<tr><td>Dependem de atrair pacientes particulares, ou seja, não vivem só de convênio e indicação</td><td>40% a 60% dos anteriores</td><td>50%: cerca de 150 mil</td><td>Suposição a calibrar com as entrevistas (pergunta sobre o percentual de particulares e sobre a dificuldade)</td><td>Baixa</td></tr>
+<tr><td>Já pagam por marketing hoje</td><td>30% a 50% dos anteriores</td><td>40%: cerca de 60 mil</td><td>Suposição; é o critério de corte H1 das entrevistas. A Doctoralia, que cobra R$ 429 a R$ 679, mostra que esse gasto existe.</td><td>Baixa</td></tr>
+</table>
+<p><b>Em reais por ano</b>, com receita média realista de R$ 600 por cliente por mês (R$ 7.200 por ano):</p>
+<ul>
+<li><b>Mercado endereçável (cerca de 150 mil médicos):</b> R$ 1,1 bilhão por ano, numa faixa de R$ 0,8 a R$ 1,7 bilhão.</li>
+<li><b>Mercado que já paga hoje (cerca de 60 mil médicos):</b> R$ 430 milhões por ano.</li>
+<li><b>Para chegar a R$ 50 milhões de receita recorrente anual:</b> seriam cerca de 6.900 clientes, ou 4,6% do mercado endereçável (6% no cenário baixo, 3% no alto).</li>
+</ul>
+<p><b>Por que esse número difere do v0:</b> o v0 tratou os médicos "sem contrato formal" como se todos precisassem atrair pacientes. Muitos médicos sem carteira assinada, porém, são plantonistas contratados como pessoa jurídica por hospitais, sem consultório. Há ainda cerca de 215 mil CNPJs ativos com o código de atividade "médica ambulatorial restrita a consultas", mas essa contagem também inclui empresas abertas só para receber plantões, por isso não serve como medida direta do mercado.</p>
+<p><b>Mercados vizinhos</b> (números aproximados, ainda não confirmados nos conselhos):</p>
+<ul>
+<li><b>Dentistas:</b> mais de 450 mil (CFO, via fonte secundária). Quase todo o atendimento é particular, o que torna o grupo um alvo forte. A Resolução CFO 196/2019 tem regras próprias de publicidade e permite mais do que a do CFM.</li>
+<li><b>Psicólogos:</b> mais de 600 mil inscritos no CFP.</li>
+</ul>
+<p>A expansão para outras profissões de saúde pode multiplicar o mercado por dois ou três. Cada profissão, porém, exige uma base de regras própria, e já tem concorrentes: o Sorriai na odontologia e o IAPostLab cobrindo CFO, CFP, CFN e COFFITO.</p>
+
+<h2>2. Concorrência: a escada de preços</h2>
+<table border="1" cellpadding="6">
+<tr><th>Faixa por mês (sem mídia)</th><th>Quem está lá</th><th>O que entrega</th></tr>
+<tr><td>R$ 0 a R$ 60</td><td>ConteudoMed, GalilAI, Pulmo (plano de entrada), mLabs, Canva</td><td>Posts e agendamento</td></tr>
+<tr><td>R$ 79 a R$ 229</td><td>InstaMed, Doutor Conteúdo, Clinicacopy, Pulmo (plano superior), IAPostLab</td><td>Instagram com IA e checagem de regras</td></tr>
+<tr><td>Cerca de R$ 165</td><td>"Faça você mesmo": Canva, ChatGPT e mLabs</td><td>Referência de preço do plano de R$ 297</td></tr>
+<tr><td>R$ 100 a R$ 500, mais R$ 2.490 de implantação</td><td>O Site Médico, siteparamedico</td><td>Site e perfil no Google</td></tr>
+<tr><td>R$ 429 a R$ 877</td><td>Doctoralia (plano, mais site por R$ 99, mais IA Noa por R$ 199)</td><td>Visibilidade no portal, agenda, site e botão de agendamento no Google</td></tr>
+<tr><td><b>R$ 300 a R$ 1.500</b></td><td><b>Nenhum software encontrado</b></td><td><b>Pacote completo com IA e conformidade: o espaço da Jalecon</b></td></tr>
+<tr><td>R$ 1.500 a R$ 4.000</td><td>Freelancers e agências de entrada</td><td>Instagram e anúncios, com qualidade irregular</td></tr>
+<tr><td>R$ 2.500 a R$ 8.000 (mediana de cerca de R$ 3.250)</td><td>Agências especializadas em saúde</td><td>Escopo completo, com atendimento humano</td></tr>
+<tr><td>R$ 3.997 a R$ 6.497</td><td>MedLeads</td><td>Tráfego pago e chatbot com IA</td></tr>
+</table>
+<p><b>Leitura:</b></p>
+<ul>
+<li><b>O plano de R$ 297 da Jalecon está exposto.</b> Ele custa de 1,5 a 6 vezes mais que as ferramentas de IA mais próximas e só se justifica se site e Google estiverem claramente incluídos.</li>
+<li><b>Os planos de R$ 697 e R$ 1.497 disputam o mesmo orçamento</b> que o médico já gasta com a Doctoralia ou com um freelancer.</li>
+<li><b>Checagem de conformidade não diferencia mais ninguém:</b> virou requisito de entrada. Ela só volta a ser diferencial se vier com algo que os outros não oferecem: histórico de auditoria, revisão humana ou alguma forma de garantia.</li>
+</ul>
+<p><b>Ameaças:</b></p>
+<ol>
+<li><b>Doctoralia (estratégica):</b> tem o orçamento, o canal de vendas, o Google e o caixa (o grupo teve receita de € 189 milhões em 2024 e EBITDA positivo em 2025). Incentivar a marca própria do médico conflita com o modelo de portal dela, mas ela pode vender "presença digital" como adicional, como já faz com o site.</li>
+<li><b>InstaMed e Pulmo (táticas):</b> definem o preço que o médico espera pagar por conteúdo.</li>
+<li><b>Afya/iClinic:</b> seu ecossistema alcança mais de 268 mil médicos e estudantes. É mais provável que faça parceria ou compre do que construa, então é ao mesmo tempo ameaça e possível canal ou comprador.</li>
+</ol>
+<p><b>Contexto regulatório:</b> em 9 de junho de 2026, o CFM lançou uma IA que monitora a publicidade de médicos nas redes sociais. A Resolução CFM 2.454/2026, sobre IA na medicina, está em vigor desde 26 de agosto de 2026, com pedido de suspensão em análise no TRF1. O medo de infração tende a crescer, e com ele a demanda por conformidade.</p>
+
+<h2>3. O que aprender com empresas parecidas</h2>
+<ul>
+<li><b>Assinatura de marketing para médicos raramente vira empresa grande sozinha.</b> A PatientPop, nos EUA, captou mais de US$ 125 milhões e acabou fundida com um software de faturamento (Kareo, hoje Tebra), com cortes de equipe depois. ProSites e Officite foram absorvidos por grupos maiores.</li>
+<li><b>Médico paga com mais facilidade por paciente do que por post.</b> A Zocdoc só cresceu com lucro depois de trocar a mensalidade por cobrança por paciente novo agendado (US$ 35 a US$ 110).</li>
+<li><b>Retenção alta vem de estar dentro da operação.</b> A Weave, que é o telefone e o pagamento do consultório, perde cerca de 0,7% da receita por mês. Marketing local sem contrato perde de 40% a 50% dos clientes por ano.</li>
+<li><b>A camada de IA que só repassa o modelo é comprimida rápido.</b> A Jasper cortou pelo menos 30% da previsão de receita e 20% do valor depois do ChatGPT.</li>
+<li><b>A régua brasileira:</b> a RD Station, melhor caso de software de marketing para pequenas empresas, levou cerca de 10 anos para chegar a R$ 200 milhões de receita. A iClinic foi vendida por R$ 182,7 milhões, com 23 mil usuários.</li>
+</ul>
+
+<h2>4. Premissas do modelo v0 contra as referências de mercado</h2>
+<table border="1" cellpadding="6">
+<tr><th>Premissa do v0</th><th>Referência encontrada</th><th>Avaliação</th><th>Proposta para o v2 (cenário base)</th></tr>
+<tr><td>Churn de 3% ao mês no plano de R$ 697</td><td>De 4% a 7% para software de pequena empresa nessa faixa de preço; marketing local perde cerca de 50% dos clientes por ano</td><td>Otimista</td><td>5,5% ao mês, ou 3,5% com contrato anual pré-pago</td></tr>
+<tr><td>Churn de 5% ao mês no plano de R$ 297</td><td>De 6% a 9% para ticket abaixo de US$ 100; apps de IA retêm pior</td><td>Otimista a realista</td><td>7% ao mês</td></tr>
+<tr><td>Churn de 2,5% ao mês no plano de R$ 1.497</td><td>Agências com contrato: 1,6% a 2,4%</td><td>Realista se houver atendimento humano</td><td>3,5% ao mês</td></tr>
+<tr><td>CAC de R$ 1.800 por mídia paga</td><td>Recuperação do CAC em 8 a 11 meses é a mediana nessa faixa de ticket, o que equivale a CAC de R$ 4.500 a R$ 6.100</td><td>Otimista</td><td>R$ 4.500 na mídia paga; R$ 1.500 em parcerias</td></tr>
+<tr><td>Margem bruta de 77% a 82%</td><td>Weave: 71%; com revisão humana, de 60% a 70%</td><td>Realista só para software puro</td><td>75% nos planos só de software; 60% nos planos com gestor</td></tr>
+<tr><td>R$ 72 milhões de receita anual no ano 5</td><td>Exige receita média de R$ 928 por cliente por mês e 4,6% do mercado endereçável</td><td>Otimista</td><td>Recalcular com as premissas acima</td></tr>
+</table>
+<p><b>Sensibilidade do plano Consultório</b> (R$ 697, margem de 72%):</p>
+<ul>
+<li>LTV/CAC de 3 ou mais acontece com <b>churn de até 4% e CAC de até R$ 4.000</b>, ou com <b>churn de até 5,5% e CAC de até R$ 3.000</b>.</li>
+<li>Com as referências centrais (churn de 5,5% e CAC de R$ 4.500), o resultado é 2,0.</li>
+</ul>
+<p>Ou seja, o negócio depende de dois fatores: um canal de aquisição barato (parcerias e indicação) e algo que segure o cliente (contrato anual, site hospedado, agenda integrada, resultado medido).</p>
+
+<h2>5. Auditoria do v0: o que se confirma e o que muda</h2>
+<table border="1" cellpadding="6">
+<tr><th>Afirmação do v0</th><th>Situação</th><th>O que fazer</th></tr>
+<tr><td>635.706 médicos</td><td>Verificado (Demografia Médica 2025)</td><td>Manter</td></tr>
+<tr><td>448 escolas médicas e 48.491 vagas (2024); o número de escolas mais que triplicou em 20 anos</td><td>Verificado (Ministério da Saúde: 143 escolas em 2004)</td><td>Manter</td></tr>
+<tr><td>55,4% dos especialistas no Sudeste</td><td>Verificado (Demografia Médica 2025)</td><td>Manter</td></tr>
+<tr><td>Médicos sem contrato formal passaram de 30% para 48%</td><td>Fonte secundária única (Medway). A RAIS mostra 33% com emprego formal em 2023.</td><td>Trocar por "só um terço dos médicos tem emprego formal (RAIS 2023)" e não usar como mercado</td></tr>
+<tr><td>305 mil médicos "precisam gerar a própria demanda"</td><td>Suposição sem base</td><td>Trocar por cerca de 150 mil, com a faixa de 115 mil a 230 mil</td></tr>
+<tr><td>TAM de R$ 5,6 bilhões (todos os médicos × R$ 8.866)</td><td>Inflado</td><td>Trocar pelo funil da seção 1</td></tr>
+<tr><td>Capitais com mais de 7 médicos por mil habitantes</td><td>Não verificado</td><td>Remover ou confirmar na Demografia Médica</td></tr>
+<tr><td>80% dos pacientes escolhem médico por avaliações online</td><td>Fonte com interesse comercial (Doctoralia)</td><td>Manter, dizendo que o dado é da Doctoralia</td></tr>
+<tr><td>12% dos brasileiros usam IA para orientação inicial de saúde</td><td>Fonte não encontrada</td><td>Remover</td></tr>
+<tr><td>Resolução CFM 2.336/2023</td><td>Verificado (em vigor desde 11/03/2024)</td><td>Manter</td></tr>
+<tr><td>Resolução CFM 2.454/2026 sobre IA</td><td>Verificado (DOU de 27/02/2026; em vigor desde 26/08/2026; pedido de suspensão no TRF1)</td><td>Manter e citar o pedido de suspensão</td></tr>
+<tr><td>Concorrentes Pulmo, InstaMed, Doutor Conteúdo, CreatorMed e ConteudoMed</td><td>Existem</td><td>Manter, com preços atualizados (R$ 28 a R$ 229)</td></tr>
+<tr><td>MedContent AI e Medyno</td><td>O primeiro é protótipo pessoal; o segundo não é produto independente</td><td>Remover do deck</td></tr>
+<tr><td>Doctoralia fora da análise de concorrência</td><td>Omissão importante</td><td>Incluir como principal concorrente estratégica</td></tr>
+<tr><td>"Ninguém entrega conformidade verificável"</td><td>Parcialmente falso: vários concorrentes anunciam conformidade com o CFM</td><td>Trocar por "ninguém entrega o pacote completo, com conformidade e resultado medido"</td></tr>
+<tr><td>Agências de R$ 1,5 mil a R$ 12 mil por mês</td><td>Coerente (faixa típica de R$ 2.500 a R$ 8.000; mediana de cerca de R$ 3.250)</td><td>Manter, com a mediana</td></tr>
+<tr><td>Preço da IA (Claude Sonnet 5.5: US$ 2 e US$ 10 por milhão de tokens)</td><td>Verificado</td><td>Manter</td></tr>
+<tr><td>CAC de R$ 1.800, churn de 3%, margem de 77% a 82%</td><td>Otimistas (ver seção 4)</td><td>Revisar no financeiro v2</td></tr>
+</table>
+
+<h2>6. Leitura preliminar das hipóteses (não é o veredito)</h2>
+<table border="1" cellpadding="6">
+<tr><th>Hipótese</th><th>Leitura hoje</th><th>O que falta</th></tr>
+<tr><td>H1 Dor</td><td>Sinais indiretos positivos: a Doctoralia cobra R$ 429 a R$ 679 e o mercado de agências é grande</td><td>Entrevistas</td></tr>
+<tr><td>H2 Disposição a pagar</td><td>A faixa de R$ 400 a R$ 700 já é praticada. Para conteúdo sozinho, a âncora é de R$ 100 a R$ 200.</td><td>Entrevistas (Van Westendorp)</td></tr>
+<tr><td>H3 Conformidade vende</td><td>O tema está em alta (fiscalização do CFM por IA), mas o mercado já trata conformidade como requisito básico</td><td>Entrevistas (menção espontânea)</td></tr>
+<tr><td>H4 Mercado</td><td><b>No limite:</b> cerca de 150 mil médicos e R$ 1,1 bilhão por ano, perto do corte (100 mil médicos e R$ 1 bilhão)</td><td>Percentual de particulares nas entrevistas</td></tr>
+<tr><td>H5 Espaço competitivo</td><td><b>Em risco:</b> a camada de conteúdo está tomada. O espaço é só o pacote completo medido em pacientes, e a Doctoralia pode ocupá-lo.</td><td>Conferir preços à mão</td></tr>
+<tr><td>H6 Economia por cliente</td><td><b>Não passa com as referências centrais</b> (LTV/CAC de 2,0). Passa com canal barato ou contrato anual.</td><td>Financeiro v2 e entrevistas (permanência e canal)</td></tr>
+<tr><td>H7 Escala</td><td><b>Não passa só com médicos</b> (exigiria 4,6% do mercado, e o corte é 3%). Pode passar com dentistas e outras profissões.</td><td>Financeiro v2 com expansão</td></tr>
+<tr><td>H8 Execução e risco</td><td>Tecnicamente viável. O risco regulatório cresce com a fiscalização por IA. Já existe uma base de 39 regras para o Guardião: 27 confirmadas em trechos de fontes oficiais e 12 a validar.</td><td>Validação jurídica das 12 regras pendentes; demo</td></tr>
+</table>
+<p><b>Direção que se desenha, ainda sem as entrevistas:</b> como "SaaS de posts com conformidade para médicos", a Jalecon dificilmente justifica capital de risco. O caminho com mais chance é outro: <b>presença completa, com site, Google e anúncios, cobrada em parte por resultado</b> (consultas geradas), presa à operação do consultório (agenda e WhatsApp) e aberta a outras profissões de saúde. A estratégia v1 e o financeiro v2 vão testar esse desenho contra o original.</p>
+
+<h2>Fontes principais</h2>
+<ul>
+<li>Demografia Médica 2025: medicinasa.com.br/?p=133493; med.estrategia.com (dados de vínculo e RAIS)</li>
+<li>Demografia Médica 2015: cremesp.org.br/pdfs/demografia_medica_2015.pdf</li>
+<li>Escolas médicas: tribunademinas.com.br (13/01/2026)</li>
+<li>Resolução CFM 2.454/2026: cesconbarrieu.com.br; portal.cfm.org.br/noticias/cfm-normatiza-uso-da-ia-na-medicina</li>
+<li>Fiscalização do CFM por IA: portal.cfm.org.br/noticias/cfm-lanca-inteligencia-artificial-para-revolucionar-a-fiscalizacao-medica-no-brasil</li>
+<li>Concorrentes: instamedai.app; pulmo.com.br; doutorconteudo.com.br; creatormed.ai; conteudomed.digital; pro.doctoralia.com.br/preco; reclameaqui.com.br/empresa/doctoralia; iclinic.com.br/precos; medleads.app; ositemedico.com.br; sorriai.com.br/precos; iapostlab.com.br</li>
+<li>Preços de agências: zdigital360.com, fernandatavares.ia.br, farmacerto.com, markantygrowth.com</li>
+<li>Análogos: hitconsultant.net (Tebra); zocdoc.com/about/newpricing; arquivos da Weave na SEC; prnewswire.com (Birdeye); seudinheiro.com (RD Station); exame.com (iClinic)</li>
+<li>Churn e CAC: relatório de retenção da ChartMogul; estudo de churn da Vendasta; Recurly; Benchmarkit (via chargebee.com)</li>
+<li>Relatórios completos com todos os links: research/concorrencia.md e research/benchmarks.md</li>
+</ul>
+</body></html>

@@ -1,0 +1,961 @@
+[
+  {
+    "id": "CFM2336-ID-01",
+    "norma": "Resolução CFM nº 2.336/2023; Código de Ética Médica (Res. CFM 2.217/2018), art. 117",
+    "artigo": "Res. 2.336/2023, art. 4º; CEM art. 117",
+    "titulo": "Identificação obrigatória ausente (nome, CRM/UF, palavra MÉDICO, RQE se anunciar especialidade)",
+    "tipo": "ausencia_obrigatoria",
+    "descricao": "Toda peça de publicidade médica deve trazer o nome do médico, o(s) número(s) de inscrição no CRM acompanhado(s) da palavra MÉDICO e, se anunciar especialidade/área de atuação, o RQE. O CEM art. 117 exige nome, número no CRM com a UF e RQE quando anunciar especialidade. Regra de AUSÊNCIA: dispara quando nenhum padrão de CRM for encontrado na peça ou no perfil (art. 6º: dados visíveis na página principal do perfil — fonte secundária: manual CFM).",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\bcrm[\\s/-]*[a-z]{2}[\\s:nº°.-]*\\d{3,7}",
+      "\\bcrm[\\s:nº°.-]*\\d{3,7}[\\s/-]*[a-z]{2}\\b",
+      "\\bm[eé]dic[oa]\\b"
+    ],
+    "exemplos_violacao": [
+      "Dra. Ana Souza – Dermatologia. Agende sua avaliação!",
+      "Clínica Vida: cuidando da sua pele (post sem CRM nem a palavra médico)"
+    ],
+    "sugestao": "Inclua no rodapé/legenda: \"Dra. Ana Souza – MÉDICA – CRM-SP 123456 – Dermatologia – RQE 7890\". Em perfis, deixe esses dados na bio.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://portal.cfm.org.br/images/PDF/cem2019.pdf"
+  },
+  {
+    "id": "CFM2336-RQE-01",
+    "norma": "Resolução CFM nº 2.336/2023; CEM (Res. 2.217/2018) arts. 114 e 117",
+    "artigo": "Res. 2.336/2023, art. 4º; CEM arts. 114 e 117",
+    "titulo": "Uso de \"especialista\" ou nome de especialidade sem RQE",
+    "tipo": "condicional",
+    "exceto_se": [
+      "\\brqe[\\s:nº°.-]*\\d+",
+      "n[aã]o especialista"
+    ],
+    "descricao": "Só pode se anunciar especialista quem tem RQE registrado no CRM; ao anunciar especialidade deve constar o RQE. CEM art. 114 veda anunciar especialidade/área de atuação para a qual não esteja qualificado e registrado no CRM. Dispara se o texto usa 'especialista'/'especialidade' e não há RQE.",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\bespecialista\\b",
+      "\\bespecialidade\\b",
+      "\\bespecializad[oa] em\\b"
+    ],
+    "exemplos_violacao": [
+      "Sou especialista em emagrecimento e hormônios.",
+      "Dr. Paulo, especialista em dor crônica – agende já.",
+      "Médica especializada em rejuvenescimento facial."
+    ],
+    "sugestao": "Se houver RQE: \"Dermatologista – RQE 1234\". Se não houver: retire 'especialista' e descreva a formação como currículo, seguida de NÃO ESPECIALISTA (ver regra CFM2336-POS-01).",
+    "confirmado": true,
+    "fonte": "https://www.in.gov.br/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/48226289/do1-2018-11-01-resolucao-n-2-217-de-27-de-setembro-de-2018-48226042 ; https://publicidademedica.cfm.org.br/resolucao/o-que-muda"
+  },
+  {
+    "id": "CFM2336-POS-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "artigo não confirmado (regra de pós-graduação lato sensu divulgada pelo CFM)",
+    "titulo": "Pós-graduação anunciada sem a expressão NÃO ESPECIALISTA",
+    "tipo": "condicional",
+    "exceto_se": [
+      "n[aã]o especialista",
+      "\\brqe[\\s:nº°.-]*\\d+"
+    ],
+    "descricao": "O médico com pós-graduação lato sensu (cadastrada no CRM, segundo comentaristas) pode anunciá-la em forma de currículo, seguida da expressão NÃO ESPECIALISTA em caixa alta. Previsão nova da Res. 2.336/2023 segundo o próprio CFM; número do artigo não confirmado nesta pesquisa.",
+    "gravidade": "alerta",
+    "padroes": [
+      "p[oó]s[- ]?gradua[cç][aã]o em",
+      "p[oó]s[- ]?graduad[oa] em",
+      "\\bp[oó]s em\\b",
+      "\\bfellow(ship)?\\b"
+    ],
+    "exemplos_violacao": [
+      "Pós-graduada em Dermatologia Estética.",
+      "Médico pós-graduado em Nutrologia – agende sua consulta."
+    ],
+    "sugestao": "\"Dr. João Lima – MÉDICO – CRM-MG 12345 – Pós-graduação em Nutrologia – NÃO ESPECIALISTA\".",
+    "confirmado": false,
+    "fonte": "https://www.ibes.med.br/resolucao-cfm-no-2-336-2023-atualiza-regras-sobre-publicidade-medica/ ; https://fiscalizacao.cremesp.org.br/faq/"
+  },
+  {
+    "id": "CFM2336-NAOESP-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, I",
+    "titulo": "Não especialista anunciando que trata órgão, sistema ou doença específica",
+    "tipo": "condicional",
+    "exceto_se": [
+      "\\brqe[\\s:nº°.-]*\\d+"
+    ],
+    "descricao": "É vedado ao médico não especialista divulgar que trata de sistemas orgânicos, órgãos ou doenças específicas, por induzir confusão com especialidade. Detecção heurística: dispara quando há anúncio de tratamento focado e nenhum RQE.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\btrat(o|amos) (de )?(doen[cç]as|problemas|dist[uú]rbios) d[aoe]s? ",
+      "\\bcuid(o|amos) (do seu|da sua|dos seus|das suas) (cora[cç][aã]o|tire[oó]ide|pele|coluna|joelho|f[ií]gado|intestino|horm[oô]nios)",
+      "\\btratamento (de|para) (diabetes|tireoide|hipotireoidismo|enxaqueca|fibromialgia|menopausa|obesidade|calv[ií]cie|acne|varizes)"
+    ],
+    "exemplos_violacao": [
+      "Trato doenças da tireoide e menopausa (médico sem RQE em endocrinologia).",
+      "Cuidamos do seu coração – agende sua consulta."
+    ],
+    "sugestao": "Sem RQE, descreva a atuação como clínica geral/área de interesse sem sugerir especialidade, ou inclua o RQE correspondente se existir.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-TIT-01",
+    "norma": "CEM (Res. CFM 2.217/2018); Resolução CFM nº 2.336/2023",
+    "artigo": "CEM art. 114; Res. 2.336/2023 (artigo específico não confirmado)",
+    "titulo": "Título ou especialidade inexistente/não reconhecida",
+    "tipo": "presenca_proibida",
+    "descricao": "CEM art. 114 veda anunciar títulos científicos que não possa comprovar e especialidade/área de atuação para a qual não esteja qualificado e registrado no CRM. Comentaristas da Res. 2.336 apontam que títulos inexistentes ou não reconhecidos não podem ser usados. A lista de termos abaixo é heurística (não é especialidade médica reconhecida segundo o conhecimento corrente — conferir a resolução CFM vigente de especialidades).",
+    "gravidade": "alerta",
+    "padroes": [
+      "especialista em (medicina )?est[eé]tica",
+      "\\bm[eé]dic[oa] est[eé]tic[oa]\\b",
+      "especialista em (emagrecimento|harmoniza[cç][aã]o|rejuvenescimento|longevidade|antienvelhecimento|anti-?aging|implante hormonal|soroterapia|ozonioterapia)",
+      "\\bcirurgi[aã]o est[eé]tico\\b",
+      "\\bmedicina ortomolecular\\b",
+      "\\bmedicina anti-?aging\\b"
+    ],
+    "exemplos_violacao": [
+      "Dra. Carla, especialista em medicina estética.",
+      "Especialista em emagrecimento e longevidade."
+    ],
+    "sugestao": "Use apenas especialidades/áreas de atuação reconhecidas e registradas (com RQE) ou descreva o procedimento que realiza sem atribuir título: \"Realizo procedimentos de toxina botulínica\".",
+    "confirmado": false,
+    "fonte": "https://www.in.gov.br/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/48226289/do1-2018-11-01-resolucao-n-2-217-de-27-de-setembro-de-2018-48226042 ; https://www.ricardostival.com.br/single-post/publicidade-m%C3%A9dica-e-a-nova-resolu%C3%A7%C3%A3o-cfm-n%C2%BA-2-336-23"
+  },
+  {
+    "id": "CFM2336-GAR-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, XII",
+    "titulo": "Garantir ou prometer resultado",
+    "tipo": "presenca_proibida",
+    "descricao": "É vedado garantir, prometer ou insinuar bons resultados do tratamento. A medicina é atividade de meio. Também é propaganda enganosa (art. 11, VI) e pode configurar publicidade enganosa (CDC art. 37, §1º).",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\bgarant(o|imos|ia|ido|ida|idos|idas|e)\\b",
+      "resultado garantido",
+      "satisfa[cç][aã]o garantida",
+      "100\\s?% (eficaz|garantido|seguro|natural|efetivo|de sucesso|de satisfa[cç][aã]o)",
+      "\\brisco zero\\b",
+      "\\bsem (nenhum )?riscos?\\b",
+      "resultados? (definitivos?|permanentes?|imediatos?|certos?)",
+      "\\bnunca mais\\b",
+      "\\bvoc[eê] vai (ficar|sair|ter|conseguir|emagrecer|rejuvenescer)\\b",
+      "\\bsucesso (garantido|absoluto|total)\\b",
+      "dinheiro de volta"
+    ],
+    "exemplos_violacao": [
+      "Resultado garantido já na primeira sessão!",
+      "Procedimento 100% seguro e sem riscos.",
+      "Você vai sair daqui 10 anos mais jovem."
+    ],
+    "sugestao": "Troque a promessa por informação: \"Os resultados variam conforme cada paciente; na consulta avaliamos indicações, limitações e riscos.\"",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://publicidademedica.cfm.org.br/manual/aplicacao-pratica/capitulo-10"
+  },
+  {
+    "id": "CFM2336-GAR-02",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, XII; Art. 11, § 2º, alínea f",
+    "titulo": "Insinuar bons resultados / ausência de desconforto ou risco",
+    "tipo": "presenca_proibida",
+    "descricao": "O art. 11, XII também veda INSINUAR bons resultados; a alínea f do § 2º (sensacionalismo) inclui usar de forma abusiva, enganosa ou sedutora representações visuais e informações que induzam à percepção de garantia de resultados. Expressões que negam dor, cicatriz, efeito adverso ou tempo de recuperação são o padrão mais comum.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bsem dor\\b",
+      "\\bindolor\\b",
+      "\\bsem cicatriz(es)?\\b",
+      "\\bsem cortes?\\b",
+      "sem efeitos? colaterais",
+      "sem contraindica[cç][oõ]es",
+      "recupera[cç][aã]o (imediata|instant[aâ]nea)",
+      "\\bvolte (ao trabalho|à rotina) no mesmo dia\\b",
+      "efeito (imediato|natural garantido)",
+      "\\bseguro para todos\\b",
+      "resultado natural garantido"
+    ],
+    "exemplos_violacao": [
+      "Lipo sem dor e sem cicatrizes!",
+      "Tratamento sem efeitos colaterais, recuperação imediata."
+    ],
+    "sugestao": "\"O procedimento é feito com anestesia local; o desconforto e o tempo de recuperação variam. Possíveis efeitos adversos são explicados na consulta.\"",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://www.cremesp.org.br/?siteAcao=PesquisaLegislacao&dif=a&ficha=1&id=20730"
+  },
+  {
+    "id": "CFM2336-GAR-03",
+    "norma": "Resolução CFM nº 2.336/2023; CDC (Lei 8.078/1990)",
+    "artigo": "Res. 2.336, Art. 11, XII; CDC art. 37, § 1º",
+    "titulo": "Promessa numérica de resultado (kg, anos, centímetros, prazo)",
+    "tipo": "presenca_proibida",
+    "descricao": "Quantificar o resultado esperado (perder X kg em Y dias, rejuvenescer X anos) equivale a prometer resultado e é a forma mais clara de violação do art. 11, XII.",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "perca (at[eé] )?\\d+\\s?(kg|quilos)",
+      "elimine (at[eé] )?\\d+\\s?(kg|quilos|cm|cent[ií]metros)",
+      "emagre[cç]a \\d+\\s?(kg|quilos)",
+      "\\d+\\s?(kg|quilos) em \\d+\\s?(dias|semanas)",
+      "(rejuvene[cç]a|pare[cç]a) (at[eé] )?\\d+ anos (mais jovem|a menos)?",
+      "\\d+ anos mais jovem",
+      "em (apenas )?\\d+ (dias|sess[oõ]es) voc[eê]"
+    ],
+    "exemplos_violacao": [
+      "Perca até 10 kg em 30 dias com nosso protocolo!",
+      "Pareça 10 anos mais jovem em uma sessão."
+    ],
+    "sugestao": "Remova números de resultado; explique o objetivo do tratamento e que a resposta é individual.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "DL4113-CURA-01",
+    "norma": "Decreto-Lei nº 4.113/1942; Resolução CFM nº 2.336/2023; CEM",
+    "artigo": "DL 4.113/1942, art. 1º, I; Res. 2.336, art. 11, XII; CEM art. 112",
+    "titulo": "Anúncio de cura",
+    "tipo": "presenca_proibida",
+    "descricao": "O DL 4.113/1942 (considerado em vigor pela doutrina e citado pelo CFM) veda anunciar a cura de determinadas doenças para as quais não haja tratamento próprio. Anunciar 'cura' no marketing também insinua resultado (Res. 2.336, art. 11, XII). Conteúdo educativo genérico ('a hepatite C tem cura com tratamento') pode ser legítimo — por isso é alerta.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bcura(r|mos|do|da|dos|das)?\\b",
+      "\\bcure (sua|seu|de vez)\\b",
+      "\\belimin(e|a) (de vez|definitivamente)\\b",
+      "\\bacabe (de vez )?com (a|o|sua|seu)\\b",
+      "\\bsolu[cç][aã]o definitiva\\b",
+      "\\btratamento definitivo\\b"
+    ],
+    "exemplos_violacao": [
+      "Curamos sua enxaqueca de vez!",
+      "Solução definitiva para a calvície.",
+      "Acabe com a celulite em poucas sessões."
+    ],
+    "sugestao": "\"Existem tratamentos que podem controlar/melhorar a enxaqueca; o plano é definido após avaliação.\"",
+    "confirmado": true,
+    "fonte": "https://portal.cfm.org.br/leis/lei-4113-1942-obs-decreto-lei-4-113-regula-a-propaganda-de-medicos-cirurgioes-dentistas-parteiras-massagistas-enfermeiros-de-casas-de-saude-e-de-estabelecimentos-congeneres-e-a-de-preparados/"
+  },
+  {
+    "id": "CFM2336-AUTO-01",
+    "norma": "Resolução CFM nº 2.336/2023; CEM art. 112",
+    "artigo": "Res. 2.336, art. 11, XVI e § 2º, alínea a; CEM art. 112",
+    "titulo": "Superlativos e autopromoção (\"o melhor\", \"número 1\", \"referência\")",
+    "tipo": "presenca_proibida",
+    "descricao": "Veda-se portar-se de forma sensacionalista ou autopromocional, praticar concorrência desleal ou divulgar conteúdo inverídico (art. 11, XVI). Sensacionalismo inclui divulgar procedimento com o objetivo de enaltecer e priorizar a atuação do médico ou do local onde atua (§ 2º, a). CEM art. 112 veda divulgar assunto médico de forma sensacionalista, promocional ou inverídica.",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\b(o|a) melhor (m[eé]dic[oa]|cirurgi[aã]|dermatologista|cl[ií]nica|resultado|tratamento|profissional|da cidade|do brasil|de sp|do rio)",
+      "\\bmelhores (m[eé]dicos|resultados|cirurgi[oõ]es)\\b",
+      "\\bn[uú]mero (1|um)\\b",
+      "\\bn[ºo°]\\.?\\s?1\\b",
+      "\\btop 1\\b",
+      "\\brefer[eê]ncia (nacional|internacional|em|no|na)\\b",
+      "\\bl[ií]der (em|no|na)\\b",
+      "\\bo mais (procurado|experiente|completo|renomado|premiado|requisitado)\\b",
+      "\\bmais de \\d[\\d.]* (pacientes|cirurgias|procedimentos) (realizad|atendid)",
+      "\\bincompar[aá]vel\\b",
+      "\\bimbat[ií]vel\\b"
+    ],
+    "exemplos_violacao": [
+      "O melhor cirurgião plástico de São Paulo.",
+      "Clínica nº 1 em harmonização facial.",
+      "Mais de 5.000 cirurgias realizadas – referência nacional!"
+    ],
+    "sugestao": "Descreva fatos verificáveis e sóbrios: formação, RQE, procedimentos que realiza. Ex.: \"Cirurgião plástico – RQE 1234. Atendo em São Paulo.\"",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://portal.cfm.org.br/images/PDF/cem2019.pdf"
+  },
+  {
+    "id": "CFM2336-EXCL-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, XVI (concorrência desleal/autopromoção); § 2º, a",
+    "titulo": "Exclusividade de método ou de profissional",
+    "tipo": "presenca_proibida",
+    "descricao": "Reivindicar exclusividade (único, exclusivo, inédito) é autopromoção e concorrência desleal. Em entrevistas, a resolução também pede que o médico evite reivindicar exclusividade de métodos diagnósticos e terapêuticos (artigo dessa regra não confirmado).",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\b[uú]nic[oa] (m[eé]dic[oa]|cl[ií]nica|profissional|no brasil|na cidade|na regi[aã]o|do estado|a (fazer|realizar|oferecer))",
+      "\\bt[eé]cnica (exclusiva|in[eé]dita|pr[oó]pria|revolucion[aá]ria|secreta)\\b",
+      "\\bm[eé]todo (exclusivo|in[eé]dito|revolucion[aá]rio|pr[oó]prio)\\b",
+      "\\bprotocolo (exclusivo|pr[oó]prio|secreto)\\b",
+      "\\bs[oó] aqui\\b",
+      "\\bexclusividade\\b"
+    ],
+    "exemplos_violacao": [
+      "Único médico da cidade a realizar a técnica X.",
+      "Conheça meu método exclusivo de emagrecimento."
+    ],
+    "sugestao": "\"Realizo a técnica X, indicada para ... (explicar indicação e limitações).\"",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://smabr.com/publicidade-e-propaganda-medica/"
+  },
+  {
+    "id": "CFM2336-PREM-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, XIII",
+    "titulo": "Premiações promocionais (\"médico do ano\", \"melhor médico\")",
+    "tipo": "presenca_proibida",
+    "descricao": "Veda permitir que o nome integre listas de premiações com a finalidade de escolher ou indicar profissional para títulos como \"médico do ano\", \"destaque da especialidade\", \"melhor médico\" com foco promocional.",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\bm[eé]dic[oa] do ano\\b",
+      "\\bmelhor m[eé]dic[oa]\\b",
+      "\\bdestaque (da|na) especialidade\\b",
+      "\\beleit[oa] (o|a|como)? ?(melhor|destaque|top)",
+      "\\bpr[eê]mio (de )?(melhor|destaque|excel[eê]ncia|qualidade)\\b",
+      "\\btop doctor\\b",
+      "\\bprofissional do ano\\b"
+    ],
+    "exemplos_violacao": [
+      "Eleita Médica do Ano 2025!",
+      "Recebi o prêmio de melhor médico da região."
+    ],
+    "sugestao": "Não divulgue premiações comerciais. Títulos acadêmicos comprováveis podem constar como currículo.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-SELO-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, V (texto exato não confirmado; descrito por fonte secundária como selo de qualidade que induz garantia)",
+    "titulo": "Selos de qualidade/certificações que induzem garantia",
+    "tipo": "presenca_proibida",
+    "descricao": "Fontes que citam o texto oficial indicam que o art. 11, V trata de selo de qualidade com o mesmo fundamento do inciso IV (indução à garantia de resultados). Redação exata não confirmada.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bselo (de )?(qualidade|excel[eê]ncia|ouro|garantia)\\b",
+      "\\bcertificad[oa] (de|como) (centro de )?(excel[eê]ncia|qualidade|refer[eê]ncia)\\b",
+      "\\bclinica certificada\\b"
+    ],
+    "exemplos_violacao": [
+      "Clínica com Selo Ouro de qualidade em resultados.",
+      "Certificada como centro de excelência em lipoaspiração."
+    ],
+    "sugestao": "Remova selos comerciais; informe acreditações oficiais de forma neutra, sem associá-las a resultados.",
+    "confirmado": false,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-MEDO-01",
+    "norma": "Resolução CFM nº 2.336/2023; CDC art. 37, § 2º",
+    "artigo": "Res. 2.336, art. 11, § 2º, alínea e; CDC art. 37, § 2º",
+    "titulo": "Sensacionalismo por medo, pânico ou intranquilidade",
+    "tipo": "presenca_proibida",
+    "descricao": "É sensacionalismo veicular em público informação que possa causar intranquilidade, insegurança, pânico ou medo, de forma coletiva ou individual, mesmo que para fatos conhecidos. No CDC, é abusiva a publicidade que explore o medo.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bantes que seja tarde\\b",
+      "\\bpode (te |lhe )?matar\\b",
+      "\\bassassin[oa] silencios[oa]\\b",
+      "\\b(voc[eê]|seu filho) (est[aá]|pode estar) (em risco|correndo risco|morrendo)\\b",
+      "\\balerta (urgente|m[aá]ximo)\\b",
+      "\\bn[aã]o ignore\\b",
+      "\\bperigo (mortal|silencioso)\\b",
+      "\\bepidemia silenciosa\\b",
+      "\\bvoc[eê] pode (morrer|perder (a vis[aã]o|o p[eé]|a perna))\\b"
+    ],
+    "exemplos_violacao": [
+      "Essa mancha pode te matar – agende antes que seja tarde!",
+      "Alerta urgente: seu filho pode estar correndo risco."
+    ],
+    "sugestao": "Informe com tom sereno e baseado em evidência: \"Manchas que mudam de cor ou tamanho devem ser avaliadas por um médico.\"",
+    "confirmado": true,
+    "fonte": "https://www.cremesp.org.br/?siteAcao=PesquisaLegislacao&dif=a&ficha=1&id=20730 ; https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-SEDU-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, § 2º, alínea f",
+    "titulo": "Linguagem sedutora/transformação que induz percepção de garantia",
+    "tipo": "presenca_proibida",
+    "descricao": "Usar de forma abusiva, enganosa ou sedutora representações visuais e informações que induzam à percepção de garantia de resultados é sensacionalismo.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bcorpo dos sonhos\\b",
+      "\\brosto (perfeito|dos sonhos)\\b",
+      "\\bfique (perfeit[oa]|linda|lindo|jovem|maravilhos[oa])\\b",
+      "\\btransforma[cç][aã]o (total|completa|radical|garantida|incr[ií]vel)\\b",
+      "\\bnova (vers[aã]o de voc[eê]|mulher|pessoa)\\b",
+      "\\bpele de (beb[eê]|porcelana)\\b",
+      "\\bresultado(s)? (incr[ií]ve(l|is)|surpreendentes?|impressionantes?|perfeitos?)\\b"
+    ],
+    "exemplos_violacao": [
+      "Conquiste o corpo dos sonhos com nossa lipo HD!",
+      "Transformação total: veja que resultado incrível!"
+    ],
+    "sugestao": "\"A lipoaspiração remove gordura localizada; não substitui hábitos saudáveis. Indicações e limites são discutidos na consulta.\"",
+    "confirmado": true,
+    "fonte": "https://www.cremesp.org.br/?siteAcao=PesquisaLegislacao&dif=a&ficha=1&id=20730"
+  },
+  {
+    "id": "CFM2336-TEC-01",
+    "norma": "Resolução CFM nº 2.336/2023; CEM art. 113",
+    "artigo": "Res. 2.336, art. 11, VII e § 2º, alínea b; CEM art. 113",
+    "titulo": "Divulgação de método/técnica não reconhecida pelo CFM",
+    "tipo": "presenca_proibida",
+    "descricao": "Veda-se divulgar método ou técnica não reconhecido pelo CFM e usar canais de comunicação para divulgar abordagem clínica/terapêutica sem reconhecimento do CFM (§ 2º, b). CEM art. 113 veda divulgar, fora do meio científico, tratamento cujo valor não esteja reconhecido cientificamente. A LISTA de termos é heurística baseada em controvérsias conhecidas (ozonioterapia, terapias antienvelhecimento, implantes hormonais estéticos, soroterapia); o status regulatório de cada uma deve ser conferido nas resoluções/pareceres CFM específicos — não verificado nesta pesquisa.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bozonioterapia\\b",
+      "\\bsoroterapia\\b",
+      "\\bsoro da (beleza|imunidade|vitalidade)\\b",
+      "\\bchip da beleza\\b",
+      "\\bimplante(s)? (hormona(l|is)|de gestrinona)\\b",
+      "\\bgestrinona\\b",
+      "\\bmedicina (anti-?aging|antienvelhecimento|ortomolecular)\\b",
+      "\\bhorm[oô]nios? bioid[eê]ntic",
+      "\\bterapia (com|de) c[eé]lulas-?tronco\\b",
+      "\\bdetox (de|do) (f[ií]gado|organismo)\\b"
+    ],
+    "exemplos_violacao": [
+      "Agende sua sessão de ozonioterapia para dores.",
+      "Implante hormonal (chip da beleza) para definição muscular.",
+      "Soroterapia para aumentar sua imunidade."
+    ],
+    "sugestao": "Não divulgue ao público técnicas sem reconhecimento do CFM. Divulgue apenas procedimentos reconhecidos, com indicação e evidência.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://portal.cfm.org.br/images/PDF/cem2019.pdf"
+  },
+  {
+    "id": "CFM2336-EQP-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 9º, II (permissão) e Art. 11, III (vedação, conforme manual CRM-MA)",
+    "titulo": "Equipamento: capacidade privilegiada ou sem registro na Anvisa",
+    "tipo": "presenca_proibida",
+    "descricao": "É permitido divulgar aparelhos e tecnologias dentro das informações aprovadas pela Anvisa (art. 9º, II). É vedado divulgar equipamento/medicamento sem registro na Anvisa (art. 11, III segundo o manual do CRM-MA) e atribuir capacidade privilegiada ao aparelho (fonte secundária).",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\b(aparelho|equipamento|laser|tecnologia|m[aá]quina) (exclusiv[oa]|[uú]nic[oa]|mais moderno|mais avan[cç]ado|revolucion[aá]ri[oa]|de [uú]ltima gera[cç][aã]o que garante)",
+      "\\b[uú]nic[oa] (aparelho|equipamento|laser|tecnologia)\\b",
+      "\\bimportad[oa] (e )?(ainda )?sem registro\\b",
+      "\\b(ainda )?n[aã]o (chegou|foi aprovad[oa]|est[aá] aprovad[oa]) (ao|no|pela) (brasil|anvisa)\\b"
+    ],
+    "exemplos_violacao": [
+      "Laser exclusivo, o mais moderno do mundo, resultados em 1 sessão.",
+      "Trouxemos dos EUA a tecnologia que ainda não chegou ao Brasil."
+    ],
+    "sugestao": "\"Utilizamos o laser X (registro Anvisa nº ...), indicado para ... conforme bula/manual aprovado.\"",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://crmma.org.br/wp-content/uploads/2024/03/Manual-de-publicidade-completo-1.pdf"
+  },
+  {
+    "id": "CFM2336-AD-01",
+    "norma": "Resolução CFM nº 2.336/2023; Manual de Publicidade Médica (CODAME/CFM), cap. 12",
+    "artigo": "Art. 14, II, alíneas a e b",
+    "titulo": "\"Antes e depois\" isolado, sem texto educativo, resultados insatisfatórios e complicações",
+    "tipo": "condicional",
+    "exceto_se": [
+      "complica[cç]",
+      "resultados? insatisfat[oó]ri",
+      "indica[cç][oõ]es"
+    ],
+    "descricao": "Imagens de pacientes só com finalidade educativa. Todo uso deve vir com texto educativo (indicações terapêuticas, fatores que influenciam resultados, complicações descritas na literatura) — alínea a. Antes e depois deve ser apresentado como conjunto de imagens com indicações, resultados satisfatórios e insatisfatórios e complicações — alínea b. O Manual (cap. 12) exige: apresentar a condição; antes de pelo menos 4 pacientes diferentes; depois de pelo menos 4 pacientes; descrição de resultados insatisfatórios e complicações; em vídeo, mínimo de 2 s por quadro. Post de antes e depois isolado não é permitido.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bantes e depois\\b",
+      "\\bantes\\s?(x|/|vs\\.?|e)\\s?depois\\b",
+      "#antesedepois",
+      "\\bresultado (da|do|de uma|de um) (paciente|cliente)\\b",
+      "\\bolha (esse|que|s[oó] esse) resultado\\b",
+      "\\bresultado real\\b"
+    ],
+    "exemplos_violacao": [
+      "Antes e depois da minha paciente após 1 sessão de preenchimento 😍",
+      "Olha esse resultado! #antesedepois"
+    ],
+    "sugestao": "Monte o conjunto exigido: condição tratada + antes/depois de ≥4 pacientes não identificados + texto sobre indicações, fatores que influenciam o resultado, resultados insatisfatórios e complicações.",
+    "confirmado": true,
+    "fonte": "https://publicidademedica.cfm.org.br/manual/resolucao-comentada/capitulo-9 ; https://publicidademedica.cfm.org.br/manual/aplicacao-pratica/capitulo-12 ; https://portal.cfm.org.br/noticias/resolucao-libera-fotos-como-antes-e-depois/"
+  },
+  {
+    "id": "CFM2336-IMG-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 14, II, alínea f",
+    "titulo": "Imagem de resultado editada/manipulada",
+    "tipo": "presenca_proibida",
+    "descricao": "É proibida qualquer edição, manipulação ou melhoramento das imagens de resultados. O texto não detecta a imagem em si; a regra captura menções e pedidos de edição no briefing/legenda.",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\b(com|usei|aplicar|aplique|coloque|passe) (um )?filtro\\b",
+      "\\bphotoshop\\b",
+      "\\bfacetune\\b",
+      "\\bretoc(ad[oa]|ar|ue)\\b",
+      "\\b(melhor(ar|e)|clarear|suavizar) a (foto|imagem)\\b",
+      "\\bimagem editada\\b"
+    ],
+    "exemplos_violacao": [
+      "Aplique um filtro leve na foto do depois para ficar mais bonita.",
+      "Foto do resultado retocada no Facetune."
+    ],
+    "sugestao": "Use fotos originais, mesma luz/ângulo/distância no antes e no depois, sem filtros ou retoques.",
+    "confirmado": true,
+    "fonte": "https://publicidademedica.cfm.org.br/resolucao/o-que-muda ; https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-IMG-02",
+    "norma": "Resolução CFM nº 2.336/2023; CEM art. 75; LGPD",
+    "artigo": "Res. 2.336, art. 14, II, alínea e; CEM art. 75; LGPD arts. 5º, II e 11",
+    "titulo": "Identificação do paciente em publicação",
+    "tipo": "presenca_proibida",
+    "descricao": "Veda-se o uso de imagens que identifiquem o paciente (ou terceiros). CEM art. 75: vedado fazer referência a casos clínicos identificáveis ou exibir pacientes/imagens que os tornem reconhecíveis em anúncios, mesmo com autorização. Uso de imagem exige consentimento expresso e escrito com finalidade, abrangência e ausência de contrapartida (manual comentado CFM). Dado de saúde é dado pessoal sensível (LGPD).",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\b(minha|meu|nossa|nosso) paciente,? (?!(que|de|da|do|com|fez|ficou|chegou|tinha|est[aá]|n[aã]o|j[aá]|se|e)\\b)[a-zà-ú]{3,},? (\\d{2} anos|fez|ficou|realizou|chegou)",
+      "\\bpaciente @[a-z0-9_.]+",
+      "\\bobrigad[oa]( pela confian[cç]a)?,? @[a-z0-9_.]+",
+      "\\bmarque (a|o) paciente\\b",
+      "\\b(a|o) paciente [a-zà-ú]+,? \\d{2} anos\\b",
+      "\\bpaciente famos[oa]\\b",
+      "\\bcliente vip\\b"
+    ],
+    "exemplos_violacao": [
+      "Minha paciente Juliana, 34 anos, fez a rinoplastia...",
+      "Obrigada pela confiança, @maria.silva!"
+    ],
+    "sugestao": "Remova nome, @, rosto ou tatuagens identificáveis; use \"paciente do sexo feminino, 30-40 anos\" e garanta termo de consentimento específico.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://transparencia.cfm.org.br/codigo-de-etica-medica/ ; https://sistemas.cfm.org.br/normas/arquivos/despachos/BR/2019/143_2019.pdf"
+  },
+  {
+    "id": "CFM2336-LIVE-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, VIII (numeração por fonte secundária); Art. 14, II, alínea d (captura por terceiros só em partos)",
+    "titulo": "Exibição de consulta ou procedimento em andamento / tempo real",
+    "tipo": "presenca_proibida",
+    "descricao": "Fontes secundárias indicam vedação de expor consultas e procedimentos em andamento/tempo real, mesmo com autorização do paciente, salvo eventos científicos. A captura de imagens por equipes externas só é autorizada em partos (art. 14, II, d).",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\b(ao vivo|live|em tempo real) (do|da|de) (centro cir[uú]rgico|procedimento|cirurgia|consulta|aplica[cç][aã]o)",
+      "\\bacompanhe (a|o) (cirurgia|procedimento|consulta) (ao vivo|em tempo real)",
+      "\\bbastidores (da|do) (cirurgia|centro cir[uú]rgico)\\b",
+      "\\bfilmei (a|o) (cirurgia|procedimento)\\b"
+    ],
+    "exemplos_violacao": [
+      "Live da cirurgia hoje às 15h, acompanhe!",
+      "Bastidores do centro cirúrgico: veja a lipo acontecendo."
+    ],
+    "sugestao": "Use ilustração, animação ou explicação em vídeo fora do ato médico; restrinja demonstração de técnica a ambiente médico/científico.",
+    "confirmado": false,
+    "fonte": "https://www.gestaods.com.br/blog/o-que-nao-e-permitido-fazer-no-marketing-medico/ ; https://publicidademedica.cfm.org.br/manual/resolucao-comentada/capitulo-9"
+  },
+  {
+    "id": "CFM2336-DEP-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 1º, parágrafo sobre repostagens (número do parágrafo não confirmado)",
+    "titulo": "Depoimentos e repostagem de elogios de pacientes",
+    "tipo": "presenca_proibida",
+    "descricao": "Publicações de terceiros/pacientes compartilhadas ou repostadas pelo médico passam a ser consideradas publicações do próprio médico. O portal do CFM admite repostagem desde que não reiterada e com depoimento sóbrio, sem adjetivos de superioridade nem promessa de resultado. Um limite numérico ('2 vezes por semestre') circula em blogs mas NÃO foi confirmado.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bdepoimento\\b",
+      "\\bolha o que (a|o|minha|meu) (paciente|cliente) (disse|falou|escreveu)\\b",
+      "\\bfeedback (de|da|do) (paciente|cliente)\\b",
+      "\\bmudou (a|minha) vida\\b",
+      "\\bmelhor (m[eé]dic[oa]|doutor[a]?) (que j[aá]|do mundo)\\b",
+      "\\bavalia[cç][oõ]es? 5 estrelas\\b",
+      "\\bpacientes satisfeitos\\b"
+    ],
+    "exemplos_violacao": [
+      "Olha o que minha paciente disse: 'a melhor médica do mundo, mudou minha vida!'",
+      "Mais um feedback de paciente satisfeita ❤️"
+    ],
+    "sugestao": "Evite repostar elogios com superlativos ou promessas; se repostar, que seja eventual, sóbrio e sem identificar o paciente.",
+    "confirmado": false,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://publicidademedica.cfm.org.br/resolucao/o-que-muda"
+  },
+  {
+    "id": "CFM2336-PRECO-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 9º, VI",
+    "titulo": "Preço de consulta e formas de pagamento (permitido)",
+    "tipo": "orientacao",
+    "descricao": "É permitido divulgar o valor da consulta e os meios e formas de pagamento, sem caracterizar pacote ou consórcio. Regra informativa: confirma que menções de preço de CONSULTA são lícitas e verifica se não há pacote.",
+    "gravidade": "orienta",
+    "padroes": [
+      "\\bvalor da consulta\\b",
+      "\\bconsulta (por|a partir de|:)? ?r\\$ ?\\d",
+      "\\b(aceitamos|formas de pagamento|parcelamos|parcele em|pix|cart[aã]o de cr[eé]dito)\\b"
+    ],
+    "exemplos_violacao": [],
+    "sugestao": "Formato seguro: \"Consulta: R$ 400. Pagamento em Pix ou cartão.\" Sem 'pacote', brinde ou condição vinculada a outro serviço.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://www.em.com.br/app/colunistas/renato-assis/2023/09/12/interna-renato-assis,1560770/resolucao-cfm-2-336-2023-a-nova-publicidade-medica.shtml"
+  },
+  {
+    "id": "CFM2336-PRECO-02",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 9º, VII (interpretação divergente)",
+    "titulo": "Preço de procedimento/cirurgia divulgado",
+    "tipo": "presenca_proibida",
+    "descricao": "O art. 9º, VII permite INFORMAR QUE o valor de procedimentos particulares poderá ser acordado previamente entre as partes. Há divergência entre comentaristas: uns entendem que divulgar preço de tratamentos e cirurgias continua vedado; outros que preços de procedimentos podem ser informados. Por cautela, o Guardião alerta.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\b(cirurgia|procedimento|aplica[cç][aã]o|sess[aã]o|preenchimento|botox|toxina|lipo\\w*|rinoplastia|harmoniza[cç][aã]o|bioestimulador|laser|peeling)\\b[^.\\n]{0,40}\\br\\$ ?\\d",
+      "\\br\\$ ?\\d[\\d.,]*[^.\\n]{0,40}\\b(cirurgia|procedimento|aplica[cç][aã]o|sess[aã]o|preenchimento|botox|toxina|lipo\\w*|rinoplastia|harmoniza[cç][aã]o|bioestimulador)\\b",
+      "\\bpor apenas r\\$"
+    ],
+    "exemplos_violacao": [
+      "Botox por apenas R$ 790!",
+      "Rinoplastia a partir de R$ 12.000 em 10x."
+    ],
+    "sugestao": "\"O valor do procedimento é definido após avaliação e pode ser acordado previamente entre médico e paciente.\"",
+    "confirmado": false,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://www.em.com.br/app/colunistas/renato-assis/2023/09/12/interna-renato-assis,1560770/resolucao-cfm-2-336-2023-a-nova-publicidade-medica.shtml"
+  },
+  {
+    "id": "CFM2336-DESC-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 9º, VIII",
+    "titulo": "Descontos e campanhas promocionais (permitidos com limites)",
+    "tipo": "presenca_proibida",
+    "descricao": "É permitido anunciar abatimentos e descontos em campanhas promocionais, vedadas a venda casada, a premiação e outros mecanismos que desvirtuem a finalidade da medicina como atividade-meio (Manual CODAME). CRMs (ex.: Cremers) apontam 'mercantilização' (valores, descontos) entre as denúncias mais frequentes — por isso alerta, não bloqueio.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bdesconto\\b",
+      "\\bpromo[cç][aã]o\\b",
+      "\\bpromocional\\b",
+      "\\b\\d{1,2}\\s?% ?(off|de desconto)\\b",
+      "\\bblack friday\\b",
+      "\\bcondi[cç][aã]o especial\\b",
+      "\\boferta\\b",
+      "\\bimperd[ií]vel\\b",
+      "\\bliquida[cç][aã]o\\b"
+    ],
+    "exemplos_violacao": [
+      "Black Friday: 40% OFF em bioestimulador – imperdível!",
+      "Promoção de harmonização facial só este mês."
+    ],
+    "sugestao": "Se usar desconto, apresente-o de forma informativa e sóbria, sem urgência, sem brinde, sem condicionar a outro serviço e sem banalizar o ato médico.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://cremers.org.br/cremers-recebeu-94-denuncias-de-publicidade-medica-em-2022/"
+  },
+  {
+    "id": "CFM2336-CASADA-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 9º, VIII (parte final: vedada venda casada/premiação); Art. 9º, VI (não caracterizar pacote)",
+    "titulo": "Venda casada, brinde, combo ou pacote",
+    "tipo": "presenca_proibida",
+    "descricao": "Promoções não podem envolver venda casada, premiação ou mecanismo que desvirtue a medicina. Exemplos do próprio CFM: \"consulte e ganhe o exame\", \"faça o procedimento e ganhe um prêmio\". A divulgação do preço da consulta não pode caracterizar pacote.",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\bganhe (um|uma|o|a|\\d)",
+      "\\bde brinde\\b",
+      "\\bbrinde\\b",
+      "\\bcombo\\b",
+      "\\bpacote (de|com|promocional|completo|\\d+)\\b",
+      "\\bleve \\d+,? pague \\d+\\b",
+      "\\bna compra d[aeo]\\b",
+      "\\b(consulte|fa[cç]a|agende)[^.\\n]{0,40} e ganhe\\b",
+      "\\bcashback\\b",
+      "\\b(sess[aã]o|aplica[cç][aã]o|consulta) (extra )?gr[aá]tis na\\b"
+    ],
+    "exemplos_violacao": [
+      "Faça o preenchimento e ganhe uma limpeza de pele!",
+      "Pacote 3 sessões de laser + consulta.",
+      "Agende sua consulta e ganhe o exame de bioimpedância."
+    ],
+    "sugestao": "Ofereça cada serviço isoladamente, com informação clara; não vincule brindes ou outros serviços.",
+    "confirmado": true,
+    "fonte": "https://www.ibes.med.br/perguntas-sobre-a-resolucao-cfm-2-336-2023-publicidade-e-propaganda-medica-ja-em-vigor/ ; https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-SORT-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 9º, VIII (vedada premiação)",
+    "titulo": "Sorteios e premiações de consultas, cirurgias ou tratamentos",
+    "tipo": "presenca_proibida",
+    "descricao": "Premiações e sorteios de cirurgias e tratamentos continuam vedados (relator e comentaristas; vedação de 'premiação' no texto do art. 9º, VIII).",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\bsorteio\\b",
+      "\\bsorte(ar|ando|aremos|amos)\\b",
+      "\\bconcorra\\b",
+      "\\bgiveaway\\b",
+      "\\bpromo[cç][aã]o cultural\\b",
+      "\\bvale-?(consulta|procedimento|presente)\\b",
+      "\\bganhe uma (consulta|cirurgia|sess[aã]o|aplica[cç][aã]o)\\b"
+    ],
+    "exemplos_violacao": [
+      "Sorteio! Concorra a uma sessão de botox: siga, curta e marque 3 amigas.",
+      "Giveaway de uma rinoplastia."
+    ],
+    "sugestao": "Não realize sorteios envolvendo atos médicos. Para engajamento, use conteúdo educativo.",
+    "confirmado": true,
+    "fonte": "https://www.em.com.br/app/colunistas/renato-assis/2023/09/12/interna-renato-assis,1560770/resolucao-cfm-2-336-2023-a-nova-publicidade-medica.shtml ; https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-CONS-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, X",
+    "titulo": "Oferta de serviços por consórcio e similares",
+    "tipo": "presenca_proibida",
+    "descricao": "É vedado oferecer serviços por meio de consórcio e similares.",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "\\bcons[oó]rcio\\b",
+      "\\bcarta de cr[eé]dito\\b",
+      "\\bclube de (assinatura|benef[ií]cios) (de|para) (procedimentos|botox|est[eé]tica)\\b",
+      "\\bassinatura mensal de (botox|procedimentos|sess[oõ]es)\\b"
+    ],
+    "exemplos_violacao": [
+      "Consórcio de cirurgia plástica: realize seu sonho!",
+      "Assinatura mensal de botox por R$ 199."
+    ],
+    "sugestao": "Informe apenas formas de pagamento comuns (Pix, cartão, parcelamento) sem estrutura de consórcio/assinatura.",
+    "confirmado": true,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-GRATIS-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "artigo não confirmado",
+    "titulo": "Consulta/avaliação gratuita como chamariz",
+    "tipo": "presenca_proibida",
+    "descricao": "Não foi localizada menção expressa a 'consulta gratuita' no texto da Res. 2.336/2023 nesta pesquisa. A prática tende a ser enquadrada como mercantilização/captação (venda casada quando vinculada a procedimento; sensacionalismo/autopromoção). Recomenda-se tratar como alerta até confirmação no texto integral ou parecer CRM/CFM.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\b(primeira )?consulta gr[aá]tis\\b",
+      "\\bconsulta gratuita\\b",
+      "\\bavalia[cç][aã]o (gr[aá]tis|gratuita|sem custo)\\b",
+      "\\bsem custo (algum|nenhum)?\\b",
+      "\\bde gra[cç]a\\b"
+    ],
+    "exemplos_violacao": [
+      "Primeira consulta grátis para novos pacientes!",
+      "Avaliação gratuita para lipo – vagas limitadas."
+    ],
+    "sugestao": "Divulgue o valor real da consulta. Se houver atendimento social/gratuito, descreva-o sem vínculo com venda de procedimento.",
+    "confirmado": false,
+    "fonte": "https://publicidademedica.cfm.org.br/resolucao/o-que-muda"
+  },
+  {
+    "id": "CFM2336-URG-01",
+    "norma": "Resolução CFM nº 2.336/2023; CDC art. 37",
+    "artigo": "artigo não confirmado (enquadramento provável: art. 11, XVI — sensacionalismo/autopromoção; CDC art. 37, § 1º se a escassez for falsa)",
+    "titulo": "Urgência e escassez artificiais",
+    "tipo": "presenca_proibida",
+    "descricao": "Gatilhos de escassez/urgência ('últimas vagas', 'só hoje') reforçam caráter mercantil e podem ser enganosos se não forem verdadeiros. Não há inciso expresso confirmado.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\b[uú]ltimas vagas\\b",
+      "\\bs[oó] (hoje|at[eé] (amanh[aã]|domingo|sexta))\\b",
+      "\\bcorra\\b",
+      "\\bvagas limitadas\\b",
+      "\\bpor tempo limitado\\b",
+      "\\bn[aã]o perca\\b",
+      "\\b[uú]ltima chance\\b"
+    ],
+    "exemplos_violacao": [
+      "Últimas vagas para o mutirão de lipo – corra!",
+      "Só hoje: condição especial em preenchimento labial."
+    ],
+    "sugestao": "Informe disponibilidade de agenda de forma neutra: \"Agenda aberta para outubro.\"",
+    "confirmado": false,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-DIAG-01",
+    "norma": "Resolução CFM nº 2.336/2023; Decreto-Lei 4.113/1942",
+    "artigo": "Res. 2.336, art. 9º, XII (conteúdo educativo não pode levar a diagnóstico/prognóstico — numeração por fonte secundária); DL 4.113/1942, art. 1º, IV",
+    "titulo": "Oferta de diagnóstico/consulta por mídia social ou meio de massa",
+    "tipo": "presenca_proibida",
+    "descricao": "O conteúdo educativo não pode ofertar consulta nem informações que levem a diagnóstico, procedimento ou prognóstico. O DL 4.113/1942, art. 1º, IV, veda anunciar consultas por correspondência, imprensa, rádio ou meios análogos. (Telemedicina regular segue norma própria e não é alvo desta regra.)",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\b(mande|manda|envie|envia) (a |sua |seu |uma )*(foto|exame|v[ií]deo)[^.\\n]{0,40}(direct|dm|whats|inbox)",
+      "\\bdiagn[oó]stico (pelo|por|no) (direct|whats\\w*|dm|instagram|inbox)\\b",
+      "\\bdescubra se voc[eê] tem\\b",
+      "\\bfa[cç]a (o|nosso) (teste|quiz) e (saiba|descubra) se\\b",
+      "\\bcomente (seu|seus) sintomas?\\b",
+      "\\b(te digo|eu digo|te falo) (o que (voc[eê] tem|[eé])|qual (o )?tratamento)"
+    ],
+    "exemplos_violacao": [
+      "Manda a foto da sua mancha no direct que eu te digo o que é.",
+      "Faça o quiz e descubra se você tem hipotireoidismo."
+    ],
+    "sugestao": "\"Sinais como X merecem avaliação médica. Para atendimento, agende uma consulta (presencial ou por telemedicina).\"",
+    "confirmado": false,
+    "fonte": "https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf ; https://portal.cfm.org.br/leis/lei-4113-1942-obs-decreto-lei-4-113-regula-a-propaganda-de-medicos-cirurgioes-dentistas-parteiras-massagistas-enfermeiros-de-casas-de-saude-e-de-estabelecimentos-congeneres-e-a-de-preparados/"
+  },
+  {
+    "id": "CFM2336-ESTAT-01",
+    "norma": "Resolução CFM nº 2.336/2023; CDC art. 37, § 1º",
+    "artigo": "Res. 2.336, art. 11, § 2º, alínea c; art. 11, VI e XVI (conteúdo inverídico)",
+    "titulo": "Dados estatísticos/científicos sem fonte ou manipulados",
+    "tipo": "presenca_proibida",
+    "descricao": "É sensacionalismo adulterar e/ou manipular dado estatístico e científico para benefício individual ou institucional. Afirmações de eficácia percentual ou 'comprovado cientificamente' exigem fonte verificável.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bcomprovad[oa] cientificamente\\b",
+      "\\bestudos (comprovam|provam|mostram que)\\b",
+      "\\bcientificamente provad[oa]\\b",
+      "\\b\\d{2,3}\\s?% (dos|das) (pacientes|casos|mulheres|homens)\\b",
+      "\\b\\d{2,3}\\s?% de (sucesso|efic[aá]cia|melhora)\\b",
+      "\\baprovad[oa] pela (anvisa|fda) para\\b"
+    ],
+    "exemplos_violacao": [
+      "98% de sucesso comprovado cientificamente!",
+      "Estudos comprovam: elimina 90% da gordura."
+    ],
+    "sugestao": "Cite a fonte (autor, revista, ano) e o contexto do dado, sem extrapolar para promessa individual; ou remova o número.",
+    "confirmado": true,
+    "fonte": "https://www.cremesp.org.br/?siteAcao=PesquisaLegislacao&dif=a&ficha=1&id=20730 ; https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "CFM2336-ENSINO-01",
+    "norma": "Resolução CFM nº 2.336/2023",
+    "artigo": "Art. 11, § 2º, alínea d; Art. 14, II, alínea b (ensino de técnica restrito ao meio médico)",
+    "titulo": "Ensinar ao público leigo técnica restrita ao ambiente médico",
+    "tipo": "presenca_proibida",
+    "descricao": "É sensacionalismo apresentar em público técnica, abordagem ou método científico que deva ser limitado ao ambiente médico; o ensino de técnicas deve ficar restrito ao meio médico. Cursos para leigos são permitidos apenas com caráter educativo (não para ensinar atos privativos).",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\baprenda a aplicar\\b",
+      "\\btutorial de (aplica[cç][aã]o|preenchimento|botox|toxina|sutura)\\b",
+      "\\bfa[cç]a (voc[eê] mesm[oa]|em casa) (sua|seu|a) (aplica[cç][aã]o|preenchimento|peeling)\\b",
+      "\\bcurso de (botox|toxina|preenchimento|harmoniza[cç][aã]o|fios de pdo)[^.\\n]{0,30}(para (todos|leigos|esteticistas|n[aã]o m[eé]dicos)|sem forma[cç][aã]o)"
+    ],
+    "exemplos_violacao": [
+      "Aprenda a aplicar botox em casa com meu tutorial.",
+      "Curso de preenchimento labial para não médicos."
+    ],
+    "sugestao": "Ensine técnica apenas a médicos (com CRM) em ambiente científico; ao público, explique indicações e cuidados.",
+    "confirmado": true,
+    "fonte": "https://www.cremesp.org.br/?siteAcao=PesquisaLegislacao&dif=a&ficha=1&id=20730 ; https://publicidademedica.cfm.org.br/manual/resolucao-comentada/capitulo-9"
+  },
+  {
+    "id": "CEM-COM-01",
+    "norma": "Código de Ética Médica (Res. CFM 2.217/2018); Resolução CFM nº 2.336/2023",
+    "artigo": "CEM art. 115; Res. 2.336, art. 11, IV",
+    "titulo": "Participar de anúncio de empresa comercial / publicidade de produto",
+    "tipo": "presenca_proibida",
+    "descricao": "CEM art. 115 veda participar de anúncios de empresas comerciais, qualquer que seja sua natureza, valendo-se da profissão. Res. 2.336, art. 11, IV veda participar de publicidade de medicamento, insumo, equipamento ou alimento induzindo à garantia de resultados. Fontes secundárias citam ainda vedação de anunciar, no consultório, empresas de que o médico seja investidor (art. 11, XIV/XV — redação não confirmada).",
+    "gravidade": "bloqueia",
+    "padroes": [
+      "#publi\\b",
+      "#publipost\\b",
+      "#parceria(paga)?\\b",
+      "\\bcupom\\b",
+      "\\bc[oó]digo (de desconto|promocional)\\b",
+      "\\buse (meu|o) c[oó]digo\\b",
+      "\\blink (na bio )?para comprar\\b",
+      "\\bcompre (j[aá]|agora|o meu|o produto)\\b",
+      "\\bminha (marca|linha) de (suplementos?|cosm[eé]ticos?|skincare)\\b",
+      "\\brecebido de presente (da|do)\\b"
+    ],
+    "exemplos_violacao": [
+      "Use meu cupom DRA10 para comprar o colágeno da marca X.",
+      "#publi Esse sérum é o que eu recomendo para todas as minhas pacientes."
+    ],
+    "sugestao": "Fale do princípio ativo/conduta sem marca, sem cupom e sem vínculo comercial. Médico não deve atuar como garoto-propaganda.",
+    "confirmado": true,
+    "fonte": "https://portal.cfm.org.br/images/PDF/cem2019.pdf ; https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2023/2336_2023.pdf"
+  },
+  {
+    "id": "LEI9294-MED-01",
+    "norma": "Lei nº 9.294/1996; RDC Anvisa nº 96/2008 (validade parcialmente afastada pelo STJ no REsp 2.035.645)",
+    "artigo": "artigo não confirmado nesta pesquisa (Lei 9.294/1996, art. 7º — verificar)",
+    "titulo": "Propaganda ao público de medicamento de venda sob prescrição (por nome/marca)",
+    "tipo": "presenca_proibida",
+    "descricao": "Medicamentos de venda sob prescrição só podem ser divulgados em meios dirigidos a profissionais (regra geral da Lei 9.294/1996 e RDC 96/2008; o STJ considerou ilegais disposições da RDC que extrapolam a lei, em processo específico). Citar marca de medicamento em post ao público é arriscado também pelo CEM art. 115. Lista de termos ilustrativa.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\b(ozempic|wegovy|mounjaro|saxenda|zepbound|victoza|rybelsus)\\b",
+      "\\b(semaglutida|tirzepatida|liraglutida)\\b",
+      "\\b(botox|dysport|xeomin)\\b",
+      "\\b(roacutan|isotretino[ií]na)\\b",
+      "\\b(emagre[cç]a|seque) com (ozempic|mounjaro|semaglutida|tirzepatida|a caneta)\\b",
+      "\\bcaneta (do|para) emagrec"
+    ],
+    "exemplos_violacao": [
+      "Emagreça com Mounjaro: agende sua consulta!",
+      "Aplicação de Botox® com desconto."
+    ],
+    "sugestao": "Use o nome do procedimento/classe sem marca (\"aplicação de toxina botulínica\"; \"tratamento medicamentoso da obesidade, quando indicado\") e evite incentivar uso.",
+    "confirmado": false,
+    "fonte": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2024/26082024-Para-Primeira-Turma--Anvisa-extrapolou-sua-competencia-ao-criar-regras-sobre-propaganda-de-remedios.aspx ; https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2008/rdc0096_17_12_2008.html"
+  },
+  {
+    "id": "LGPD-DADO-01",
+    "norma": "LGPD (Lei nº 13.709/2018); CEM art. 75",
+    "artigo": "LGPD art. 5º, II e art. 11 (texto legal não re-verificado on-line nesta pesquisa); CEM art. 75",
+    "titulo": "Dados de saúde de paciente em conteúdo publicitário",
+    "tipo": "presenca_proibida",
+    "descricao": "Dado referente à saúde é dado pessoal sensível; seu tratamento depende de base legal específica (em publicidade, na prática, consentimento específico e destacado). Combinado ao sigilo do CEM art. 75, qualquer dado clínico associado a paciente identificável deve ser bloqueado.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bprontu[aá]rio\\b",
+      "\\b(exame|laudo|resultado de exame) d[ao] paciente\\b",
+      "\\bcpf\\b",
+      "\\b\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}\\b",
+      "\\bdiagnosticad[oa] com [a-zà-ú]+ (a|o) paciente [a-zà-ú]+\\b",
+      "\\b(hiv|soropositiv[oa]|c[aâ]ncer|depress[aã]o) d[ao] paciente [a-zà-ú]+\\b"
+    ],
+    "exemplos_violacao": [
+      "Olha o exame da paciente Maria antes do tratamento.",
+      "Print do prontuário mostrando a evolução."
+    ],
+    "sugestao": "Anonimize por completo; não publique documentos clínicos; obtenha termo de consentimento específico para uso de imagem.",
+    "confirmado": false,
+    "fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm ; https://transparencia.cfm.org.br/codigo-de-etica-medica/"
+  },
+  {
+    "id": "META-ATRIB-01",
+    "norma": "Meta – Padrões de Publicidade: Violações de privacidade e atributos pessoais",
+    "artigo": "Política de anúncios Meta (não é norma jurídica)",
+    "titulo": "Afirmar ou insinuar condição de saúde do leitor (atributos pessoais)",
+    "tipo": "presenca_proibida",
+    "descricao": "Anúncios pagos no Facebook/Instagram não podem afirmar ou insinuar atributos pessoais do público, incluindo saúde física ou mental. Afeta impulsionamento/ads, não posts orgânicos. Sinalizar como risco de reprovação do anúncio.",
+    "gravidade": "orienta",
+    "padroes": [
+      "\\bvoc[eê] (tem|sofre de|est[aá] com|convive com) (diabetes|depress[aã]o|ansiedade|obesidade|calv[ií]cie|celulite|flacidez|disfun[cç][aã]o|enxaqueca|acne|hipertens[aã]o|sobrepeso)\\b",
+      "\\bsofre (com|de) (ansiedade|depress[aã]o|dor|calv[ií]cie|disfun[cç][aã]o)\\?",
+      "\\bcansad[oa] (de ser|da sua|do seu) (gord|barriga|papada|flacidez)",
+      "\\bvoc[eê] (é|est[aá]) (acima do peso|obes[oa]|careca|deprimid[oa])\\b"
+    ],
+    "exemplos_violacao": [
+      "Você sofre de ansiedade? Agende agora.",
+      "Cansada da sua papada?"
+    ],
+    "sugestao": "Fale do serviço, não do leitor: \"Tratamento da ansiedade: conheça as opções.\"",
+    "confirmado": true,
+    "fonte": "https://transparency.meta.com/policies/ad-standards/objectionable-content/privacy-violations-personal-attributes/"
+  },
+  {
+    "id": "IA2454-SINT-01",
+    "norma": "Resolução CFM nº 2.454/2026 (IA na medicina); Resolução CFM nº 2.336/2023",
+    "artigo": "Res. 2.454/2026, art. 7º, § 3º (segundo fonte secundária — não confirmado); Res. 2.336, art. 14 e art. 11, § 2º, f",
+    "titulo": "Simulação de resultado / imagem sintética gerada por IA em publicidade",
+    "tipo": "presenca_proibida",
+    "descricao": "Comentário jurídico indica que a Res. 2.454/2026 manda que o uso de IA com finalidade mercantil, publicitária ou promocional observe as normas de publicidade médica e que conteúdo gerado/modificado por IA (inclusive imagem sintética) se sujeita às mesmas vedações. Simulações de 'como você ficaria' induzem percepção de garantia e não são imagens reais de pacientes (art. 14 exige imagens reais, sem manipulação).",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bsimula[cç][aã]o (de|do) (resultado|rosto|corpo)\\b",
+      "\\bveja como voc[eê] (vai )?ficaria\\b",
+      "\\bveja como voc[eê] vai ficar\\b",
+      "\\bimagem (gerada|criada) (por|com) (ia|intelig[eê]ncia artificial)\\b",
+      "\\bresultado simulado\\b",
+      "\\bpreview do (seu )?resultado\\b"
+    ],
+    "exemplos_violacao": [
+      "Envie sua selfie e veja como você ficaria após a rinoplastia!",
+      "Imagem gerada por IA mostrando o resultado do tratamento."
+    ],
+    "sugestao": "Não use imagens sintéticas como resultado. Para ilustrar, use ilustração claramente identificada como tal, sem representar resultado de paciente.",
+    "confirmado": false,
+    "fonte": "https://alessandrocaldonazo.com/resolucao-cfm-2454-2026-inteligencia-artificial-medicina/ ; https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2026/2454_2026.pdf"
+  },
+  {
+    "id": "CFM2336-PJ-01",
+    "norma": "Resolução CFM nº 2.336/2023; CEM art. 117, parágrafo único",
+    "artigo": "Res. 2.336, art. 5º; CEM art. 117, parágrafo único",
+    "titulo": "Publicidade de clínica/hospital sem dados do diretor técnico",
+    "tipo": "ausencia_obrigatoria",
+    "descricao": "Anúncios de estabelecimentos de saúde devem trazer o nome do estabelecimento, seu registro no CRM e nome e CRM do diretor técnico médico. Regra de ausência aplicada apenas quando o autor é pessoa jurídica.",
+    "gravidade": "alerta",
+    "padroes": [
+      "\\bdiretor(a)? t[eé]cnic[oa]\\b",
+      "\\bresp(onsável)?\\.? t[eé]cnic[oa]\\b"
+    ],
+    "exemplos_violacao": [
+      "Clínica Bella Pele – agende sua avaliação (sem diretor técnico e CRM da clínica)."
+    ],
+    "sugestao": "\"Clínica Bella Pele – CRM-SP PJ 9999 – Diretora técnica: Dra. Ana Souza – CRM-SP 123456 – RQE 7890.\"",
+    "confirmado": true,
+    "fonte": "https://abrasso.org.br/regras-publicidade-medica/publicidade-medica-cfm-2336-2023.pdf ; https://www.in.gov.br/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/48226289/do1-2018-11-01-resolucao-n-2-217-de-27-de-setembro-de-2018-48226042"
+  }
+]
