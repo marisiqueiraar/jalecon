@@ -32,7 +32,7 @@
     intro: "Pesquisa acadêmica do Insper. São 5 páginas curtas, cerca de 6 minutos. As respostas são anônimas e usadas só neste projeto.",
     secoes: [
       { titulo: "Você", perguntas: [
-        { id: "filtro", tipo: "radio", rot: "Você atende em consultório particular (próprio, compartilhado ou em clínica) pelo menos um período por semana?", ops: SIM_NAO, obrig: true, encerra: "nao" },
+        { id: "filtro", tipo: "radio", rot: "Você atende em consultório particular (próprio, compartilhado ou em clínica) pelo menos um período por semana?", ops: SIM_NAO, obrig: true, encerra: "nao", se: function (r) { return !r.perfil; } },
         { id: "especialidade", tipo: "select", rot: "Qual é a sua especialidade?", ops: ESPECIALIDADES.concat([["Outra", "Outra"]]), obrig: true },
         { id: "esp_outra", tipo: "text", rot: "Qual?", obrig: true, se: function (r) { return r.especialidade === "Outra"; } },
         { id: "onde", tipo: "radio", rot: "Onde você atende particular, na maior parte do tempo?", ops: [["Consultório próprio", "Consultório próprio, sozinho"], ["Consultório compartilhado", "Consultório compartilhado ou sublocado"], ["Clínica de outra pessoa", "Em clínica de outra pessoa"], ["Sócio de clínica", "Em clínica da qual sou sócio"]], obrig: true },
@@ -76,7 +76,7 @@
     ],
     fimExtra: function (r) {
       if (r.onde !== "Sócio de clínica") return null;
-      return { texto: "Como você é sócio de uma clínica, sua visão de gestor também ajuda muito. Se tiver mais 7 minutos:", link: "../clinicas/", rotulo: "Responder a pesquisa de clínicas" };
+      return { texto: "Como você é sócio de uma clínica, sua visão de gestor também ajuda muito. Se tiver mais 7 minutos:", link: "/pesquisa/clinicas/", rotulo: "Responder a pesquisa de clínicas" };
     }
   };
 
@@ -135,7 +135,23 @@
         chamar("Quer que a gente te chame em novembro para conversar sobre o piloto?"),
         contato("Se quiser receber o resultado ou indicar outro gestor, deixe um WhatsApp ou e-mail.")
       ] }
-    ]
+    ],
+    fimExtra: function (r) {
+      if (r.perfil !== "ambos") return null;
+      return { texto: "Você disse que também atende pacientes. A visão de quem está no consultório também ajuda muito. Se tiver mais 6 minutos:", link: "/pesquisa/medicos/", rotulo: "Responder a pesquisa de médicos" };
+    }
+  };
+
+  /* Link único (/pesquisa/): uma pergunta de triagem abre a pesquisa certa. Quem é as duas coisas começa pela de
+   * clínicas, que tem menos gente para responder, e recebe no fim o convite para a de médicos. */
+  var UNICA = {
+    titulo: "Como médicos e clínicas divulgam o próprio trabalho",
+    intro: "Pesquisa acadêmica do Insper. Leva de 6 a 7 minutos. As respostas são anônimas e usadas só neste projeto.",
+    triagem: true,
+    secoes: [{ titulo: "Para começar", perguntas: [
+      { id: "perfil", tipo: "radio", rot: "Qual destas frases descreve você?", ops: [["medicos", "Sou médico(a) e atendo pacientes particulares em consultório, pelo menos um período por semana"], ["clinicas", "Sou sócio(a), gestor(a) ou diretor(a) técnico(a) de uma clínica"], ["ambos", "As duas coisas"], ["fora", "Nenhuma das duas"]], obrig: true, encerra: "fora" }
+    ] }],
+    segue: function (r) { return r.perfil === "medicos" ? "medicos" : "clinicas"; }
   };
 
   /* Campos derivados para a planilha. Os nomes antigos (agenda, escolha, piloto, parou, paga, quem, pesa) continuam
@@ -161,5 +177,5 @@
   function pagou(r) { return Array.isArray(r.pagou) && r.pagou.length > 0 && r.pagou.indexOf("nada") < 0; }
   function escolheu(r) { return !!r.preferida && r.preferida !== "Nenhuma"; }
 
-  g.PESQUISA = { medicos: MEDICOS, clinicas: CLINICAS };
+  g.PESQUISA = { medicos: MEDICOS, clinicas: CLINICAS, unica: UNICA };
 })(window);

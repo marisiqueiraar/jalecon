@@ -4,10 +4,11 @@
  */
 (function () {
   "use strict";
-  var PUB = document.body.getAttribute("data-publico");
+  /* PUB0 é a página aberta; no link único ("unica") a triagem troca PUB para "medicos" ou "clinicas". */
+  var PUB0 = document.body.getAttribute("data-publico"), PUB = PUB0;
   var P = window.PESQUISA[PUB];
   var ENDPOINT = window.PESQUISA_ENDPOINT || "";
-  var CHAVE = "jalecon-pesquisa-v2-" + PUB;
+  var CHAVE = "jalecon-pesquisa-v2-" + PUB0;
   var app = document.getElementById("app");
 
   var S = { secao: 0, r: {}, fim: null };
@@ -15,7 +16,8 @@
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c]; }); }
   function salvar() { try { localStorage.setItem(CHAVE, JSON.stringify(S)); } catch (e) { /* sem armazenamento */ } }
-  function carregar() { try { var o = JSON.parse(localStorage.getItem(CHAVE) || "null"); if (o && o.r) S = o; } catch (e) { /* ok */ } }
+  function carregar() { try { var o = JSON.parse(localStorage.getItem(CHAVE) || "null"); if (o && o.r) S = o; } catch (e) { /* ok */ } usar(S.pub || PUB0); }
+  function usar(pub) { if (window.PESQUISA[pub]) { PUB = pub; P = window.PESQUISA[pub]; } }
 
   function visiveis(sec) { return sec.perguntas.filter(function (q) { return !q.se || q.se(S.r); }); }
   function aberta(i) { var sec = P.secoes[i]; return !!sec && (!sec.se || sec.se(S.r)); }
@@ -51,15 +53,15 @@
   function vSecao() {
     var sec = P.secoes[S.secao], pags = paginas(), n = pags.length, pos = pags.indexOf(S.secao) + 1;
     var prox = P.secoes[vizinha(1)], ultima = !prox, aviso = sec.voltar && !(prox && prox.voltar);
-    return '<p class="passo">Página ' + pos + " de " + n + '</p><div class="barra" aria-hidden="true"><span style="width:' + (pos / n * 100) + '%"></span></div>' +
+    return (P.triagem ? "" : '<p class="passo">Página ' + pos + " de " + n + '</p><div class="barra" aria-hidden="true"><span style="width:' + (pos / n * 100) + '%"></span></div>') +
       '<h2 tabindex="-1">' + esc(sec.titulo) + "</h2>" +
-      (S.secao === 0 ? '<p class="muted">' + esc(P.intro) + "</p>" : "") +
+      (S.secao === 0 && !S.pub ? '<p class="muted">' + esc(P.intro) + "</p>" : "") +
       textos(sec).map(function (t) { return '<p class="ctx">' + esc(t) + "</p>"; }).join("") +
       '<form id="form" novalidate>' + visiveis(sec).map(campo).join("") +
       '<div class="hp" aria-hidden="true"><label>Não preencha<input name="site" tabindex="-1" autocomplete="off"></label></div>' +
       (Object.keys(erros).length ? '<p class="err" role="alert">Falta responder ou corrigir algumas perguntas acima.</p>' : "") +
       '<div class="acoes">' + (sec.voltar ? '<button type="button" class="btn ghost" data-act="voltar">Voltar</button>' : "") +
-      '<button type="submit" class="btn">' + (ultima ? "Enviar respostas" : "Continuar") + "</button></div></form>" +
+      '<button type="submit" class="btn">' + (ultima && !P.segue ? "Enviar respostas" : "Continuar") + "</button></div></form>" +
       (aviso ? '<p class="small">Depois desta página não dá para voltar e mudar as respostas.</p>' : "");
   }
   function vFim() {
@@ -128,7 +130,7 @@
     var btn = app.querySelector('button[type="submit"], [data-act="reenviar"]');
     if (btn) { btn.disabled = true; btn.textContent = "Enviando..."; }
     fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: payload() })
-      .then(function () { S.extra = P.fimExtra ? P.fimExtra(S.r) : null; S.fim = "enviado"; S.r = {}; render(); })
+      .then(function () { S.extra = P.fimExtra ? P.fimExtra(S.r) : null; S.fim = "enviado"; S.r = {}; S.pub = null; render(); })
       .catch(function () { S.fim = "erro"; render(); });
   }
 
@@ -158,6 +160,7 @@
     if (!validar()) { render(); var f = app.querySelector('[aria-invalid="true"], fieldset[aria-describedby] input'); if (f) f.focus(); return; }
     if (foraDoPublico()) { S.fim = "fora"; render(); return; }
     if (vizinha(1) < P.secoes.length) { S.secao = vizinha(1); render(); return; }
+    if (P.segue) { S.pub = P.segue(S.r); usar(S.pub); S.secao = 0; render(); return; }
     enviar();
   });
   app.addEventListener("click", function (ev) {
