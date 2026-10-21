@@ -390,6 +390,7 @@
    "\\bcura(r|mos|do|da|dos|das)?\\b",
    "\\bcure (sua|seu|de vez)\\b",
    "\\belimin(e|a) (de vez|definitivamente)\\b",
+   "\\belimin(e|a) (a|o|as|os|sua|seu|suas|seus) [^.!?\\n]{1,40}? de vez\\b",
    "\\bacabe (de vez )?com (a|o|sua|seu)\\b",
    "\\bsolu[cç][aã]o definitiva\\b",
    "\\btratamento definitivo\\b",
@@ -450,6 +451,10 @@
    [
     "^elimin(?:e|a) (?:de vez|definitivamente)$",
     "alivie"
+   ],
+   [
+    "^elimin(?:e|a) ((?:a|o|as|os|sua|seu|suas|seus) .+?) de vez$",
+    "alivie $1"
    ],
    [
     "^acabe (?:de vez )?com (a|o|sua|seu)$",
