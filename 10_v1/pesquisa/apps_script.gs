@@ -3,7 +3,7 @@
  * e grava na planilha "02 · Entrevistas v1 · placar".
  *
  * Onde cada resposta vai:
- *  1. Aba "Respostas · médicos" ou "Respostas · clínicas": a resposta completa, com os textos abertos.
+ *  1. Aba "Respostas · médicos (v2)" ou "Respostas · clínicas (v2)": a resposta completa, com os textos abertos.
  *  2. Aba "Entrevistas" (médicos) ou "Clínicas" (gestores): uma linha já codificada, que alimenta o placar.
  *     Respostas fora do filtro não chegam aqui (o formulário encerra antes de enviar).
  *
