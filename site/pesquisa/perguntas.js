@@ -1,18 +1,22 @@
 /* Jalecon · perguntas da pesquisa sem agenda (documento 13).
  * Cada seção é uma página. A proposta só aparece depois da pergunta aberta sobre
  * o que trava ou preocupa, para medir se CFM, CRM ou diretor técnico aparecem sozinhos.
- * Tipos: radio, checks, number, text, textarea. "se" mostra a pergunta só quando a condição vale.
+ * Tipos: radio, checks, select, number, text, textarea. "se" mostra a pergunta só quando a condição vale.
  * "encerra" (radio) e "encerraSe" (número) terminam a pesquisa sem enviar: a pessoa está fora do público.
- * "nota" é só um texto entre as perguntas.
+ * "nota" é só um texto entre as perguntas. A resposta "ns" (não sei) é enviada vazia: não entra nas medianas nem conta como "sim".
  */
 (function (g) {
   "use strict";
   var SIM_NAO = [["sim", "Sim"], ["nao", "Não"]];
+  var ESPECIALIDADES = ["Cardiologia", "Cirurgia geral", "Cirurgia plástica", "Clínica médica", "Dermatologia", "Endocrinologia", "Gastroenterologia",
+    "Ginecologia e obstetrícia", "Neurologia", "Oftalmologia", "Ortopedia e traumatologia", "Otorrinolaringologia", "Pediatria", "Psiquiatria", "Urologia"].map(function (e) { return [e, e]; });
+  function comPreco(r) { return !(Array.isArray(r.p_ns) && r.p_ns.length); }
   var PRECO = [
-    { id: "p_barato", tipo: "number", rot: "A partir de quanto seria tão barato que você desconfiaria da qualidade?", pre: "R$", obrig: true },
-    { id: "p_bom", tipo: "number", rot: "Quanto seria um bom negócio?", pre: "R$", obrig: true },
-    { id: "p_caro", tipo: "number", rot: "A partir de quanto ficaria caro, mas você ainda consideraria?", pre: "R$", obrig: true },
-    { id: "p_caro_demais", tipo: "number", rot: "A partir de quanto seria caro demais?", pre: "R$", obrig: true }
+    { id: "p_ns", tipo: "checks", rot: "Se não tiver ideia de valores, marque aqui e siga em frente.", ops: [["ns", "Não sei dizer valores"]] },
+    { id: "p_barato", tipo: "number", rot: "A partir de quanto seria tão barato que você desconfiaria da qualidade?", pre: "R$", obrig: true, se: comPreco },
+    { id: "p_bom", tipo: "number", rot: "Quanto seria um bom negócio?", pre: "R$", obrig: true, se: comPreco },
+    { id: "p_caro", tipo: "number", rot: "A partir de quanto ficaria caro, mas você ainda consideraria?", pre: "R$", obrig: true, se: comPreco },
+    { id: "p_caro_demais", tipo: "number", rot: "A partir de quanto seria caro demais?", pre: "R$", obrig: true, se: comPreco }
   ];
 
   var MEDICOS = {
@@ -21,10 +25,11 @@
     secoes: [
       { titulo: "Você", perguntas: [
         { id: "filtro", tipo: "radio", rot: "Você atende em consultório particular (próprio, compartilhado ou em clínica) pelo menos um período por semana?", ops: SIM_NAO, obrig: true, encerra: "nao" },
-        { id: "especialidade", tipo: "text", rot: "Qual é a sua especialidade?", obrig: true },
+        { id: "especialidade", tipo: "select", rot: "Qual é a sua especialidade?", ops: ESPECIALIDADES.concat([["Outra", "Outra"]]), obrig: true },
+        { id: "esp_outra", tipo: "text", rot: "Qual?", obrig: true, se: function (r) { return r.especialidade === "Outra"; } },
         { id: "anos", tipo: "radio", rot: "Há quanto tempo você atende em consultório?", ops: [["ate3", "Até 3 anos"], ["4a10", "4 a 10 anos"], ["mais10", "Mais de 10 anos"]], obrig: true },
-        { id: "particular", tipo: "radio", rot: "Mais ou menos que parte dos seus pacientes de consultório é particular?", ops: [["10", "Até 20%"], ["35", "20% a 50%"], ["65", "50% a 80%"], ["90", "Mais de 80%"]], obrig: true },
-        { id: "fonte", tipo: "radio", rot: "De onde vem a maior parte dos seus pacientes novos?", ops: [["Indicação de pacientes", "Indicação de pacientes"], ["Indicação de colegas", "Indicação de colegas"], ["Convênio", "Convênio"], ["Google", "Google"], ["Instagram", "Instagram"], ["Doctoralia ou outra agenda on-line", "Doctoralia ou outra agenda on-line"], ["Outro", "Outro"]], obrig: true },
+        { id: "particular", tipo: "radio", rot: "Mais ou menos que parte dos seus pacientes de consultório é particular?", ops: [["10", "Até 20%"], ["35", "20% a 50%"], ["65", "50% a 80%"], ["90", "Mais de 80%"], ["ns", "Não sei"]], obrig: true },
+        { id: "fonte", tipo: "radio", rot: "De onde vem a maior parte dos seus pacientes novos?", ops: [["Indicação de pacientes", "Indicação de pacientes"], ["Indicação de colegas", "Indicação de colegas"], ["Convênio", "Convênio"], ["Google", "Google"], ["Instagram", "Instagram"], ["Doctoralia ou outra agenda on-line", "Doctoralia ou outra agenda on-line"], ["Outro", "Outro"], ["Não sei", "Não sei"]], obrig: true },
         { id: "proximo", tipo: "radio", rot: "Você conhece pessoalmente alguém do grupo que te enviou esta pesquisa?", ops: SIM_NAO, obrig: true }
       ] },
       { titulo: "Hoje", perguntas: [
@@ -45,7 +50,7 @@
       ], perguntas: [
         { id: "atrai", tipo: "textarea", rot: "O que te atrai e o que te deixa desconfiado?", obrig: true },
         { id: "ia", tipo: "radio", rot: "Você publicaria um conteúdo criado com IA se pudesse revisar antes e se ele fosse checado nas regras do CFM?", ops: [["Sim", "Sim"], ["Depende", "Depende"], ["Não", "Não"]], obrig: true },
-        { id: "duvida", tipo: "radio", rot: "Você já teve dúvida se um post podia ser publicado, ou viu algum colega ter problema com o CRM por publicidade?", ops: SIM_NAO, obrig: true }
+        { id: "duvida", tipo: "radio", rot: "Você já teve dúvida se um post podia ser publicado, ou viu algum colega ter problema com o CRM por publicidade?", ops: SIM_NAO.concat([["ns", "Não lembro"]]), obrig: true }
       ] },
       { titulo: "Preço", texto: ["Pensando na opção (a), com marca, site, perfil no Google e 24 posts por mês. Valores em reais por mês."], perguntas: PRECO.concat([
         { id: "escolha", tipo: "radio", rot: "Se (a) custasse R$ 697 por mês e (b) R$ 1.790 por mês mais a verba de anúncios, qual você escolheria?", ops: [["Plataforma", "(a) A plataforma"], ["Equipe", "(b) A equipe"], ["Nenhuma", "Nenhuma das duas"]], obrig: true },
@@ -66,8 +71,9 @@
         { id: "participa", tipo: "radio", rot: "Você participa da decisão de contratar esses serviços?", ops: SIM_NAO, obrig: true, encerra: "nao", se: function (r) { return investe(r); } },
         { id: "medicos", tipo: "number", rot: "Quantos médicos (ou dentistas) atendem na clínica?", obrig: true, min: 1, max: 500, encerraSe: function (v) { return v < 2 || v > 15; } },
         { id: "unidades", tipo: "number", rot: "Quantas unidades?", obrig: true, min: 1, max: 100 },
-        { id: "especialidades", tipo: "text", rot: "Quais são as especialidades principais?", obrig: true },
-        { id: "particular", tipo: "radio", rot: "Que parte da receita vem de pacientes particulares?", ops: [["30", "Menos da metade"], ["65", "Mais da metade"], ["90", "Quase tudo"]], obrig: true, encerra: "30" },
+        { id: "esp_lista", tipo: "checks", rot: "Quais são as especialidades principais? Marque todas que valem.", ops: ESPECIALIDADES.concat([["Odontologia", "Odontologia"], ["Outra", "Outra"]]), obrig: true },
+        { id: "esp_outra", tipo: "text", rot: "Qual outra?", obrig: true, se: function (r) { return Array.isArray(r.esp_lista) && r.esp_lista.indexOf("Outra") >= 0; } },
+        { id: "particular", tipo: "radio", rot: "Que parte da receita vem de pacientes particulares?", ops: [["30", "Menos da metade"], ["65", "Mais da metade"], ["90", "Quase tudo"], ["ns", "Não sei"]], obrig: true, encerra: "30" },
         { id: "proximo", tipo: "radio", rot: "Você conhece pessoalmente alguém do grupo que te enviou esta pesquisa?", ops: SIM_NAO, obrig: true }
       ] },
       { titulo: "Hoje", perguntas: [
@@ -75,9 +81,9 @@
         { id: "midia", tipo: "number", rot: "E quanto vai por mês para anúncios?", pre: "R$", se: function (r) { return investe(r); } },
         { id: "meses", tipo: "number", rot: "Há quantos meses estão com o fornecedor atual?", suf: "meses", se: function (r) { return investe(r); } },
         { id: "resultado", tipo: "checks", rot: "O que incomoda no resultado do marketing de hoje? Marque todas que valem.", ops: [["Não sabemos se traz pacientes", "Não sabemos se traz pacientes"], ["Traz pacientes fora do perfil", "Traz pacientes fora do perfil"], ["O fornecedor demora ou some", "O fornecedor demora ou some"], ["Custa caro para o que entrega", "Custa caro para o que entrega"], ["Outro problema", "Outro problema"], ["nada", "Nada, estamos satisfeitos"]], obrig: true, exclusivo: "nada", se: function (r) { return investe(r); } },
-        { id: "decisores", tipo: "radio", rot: "Na última vez que contrataram marketing, quantas pessoas decidiram?", ops: [["1", "1"], ["2", "2"], ["3", "3 ou mais"]], obrig: true, se: function (r) { return investe(r); } },
-        { id: "dias", tipo: "radio", rot: "Quanto tempo levou da primeira conversa até fechar?", ops: [["30", "Até 30 dias"], ["60", "31 a 60 dias"], ["90", "61 a 90 dias"], ["120", "Mais de 90 dias"]], obrig: true, se: function (r) { return investe(r); } },
-        { id: "fora", tipo: "radio", rot: "Alguém responde os pacientes novos no WhatsApp à noite e no fim de semana?", ops: SIM_NAO, obrig: true },
+        { id: "decisores", tipo: "radio", rot: "Na última vez que contrataram marketing, quantas pessoas decidiram?", ops: [["1", "1"], ["2", "2"], ["3", "3 ou mais"], ["ns", "Não sei"]], obrig: true, se: function (r) { return investe(r); } },
+        { id: "dias", tipo: "radio", rot: "Quanto tempo levou da primeira conversa até fechar?", ops: [["30", "Até 30 dias"], ["60", "31 a 60 dias"], ["90", "61 a 90 dias"], ["120", "Mais de 90 dias"], ["ns", "Não lembro"]], obrig: true, se: function (r) { return investe(r); } },
+        { id: "fora", tipo: "radio", rot: "Alguém responde os pacientes novos no WhatsApp à noite e no fim de semana?", ops: SIM_NAO.concat([["ns", "Não sei"]]), obrig: true },
         { id: "mede", tipo: "radio", rot: "Vocês sabem, com número, quantos contatos do WhatsApp viram consulta?", ops: SIM_NAO, obrig: true },
         { id: "faltas", tipo: "radio", rot: "Mais ou menos quantos pacientes faltam às consultas?", ops: [["Até 10%", "Até 10%"], ["10% a 20%", "10% a 20%"], ["20% a 30%", "20% a 30%"], ["Mais de 30%", "Mais de 30%"], ["Não sei", "Não sei"]], obrig: true },
         { id: "preocupa", tipo: "textarea", rot: "O que mais te incomoda ou preocupa quando você pensa no marketing da clínica?", obrig: true }
@@ -105,9 +111,13 @@
 
   /* O Apps Script publicado lê "paga" e "quem": a página envia as respostas novas nesses campos. */
   CLINICAS.derivar = function (r) {
+    r.especialidades = (r.esp_lista || []).map(function (e) { return e === "Outra" ? (r.esp_outra || "Outra") : e; }).join(", ");
     r.paga = r.investe;
     r.quem = investe(r) ? (r.tipos || []).join(", ") : "Não investe em marketing";
   };
+
+  /* O Apps Script lê "especialidade": "Outra" vira o texto digitado. */
+  MEDICOS.derivar = function (r) { if (r.especialidade === "Outra") r.especialidade = r.esp_outra || "Outra"; };
 
   function investe(r) { return r.investe === "sim"; }
   function pagou(r) { return Array.isArray(r.pagou) && r.pagou.length && r.pagou.indexOf("nada") < 0; }

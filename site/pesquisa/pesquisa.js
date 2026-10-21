@@ -35,7 +35,8 @@
         }).join("") + "</div>" + msg + "</fieldset>";
     }
     var id = "f-" + q.id, inp;
-    if (q.tipo === "textarea") inp = '<textarea id="' + id + '" data-q="' + q.id + '" maxlength="1500" rows="3"' + aria + ">" + esc(v || "") + "</textarea>";
+    if (q.tipo === "select") inp = '<select id="' + id + '" data-q="' + q.id + '"' + aria + '><option value="">Escolha</option>' + q.ops.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (v === o[0] ? " selected" : "") + ">" + esc(o[1]) + "</option>"; }).join("") + "</select>";
+    else if (q.tipo === "textarea") inp = '<textarea id="' + id + '" data-q="' + q.id + '" maxlength="1500" rows="3"' + aria + ">" + esc(v || "") + "</textarea>";
     else if (q.tipo === "number") inp = '<div class="num">' + (q.pre ? '<span aria-hidden="true">' + q.pre + "</span>" : "") + '<input id="' + id + '" data-q="' + q.id + '" inputmode="numeric" autocomplete="off" value="' + esc(v == null ? "" : v) + '"' + aria + ">" + (q.suf ? '<span aria-hidden="true">' + q.suf + "</span>" : "") + "</div>";
     else inp = '<input id="' + id + '" data-q="' + q.id + '" maxlength="300" autocomplete="off" value="' + esc(v || "") + '"' + aria + ">";
     return '<div class="q"><label for="' + id + '">' + esc(q.rot) + obrig + "</label>" + inp + msg + "</div>";
@@ -104,6 +105,8 @@
       r[k] = Array.isArray(v) ? v.slice(0, 10) : typeof v === "string" ? v.slice(0, 1500) : v;
     });
     P.secoes.forEach(function (sec) { sec.perguntas.forEach(function (q) { if (q.tipo === "number" && r[q.id] != null) r[q.id] = num(r[q.id]); }); });
+    Object.keys(r).forEach(function (k) { if (r[k] === "ns") r[k] = ""; });
+    if (Array.isArray(r.p_ns) && r.p_ns.length) { ["p_barato", "p_bom", "p_caro", "p_caro_demais"].forEach(function (k) { r[k] = ""; }); }
     if (P.derivar) P.derivar(r);
     return JSON.stringify({ publico: PUB, versao: 1, r: r, hp: (app.querySelector('[name="site"]') || {}).value || "" });
   }
@@ -124,7 +127,7 @@
   app.addEventListener("change", function (ev) {
     var t = ev.target, q = t.getAttribute("data-q");
     if (!q) return;
-    if (t.type === "radio") S.r[q] = t.value;
+    if (t.type === "radio" || t.tagName === "SELECT") S.r[q] = t.value;
     else if (t.type === "checkbox") {
       var def = null;
       P.secoes.forEach(function (sec) { sec.perguntas.forEach(function (x) { if (x.id === q) def = x; }); });
@@ -135,7 +138,7 @@
     if (erros[q]) delete erros[q];
     limparOcultas();
     var y = window.scrollY; render(); window.scrollTo(0, y);
-    var el = app.querySelector('[data-q="' + q + '"][value="' + CSS.escape(t.value) + '"]'); if (el) el.focus();
+    var el = t.tagName === "SELECT" ? app.querySelector('select[data-q="' + q + '"]') : app.querySelector('[data-q="' + q + '"][value="' + CSS.escape(t.value) + '"]'); if (el) el.focus();
   });
   app.addEventListener("submit", function (ev) {
     ev.preventDefault();
