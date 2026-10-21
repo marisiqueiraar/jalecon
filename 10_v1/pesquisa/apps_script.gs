@@ -7,16 +7,21 @@
  *  2. Aba "Entrevistas" (médicos) ou "Clínicas" (gestores): uma linha já codificada, que alimenta o placar.
  *     Respostas fora do filtro não chegam aqui (o formulário encerra antes de enviar).
  *
- * Codificação automática, registrada em 21/10/2026 antes das respostas (documento 13):
+ * Codificação automática, registrada em 21/10/2026 antes das respostas (documento 13, versão 2):
  *  - "Citou CFM espontaneamente" = S se a pergunta aberta (o que trava / o que preocupa), respondida antes de
  *    a proposta aparecer, menciona CFM, CRM, conselho, código de ética, ética médica, diretor técnico,
  *    resolução, norma, regra, proibição, processo ético ou fiscalização. O grupo confere e pode corrigir à mão.
- *  - "Problema concreto com o resultado" (clínicas) = S se marcou qualquer problema da lista.
- *  - Faixas viram números: % particular pelo ponto médio; dias da contratação pelo limite superior.
+ *  - Médicos, "dificuldade" (coluna H) = S se quer mais pacientes particulares e tem horário (ou reorganizaria a agenda).
+ *  - Médicos, preços (R a U): valem para a opção que a pessoa preferiu (coluna Z).
+ *  - Clínicas, "paga" (H) = S só para agência, freelancer ou anúncios pagos.
+ *  - Clínicas, "insatisfeita" (L) = S se trocou ou pensou em trocar de fornecedor, ou deu nota 3 ou menos.
+ *  - Clínicas, "conformidade pesa" (R) = S se escolheu "não ter problema com o CRM" como o que mais pesa, ou se o diretor técnico revisa os posts.
+ *  - Faixas viram números: % particular, gasto e contatos pelo ponto médio; dias e tempo de resposta pelo limite superior.
  *
  * Como publicar (uma vez, pelo dono da planilha):
  *  Extensões › Apps Script › colar este arquivo › Implantar › Nova implantação › tipo "App da Web" ›
  *  Executar como: eu · Quem pode acessar: Qualquer pessoa › Implantar › autorizar › copiar o URL que termina em /exec.
+ * Para atualizar sem mudar o URL: colar a versão nova › Implantar › Gerenciar implantações › lápis › Versão: Nova versão › Implantar.
  */
 
 var ABA_MEDICOS = "Entrevistas";
@@ -35,8 +40,8 @@ function doPost(e) {
     if (d.hp) return resposta_("ignorado");
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var agora = new Date();
-    if (d.publico === "medicos") gravar_(ss, "Respostas · médicos", CAMPOS_MEDICOS, ABA_MEDICOS, LINHAS_MEDICOS, linhaMedico(d.r, agora), d.r, agora, [24]);
-    else if (d.publico === "clinicas") gravar_(ss, "Respostas · clínicas", CAMPOS_CLINICAS, ABA_CLINICAS, LINHAS_CLINICAS, linhaClinica(d.r, agora), d.r, agora, []);
+    if (d.publico === "medicos") gravar_(ss, "Respostas · médicos (v2)", CAMPOS_MEDICOS, ABA_MEDICOS, LINHAS_MEDICOS, linhaMedico(d.r, agora), d.r, agora, [24]);
+    else if (d.publico === "clinicas") gravar_(ss, "Respostas · clínicas (v2)", CAMPOS_CLINICAS, ABA_CLINICAS, LINHAS_CLINICAS, linhaClinica(d.r, agora), d.r, agora, []);
     else return resposta_("publico invalido");
     return resposta_("ok");
   } finally {
@@ -78,52 +83,69 @@ function sn_(cond) { return cond ? "S" : "N"; }
 function n_(v) { return v === null || v === undefined || v === "" ? "" : Number(v); }
 
 var CAMPOS_MEDICOS = [
-  ["especialidade", "Especialidade"], ["anos", "Tempo de consultório"], ["particular", "% particular (ponto médio)"], ["fonte", "Fonte de pacientes novos"],
-  ["proximo", "Conhece alguém do grupo"], ["agenda", "Agenda como gostaria"], ["ultima", "Última ação de divulgação"], ["pagou", "Pagou nos últimos 12 meses"],
-  ["gasto", "Gasto por mês (R$)"], ["meses", "Meses com o último"], ["ainda", "Ainda usa"], ["parou", "Por que parou"], ["trouxe", "Trouxe pacientes?"],
-  ["trava", "O que mais trava (aberta)"], ["atrai", "O que atrai e o que deixa desconfiado"], ["ia", "Publicaria conteúdo com IA revisado"],
-  ["duvida", "Já teve dúvida ou viu problema com o CRM"], ["p_barato", "Barato demais (R$)"], ["p_bom", "Bom negócio (R$)"], ["p_caro", "Caro, mas consideraria (R$)"],
-  ["p_caro_demais", "Caro demais (R$)"], ["escolha", "Escolha (plataforma, equipe, nenhuma)"], ["piloto", "Testaria por 3 meses"], ["condicao", "O que precisaria ser verdade"],
-  ["contato", "Contato (opcional)"]
+  ["especialidade", "Especialidade"], ["onde", "Onde atende"], ["anos", "Tempo de consultório"], ["particular", "% particular (ponto médio)"],
+  ["fonte", "Fonte de pacientes novos"], ["proximo", "Conhece alguém do grupo"], ["quer_mais", "Quer mais pacientes particulares"],
+  ["vagas", "Tem horário para mais pacientes"], ["pagou", "Pagou nos últimos 12 meses"], ["gasto", "Gasto por mês (R$)"],
+  ["meses", "Meses com o último"], ["ainda", "Ainda usa"], ["parou_motivo", "Por que parou"], ["trava", "O que mais trava (aberta)"],
+  ["atrai", "O que atrai e o que deixa desconfiado"], ["ia", "Publicaria conteúdo com IA revisado"], ["preferida", "Opção preferida"],
+  ["p_barato", "Barato demais (R$)"], ["p_bom", "Bom negócio (R$)"], ["p_caro", "Caro, mas consideraria (R$)"], ["p_caro_demais", "Caro demais (R$)"],
+  ["contrataria", "Contrataria pelo preço"], ["condicao", "O que precisaria ser verdade"], ["chamar", "Quer ser chamado para piloto pago"],
+  ["contato", "Contato"]
 ];
 
 var CAMPOS_CLINICAS = [
-  ["medicos", "Nº de médicos"], ["unidades", "Unidades"], ["especialidades", "Especialidades"], ["particular", "% particular (ponto médio)"], ["proximo", "Conhece alguém do grupo"],
-  ["quem", "Quem cuida do marketing"], ["paga", "Pagou marketing em 12 meses"], ["gasto", "Gasto sem mídia (R$)"], ["midia", "Mídia (R$)"], ["meses", "Meses com o fornecedor"],
-  ["resultado", "O que incomoda no resultado"], ["decisores", "Nº de decisores"], ["dias", "Dias até fechar (limite da faixa)"], ["fora", "Responde à noite e no fim de semana"],
-  ["mede", "Mede conversão do WhatsApp"], ["faltas", "Faltas"], ["preocupa", "O que mais preocupa (aberta)"], ["atrai", "O que atrai e o que deixa desconfiado"],
-  ["pesa", "Conformidade pesa (perguntado)"], ["p_barato", "Barato demais (R$)"], ["p_bom", "Bom negócio (R$)"], ["p_caro", "Caro, mas consideraria (R$)"],
-  ["p_caro_demais", "Caro demais (R$)"], ["piloto", "Piloto pago"], ["substitui", "Substitui ou soma"], ["condicao", "O que precisaria ser verdade"], ["contato", "Contato (opcional)"]
+  ["cargo", "Cargo de quem respondeu"], ["medicos", "Nº de médicos"], ["unidades", "Unidades"], ["especialidades", "Especialidades"],
+  ["particular", "% particular (ponto médio)"], ["proximo", "Conhece alguém do grupo"], ["quer_mais", "Quer mais pacientes particulares"],
+  ["vagas", "Médicos têm horário livre"], ["investe", "Investe em marketing"], ["tipos", "Em quê"], ["gasto", "Gasto sem mídia (R$, ponto médio)"],
+  ["midia", "Mídia (R$, ponto médio)"], ["satisf", "Satisfação (1 a 5)"], ["trocou", "Trocou ou pensou em trocar"], ["resultado", "O que incomoda no resultado"],
+  ["decisores", "Nº de decisores"], ["aprova", "Quem aprovou"], ["dias", "Dias até fechar (limite da faixa)"], ["revisa", "Quem revisa os posts"],
+  ["contatos", "Contatos novos por semana (ponto médio)"], ["tempo", "Primeira resposta (min, limite da faixa)"], ["fora", "Responde à noite e no fim de semana"],
+  ["mede", "Mede conversão do WhatsApp"], ["preocupa", "O que mais preocupa (aberta)"], ["atrai", "O que atrai e o que deixa desconfiado"],
+  ["peso", "O que mais pesa ao escolher"], ["p_barato", "Barato demais (R$)"], ["p_bom", "Bom negócio (R$)"], ["p_caro", "Caro, mas consideraria (R$)"],
+  ["p_caro_demais", "Caro demais (R$)"], ["piloto", "Piloto pago"], ["substitui", "Substitui ou soma"], ["condicao", "O que precisaria ser verdade"],
+  ["chamar", "Quer ser chamado em novembro"], ["contato", "Contato"]
 ];
 
-/* Linha da aba "Entrevistas", colunas A a AA (X tem fórmula e é pulada na gravação). */
+/* Linha da aba "Entrevistas", colunas A a AD (X tem fórmula e é pulada na gravação). */
 function linhaMedico(r, agora) {
   var pagos = (r.pagou || []).filter(function (x) { return x !== "nada"; });
   var anos = { ate3: 2, "4a10": 7, mais10: 15 }[r.anos];
-  var esc = r.escolha || "";
+  var pref = r.preferida || "";
+  var contrata = pref === "Nenhuma" ? "Não" : (r.contrataria || "");
+  var vagas = { sim: "Sim", talvez: "Talvez", nao: "Não" }[r.vagas] || "";
   return [
     agora, "Formulário", r.especialidade || "", sn_(r.proximo === "sim"), anos == null ? "" : anos,
-    n_(r.particular), r.fonte || "", sn_(r.agenda === "nao"), sn_(pagos.length > 0), n_(r.gasto),
-    pagos.join(", "), "", n_(r.meses), r.ainda ? sn_(r.ainda === "sim") : "", r.parou || "",
+    n_(r.particular), r.fonte || "", sn_(r.quer_mais === "sim" && r.vagas !== "nao"), sn_(pagos.length > 0), n_(r.gasto),
+    pagos.join(", "), "", n_(r.meses), r.ainda ? sn_(r.ainda === "sim") : "", texto_(r.parou_motivo),
     sn_(CFM_MEDICOS.test(r.trava || "")), "", n_(r.p_barato), n_(r.p_bom), n_(r.p_caro),
-    n_(r.p_caro_demais), esc === "Plataforma" ? (r.piloto || "") : esc === "Nenhuma" ? "Não" : "", r.ia || "", "",
-    (r.trava || "").slice(0, 300), esc, esc === "Equipe" ? (r.piloto || "") : esc === "Nenhuma" ? "Não" : ""
+    n_(r.p_caro_demais), pref === "Plataforma" || pref === "Nenhuma" ? contrata : "", r.ia || "", "",
+    (r.trava || "").slice(0, 300), pref, pref === "Equipe" || pref === "Nenhuma" ? contrata : "",
+    sn_(r.chamar === "sim"), r.onde || "", vagas
   ];
 }
 
-/* Linha da aba "Clínicas", colunas A a Y. */
+/* Linha da aba "Clínicas", colunas A a AG. */
 function linhaClinica(r, agora) {
+  var investe = r.investe === "sim";
+  var tipos = r.tipos || [];
+  var externo = investe && tipos.some(function (t) { return EXTERNOS.indexOf(t) >= 0; });
+  var satisf = n_(r.satisf);
+  var insatisfeita = investe && (r.trocou === "trocou" || r.trocou === "pensou" || (satisf !== "" && satisf <= 3));
   var probs = (r.resultado || []).filter(function (x) { return x !== "nada"; });
-  var obs = ["Via formulário.", r.quem ? "Marketing: " + r.quem + "." : "", probs.length ? "Incomoda: " + probs.join(", ") + "." : "",
+  var obs = ["Via formulário.", investe ? "Marketing: " + tipos.join(", ") + "." : "Não investe em marketing.",
+    probs.length ? "Incomoda: " + probs.join(", ") + "." : "", r.aprova && r.aprova.length ? "Aprovou: " + r.aprova.join(", ") + "." : "",
     r.preocupa ? "Preocupa: " + r.preocupa : "", r.atrai ? " | Atrai/desconfia: " + r.atrai : "", r.condicao ? " | Precisa ser verdade: " + r.condicao : ""].join(" ").replace(/\s+/g, " ").trim();
   return [
     agora, "Formulário", sn_(r.proximo === "sim"), r.especialidades || "", n_(r.medicos),
-    n_(r.unidades), n_(r.particular), sn_(r.paga === "sim"), n_(r.gasto), n_(r.midia),
-    n_(r.meses), sn_(probs.length > 0), n_(r.decisores), n_(r.dias), sn_(r.mede === "sim"),
-    sn_(r.fora === "nao"), sn_(CFM_CLINICAS.test(r.preocupa || "")), r.pesa ? sn_(r.pesa !== "Nada") : "", n_(r.p_barato), n_(r.p_bom),
-    n_(r.p_caro), n_(r.p_caro_demais), r.piloto || "", r.substitui || "", obs.slice(0, 1500)
+    n_(r.unidades), n_(r.particular), sn_(externo), investe ? n_(r.gasto) : "", investe ? n_(r.midia) : "",
+    "", sn_(insatisfeita), n_(r.decisores), n_(r.dias), sn_(r.mede === "sim"),
+    sn_(r.fora === "nao"), sn_(CFM_CLINICAS.test(r.preocupa || "")), sn_(r.peso === "Não ter problema com o CRM" || r.revisa === "Diretor técnico"),
+    n_(r.p_barato), n_(r.p_bom), n_(r.p_caro), n_(r.p_caro_demais), r.piloto || "", r.substitui || "", obs.slice(0, 1500),
+    r.cargo || "", sn_(r.quer_mais === "sim" && r.vagas !== "nao"), n_(r.contatos), n_(r.tempo), r.revisa || "", r.peso || "",
+    sn_(r.chamar === "sim"), sn_(investe)
   ];
 }
+var EXTERNOS = ["Agência de marketing", "Freelancer ou social media", "Anúncios pagos"];
 
 /* Para testes fora do Google (node). */
 if (typeof module !== "undefined") module.exports = { linhaMedico: linhaMedico, linhaClinica: linhaClinica, CFM_MEDICOS: CFM_MEDICOS, CFM_CLINICAS: CFM_CLINICAS, gravar_: gravar_, CAMPOS_MEDICOS: CAMPOS_MEDICOS, CAMPOS_CLINICAS: CAMPOS_CLINICAS };

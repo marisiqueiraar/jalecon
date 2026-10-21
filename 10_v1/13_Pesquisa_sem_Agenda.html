@@ -1,129 +1,132 @@
 <html><head><meta charset="utf-8"></head><body>
 <h1>Jalecon v1: pesquisa sem agenda (WhatsApp e formulário)</h1>
-<p>Grupo 1 · Insper · 21 de outubro de 2026. Substitui as entrevistas de 30 minutos dos roteiros 01 (médicos) e 10 (gestores de clínicas) por perguntas que a pessoa responde quando puder, por mensagem ou formulário. As perguntas são as mesmas dos roteiros, encurtadas, e os critérios de corte não mudam: só passam de "x de 5" para porcentagem.</p>
+<p>Grupo 1 · Insper · 21 de outubro de 2026, versão 2. Substitui as entrevistas de 30 minutos dos roteiros 01 (médicos) e 10 (gestores de clínicas) por perguntas que a pessoa responde quando puder, por mensagem ou formulário. A versão 2, também de 21/10 e registrada antes de qualquer resposta, troca perguntas que não separavam quem tem o problema de quem não tem e ajusta os critérios para medir exatamente o que dizem.</p>
 
 <h2>Como usar</h2>
 <ul>
-<li><b>WhatsApp é o formato principal.</b> Rende respostas melhores, porque dá para pedir um exemplo quando a resposta vier vaga. Mande em duas mensagens: a segunda só depois que a pessoa responder a primeira. Assim a pergunta sobre o que trava ou preocupa é respondida antes de a gente falar de CFM ou do produto.</li>
-<li><b>Formulário para quem prefere ou para escala</b> (grupos, LinkedIn, indicações). Monte no Google Forms com as três seções abaixo, uma por página, nessa ordem.</li>
+<li><b>Formulário é o formato principal:</b> jalecon.vercel.app/pesquisa/medicos e jalecon.vercel.app/pesquisa/clinicas. As respostas caem direto na planilha e já entram no placar.</li>
+<li><b>WhatsApp para quem prefere conversar.</b> Rende respostas mais ricas, porque dá para pedir um exemplo quando a resposta vier vaga. Mande em três mensagens, cada uma só depois da resposta à anterior. Assim a pergunta sobre o que trava ou preocupa é respondida antes de a gente falar de CFM ou do produto, e o preço só aparece no fim.</li>
 <li><b>Áudio vale.</b> Diga que a pessoa pode responder por áudio; quem lança na planilha transcreve os números e as frases principais.</li>
-<li><b>Lance cada resposta no mesmo dia</b> na planilha "02 · Entrevistas v1 · placar" (aba de médicos ou aba "Clínicas"). Anote nas observações o formato (WhatsApp ou formulário) e marque se a pessoa é próxima do grupo.</li>
+<li><b>Lance cada resposta de WhatsApp no mesmo dia</b> na planilha "02 · Entrevistas v1 · placar" (aba "Entrevistas" ou aba "Clínicas"), seguindo as regras do fim deste documento. Marque se a pessoa é próxima do grupo.</li>
 <li><b>Prazo:</b> enviar de 21 a 26/10, cobrar uma vez em 27/10, fechar em 28/10. Decisão em 30/10.</li>
-<li><b>Quantas:</b> mínimo de 5 respostas válidas por público; o ideal é de 10 a 15, porque resposta escrita é mais rasa que conversa. Pelo menos 2 de pessoas sem relação próxima com o grupo.</li>
+<li><b>Quantas:</b> mínimo de 5 respostas válidas por público; o ideal é de 10 a 15, porque resposta escrita é mais rasa que conversa. Pelo menos 2 de pessoas sem relação próxima com o grupo. Para clínicas, priorize as de 5 a 10 médicos: é nelas que o preço é medido.</li>
 </ul>
 
-<h2>Critérios de corte (registrados em 21/10, antes de qualquer resposta)</h2>
-<p>Os cortes são os do plano v1 (19/10) e do documento 10 (20/10), convertidos em proporção para valer com qualquer número de respostas válidas. Não mudam depois que as respostas chegarem.</p>
+<h2>Critérios de corte (versão 2, registrada em 21/10, antes de qualquer resposta)</h2>
+<p>Os cortes numéricos são os do plano v1 (19/10) e do documento 10 (20/10), em proporção para valer com qualquer número de respostas válidas. O que mudou na versão 2 foi a forma de medir, explicada abaixo da tabela. Os critérios não mudam depois que as respostas chegarem.</p>
 <table border="1" cellpadding="6">
-<tr><th>Público</th><th>Hipótese</th><th>Passa se</th><th>Pergunta que mede</th></tr>
-<tr><td>Médicos</td><td>H1 Dor</td><td>60% ou mais relatam dificuldade de atrair pacientes particulares <b>e</b> 40% ou mais pagaram por marketing nos últimos 12 meses</td><td>M2 e M4</td></tr>
-<tr><td>Médicos</td><td>H2 Preço</td><td>Mediana do "bom negócio" de R$ 500 ou mais por mês</td><td>M9</td></tr>
-<tr><td>Médicos</td><td>H3 Conformidade</td><td>50% ou mais citam CFM, CRM ou regras na pergunta aberta, antes de a gente mencionar o tema</td><td>M6</td></tr>
-<tr><td>Gestores</td><td>H1c Dor</td><td>60% ou mais pagam (ou pagaram nos últimos 12 meses) agência, freelancer ou anúncios <b>e</b> citam um problema concreto com o resultado</td><td>G2 e G6</td></tr>
-<tr><td>Gestores</td><td>H2c Preço</td><td>Mediana do "caro, mas ainda consideraria" de R$ 3.500 ou mais nas clínicas de 5 a 10 médicos <b>e</b> 40% ou mais aceitam conversar sobre um piloto pago</td><td>G9 e G10</td></tr>
-<tr><td>Gestores</td><td>H3c Conformidade</td><td>40% ou mais citam CFM, CRM ou diretor técnico na pergunta aberta</td><td>G6</td></tr>
-<tr><td>Gestores</td><td>H9c Atendimento</td><td>60% ou mais não sabem quantos contatos viram consulta <b>ou</b> não respondem à noite e no fim de semana</td><td>G4</td></tr>
-<tr><td>Gestores</td><td>H10c Compra</td><td>Em 60% ou mais, uma ou duas pessoas decidem e a última contratação levou até 60 dias</td><td>G3</td></tr>
+<tr><th>Público</th><th>Hipótese</th><th>Passa se</th><th>Falha se</th><th>Pergunta que mede</th></tr>
+<tr><td>Médicos</td><td>H1 Dor</td><td>60% ou mais querem mais pacientes particulares <b>e</b> têm horário para atendê-los (ou reorganizariam a agenda), <b>e</b> 40% ou mais pagaram por marketing nos últimos 12 meses</td><td>Qualquer um dos dois abaixo do corte</td><td>Hoje: quer mais, horário, pagou</td></tr>
+<tr><td>Médicos</td><td>H2 Preço</td><td>Mediana do "bom negócio" da opção mais escolhida acima do corte: R$ 500 para a plataforma, R$ 1.300 para a equipe (mesma proporção de 500 para 697)</td><td>Abaixo do corte, ou mais da metade não escolhe nenhuma das duas</td><td>Duas ideias: preferida; Preço</td></tr>
+<tr><td>Médicos</td><td>H3 Conformidade</td><td>50% ou mais citam CFM, CRM ou regras na pergunta aberta, antes de a gente mencionar o tema</td><td>Abaixo de 50%</td><td>Hoje: o que mais trava</td></tr>
+<tr><td>Gestores</td><td>H1c Dor</td><td>60% ou mais pagam (ou pagaram nos últimos 12 meses) agência, freelancer ou anúncios <b>e</b> estão insatisfeitos: trocaram ou pensaram em trocar de fornecedor, ou deram nota 3 ou menos</td><td>Abaixo de 60%</td><td>Marketing hoje: tipos, nota, troca</td></tr>
+<tr><td>Gestores</td><td>H2c Preço</td><td>Mediana do "caro, mas ainda consideraria" de R$ 3.500 ou mais nas clínicas de 5 a 10 médicos <b>e</b> 40% ou mais aceitam o piloto pago ("Sim"). Com menos de 5 clínicas de 5 a 10 médicos, o resultado sai como indicativo</td><td>Mediana abaixo de R$ 2.500 ou nenhum "Sim" ao piloto</td><td>Uma ideia: preço; Piloto</td></tr>
+<tr><td>Gestores</td><td>H3c Conformidade</td><td>40% ou mais citam CFM, CRM ou diretor técnico na pergunta aberta</td><td>Ninguém cita, ninguém escolhe "não ter problema com o CRM" como o que mais pesa e nenhum diretor técnico revisa os posts</td><td>Atendimento: o que preocupa</td></tr>
+<tr><td>Gestores</td><td>H9c Atendimento</td><td>60% ou mais recebem mais de 10 contatos novos por semana <b>e</b> não respondem à noite e no fim de semana <b>ou</b> demoram mais de 1 hora para responder</td><td>80% ou mais respondem à noite e em até 1 hora, ou a maioria recebe até 10 contatos por semana</td><td>Atendimento</td></tr>
+<tr><td>Gestores</td><td>H10c Compra</td><td>Entre as clínicas que investem em marketing, em 60% ou mais uma ou duas pessoas decidiram e a última contratação levou até 60 dias</td><td>A maioria tem 3 ou mais decisores ou ciclo acima de 90 dias</td><td>Marketing hoje: decisores, dias</td></tr>
 </table>
+<p><b>Indicadores de apoio</b> (não decidem, mas entram na leitura de 30/10): pediram para ser chamados para um piloto pago em novembro (compromisso, mais forte que "toparia"); querem mais pacientes mas estão com a agenda cheia (se for alto, o problema é capacidade, não divulgação); clínicas que querem mais pacientes e têm horário (abaixo de 50%, a oferta para clínicas deve ser atendimento e painel, não trazer pacientes); não medem quantos contatos viram consulta; o diretor técnico revisa os posts; gasto mensal mediano de quem já paga fornecedor externo, para comparar com o preço do plano.</p>
+<p><b>O que mudou na versão 2 e por quê:</b></p>
+<ul>
+<li><b>Médicos, H1:</b> "sua agenda está como gostaria?" não separava quem quer mais pacientes de quem não tem horário para eles. Agora são duas perguntas, e só conta quem quer e tem horário.</li>
+<li><b>Médicos, H2:</b> o preço era perguntado só para a plataforma, inclusive para quem preferia a equipe. Agora a pessoa escolhe primeiro, sem ver preços, e dá valores para a opção que escolheu. Os preços testados (R$ 697 e R$ 1.790) só aparecem no fim.</li>
+<li><b>Médicos:</b> saíram "última ação de divulgação", "trouxe pacientes?" e "já teve dúvida com o CRM?", que não alimentavam nenhum critério. "Por que parou" virou lista. Entrou "onde atende"; quem é sócio de clínica recebe, no fim, o convite para a pesquisa de clínicas.</li>
+<li><b>Gestores, H1c:</b> o formulário contava qualquer investimento (até funcionário próprio ou Doctoralia) como "paga". Agora conta só agência, freelancer ou anúncios, como diz o critério. E "problema concreto" vinha de uma lista que quase todos marcam; agora vem de comportamento (trocou ou pensou em trocar) ou de nota baixa.</li>
+<li><b>Gestores, H9c:</b> com "não mede <b>ou</b> não responde à noite", quase nenhuma clínica falharia, porque quase nenhuma mede. Agora exige volume de contatos e mede o tempo de resposta. "Não mede" virou indicador de apoio.</li>
+<li><b>Gestores, H3c:</b> "a proteção do diretor técnico muda alguma coisa?" induzia o "sim". Virou uma escolha forçada (o que mais pesa) e uma pergunta de comportamento (quem revisa os posts hoje).</li>
+<li><b>Gestores, H10c:</b> o cálculo passa a usar só as clínicas que já contrataram marketing; antes, quem nunca contratou contava contra.</li>
+<li><b>Gestores:</b> entraram o cargo de quem responde e "você participa da decisão" para todos (antes, só para quem investia). Gasto e anúncios viraram faixas, com "Não sei". Saíram faltas e meses com o fornecedor.</li>
+</ul>
 <p><b>Regras de decisão (sem mudança):</b> se a dor ou o preço falharem para gestores (H1c ou H2c), o pivô para clínicas sai da mesa. Se H1 falhar para médicos, a ideia toda perde a base. A tabela de caminhos para 30/10 está no memorando 08.</p>
 <p><b>Limitação, declarada desde já:</b> por escrito, a pessoa responde com menos detalhe e não dá para pedir a história completa; e quem responde formulário tende a ser mais engajado com o tema. Por isso a evidência vale menos que uma entrevista. No WhatsApp, quando a resposta vier vaga, peça um exemplo concreto ("me conta a última vez que...").</p>
 
 <h2>Médicos: WhatsApp</h2>
-<p><b>Convite:</b> "Oi, Dr(a). [nome]! Sou [seu nome], faço pós no Insper e estou pesquisando como médicos com consultório divulgam o próprio trabalho. Posso te mandar 10 perguntas rápidas por aqui, em duas mensagens? Você responde quando puder, por texto ou áudio, leva uns 5 minutos. Não é venda. Respostas anônimas, só para o projeto."</p>
+<p><b>Convite:</b> "Oi, Dr(a). [nome]! Sou [seu nome], faço pós no Insper e estou pesquisando como médicos com consultório divulgam o próprio trabalho. Posso te mandar 10 perguntas rápidas por aqui, em três mensagens curtas? Você responde quando puder, por texto ou áudio, leva uns 6 minutos. Não é venda. Respostas anônimas, só para o projeto."</p>
 <p><b>Mensagem 1</b> (depois do sim):</p>
 <p>"Obrigado! Pode responder do jeito mais fácil:<br>
-1. Mais ou menos que parte dos seus pacientes de consultório é particular?<br>
-2. Sua agenda particular hoje está como você gostaria? Se não, o que falta?<br>
-3. Qual foi a última coisa que você fez para divulgar seu trabalho ou atrair pacientes? Quando foi?<br>
-4. Nos últimos 12 meses, pagou alguém ou alguma ferramenta para isso (agência, freelancer, Doctoralia paga, anúncio, impulsionamento)? Quanto por mês? Ainda usa? Se parou, por quê?<br>
-5. Trouxe pacientes? Como você sabe?<br>
-6. O que mais te trava quando você pensa em divulgar seu trabalho?"</p>
+1. Onde você atende particular, na maior parte do tempo: consultório próprio, compartilhado, clínica de outra pessoa ou clínica da qual é sócio? E mais ou menos que parte dos seus pacientes é particular?<br>
+2. Você gostaria de atender mais pacientes particulares do que atende hoje? Se sim: se eles chegassem na semana que vem, você teria horário?<br>
+3. Nos últimos 12 meses, pagou alguém ou alguma ferramenta para divulgar seu trabalho (agência, freelancer, Doctoralia paga, anúncio, impulsionamento)? Quanto por mês? Ainda usa? Se parou, por quê?<br>
+4. O que mais te trava quando você pensa em divulgar seu trabalho?"</p>
 <p><b>Mensagem 2</b> (só depois da resposta à primeira):</p>
 <p>"Valeu! Agora quero sua opinião sobre duas ideias que estamos testando:<br>
 (a) uma plataforma que cria sua marca, site e posts com IA; você ajusta conversando e cada peça é checada nas regras do CFM antes de publicar;<br>
 (b) uma equipe de agentes de IA, supervisionada por um especialista, que faz tudo por você: marca, site, Google, posts, anúncios e atendimento no WhatsApp. Você só aprova.<br><br>
-7. O que te atrai e o que te deixa desconfiado?<br>
-8. Já teve dúvida se um post podia ser publicado, ou viu algum colega ter problema com o CRM por publicidade?<br>
-9. Pensando na opção (a), com marca, site, Google e 24 posts por mês, em reais por mês: a partir de quanto seria tão barato que você desconfiaria da qualidade? Quanto seria um bom negócio? A partir de quanto ficaria caro, mas você ainda consideraria? A partir de quanto seria caro demais?<br>
-10. Se (a) custasse R$ 697 por mês e (b) R$ 1.790 por mês mais a verba de anúncios, qual você escolheria: a, b ou nenhuma? Toparia testar por 3 meses? O que precisaria ser verdade para dizer sim?"</p>
-<p><b>Fechamento:</b> "Muito obrigado! Conhece algum colega, de preferência alguém que já paga agência, que toparia responder? E posso te procurar quando tivermos um piloto?"</p>
+5. O que te atrai e o que te deixa desconfiado?<br>
+6. Você publicaria um conteúdo criado com IA se pudesse revisar antes e se ele fosse checado nas regras do CFM?<br>
+7. Se tivesse que escolher uma, qual seria: a, b ou nenhuma?<br>
+8. Pensando na que você escolheu, em reais por mês (sem contar a verba de anúncios, no caso da b): a partir de quanto seria tão barato que você desconfiaria da qualidade? Quanto seria um bom negócio? A partir de quanto ficaria caro, mas você ainda consideraria? A partir de quanto seria caro demais?"</p>
+<p><b>Mensagem 3</b> (depois da resposta à 8, para o preço não influenciar as anteriores):</p>
+<p>"Última! Os preços que estamos testando são: (a) R$ 697 por mês; (b) R$ 1.790 por mês mais a verba de anúncios.<br>
+9. Por esse preço, você contrataria a que escolheu? O que precisaria ser verdade para dizer sim?<br>
+10. Quer que a gente te chame em novembro para testar num piloto pago?"</p>
+<p><b>Fechamento:</b> "Muito obrigado! Conhece algum colega, de preferência alguém que já paga agência, que toparia responder?" Se a pessoa é sócia de clínica: "Como você é sócio de uma clínica, posso te mandar também a pesquisa de gestores? jalecon.vercel.app/pesquisa/clinicas"</p>
 
 <h2>Gestores de clínicas: WhatsApp</h2>
-<p><b>Convite:</b> "Oi, [nome]! Sou [seu nome], faço pós no Insper e estou pesquisando como clínicas lidam com marketing e com o atendimento de pacientes novos no WhatsApp. Posso te mandar 10 perguntas rápidas por aqui, em três mensagens curtas? Você responde quando puder, por texto ou áudio, leva uns 5 minutos. Não é venda. Respostas anônimas, só para o projeto."</p>
-<p><b>Filtro</b> (antes de mandar): clínica privada de 2 a 15 médicos ou dentistas, com pelo menos metade da receita particular, e a pessoa participa da decisão de contratar marketing.</p>
+<p><b>Convite:</b> "Oi, [nome]! Sou [seu nome], faço pós no Insper e estou pesquisando como clínicas lidam com marketing e com o atendimento de pacientes novos no WhatsApp. Posso te mandar 11 perguntas rápidas por aqui, em três mensagens curtas? Você responde quando puder, por texto ou áudio, leva uns 7 minutos. Não é venda. Respostas anônimas, só para o projeto."</p>
+<p><b>Filtro</b> (antes de mandar): clínica privada de 2 a 15 médicos ou dentistas, com pelo menos metade da receita particular, e a pessoa participa da decisão de contratar marketing ou atendimento.</p>
 <p><b>Mensagem 1:</b></p>
 <p>"Obrigado! Pode responder do jeito mais fácil:<br>
-1. Quantos médicos atendem na clínica, e mais ou menos que parte da receita é particular?<br>
-2. Quem cuida hoje do marketing? Quanto a clínica paga por mês por isso, sem contar anúncio? E quanto vai para anúncio?<br>
-3. Na última vez que vocês contrataram alguém ou alguma ferramenta de marketing: quem decidiu e quanto tempo levou da primeira conversa até fechar?<br>
-4. Quem responde os pacientes novos no WhatsApp? E à noite e no fim de semana? Vocês sabem quantos desses contatos viram consulta?<br>
-5. Mais ou menos quantos pacientes faltam às consultas?<br>
-6. O que mais te incomoda ou preocupa no marketing da clínica hoje?"</p>
+1. Qual é o seu papel na clínica? Quantos médicos atendem, e mais ou menos que parte da receita é particular?<br>
+2. A clínica quer atender mais pacientes particulares? Os médicos têm horário livre para isso?<br>
+3. Vocês pagam marketing hoje (agência, freelancer, anúncios, outra coisa)? Mais ou menos quanto por mês, sem anúncio, e quanto em anúncio? De 1 a 5, quanto estão satisfeitos? Nos últimos 12 meses, trocaram de fornecedor ou pensaram em trocar?<br>
+4. Na última vez que contrataram marketing: quem precisou aprovar e quanto tempo levou da primeira conversa até fechar?<br>
+5. Quantos contatos novos de pacientes chegam por semana no WhatsApp? Em horário comercial, quanto tempo leva a primeira resposta? Alguém responde à noite e no fim de semana? Vocês sabem quantos desses contatos viram consulta?<br>
+6. Hoje, quem revisa os posts e anúncios antes de publicar?<br>
+7. O que mais te incomoda ou preocupa no marketing da clínica hoje?"</p>
 <p><b>Mensagem 2</b> (só depois da resposta à primeira):</p>
-<p>"Valeu! Agora quero sua opinião sobre uma ideia que estamos testando: uma equipe de marketing e atendimento operada por agentes de IA e supervisionada por um especialista. Ela cuida da marca, do site e do Google de cada médico, dos posts e dos anúncios, e responde os pacientes no WhatsApp 24 horas, agendando direto na agenda. Nada vai ao ar sem passar nas regras do CFM, com registro para o diretor técnico. Dá para ver um protótipo aqui: jalecon.vercel.app/?entrevista=1<br><br>
-7. O que te atrai e o que te deixa desconfiado?<br>
-8. A conformidade com o CFM e a proteção do diretor técnico mudam alguma coisa para vocês?<br>
-9. Para uma clínica do tamanho da sua, sem contar a verba de anúncio, em reais por mês: a partir de quanto seria tão barato que você desconfiaria da qualidade? Quanto seria um bom negócio? A partir de quanto ficaria caro, mas você ainda consideraria? A partir de quanto seria caro demais?"</p>
-<p><b>Mensagem 3</b> (depois da resposta à 9, para o preço não influenciar a pergunta anterior):</p>
+<p>"Valeu! Agora quero sua opinião sobre uma ideia que estamos testando: uma equipe de marketing e atendimento operada por agentes de IA e supervisionada por um especialista. Ela cuida da marca, do site e do Google de cada médico, dos posts e dos anúncios, e responde os pacientes no WhatsApp 24 horas, agendando direto na agenda. Nada vai ao ar sem passar nas regras do CFM, com registro para o diretor técnico, e um painel mostra quantos contatos viraram consulta. Dá para ver um protótipo aqui: jalecon.vercel.app/?entrevista=1<br><br>
+8. O que te atrai e o que te deixa desconfiado?<br>
+9. Na hora de escolher um fornecedor assim, o que pesa mais, se tivesse que escolher só um: trazer mais pacientes, responder rápido, preço, não ter problema com o CRM ou saber com número o que funciona?<br>
+10. Para uma clínica do tamanho da sua, sem contar a verba de anúncio, em reais por mês: a partir de quanto seria tão barato que você desconfiaria da qualidade? Quanto seria um bom negócio? A partir de quanto ficaria caro, mas você ainda consideraria? A partir de quanto seria caro demais?"</p>
+<p><b>Mensagem 3</b> (depois da resposta à 10, para o preço não influenciar a pergunta anterior):</p>
 <p>"Última! Para o porte de vocês, o plano seria de R$ [2.900 para 2 a 4 médicos · 4.900 para 5 a 10 · 8.900 para 11 ou mais] por mês, mais uma mensalidade de implantação, sem contar anúncios.<br>
-10. Vocês topariam conversar sobre um piloto pago de 3 meses, sem fidelidade depois? O que precisaria ser verdade para dizer sim? Isso substituiria o que vocês têm hoje ou viria junto?"</p>
-<p><b>Fechamento:</b> "Muito obrigado! Conhece outro gestor ou dono de clínica que toparia responder? E posso te procurar quando o piloto estiver pronto?"</p>
+11. Vocês topariam um piloto pago de 3 meses, sem fidelidade depois? Isso substituiria o que vocês têm hoje ou viria junto? O que precisaria ser verdade para dizer sim? Quer que a gente te chame em novembro para conversar sobre o piloto?"</p>
+<p><b>Fechamento:</b> "Muito obrigado! Conhece outro gestor ou dono de clínica que toparia responder?"</p>
 
-<h2>Formulário (Google Forms)</h2>
-<p><b>Já está pronto, no site da Jalecon:</b> jalecon.vercel.app/pesquisa/medicos e jalecon.vercel.app/pesquisa/clinicas. A página mostra só as perguntas e o envio, sem link para a demo ou para o resto do site. As respostas vão direto para a planilha "02 · Entrevistas v1 · placar": a resposta completa nas abas "Respostas · médicos" e "Respostas · clínicas", e uma linha já codificada nas abas "Entrevistas" e "Clínicas", que alimentam o placar. Na versão on-line, "problema concreto com o resultado" virou uma lista para marcar, e "citou CFM espontaneamente" é marcado quando a pergunta aberta menciona CFM, CRM, conselho, código de ética, ética médica, diretor técnico, resolução, regra, norma, proibição, processo ético ou fiscalização (para gestores: sem regra e norma, com publicidade médica). O grupo confere e pode corrigir à mão. Especialidade é escolhida numa lista, com "Outra" para escrever. Onde faz sentido há a opção "Não sei" (inclusive "Não sei dizer valores" no preço): ela vai em branco para a planilha, não entra nas medianas e não conta como "sim". A especificação abaixo fica de referência, caso prefiram o Google Forms.</p>
-<p>Um formulário para cada público. Use uma seção por página, nessa ordem, e não mostre a descrição da proposta antes da seção 3. Na abertura: "Pesquisa acadêmica do Insper. Leva uns 5 minutos. Respostas anônimas, usadas só neste projeto."</p>
+<h2>Formulário on-line</h2>
+<p>A página mostra só as perguntas e o envio, sem link para a demo ou para o resto do site. As respostas vão direto para a planilha "02 · Entrevistas v1 · placar": a resposta completa nas abas "Respostas · médicos (v2)" e "Respostas · clínicas (v2)", e uma linha já codificada nas abas "Entrevistas" e "Clínicas", que alimentam o placar. "Citou CFM espontaneamente" é marcado quando a pergunta aberta menciona CFM, CRM, conselho, código de ética, ética médica, diretor técnico, resolução, regra, norma, proibição, processo ético ou fiscalização (para gestores: sem regra e norma, com publicidade médica). O grupo confere e pode corrigir à mão. Onde faz sentido há a opção "Não sei" (inclusive "Não sei dizer valores" no preço): ela vai em branco para a planilha, não entra nas medianas e não conta como "sim". Faixas viram números: ponto médio para % particular, gasto e contatos; limite superior para dias e tempo de resposta. Quem marca uma resposta fora do perfil vê uma tela de encerramento com a opção de voltar e corrigir.</p>
 
-<h3>Formulário de médicos</h3>
+<h3>Formulário de médicos (5 páginas, cerca de 6 minutos)</h3>
 <table border="1" cellpadding="6">
-<tr><th>Seção</th><th>Pergunta</th><th>Tipo</th></tr>
-<tr><td>1. Você</td><td>Você atende em consultório particular pelo menos um período por semana? (se "não", o formulário encerra)</td><td>Sim / Não</td></tr>
-<tr><td>1. Você</td><td>Especialidade</td><td>Resposta curta</td></tr>
-<tr><td>1. Você</td><td>M1. Que parte dos seus pacientes de consultório é particular?</td><td>Até 20% · 20 a 50% · 50 a 80% · Mais de 80%</td></tr>
-<tr><td>2. Hoje</td><td>M2. Sua agenda particular está como você gostaria?</td><td>Sim / Não, gostaria de mais pacientes particulares / Prefiro não dizer</td></tr>
-<tr><td>2. Hoje</td><td>M3. Qual foi a última coisa que você fez para divulgar seu trabalho? Quando foi?</td><td>Parágrafo</td></tr>
-<tr><td>2. Hoje</td><td>M4. Nos últimos 12 meses, pagou por marketing? (marque o que se aplica)</td><td>Caixas: agência · freelancer · Doctoralia paga · anúncio ou impulsionamento · ferramenta paga · não paguei</td></tr>
-<tr><td>2. Hoje</td><td>M4b. Quanto por mês, no total? Ainda usa? Se parou, por quê?</td><td>Parágrafo</td></tr>
-<tr><td>2. Hoje</td><td>M5. Trouxe pacientes? Como você sabe?</td><td>Parágrafo</td></tr>
-<tr><td>2. Hoje</td><td>M6. O que mais te trava quando você pensa em divulgar seu trabalho? (obrigatória)</td><td>Parágrafo</td></tr>
-<tr><td>3. Ideias</td><td>Texto: as duas ideias, (a) e (b), como na mensagem 2 do WhatsApp</td><td>Descrição</td></tr>
-<tr><td>3. Ideias</td><td>M7. O que te atrai e o que te deixa desconfiado?</td><td>Parágrafo</td></tr>
-<tr><td>3. Ideias</td><td>M8. Já teve dúvida se um post podia ser publicado, ou viu colega ter problema com o CRM por publicidade?</td><td>Sim / Não, mais um campo para comentar</td></tr>
-<tr><td>3. Ideias</td><td>M9. Sobre a opção (a), em reais por mês: barato a ponto de desconfiar · bom negócio · caro, mas consideraria · caro demais</td><td>Quatro respostas curtas, só números</td></tr>
-<tr><td>3. Ideias</td><td>M10. Se (a) custasse R$ 697 e (b) R$ 1.790 mais anúncios, qual escolheria?</td><td>(a) · (b) · nenhuma</td></tr>
-<tr><td>3. Ideias</td><td>M10b. Toparia testar por 3 meses?</td><td>Sim · Talvez · Não, mais "o que precisaria ser verdade?"</td></tr>
-<tr><td>4. Final</td><td>Indicaria um colega? Podemos falar de novo? (WhatsApp opcional)</td><td>Resposta curta</td></tr>
+<tr><th>Página</th><th>Pergunta</th><th>Tipo</th></tr>
+<tr><td>1. Você</td><td>Atende em consultório particular pelo menos um período por semana? (se "não", encerra)</td><td>Sim / Não</td></tr>
+<tr><td>1. Você</td><td>Especialidade</td><td>Lista, com "Outra"</td></tr>
+<tr><td>1. Você</td><td>Onde atende particular, na maior parte do tempo</td><td>Consultório próprio · compartilhado · clínica de outra pessoa · clínica da qual é sócio</td></tr>
+<tr><td>1. Você</td><td>Tempo de consultório; parte particular; fonte de pacientes novos; conhece alguém do grupo</td><td>Opções</td></tr>
+<tr><td>2. Hoje</td><td>Gostaria de atender mais pacientes particulares do que atende hoje?</td><td>Sim / Não</td></tr>
+<tr><td>2. Hoje</td><td>Se sim: se chegassem na semana que vem, teria horário?</td><td>Sim · teria que reorganizar · não, agenda cheia</td></tr>
+<tr><td>2. Hoje</td><td>Pagou nos últimos 12 meses; quanto por mês; há quantos meses; ainda usa; se parou, por quê</td><td>Caixas, números e lista de motivos</td></tr>
+<tr><td>2. Hoje</td><td>O que mais te trava quando pensa em divulgar seu trabalho? (obrigatória)</td><td>Parágrafo</td></tr>
+<tr><td>3. Duas ideias</td><td>Texto com (a) e (b), sem preços; o que atrai e o que deixa desconfiado; publicaria conteúdo com IA revisado; qual escolheria</td><td>Parágrafo e opções</td></tr>
+<tr><td>4. Preço</td><td>Só para quem escolheu (a) ou (b): os quatro preços, para a opção escolhida</td><td>Números, com "Não sei dizer valores"</td></tr>
+<tr><td>5. Para fechar</td><td>Mostra os preços testados. Contrataria pelo preço? O que precisaria ser verdade? Quer ser chamado em novembro para um piloto pago? (se sim, o contato é obrigatório)</td><td>Opções e texto</td></tr>
 </table>
 
-<h3>Formulário de gestores de clínicas</h3>
+<h3>Formulário de gestores de clínicas (5 páginas, cerca de 7 minutos)</h3>
 <table border="1" cellpadding="6">
-<tr><th>Seção</th><th>Pergunta</th><th>Tipo</th></tr>
-<tr><td>1. A clínica</td><td>A clínica investe em marketing hoje, ou investiu nos últimos 12 meses?</td><td>Sim / Não</td></tr>
-<tr><td>1. A clínica</td><td>Se sim: em quais serviços? (agência, freelancer, anúncios, site e Google, agenda on-line paga, atendimento de WhatsApp terceirizado, funcionário dedicado, ferramenta, outro)</td><td>Caixas</td></tr>
-<tr><td>1. A clínica</td><td>Se sim: você participa da decisão de contratar esses serviços? (se "não", o formulário encerra). Se a clínica não investe, esta pergunta e a anterior não aparecem, e as de gasto, fornecedor e última contratação também não.</td><td>Sim / Não</td></tr>
-<tr><td>1. A clínica</td><td>G1. Quantos médicos (ou dentistas) atendem na clínica?</td><td>2 a 4 · 5 a 10 · 11 a 15 · Mais de 15</td></tr>
-<tr><td>1. A clínica</td><td>G1b. Que parte da receita é particular?</td><td>Menos da metade · Mais da metade · Quase tudo</td></tr>
-<tr><td>2. Hoje</td><td>G2. Quem cuida do marketing hoje, e quanto a clínica paga por mês (sem anúncio)? E em anúncio?</td><td>Resposta curta + dois campos numéricos</td></tr>
-<tr><td>2. Hoje</td><td>G3. Na última contratação de marketing: quantas pessoas decidiram e quanto tempo levou até fechar?</td><td>1 · 2 · 3 ou mais; até 30 dias · 31 a 60 · 61 a 90 · mais de 90</td></tr>
-<tr><td>2. Hoje</td><td>G4. Alguém responde o WhatsApp à noite e no fim de semana? Vocês sabem quantos contatos viram consulta?</td><td>Sim / Não para cada</td></tr>
-<tr><td>2. Hoje</td><td>G5. Mais ou menos quantos pacientes faltam?</td><td>Até 10% · 10 a 20% · 20 a 30% · Mais de 30% · Não sei</td></tr>
-<tr><td>2. Hoje</td><td>G6. O que mais te incomoda ou preocupa no marketing da clínica hoje? (obrigatória)</td><td>Parágrafo</td></tr>
-<tr><td>3. A ideia</td><td>Texto: a proposta, como na mensagem 2 do WhatsApp, com o link jalecon.vercel.app/?entrevista=1</td><td>Descrição</td></tr>
-<tr><td>3. A ideia</td><td>G7. O que te atrai e o que te deixa desconfiado?</td><td>Parágrafo</td></tr>
-<tr><td>3. A ideia</td><td>G8. A conformidade com o CFM e a proteção do diretor técnico mudam algo para vocês?</td><td>Muito · Um pouco · Nada, mais comentário</td></tr>
-<tr><td>3. A ideia</td><td>G9. Para uma clínica do seu tamanho, sem anúncio, em reais por mês: barato a ponto de desconfiar · bom negócio · caro, mas consideraria · caro demais</td><td>Quatro respostas curtas, só números</td></tr>
-<tr><td>4. Piloto</td><td>Texto com o preço por porte (R$ 2.900 · 4.900 · 8.900, mais implantação, sem anúncios)</td><td>Descrição</td></tr>
-<tr><td>4. Piloto</td><td>G10. Vocês topariam conversar sobre um piloto pago de 3 meses, sem fidelidade?</td><td>Sim · Talvez · Não, mais "o que precisaria ser verdade?"</td></tr>
-<tr><td>4. Piloto</td><td>G10b. Isso substituiria o que vocês têm hoje ou viria junto?</td><td>Substituiria · Viria junto · Não sei</td></tr>
-<tr><td>5. Final</td><td>Indicaria outro gestor? Podemos falar de novo? (WhatsApp opcional)</td><td>Resposta curta</td></tr>
+<tr><th>Página</th><th>Pergunta</th><th>Tipo</th></tr>
+<tr><td>1. A clínica</td><td>Seu papel na clínica; participa da decisão de contratar marketing ou atendimento? (se "não", encerra)</td><td>Opções</td></tr>
+<tr><td>1. A clínica</td><td>Nº de médicos (fora de 2 a 15, encerra); unidades; especialidades; parte particular (menos da metade encerra); conhece alguém do grupo</td><td>Número, caixas e opções</td></tr>
+<tr><td>2. Marketing hoje</td><td>Quer mais pacientes particulares? Se sim: os médicos têm horário livre?</td><td>Opções</td></tr>
+<tr><td>2. Marketing hoje</td><td>Investe em marketing? Se sim: em quê; gasto sem anúncio e com anúncio (faixas); nota de 1 a 5; trocou ou pensou em trocar; o que incomoda; quantos decidiram, quem aprovou e quanto tempo levou</td><td>Caixas e opções</td></tr>
+<tr><td>2. Marketing hoje</td><td>Quem revisa os posts e anúncios antes de publicar</td><td>Opções</td></tr>
+<tr><td>3. Atendimento</td><td>Contatos novos por semana; tempo da primeira resposta; responde à noite e no fim de semana; sabe quantos viram consulta</td><td>Opções</td></tr>
+<tr><td>3. Atendimento</td><td>O que mais incomoda ou preocupa no marketing da clínica? (obrigatória)</td><td>Parágrafo</td></tr>
+<tr><td>4. Uma ideia</td><td>Texto da proposta; o que atrai e o que deixa desconfiado; o que mais pesa ao escolher (só um); os quatro preços</td><td>Parágrafo, opções e números</td></tr>
+<tr><td>5. Piloto</td><td>Mostra o preço do porte. Topariam um piloto pago de 3 meses? Substitui ou soma? O que precisaria ser verdade? Quer ser chamado em novembro? (se sim, o contato é obrigatório)</td><td>Opções e texto</td></tr>
 </table>
 
-<h2>Como lançar na planilha</h2>
+<h2>Como lançar respostas de WhatsApp na planilha</h2>
 <ul>
-<li><b>Dificuldade (médicos, M2):</b> S se respondeu que gostaria de mais pacientes particulares.</li>
-<li><b>Pagou marketing (M4, G2):</b> S para qualquer gasto pago nos últimos 12 meses. Tempo próprio ou funcionário que não é dedicado a marketing não contam.</li>
-<li><b>Problema concreto (G6):</b> S se o gestor cita algo específico: não sabe se traz pacientes, pacientes errados, fornecedor some, custo alto para o que entrega.</li>
-<li><b>CFM espontâneo (M6, G6):</b> S só se aparecer na pergunta aberta, antes da proposta. O que aparecer em M8 ou G8 conta como "perguntado".</li>
+<li><b>Médicos, coluna H:</b> S se quer mais pacientes particulares <b>e</b> teria horário (ou reorganizaria a agenda). Coluna AD: Sim, Talvez ou Não para o horário.</li>
+<li><b>Médicos, preços (R a U):</b> os valores da opção escolhida; a opção vai na coluna Z. "Contrataria" vai em V (plataforma) ou AA (equipe); para quem não escolheu nenhuma, "Não" nas duas. AB: S se pediu para ser chamado. AC: onde atende.</li>
+<li><b>Gestores, coluna H:</b> S só para agência, freelancer ou anúncios pagos. AG: S para qualquer investimento em marketing.</li>
+<li><b>Gestores, coluna L:</b> S se trocou ou pensou em trocar de fornecedor, ou deu nota 3 ou menos.</li>
+<li><b>Gestores, faixas:</b> gasto e anúncio pelo ponto médio (até 1.000 = 500; 1.000 a 2.500 = 1.750; 2.500 a 5.000 = 3.750; 5.000 a 10.000 = 7.500; acima = 12.500). Contatos por semana (AB): até 10 = 5; 11 a 30 = 20; 31 a 100 = 65; mais de 100 = 150. Primeira resposta (AC), em minutos: menos de 15 = 15; até 1 hora = 60; 1 a 4 horas = 240; mais = 480.</li>
+<li><b>Gestores, coluna R:</b> S se escolheu "não ter problema com o CRM" como o que mais pesa ou se o diretor técnico revisa os posts. AD e AE: quem revisa e o que mais pesa. AF: S se pediu para ser chamado.</li>
+<li><b>CFM espontâneo (P em médicos, Q em gestores):</b> S só se aparecer na pergunta aberta, antes da proposta.</li>
 <li><b>Preços:</b> só números, em reais por mês, sem a verba de anúncio.</li>
-<li><b>Resposta inválida:</b> não passou no filtro, ou deixou a seção 2 em branco. Anote, mas não conte no placar.</li>
+<li><b>Resposta inválida:</b> não passou no filtro, ou deixou a página 2 em branco. Anote, mas não conte no placar.</li>
 </ul>
 </body></html>

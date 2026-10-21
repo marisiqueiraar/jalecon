@@ -7,7 +7,7 @@
   var PUB = document.body.getAttribute("data-publico");
   var P = window.PESQUISA[PUB];
   var ENDPOINT = window.PESQUISA_ENDPOINT || "";
-  var CHAVE = "jalecon-pesquisa-" + PUB;
+  var CHAVE = "jalecon-pesquisa-v2-" + PUB;
   var app = document.getElementById("app");
 
   var S = { secao: 0, r: {}, fim: null };
@@ -18,17 +18,23 @@
   function carregar() { try { var o = JSON.parse(localStorage.getItem(CHAVE) || "null"); if (o && o.r) S = o; } catch (e) { /* ok */ } }
 
   function visiveis(sec) { return sec.perguntas.filter(function (q) { return !q.se || q.se(S.r); }); }
+  function aberta(i) { var sec = P.secoes[i]; return !!sec && (!sec.se || sec.se(S.r)); }
+  /* Páginas condicionais à frente contam até a condição ser respondida, para o total não encolher no começo. */
+  function paginas() { return P.secoes.map(function (s, i) { return i; }).filter(function (i) { return i > S.secao || aberta(i); }); }
+  function vizinha(passo) { var i = S.secao + passo; while (i >= 0 && i < P.secoes.length && !aberta(i)) i += passo; return i; }
+  function obrig(q) { return typeof q.obrig === "function" ? q.obrig(S.r) : !!q.obrig; }
+  function rotulo(q) { return typeof q.rot === "function" ? q.rot(S.r) : q.rot; }
   function textos(sec) { return sec.textoFn ? sec.textoFn(S.r) : (sec.texto || []); }
 
   function campo(q) {
     var v = S.r[q.id], err = erros[q.id];
     var aria = err ? ' aria-invalid="true" aria-describedby="e-' + q.id + '"' : "";
     var msg = err ? '<span class="err" id="e-' + q.id + '">' + esc(err) + "</span>" : "";
-    var obrig = q.obrig ? "" : ' <span class="opc">(opcional)</span>';
-    if (q.tipo === "nota") return '<p class="nota">' + esc(q.rot) + "</p>";
+    var opc = obrig(q) ? "" : ' <span class="opc">(opcional)</span>', rot = rotulo(q);
+    if (q.tipo === "nota") return '<p class="nota">' + esc(rot) + "</p>";
     if (q.tipo === "radio" || q.tipo === "checks") {
       var tipo = q.tipo === "radio" ? "radio" : "checkbox";
-      return '<fieldset class="q"' + (err ? ' aria-describedby="e-' + q.id + '"' : "") + "><legend>" + esc(q.rot) + obrig + "</legend>" +
+      return '<fieldset class="q"' + (err ? ' aria-describedby="e-' + q.id + '"' : "") + "><legend>" + esc(rot) + opc + "</legend>" +
         '<div class="ops">' + q.ops.map(function (o, i) {
           var on = tipo === "radio" ? v === o[0] : Array.isArray(v) && v.indexOf(o[0]) >= 0;
           return '<label class="op"><input type="' + tipo + '" name="' + q.id + '" value="' + esc(o[0]) + '" data-q="' + q.id + '"' + (on ? " checked" : "") + "><span>" + esc(o[1]) + "</span></label>";
@@ -39,28 +45,31 @@
     else if (q.tipo === "textarea") inp = '<textarea id="' + id + '" data-q="' + q.id + '" maxlength="1500" rows="3"' + aria + ">" + esc(v || "") + "</textarea>";
     else if (q.tipo === "number") inp = '<div class="num">' + (q.pre ? '<span aria-hidden="true">' + q.pre + "</span>" : "") + '<input id="' + id + '" data-q="' + q.id + '" inputmode="numeric" autocomplete="off" value="' + esc(v == null ? "" : v) + '"' + aria + ">" + (q.suf ? '<span aria-hidden="true">' + q.suf + "</span>" : "") + "</div>";
     else inp = '<input id="' + id + '" data-q="' + q.id + '" maxlength="300" autocomplete="off" value="' + esc(v || "") + '"' + aria + ">";
-    return '<div class="q"><label for="' + id + '">' + esc(q.rot) + obrig + "</label>" + inp + msg + "</div>";
+    return '<div class="q"><label for="' + id + '">' + esc(rot) + opc + "</label>" + inp + msg + "</div>";
   }
 
   function vSecao() {
-    var sec = P.secoes[S.secao], n = P.secoes.length, ultima = S.secao === n - 1;
-    return '<p class="passo">Página ' + (S.secao + 1) + " de " + n + '</p><div class="barra" aria-hidden="true"><span style="width:' + ((S.secao + 1) / n * 100) + '%"></span></div>' +
+    var sec = P.secoes[S.secao], pags = paginas(), n = pags.length, pos = pags.indexOf(S.secao) + 1;
+    var prox = P.secoes[vizinha(1)], ultima = !prox, aviso = sec.voltar && !(prox && prox.voltar);
+    return '<p class="passo">Página ' + pos + " de " + n + '</p><div class="barra" aria-hidden="true"><span style="width:' + (pos / n * 100) + '%"></span></div>' +
       '<h2 tabindex="-1">' + esc(sec.titulo) + "</h2>" +
       (S.secao === 0 ? '<p class="muted">' + esc(P.intro) + "</p>" : "") +
       textos(sec).map(function (t) { return '<p class="ctx">' + esc(t) + "</p>"; }).join("") +
       '<form id="form" novalidate>' + visiveis(sec).map(campo).join("") +
       '<div class="hp" aria-hidden="true"><label>Não preencha<input name="site" tabindex="-1" autocomplete="off"></label></div>' +
       (Object.keys(erros).length ? '<p class="err" role="alert">Falta responder ou corrigir algumas perguntas acima.</p>' : "") +
-      '<div class="acoes">' + (S.secao === 1 ? '<button type="button" class="btn ghost" data-act="voltar">Voltar</button>' : "") +
+      '<div class="acoes">' + (sec.voltar ? '<button type="button" class="btn ghost" data-act="voltar">Voltar</button>' : "") +
       '<button type="submit" class="btn">' + (ultima ? "Enviar respostas" : "Continuar") + "</button></div></form>" +
-      (S.secao === 1 ? '<p class="small">Depois desta página não dá para voltar e mudar as respostas.</p>' : "");
+      (aviso ? '<p class="small">Depois desta página não dá para voltar e mudar as respostas.</p>' : "");
   }
   function vFim() {
     var t = { enviado: ["Obrigado!", "Suas respostas foram enviadas. Elas vão ajudar muito o nosso projeto."],
               fora: ["Obrigado!", "Esta pesquisa é para outro perfil, então não precisa continuar. Agradecemos o seu tempo."],
               erro: ["Não conseguimos enviar", "Verifique a internet e tente de novo. Suas respostas continuam aqui."],
               off: ["Pesquisa ainda fechada", "A pesquisa ainda não está recebendo respostas. Tente de novo mais tarde."] }[S.fim];
+    var x = S.fim === "enviado" && S.extra;
     return '<h2 tabindex="-1">' + esc(t[0]) + '</h2><p class="muted">' + esc(t[1]) + "</p>" +
+      (x ? '<p class="ctx">' + esc(x.texto) + '</p><div class="acoes"><a class="btn" href="' + esc(x.link) + '">' + esc(x.rotulo) + "</a></div>" : "") +
       (S.fim === "erro" ? '<div class="acoes"><button type="button" class="btn" data-act="reenviar">Tentar de novo</button></div>' : "") +
       (S.fim === "fora" ? '<p class="small">Marcou alguma resposta por engano?</p><div class="acoes"><button type="button" class="btn ghost" data-act="corrigir">Voltar e corrigir</button></div>' : "");
   }
@@ -80,7 +89,7 @@
       var v = S.r[q.id];
       if (q.tipo === "nota") return;
       var vazio = v == null || v === "" || (Array.isArray(v) && !v.length);
-      if (q.obrig && vazio) { erros[q.id] = "Responda esta pergunta."; return; }
+      if (obrig(q) && vazio) { erros[q.id] = "Responda esta pergunta."; return; }
       if (q.tipo === "number" && !vazio) {
         if (num(v) == null) erros[q.id] = "Use só números.";
         else if (q.min != null && num(v) < q.min) erros[q.id] = "O mínimo é " + q.min + ".";
@@ -97,7 +106,10 @@
     });
   }
   function limparOcultas() {
-    P.secoes.forEach(function (sec) { sec.perguntas.forEach(function (q) { if (q.se && !q.se(S.r)) delete S.r[q.id]; }); });
+    P.secoes.forEach(function (sec, i) {
+      var fechada = !aberta(i);
+      sec.perguntas.forEach(function (q) { if (fechada || (q.se && !q.se(S.r))) delete S.r[q.id]; });
+    });
   }
   function payload() {
     var r = {};
@@ -109,14 +121,14 @@
     Object.keys(r).forEach(function (k) { if (r[k] === "ns") r[k] = ""; });
     if (Array.isArray(r.p_ns) && r.p_ns.length) { ["p_barato", "p_bom", "p_caro", "p_caro_demais"].forEach(function (k) { r[k] = ""; }); }
     if (P.derivar) P.derivar(r);
-    return JSON.stringify({ publico: PUB, versao: 1, r: r, hp: (app.querySelector('[name="site"]') || {}).value || "" });
+    return JSON.stringify({ publico: PUB, versao: 2, r: r, hp: (app.querySelector('[name="site"]') || {}).value || "" });
   }
   function enviar() {
     if (!ENDPOINT) { S.fim = "off"; render(); return; }
     var btn = app.querySelector('button[type="submit"], [data-act="reenviar"]');
     if (btn) { btn.disabled = true; btn.textContent = "Enviando..."; }
     fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: payload() })
-      .then(function () { S.fim = "enviado"; S.r = {}; render(); })
+      .then(function () { S.extra = P.fimExtra ? P.fimExtra(S.r) : null; S.fim = "enviado"; S.r = {}; render(); })
       .catch(function () { S.fim = "erro"; render(); });
   }
 
@@ -145,12 +157,12 @@
     ev.preventDefault();
     if (!validar()) { render(); var f = app.querySelector('[aria-invalid="true"], fieldset[aria-describedby] input'); if (f) f.focus(); return; }
     if (foraDoPublico()) { S.fim = "fora"; render(); return; }
-    if (S.secao < P.secoes.length - 1) { S.secao++; render(); return; }
+    if (vizinha(1) < P.secoes.length) { S.secao = vizinha(1); render(); return; }
     enviar();
   });
   app.addEventListener("click", function (ev) {
     var b = ev.target.closest("[data-act]"); if (!b) return;
-    if (b.dataset.act === "voltar") { S.secao = Math.max(0, S.secao - 1); erros = {}; render(); }
+    if (b.dataset.act === "voltar") { S.secao = Math.max(0, vizinha(-1)); erros = {}; render(); }
     if (b.dataset.act === "reenviar") enviar();
     if (b.dataset.act === "corrigir") { S.fim = null; erros = {}; render(); }
   });
