@@ -61,7 +61,9 @@
     intro: "Pesquisa acadêmica do Insper. São 4 páginas curtas, cerca de 5 minutos. As respostas são anônimas e usadas só neste projeto.",
     secoes: [
       { titulo: "A clínica", perguntas: [
-        { id: "filtro", tipo: "radio", rot: "Você participa da decisão de contratar marketing na clínica?", ops: SIM_NAO, obrig: true, encerra: "nao" },
+        { id: "investe", tipo: "radio", rot: "A clínica investe em marketing hoje, ou investiu nos últimos 12 meses?", ops: SIM_NAO, obrig: true },
+        { id: "tipos", tipo: "checks", rot: "Em quais destes? Marque todos que valem.", ops: [["Agência de marketing", "Agência de marketing"], ["Freelancer ou social media", "Freelancer ou social media"], ["Anúncios pagos", "Anúncios pagos (Google, Instagram, Facebook)"], ["Site, SEO ou perfil no Google", "Site, SEO ou perfil no Google"], ["Doctoralia ou agenda on-line paga", "Doctoralia ou outra agenda on-line paga"], ["Atendimento de WhatsApp terceirizado", "Secretária virtual, robô ou atendimento de WhatsApp terceirizado"], ["Funcionário dedicado ao marketing", "Funcionário dedicado ao marketing"], ["Ferramenta de marketing", "Ferramenta ou software de marketing"], ["Outro", "Outro"]], obrig: true, se: function (r) { return investe(r); } },
+        { id: "participa", tipo: "radio", rot: "Você participa da decisão de contratar esses serviços?", ops: SIM_NAO, obrig: true, encerra: "nao", se: function (r) { return investe(r); } },
         { id: "medicos", tipo: "number", rot: "Quantos médicos (ou dentistas) atendem na clínica?", obrig: true, min: 1, max: 500, encerraSe: function (v) { return v < 2 || v > 15; } },
         { id: "unidades", tipo: "number", rot: "Quantas unidades?", obrig: true, min: 1, max: 100 },
         { id: "especialidades", tipo: "text", rot: "Quais são as especialidades principais?", obrig: true },
@@ -69,18 +71,16 @@
         { id: "proximo", tipo: "radio", rot: "Você conhece pessoalmente alguém do grupo que te enviou esta pesquisa?", ops: SIM_NAO, obrig: true }
       ] },
       { titulo: "Hoje", perguntas: [
-        { id: "quem", tipo: "text", rot: "Quem cuida hoje do marketing da clínica?", obrig: true },
-        { id: "paga", tipo: "radio", rot: "Nos últimos 12 meses, a clínica pagou agência, freelancer, anúncios ou ferramenta de marketing?", ops: SIM_NAO, obrig: true },
-        { id: "gasto", tipo: "number", rot: "Quanto a clínica paga por mês por isso, sem contar a verba de anúncio?", pre: "R$", se: function (r) { return r.paga === "sim"; } },
-        { id: "midia", tipo: "number", rot: "E quanto vai por mês para anúncios?", pre: "R$", se: function (r) { return r.paga === "sim"; } },
-        { id: "meses", tipo: "number", rot: "Há quantos meses estão com o fornecedor atual?", suf: "meses", se: function (r) { return r.paga === "sim"; } },
-        { id: "resultado", tipo: "checks", rot: "O que incomoda no resultado do marketing de hoje? Marque todas que valem.", ops: [["Não sabemos se traz pacientes", "Não sabemos se traz pacientes"], ["Traz pacientes fora do perfil", "Traz pacientes fora do perfil"], ["O fornecedor demora ou some", "O fornecedor demora ou some"], ["Custa caro para o que entrega", "Custa caro para o que entrega"], ["Outro problema", "Outro problema"], ["nada", "Nada, estamos satisfeitos"]], obrig: true, exclusivo: "nada" },
-        { id: "decisores", tipo: "radio", rot: "Na última vez que contrataram marketing, quantas pessoas decidiram?", ops: [["1", "1"], ["2", "2"], ["3", "3 ou mais"]], obrig: true },
-        { id: "dias", tipo: "radio", rot: "Quanto tempo levou da primeira conversa até fechar?", ops: [["30", "Até 30 dias"], ["60", "31 a 60 dias"], ["90", "61 a 90 dias"], ["120", "Mais de 90 dias"]], obrig: true },
+        { id: "gasto", tipo: "number", rot: "Quanto a clínica paga por mês por esses serviços, sem contar a verba de anúncio?", pre: "R$", se: function (r) { return investe(r); } },
+        { id: "midia", tipo: "number", rot: "E quanto vai por mês para anúncios?", pre: "R$", se: function (r) { return investe(r); } },
+        { id: "meses", tipo: "number", rot: "Há quantos meses estão com o fornecedor atual?", suf: "meses", se: function (r) { return investe(r); } },
+        { id: "resultado", tipo: "checks", rot: "O que incomoda no resultado do marketing de hoje? Marque todas que valem.", ops: [["Não sabemos se traz pacientes", "Não sabemos se traz pacientes"], ["Traz pacientes fora do perfil", "Traz pacientes fora do perfil"], ["O fornecedor demora ou some", "O fornecedor demora ou some"], ["Custa caro para o que entrega", "Custa caro para o que entrega"], ["Outro problema", "Outro problema"], ["nada", "Nada, estamos satisfeitos"]], obrig: true, exclusivo: "nada", se: function (r) { return investe(r); } },
+        { id: "decisores", tipo: "radio", rot: "Na última vez que contrataram marketing, quantas pessoas decidiram?", ops: [["1", "1"], ["2", "2"], ["3", "3 ou mais"]], obrig: true, se: function (r) { return investe(r); } },
+        { id: "dias", tipo: "radio", rot: "Quanto tempo levou da primeira conversa até fechar?", ops: [["30", "Até 30 dias"], ["60", "31 a 60 dias"], ["90", "61 a 90 dias"], ["120", "Mais de 90 dias"]], obrig: true, se: function (r) { return investe(r); } },
         { id: "fora", tipo: "radio", rot: "Alguém responde os pacientes novos no WhatsApp à noite e no fim de semana?", ops: SIM_NAO, obrig: true },
         { id: "mede", tipo: "radio", rot: "Vocês sabem, com número, quantos contatos do WhatsApp viram consulta?", ops: SIM_NAO, obrig: true },
         { id: "faltas", tipo: "radio", rot: "Mais ou menos quantos pacientes faltam às consultas?", ops: [["Até 10%", "Até 10%"], ["10% a 20%", "10% a 20%"], ["20% a 30%", "20% a 30%"], ["Mais de 30%", "Mais de 30%"], ["Não sei", "Não sei"]], obrig: true },
-        { id: "preocupa", tipo: "textarea", rot: "O que mais te incomoda ou preocupa no marketing da clínica hoje?", obrig: true }
+        { id: "preocupa", tipo: "textarea", rot: "O que mais te incomoda ou preocupa quando você pensa no marketing da clínica?", obrig: true }
       ] },
       { titulo: "Uma ideia", texto: [
         "Estamos testando esta ideia: uma equipe de marketing e atendimento operada por agentes de IA e supervisionada por um especialista.",
@@ -103,6 +103,13 @@
     ]
   };
 
+  /* O Apps Script publicado lê "paga" e "quem": a página envia as respostas novas nesses campos. */
+  CLINICAS.derivar = function (r) {
+    r.paga = r.investe;
+    r.quem = investe(r) ? (r.tipos || []).join(", ") : "Não investe em marketing";
+  };
+
+  function investe(r) { return r.investe === "sim"; }
   function pagou(r) { return Array.isArray(r.pagou) && r.pagou.length && r.pagou.indexOf("nada") < 0; }
 
   g.PESQUISA = { medicos: MEDICOS, clinicas: CLINICAS };

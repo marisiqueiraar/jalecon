@@ -104,6 +104,7 @@
       r[k] = Array.isArray(v) ? v.slice(0, 10) : typeof v === "string" ? v.slice(0, 1500) : v;
     });
     P.secoes.forEach(function (sec) { sec.perguntas.forEach(function (q) { if (q.tipo === "number" && r[q.id] != null) r[q.id] = num(r[q.id]); }); });
+    if (P.derivar) P.derivar(r);
     return JSON.stringify({ publico: PUB, versao: 1, r: r, hp: (app.querySelector('[name="site"]') || {}).value || "" });
   }
   function enviar() {
