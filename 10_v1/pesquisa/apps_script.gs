@@ -24,8 +24,8 @@ var ABA_CLINICAS = "Clínicas";
 var LINHAS_MEDICOS = [2, 31];   // faixa lida pelo Placar
 var LINHAS_CLINICAS = [2, 21];  // faixa lida pelo placar da aba Clínicas
 
-var CFM_MEDICOS = /\b(cfm|crm|conselho|c[oó]digo de [eé]tica|[eé]tica m[eé]dica|diretor[a]? t[eé]cnic|resolu[cç][aã]o|normas?|regras?|proibid|process[oa]s? [eé]tic|fiscaliza)/i;
-var CFM_CLINICAS = /\b(cfm|crm|conselho|c[oó]digo de [eé]tica|[eé]tica m[eé]dica|diretor[a]? t[eé]cnic|resolu[cç][aã]o|publicidade m[eé]dica|process[oa]s? [eé]tic|fiscaliza)/i;
+var CFM_MEDICOS = /(^|[^a-zà-ú])(cfm|crm|conselho|c[oó]digo de [eé]tica|[eé]tica m[eé]dica|diretor[a]? t[eé]cnic[a-zà-ú]*|resolu[cç][aã]o|normas?|regras?|proibid[a-zà-ú]*|process[oa]s? [eé]tic[a-zà-ú]*|fiscaliza[a-zà-ú]*)(?![a-zà-ú])/i;
+var CFM_CLINICAS = /(^|[^a-zà-ú])(cfm|crm|conselho|c[oó]digo de [eé]tica|[eé]tica m[eé]dica|diretor[a]? t[eé]cnic[a-zà-ú]*|resolu[cç][aã]o|publicidade m[eé]dica|process[oa]s? [eé]tic[a-zà-ú]*|fiscaliza[a-zà-ú]*)(?![a-zà-ú])/i;
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
