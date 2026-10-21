@@ -85,7 +85,7 @@
     intro: "Pesquisa acadêmica do Insper. São 5 páginas curtas, cerca de 7 minutos. As respostas são anônimas e usadas só neste projeto.",
     secoes: [
       { titulo: "A clínica", perguntas: [
-        { id: "cargo", tipo: "radio", rot: "Qual é o seu papel na clínica?", ops: [["Sócio médico ou dentista", "Sócio(a), médico(a) ou dentista"], ["Sócio ou administrador não médico", "Sócio(a) ou administrador(a), não médico(a)"], ["Diretor técnico", "Diretor(a) técnico(a)"], ["Gerente ou coordenador", "Gerente ou coordenador(a)"], ["Outro", "Outro"]], obrig: true },
+        { id: "cargo", tipo: "checks", rot: "Qual é o seu papel na clínica? Se tiver mais de um, marque todos.", ops: [["Sócio que atende", "Sou sócio(a) e atendo pacientes"], ["Sócio que não atende", "Sou sócio(a) e não atendo pacientes"], ["Diretor técnico", "Sou diretor(a) técnico(a)"], ["Atende, não é sócio", "Atendo pacientes, mas não sou sócio(a)"], ["Gestão", "Trabalho na gestão: gerência, coordenação ou administração"], ["Marketing ou atendimento", "Cuido do marketing ou do atendimento"], ["Outro", "Outro"]], obrig: true },
         { id: "participa", tipo: "radio", rot: "Você participa da decisão de contratar marketing ou atendimento para a clínica?", ops: SIM_NAO, obrig: true, encerra: "nao" },
         { id: "medicos", tipo: "number", rot: "Quantos médicos (ou dentistas) atendem na clínica?", obrig: true, min: 1, max: 500, encerraSe: function (v) { return v < 2 || v > 15; } },
         { id: "unidades", tipo: "number", rot: "Quantas unidades?", min: 1, max: 100 },
@@ -149,6 +149,7 @@
     r.parou = (r.parou_motivo || []).join(", ");
   };
   CLINICAS.derivar = function (r) {
+    r.cargo = (r.cargo || []).join(", ");
     r.especialidades = (r.esp_lista || []).map(function (e) { return e === "Outra" ? (r.esp_outra || "Outra") : e; }).join(", ");
     r.externo = investe(r) && (r.tipos || []).some(function (t) { return EXTERNOS.indexOf(t) >= 0; }) ? "sim" : "nao";
     r.paga = r.externo;
