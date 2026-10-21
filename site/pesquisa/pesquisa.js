@@ -61,12 +61,13 @@
               erro: ["Não conseguimos enviar", "Verifique a internet e tente de novo. Suas respostas continuam aqui."],
               off: ["Pesquisa ainda fechada", "A pesquisa ainda não está recebendo respostas. Tente de novo mais tarde."] }[S.fim];
     return '<h2 tabindex="-1">' + esc(t[0]) + '</h2><p class="muted">' + esc(t[1]) + "</p>" +
-      (S.fim === "erro" ? '<div class="acoes"><button type="button" class="btn" data-act="reenviar">Tentar de novo</button></div>' : "");
+      (S.fim === "erro" ? '<div class="acoes"><button type="button" class="btn" data-act="reenviar">Tentar de novo</button></div>' : "") +
+      (S.fim === "fora" ? '<p class="small">Marcou alguma resposta por engano?</p><div class="acoes"><button type="button" class="btn ghost" data-act="corrigir">Voltar e corrigir</button></div>' : "");
   }
 
   function render() {
     app.innerHTML = '<header class="topo"><svg viewBox="0 0 100 100" width="28" height="28" aria-hidden="true"><rect width="100" height="100" rx="24" fill="#1F2440"/><polygon points="24,36 37,36 50,64 44,76" fill="#F7F8FA"/><polygon points="44,76 50,64 67,24 80,24" fill="#E8A27C"/></svg><span>Pesquisa acadêmica · Insper</span></header>' +
-      '<main><h1>' + esc(P.titulo) + "</h1>" + (S.fim && S.fim !== "erro" ? vFim() : S.fim === "erro" ? vFim() : vSecao()) + "</main>";
+      '<main><h1>' + esc(P.titulo) + "</h1>" + (S.fim ? vFim() : vSecao()) + "</main>";
     var h = app.querySelector("h2"); if (h) h.focus({ preventScroll: true });
     window.scrollTo(0, 0);
     salvar();
@@ -143,7 +144,7 @@
   app.addEventListener("submit", function (ev) {
     ev.preventDefault();
     if (!validar()) { render(); var f = app.querySelector('[aria-invalid="true"], fieldset[aria-describedby] input'); if (f) f.focus(); return; }
-    if (foraDoPublico()) { S.fim = "fora"; S.r = {}; render(); return; }
+    if (foraDoPublico()) { S.fim = "fora"; render(); return; }
     if (S.secao < P.secoes.length - 1) { S.secao++; render(); return; }
     enviar();
   });
@@ -151,6 +152,7 @@
     var b = ev.target.closest("[data-act]"); if (!b) return;
     if (b.dataset.act === "voltar") { S.secao = Math.max(0, S.secao - 1); erros = {}; render(); }
     if (b.dataset.act === "reenviar") enviar();
+    if (b.dataset.act === "corrigir") { S.fim = null; erros = {}; render(); }
   });
 
   carregar();
