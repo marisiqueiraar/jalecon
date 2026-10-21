@@ -103,7 +103,7 @@ var CAMPOS_CLINICAS = [
   ["mede", "Mede conversão do WhatsApp"], ["preocupa", "O que mais preocupa (aberta)"], ["atrai", "O que atrai e o que deixa desconfiado"],
   ["peso", "O que mais pesa ao escolher"], ["p_barato", "Barato demais (R$)"], ["p_bom", "Bom negócio (R$)"], ["p_caro", "Caro, mas consideraria (R$)"],
   ["p_caro_demais", "Caro demais (R$)"], ["piloto", "Piloto pago"], ["substitui", "Substitui ou soma"], ["condicao", "O que precisaria ser verdade"],
-  ["chamar", "Quer ser chamado em novembro"], ["contato", "Contato"]
+  ["chamar", "Quer ser chamado em novembro"], ["contato", "Contato"], ["achou", "Como achou o fornecedor"], ["agenda_sis", "Sistema de agenda"]
 ];
 
 /* Linha da aba "Entrevistas", colunas A a AD (X tem fórmula e é pulada na gravação). */
@@ -124,7 +124,7 @@ function linhaMedico(r, agora) {
   ];
 }
 
-/* Linha da aba "Clínicas", colunas A a AG. */
+/* Linha da aba "Clínicas", colunas A a AI. */
 function linhaClinica(r, agora) {
   var investe = r.investe === "sim";
   var tipos = r.tipos || [];
@@ -142,7 +142,7 @@ function linhaClinica(r, agora) {
     sn_(r.fora === "nao"), sn_(CFM_CLINICAS.test(r.preocupa || "")), sn_(r.peso === "Não ter problema com o CRM" || r.revisa === "Diretor técnico"),
     n_(r.p_barato), n_(r.p_bom), n_(r.p_caro), n_(r.p_caro_demais), r.piloto || "", r.substitui || "", obs.slice(0, 1500),
     r.cargo || "", sn_(r.quer_mais === "sim" && r.vagas !== "nao"), n_(r.contatos), n_(r.tempo), r.revisa || "", r.peso || "",
-    sn_(r.chamar === "sim"), sn_(investe)
+    sn_(r.chamar === "sim"), sn_(investe), investe ? (r.achou || "") : "", r.agenda_sis || ""
   ];
 }
 var EXTERNOS = ["Agência de marketing", "Freelancer ou social media", "Anúncios pagos"];

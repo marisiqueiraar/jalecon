@@ -103,6 +103,7 @@
         { id: "midia", tipo: "radio", rot: "E quanto vai por mês para anúncios?", ops: [["0", "Não anunciamos"], ["500", "Até R$ 1.000"], ["1750", "R$ 1.000 a 2.500"], ["3750", "R$ 2.500 a 5.000"], ["7500", "Mais de R$ 5.000"], ["ns", "Não sei"]], obrig: true, se: investe },
         { id: "satisf", tipo: "radio", rot: "De 1 a 5, quanto vocês estão satisfeitos com o resultado do marketing?", ops: [["1", "1 · nada satisfeitos"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5 · muito satisfeitos"]], obrig: true, se: investe },
         { id: "trocou", tipo: "radio", rot: "Nos últimos 12 meses, vocês trocaram de fornecedor de marketing ou pensaram seriamente em trocar?", ops: [["trocou", "Trocamos"], ["pensou", "Pensamos em trocar"], ["nao", "Não"]], obrig: true, se: investe },
+        { id: "achou", tipo: "radio", rot: "Como vocês encontraram o fornecedor de marketing atual (ou o último)?", ops: [["Indicação", "Indicação de outra clínica ou de um colega"], ["Google", "Pesquisa no Google"], ["Instagram ou outra rede", "Instagram ou outra rede social"], ["Evento ou congresso", "Evento ou congresso"], ["O fornecedor procurou", "O fornecedor procurou a clínica"], ["Já conhecíamos", "Já conhecíamos (amigo, parente, ex-funcionário)"], ["Outro", "Outro"], ["ns", "Não sei"]], obrig: true, se: investe },
         { id: "resultado", tipo: "checks", rot: "O que incomoda no resultado de hoje? Marque todas que valem.", ops: [["Não sabemos se traz pacientes", "Não sabemos se traz pacientes"], ["Traz pacientes fora do perfil", "Traz pacientes fora do perfil"], ["O fornecedor demora ou some", "O fornecedor demora ou some"], ["Custa caro para o que entrega", "Custa caro para o que entrega"], ["Outro problema", "Outro problema"], ["nada", "Nada, estamos satisfeitos"]], obrig: true, exclusivo: "nada", se: investe },
         { id: "decisores", tipo: "radio", rot: "Na última vez que contrataram marketing, quantas pessoas decidiram?", ops: [["1", "1"], ["2", "2"], ["3", "3 ou mais"], ["ns", "Não sei"]], obrig: true, se: investe },
         { id: "aprova", tipo: "checks", rot: "Quem precisou aprovar? Marque todos.", ops: [["Sócio médico", "Sócio(a) médico(a) ou dentista"], ["Sócio ou administrador não médico", "Sócio(a) ou administrador(a), não médico(a)"], ["Diretor técnico", "Diretor(a) técnico(a)"], ["Gerente", "Gerente ou coordenador(a)"], ["Outro", "Outro"]], obrig: true, se: investe },
@@ -114,6 +115,8 @@
         { id: "tempo", tipo: "radio", rot: "Em horário comercial, quanto tempo um paciente novo espera pela primeira resposta?", ops: [["15", "Menos de 15 minutos"], ["60", "15 minutos a 1 hora"], ["240", "1 a 4 horas"], ["480", "Mais de 4 horas"], ["ns", "Não sei"]], obrig: true },
         { id: "fora", tipo: "radio", rot: "Alguém responde os pacientes novos no WhatsApp à noite e no fim de semana?", ops: SIM_NAO.concat([["ns", "Não sei"]]), obrig: true },
         { id: "mede", tipo: "radio", rot: "Vocês sabem, com número, quantos contatos do WhatsApp viram consulta?", ops: SIM_NAO, obrig: true },
+        { id: "agenda_sis", tipo: "radio", rot: "Qual sistema a clínica usa para a agenda?", ops: [["Feegow", "Feegow"], ["iClinic", "iClinic"], ["ProDoctor", "ProDoctor"], ["Doctoralia", "Doctoralia"], ["Clinicorp", "Clinicorp"], ["Amplimed", "Amplimed"], ["Outro sistema", "Outro sistema"], ["Planilha, papel ou Google Agenda", "Planilha, papel ou Google Agenda"], ["ns", "Não sei"]], obrig: true },
+        { id: "agenda_outro", tipo: "text", rot: "Qual sistema?", se: function (r) { return r.agenda_sis === "Outro sistema"; } },
         { id: "preocupa", tipo: "textarea", rot: "O que mais te incomoda ou preocupa quando você pensa no marketing da clínica?", obrig: true }
       ] },
       { titulo: "Uma ideia", texto: [
@@ -166,6 +169,7 @@
   };
   CLINICAS.derivar = function (r) {
     r.cargo = (r.cargo || []).join(", ");
+    if (r.agenda_sis === "Outro sistema" && r.agenda_outro) r.agenda_sis = r.agenda_outro;
     r.especialidades = (r.esp_lista || []).map(function (e) { return e === "Outra" ? (r.esp_outra || "Outra") : e; }).join(", ");
     r.externo = investe(r) && (r.tipos || []).some(function (t) { return EXTERNOS.indexOf(t) >= 0; }) ? "sim" : "nao";
     r.paga = r.externo;
