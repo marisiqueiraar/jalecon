@@ -29,7 +29,9 @@
     return { tela: "inicio", passo: 0, diag: C.diagPadrao(), diagFeito: false, entrevista: false, fila: null, pecaAberta: null, medicoAberto: null, chat: null, agenda: null, espera: null, registro: [] };
   }
   var S = estadoInicial();
-  var T = { erros: {}, toast: "", toastTimer: null, focoTela: false, confirmar: false };
+  var T = { erros: {}, toast: "", toastTimer: null, focoTela: false, confirmar: false, t0: null, acumulado: 0 };
+  /* Modo banca (?banca=1): a lateral vira o roteiro dos 5 minutos ao vivo, com cronômetro. */
+  var BANCA = false;
 
   function salvar() { try { localStorage.setItem(CHAVE, JSON.stringify(S)); } catch (e) { /* sem armazenamento: a demo segue sem lembrar */ } }
   function carregar() {
@@ -41,6 +43,7 @@
       var q = new URLSearchParams(location.search);
       if (q.get("entrevista") === "1") S.entrevista = true;
       if (q.get("entrevista") === "0") S.entrevista = false;
+      if (q.get("banca") === "1") BANCA = true;
     } catch (e) { /* ok */ }
   }
 
@@ -172,13 +175,30 @@
       "</div>";
   }
 
+  /* O que aconteceu nesta sessão da demo: vem das ações reais, não da simulação do mês. */
+  function aoVivo() {
+    var aprovadas = (S.registro || []).filter(function (x) { return x.tipo === "ok"; }).length;
+    var devolvidas = (S.registro || []).filter(function (x) { return x.tipo === "bloqueia"; }).length;
+    var wa = (S.agenda || []).filter(function (c) { return c.status === "whatsapp"; })[0];
+    var encaixes = (S.agenda || []).filter(function (c) { return c.status === "encaixe"; }).length;
+    var itens = [];
+    if (aprovadas) itens.push(aprovadas + " peça" + (aprovadas > 1 ? "s aprovadas" : " aprovada") + " pelo diretor técnico, com registro");
+    if (devolvidas) itens.push(devolvidas + " peça" + (devolvidas > 1 ? "s devolvidas" : " devolvida") + " ao autor");
+    if (wa) itens.push("1 paciente novo atendido às 22h47, fora do horário, e agendado pelo WhatsApp" + (S.chat && S.chat.slot ? " para " + S.chat.slot : ""));
+    if (encaixes) itens.push(encaixes + " falta evitada pela lista de espera");
+    if (!itens.length) return "";
+    var ult = S.registro.length ? S.registro[S.registro.length - 1] : null;
+    return '<div class="card live" data-testid="ao-vivo"><span class="eyebrow">Hoje, nesta demonstração</span><ul class="list">' + itens.map(function (t) { return '<li><span style="color:var(--ok)">' + ICON.ok + "</span>" + esc(t) + "</li>"; }).join("") + "</ul>" +
+      (ult ? '<p class="small">Último registro: ' + esc(ult.quando) + " · " + esc(ult.txt) + "</p>" : "") + "</div>";
+  }
+
   function vPainel() {
     var P = C.painel(S.diag, eq()), r = P.r, J = r.jalecon, ms = eq();
     var maxC = Math.max.apply(null, P.canais.map(function (c) { return c.contatos; }));
     var pend = pendentes();
     return topo() + '<div class="scroll" id="scroll">' +
       '<span class="eyebrow">Painel · mês 3 do piloto (simulado)</span>' +
-      '<h2 class="t" tabindex="-1">' + fmt(J.compareceram) + " consultas de pacientes novos</h2>" +
+      '<h2 class="t" tabindex="-1">' + fmt(J.compareceram) + " consultas de pacientes novos</h2>" + aoVivo() +
       '<div class="kpis">' +
       '<div class="kpi hero"><span class="small">Consultas a mais que no mês anterior à Jalecon</span><b>+' + fmt(r.consultasAMais) + "</b></div>" +
       '<div class="kpi"><span class="small">Contatos respondidos</span><b>' + pct(J.respondidos / r.contatos) + '</b><span class="small">em ' + P.tempoResposta + " (mediana)</span></div>" +
@@ -351,9 +371,40 @@
 
   /* ---------- roteiro lateral ---------- */
   var ROTEIRO = [["inicio", "Boas-vindas"], ["diagnostico", "Diagnóstico da clínica"], ["raiox", "Raio-x"], ["painel", "Painel de consultas"], ["medicos", "Médicos"], ["aprovacao", "Aprovação do diretor técnico"], ["whatsapp", "WhatsApp que agenda"], ["agenda", "Agenda e faltas"], ["planos", "Planos e piloto"]];
+  var PASSOS_BANCA = [
+    { tela: "raiox", rot: "Raio-x da clínica", tempo: "0:00", fala: "Onde a clínica perde pacientes hoje, calculado com as respostas do gestor." },
+    { tela: "peca", peca: "p1", rot: "Guardião e aprovação", tempo: "0:45", fala: "O post fere regras do CFM. Aplique as sugestões e aprove como diretor técnico." },
+    { tela: "testar", rot: "A banca testa o Guardião", tempo: "2:00", fala: "Peça a alguém da banca uma frase de anúncio e digite aqui." },
+    { tela: "whatsapp", rot: "WhatsApp que agenda", tempo: "3:00", fala: "22h47, fora do horário: o agente responde e marca na agenda do médico." },
+    { tela: "painel", rot: "Painel: o que aconteceu", tempo: "4:00", fala: "Consultas por canal e por médico, e o que acabamos de fazer." }
+  ];
+  function decorrido() { return T.acumulado + (T.t0 ? Date.now() - T.t0 : 0); }
+  function mmss(ms) { var s = Math.floor(ms / 1000); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+  function atualizarCrono() {
+    var el = document.getElementById("crono");
+    if (!el) return;
+    var ms = decorrido();
+    el.textContent = mmss(ms);
+    el.className = "crono" + (ms >= 5 * 60000 ? " over" : ms >= 4.5 * 60000 ? " quase" : "");
+    var bt = document.getElementById("crono-bt");
+    if (bt) bt.textContent = T.t0 ? "Pausar" : (T.acumulado ? "Continuar" : "Iniciar");
+  }
+  function renderBanca(el) {
+    var on = function (p) { return S.tela === p.tela && (!p.peca || S.pecaAberta === p.peca); };
+    el.innerHTML = '<div class="crono-box"><span id="crono" class="crono">0:00</span><span class="small">de 5:00</span>' +
+      '<button class="btn ghost small" type="button" data-act="crono" id="crono-bt">Iniciar</button><button class="link" type="button" data-act="crono-zerar">Zerar</button></div>' +
+      '<button class="btn small" type="button" data-act="preparar-banca">Preparar a demo (começa do zero)</button>' +
+      PASSOS_BANCA.map(function (p, i) {
+        var cur = on(p);
+        return '<button type="button" data-banca="' + i + '" class="' + (cur ? "on" : "") + '"' + (S.diagFeito ? "" : ' aria-disabled="true" title="Prepare a demo primeiro"') + (cur ? ' aria-current="step"' : "") +
+          "><b>" + (i + 1) + '</b><span class="grow"><span class="r">' + esc(p.rot) + '</span><span class="fala">' + esc(p.fala) + '</span></span><span class="tm">' + p.tempo + "</span></button>";
+      }).join("");
+    atualizarCrono();
+  }
   function renderRoteiro() {
     var el = document.getElementById("tour");
     if (!el) return;
+    if (BANCA) { renderBanca(el); return; }
     el.innerHTML = ROTEIRO.filter(function (t) { return !(S.entrevista && t[0] === "planos"); }).map(function (t, i) {
       var ok = S.diagFeito || ["inicio", "diagnostico"].indexOf(t[0]) >= 0;
       var cur = S.tela === t[0] || (S.tela === "peca" && t[0] === "aprovacao") || (S.tela === "medico" && t[0] === "medicos");
@@ -553,9 +604,25 @@
   });
 
   document.addEventListener("click", function (ev) {
-    var b = ev.target.closest(".side [data-go], .side [data-act]");
+    var b = ev.target.closest(".side [data-go], .side [data-act], .side [data-banca]");
     if (!b || b.getAttribute("aria-disabled") === "true") return;
     if (b.dataset.go) { ir(b.dataset.go); return; }
+    if (b.dataset.banca) {
+      var pb = PASSOS_BANCA[+b.dataset.banca];
+      if (pb.tela === "testar") S.teste = null;
+      if (pb.peca) S.pecaAberta = pb.peca;
+      ir(pb.tela); return;
+    }
+    if (b.dataset.act === "preparar-banca") {
+      S = estadoInicial(); S.diag = C.diagExemplo(); S.diagFeito = true; preparar();
+      T.t0 = null; T.acumulado = 0;
+      ir("raiox"); toast("Demo pronta: clínica de exemplo, sem nenhuma ação anterior."); return;
+    }
+    if (b.dataset.act === "crono") {
+      if (T.t0) { T.acumulado += Date.now() - T.t0; T.t0 = null; } else T.t0 = Date.now();
+      atualizarCrono(); return;
+    }
+    if (b.dataset.act === "crono-zerar") { T.t0 = null; T.acumulado = 0; atualizarCrono(); return; }
     if (b.dataset.act === "recomecar") {
       if (!T.confirmar) { T.confirmar = true; b.textContent = "Clique de novo para apagar tudo"; setTimeout(function () { T.confirmar = false; b.textContent = "Recomeçar demo"; }, 3000); return; }
       T.confirmar = false; b.textContent = "Recomeçar demo";
@@ -568,5 +635,11 @@
 
   carregar();
   if (S.diagFeito && !S.fila) preparar();
+  if (BANCA) {
+    document.body.classList.add("banca");
+    var h1 = document.querySelector(".side h1"); if (h1) h1.textContent = "Demo da banca · 5 minutos";
+    var ps = document.querySelector(".side > p"); if (ps) ps.textContent = "Clique em cada passo na ordem. O Guardião, o raio-x, a aprovação, o WhatsApp e a agenda rodam de verdade no navegador; os números do mês são simulados.";
+    setInterval(atualizarCrono, 1000);
+  }
   render({ topo: true });
 })();

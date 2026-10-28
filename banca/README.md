@@ -21,11 +21,11 @@
 
 ## A fazer
 
-- [ ] Demo ajustada para esse fluxo, sem telas que não entram nos 5 minutos
+- [x] Demo ajustada para esse fluxo: modo banca em jalecon.vercel.app/?banca=1 e roteiro em `Roteiro_MVP_ao_vivo.md`
 - [ ] Deck de 8 min, recortado do deck atual (Drive, pasta 04 · Pitch)
 - [ ] Falas e tempo por slide
 - [ ] Números: planos, custo de entrega, margem, CAC, LTV e recuperação do CAC
 - [ ] Slide de validação com o placar final da pesquisa
-- [ ] Vídeo de 60 s do MVP
+- [ ] Vídeo de 60 s do MVP (roteiro pronto em `Roteiro_MVP_ao_vivo.md`; falta gravar)
 - [ ] Perguntas prováveis da arguição, com respostas
 - [ ] Ensaio cronometrado
