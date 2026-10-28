@@ -15,16 +15,16 @@
 
 ## O que vamos mostrar
 
-**Pitch (8 min, cerca de 10 slides):** problema e cliente → proposta (conteúdo pronto e dentro das regras do CFM) → modelo e números → validação (pesquisa, saída do médico individual para clínicas e o recorte do MVP) → pedido.
+**Pitch (8 min, cerca de 10 slides):** problema e cliente (clínica de 5 a 10 médicos) → proposta (captação e atendimento com conformidade CFM) → modelo e números (planos por porte, custo de entrega, teto de R$ 1.470 por clínica para 70% de margem) → validação (saída do médico individual para clínicas e o resultado da pesquisa) → pedido (3 a 5 clínicas para o piloto pago).
 
-**MVP ao vivo (5 min), um fluxo só:** a peça de um médico → o Guardião aponta o que fere as regras do CFM → a correção é aplicada → a peça vai ao diretor técnico → a aprovação fica registrada.
+**MVP ao vivo (5 min):** o protótipo funcional da Ficha 3, num fluxo contínuo: diagnóstico da clínica → peça de um médico conferida pelo Guardião e aprovada pelo diretor técnico → WhatsApp respondendo e agendando → painel de contatos por canal e por médico.
 
 ## A fazer
 
-- [ ] Demo focada nesse fluxo (o resto da demo sai do caminho)
+- [ ] Demo ajustada para esse fluxo, sem telas que não entram nos 5 minutos
 - [ ] Deck de 8 min, recortado do deck atual (Drive, pasta 04 · Pitch)
 - [ ] Falas e tempo por slide
-- [ ] Números: preço, custo, margem, CAC, LTV e recuperação do CAC
+- [ ] Números: planos, custo de entrega, margem, CAC, LTV e recuperação do CAC
 - [ ] Slide de validação com o placar final da pesquisa
 - [ ] Vídeo de 60 s do MVP
 - [ ] Perguntas prováveis da arguição, com respostas
