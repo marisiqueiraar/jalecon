@@ -1,39 +1,35 @@
 # Jalecon
 
-Marketing médico com ética de consultório. Projeto do Grupo 1 da disciplina Digital Innovation Strategy (Insper, 2026).
+Projeto do Grupo 1 da disciplina Digital Innovation Strategy (Insper, 2026).
 
-Equipe de captação e atendimento para clínicas médicas, operada por agentes de IA e supervisionada por um especialista: marca e conteúdo de cada médico, anúncios, WhatsApp com agenda e painel de consultas, com cada peça checada nas regras do CFM (Guardião) antes de ir ao ar.
+**O que é, na versão que vamos apresentar:** conteúdo pronto para cada médico de clínicas de 5 a 10 médicos, conferido nas regras de publicidade do CFM pelo Guardião e aprovado pelo diretor técnico, com registro. É o recorte da proposta da Ficha 2 escolhido como MVP nas Fichas 3 e 4. Atendimento no WhatsApp e painel de consultas ficam como próximos passos.
 
-**Situação (21/10/2026):** o memorando de investimento conclui que não vale investir na Jalecon como software para o médico de consultório. O pivô para clínicas de 5 a 10 médicos é o caminho em teste, com entrevistas com gestores até 28/10 e decisão em 30/10.
+## O que vale nota (e é só nisso que trabalhamos)
 
-## Links
+| Entrega | Peso | Onde | Situação em 28/10 |
+|---|---|---|---|
+| Fichas 1 a 4 | 40% | `fichas/` e Drive | 1 e 2 entregues; 3 e 4 preenchidas, em revisão do grupo |
+| Lauda ABNT | 20% | a criar | aguardando as instruções da disciplina |
+| Banca: pitch de 8 min, MVP ao vivo (5 min) e arguição (10 min) | 40% | `banca/` | a preparar; plano em `banca/README.md` |
 
-- Demo para clínicas: https://jalecon.vercel.app (modo entrevista, sem preços: https://jalecon.vercel.app/?entrevista=1)
-- Manual da marca: https://jalecon.vercel.app/marca/
-- Arquivos (modelos financeiros, logos, diretrizes de marca): https://jalecon.vercel.app/arquivos/
-- Contato: falejalecon@gmail.com
-
-## Conteúdo do repositório
+## Pastas
 
 | Pasta | O que tem |
 |---|---|
-| `10_v1/` | Material atual: plano v1, roteiros de entrevista (médicos e gestores), mercado e concorrência, modelos financeiros, contraprova, memorando de investimento, pivô para clínicas, roteiro de apresentação e Ficha 2 |
-| `10_v1/financeiro/` | Modelos com fórmulas: v2.1 (software x agência) e Modelo C (clínicas), com os scripts que os geram e as análises de sensibilidade |
-| `00_Pendencias_e_Proximos_Passos.html` | Pendências da v1 por frente |
-| `02_identidade/` | Logos (SVG e PNG), manual da marca, skill de diretrizes de marca para o Claude Design |
-| `site/` | Site publicado na Vercel: demo para clínicas (`/`, em `clinica.js` e `clinica-dados.js`, com o Guardião em `guardiao.js`), manual da marca (`/marca`) e arquivos para download (`/arquivos`) |
-| `arquivo_v0/` | Primeira versão (15/10), superada. Guardada só para registro |
+| `fichas/` | Fichas 3 e 4 no modelo da disciplina (.docx). As Fichas 1 e 2 estão no Drive. |
+| `banca/` | Plano do pitch e do MVP ao vivo: deck de 8 minutos, roteiro da demo, vídeo de 60 segundos e perguntas da arguição. |
+| `validacao/` | Pesquisa com médicos e gestores (perguntas, critérios fixados antes, mensagens de WhatsApp) e o Apps Script que grava as respostas na planilha. |
+| `referencias/` | Fontes para o pitch e a arguição: mercado e concorrência, o memorando que explica a saída do médico individual para clínicas, notas de pesquisa (concorrência, regulação, benchmarks) e a base de regras do Guardião. |
+| `site/` | Publicado na Vercel. O MVP (`index.html`, com o Guardião em `guardiao.js` e `guardiao-regras.js`), a pesquisa (`/pesquisa`), o manual da marca (`/marca`) e logos para baixar (`/arquivos`). |
+| `02_identidade/` | Logos e diretrizes de marca. |
+| `arquivo_v0/` | O que não usamos mais: a v0 (15/10) e as análises da v1 (19 a 26/10). Só registro. |
 
-## Rodar a demo localmente
+## Links
 
-Abra `site/index.html` no navegador. Não há etapa de build. Todos os dados da demo são fictícios.
+- MVP: https://jalecon.vercel.app
+- Pesquisa (link único para médicos e gestores): https://jalecon.vercel.app/pesquisa
+- Drive: pasta "10 · Entregas", com as fichas, a planilha da pesquisa e as referências
 
-## Regerar os modelos financeiros
+## Rodar o MVP localmente
 
-```bash
-pip install openpyxl
-python 10_v1/financeiro/build_model_clinicas.py
-python 10_v1/financeiro/build_model_v2.py
-```
-
-As premissas editáveis ficam na aba `Premissas` de cada planilha. As versões de trabalho estão no Google Sheets do grupo, na pasta "10 · v1 · Decisão de investimento".
+Abra `site/index.html` no navegador. Não há etapa de build. Os dados de clínicas e médicos são fictícios; as regras do Guardião são reais.
