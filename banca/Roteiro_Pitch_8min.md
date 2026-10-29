@@ -114,6 +114,34 @@ Ele não decide sozinho: quem aprova é o diretor técnico, com registro. As reg
 **"A margem de 70% é real?"**
 É o teto que fixamos na Ficha 3, com um chute declarado: quantas clínicas cada especialista atende. O piloto existe para medir isso. Com 12 clínicas por especialista em vez de 16, a margem cai para 65% e o equilíbrio vai de 10 para 11 clínicas.
 
+**"O projeto para de pé? E as receitas e despesas?"**
+Na conta, sim; na evidência, ainda não. Por clínica Pro: R$ 4.900 de receita, até R$ 1.470 de custo de entrega e R$ 3.430 de margem (70%). Na empresa:
+
+| | 10 clínicas | 20 clínicas |
+|---|---|---|
+| Receita por ano | R$ 588 mil | R$ 1,18 mi |
+| Custo de entrega | R$ 176 mil | R$ 353 mil |
+| Custo fixo (R$ 32 mil por mês) | R$ 384 mil | R$ 384 mil |
+| Resultado antes de vender | ≈ zero (equilíbrio) | ≈ R$ 440 mil |
+| Custo de conquistar as clínicas (R$ 20 mil cada) | R$ 200 mil | mais R$ 200 mil pelas 10 novas |
+
+Onde a conta pode quebrar:
+- **Especialista:** com 8 clínicas por especialista, a margem cai para 55% e o equilíbrio vai para 12 clínicas.
+- **Imposto:** fora do Simples, a margem fica perto de 63% e o equilíbrio em 11 clínicas.
+- **Permanência:** se a clínica ficar só 12 meses, o LTV/CAC cai para 2,1.
+- **Demanda:** ainda não testamos com gestores se a clínica ganha 11 consultas a mais por mês.
+
+Resposta curta: "A conta fecha com 10 clínicas, se cada especialista atender pelo menos 12 e a clínica ficar dois anos. O piloto existe para provar isso antes de pedirmos dinheiro."
+
+**"O que impede de copiarem amanhã?"**
+Na tecnologia, quase nada: IA, a API do WhatsApp e integração com agenda qualquer um monta. A Ficha 3 já admite isso na seção 7. O concorrente mais perigoso é a Doctoralia, que tem a Feegow (agenda), os pacientes e as clínicas. O que protege precisa ser construído, e rápido:
+1. **Custo de troca:** depois de alguns meses, a clínica tem o WhatsApp, a agenda, o histórico do painel e os registros de aprovação conosco. Contrato anual reforça.
+2. **Confiança do diretor técnico:** regras validadas por advogado e o registro de cada aprovação. O software se copia; a confiança de quem responde no CRM leva tempo.
+3. **Dados de conversão por especialidade:** que conteúdo e que canal viram consulta. Só existem com clínicas rodando, e quem começa antes acumula mais.
+4. **Nicho mal atendido:** a Doctoralia cobra por médico e vende agenda; agências vendem conteúdo. Ninguém vende à clínica de 5 a 10 médicos o pacote inteiro com resultado medido.
+
+Resposta curta: "Não impede: a tecnologia é copiável. O que nos protege é chegar antes às primeiras clínicas e acumular o que não se copia: os dados de conversão, a confiança do diretor técnico e o custo de troca. Se a Doctoralia entrar, ela confirma que o mercado existe."
+
 **"Quantas respostas a pesquisa teve?"**
 Dizer o número real, inclusive se for pequeno, antes de a banca perguntar. Em 28/10 eram 2 médicos e 0 gestores.
 
