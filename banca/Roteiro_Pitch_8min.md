@@ -4,9 +4,9 @@
 
 A fala completa de cada slide está nas notas do apresentador. Aqui ficam a ordem, o tempo e os números que todos precisam saber de cor.
 
-## Ordem e tempo (cerca de 6:40, com folga para respirar)
+## Ordem e tempo (cerca de 7:35)
 
-A ordem segue o que a banca pede (Roteiro do Encontro 5: problema e cliente → proposta de valor → modelo e viabilidade → validação → pedido) e usa só o que está nas quatro fichas.
+A ordem segue o que a banca pede (Roteiro do Encontro 5: problema e cliente → proposta de valor → modelo e viabilidade → validação → pedido) e usa só o que está nas quatro fichas. A lógica é a da disciplina, Lean Startup: o piloto é o menor experimento que pode derrubar a ideia.
 
 | # | Slide | Quem | Tempo | Quesito da banca | De onde vem nas fichas |
 |---|---|---|---|---|---|
@@ -15,12 +15,13 @@ A ordem segue o que a banca pede (Roteiro do Encontro 5: problema e cliente → 
 | 3 | Proposta de valor | Fabiana | 0:50 | 2. Proposta de valor e segmento | Ficha 2 (proposta de valor), Ficha 3 (planos; começamos pelo Pro) |
 | 4 | Guardião | Fabiana | 0:45 | 2. Diferenciação e defesa | Ficha 3, seção 7 |
 | 5 | Concorrência | Vitor | 0:45 | 2. Diferenciação | Ficha 1, seção 5 (alternativas atuais) |
-| 6 | Conta de padeiro | Manuella | 1:00 | 3. Modelo e viabilidade | Ficha 3, seção 3; Ficha 4, seção 6 |
-| 7 | Validação e aprendizado | Alessandra | 0:50 | 5. Validação e aprendizado | Ficha 2, seções 6 e 7; Ficha 3, seções 5 e 6 |
-| 8 | Equipe | Mariana | 0:20 | 6. Pitch | Ficha 4, seção 3 |
-| 9 | Pedido | Daniela | 0:45 | Rota e pedido | Ficha 4, seções 4, 5 e 7 |
-| 10 | MVP ao vivo | Mariana | 0:10 | 4. MVP funcionando | Ficha 3, seção 4 (protótipo funcional) |
-| 11 | Fim | Mariana | — | Fica na tela durante a arguição | — |
+| 6 | Conta de padeiro | Manuella | 1:15 | 3. Modelo e viabilidade (payback) | Ficha 3, seção 3; Ficha 4, seções 5 e 6 |
+| 7 | O piloto | Manuella | 0:50 | 3 e 5. Custo do piloto × retorno; suposição fatal | Ficha 3, seções 4 a 6; Ficha 4, seção 4 |
+| 8 | Validação e aprendizado | Alessandra | 0:50 | 5. Validação e aprendizado | Ficha 2, seções 6 e 7; Ficha 3, seções 5 e 6 |
+| 9 | Equipe | Mariana | 0:20 | 6. Pitch | Ficha 4, seção 3 |
+| 10 | Pedido | Daniela | 0:35 | Rota e pedido | Ficha 4, seções 4, 5 e 7 |
+| 11 | MVP ao vivo | Mariana | 0:10 | 4. MVP funcionando | Ficha 3, seção 4 (protótipo funcional) |
+| 12 | Fim | Mariana | — | Fica na tela durante a arguição | — |
 
 O piloto pago está nas fichas entregues (Ficha 3, seções 4 e 6; Ficha 4, seções 4 e 7) e é o pedido. Os modelos A, B e C e as contas de LTV/CAC vinham de análises arquivadas e saíram do deck.
 
@@ -41,9 +42,23 @@ O argumento: a clínica não troca um fornecedor pela Jalecon, troca três ou qu
 
 ## Conta de padeiro (slide 6)
 
-| | Por clínica Pro, por mês |
+Viabilidade não é faturamento. A conta começa pela clínica (custo evitado, eficiência, risco e em quanto tempo se paga) e depois mostra a Jalecon.
+
+**Para a clínica (exemplo da demo: Clínica Movimento, 6 médicos, consulta de R$ 450)**
+
+| | Por mês |
 |---|---|
-| Cobramos | R$ 4.900 (mídia à parte, paga pela clínica) |
+| Paga | R$ 4.900 (mídia à parte) |
+| Custo evitado | Agência e atendimento que hoje custam R$ 6,5 a 12,8 mil (se a Jalecon substituir) |
+| Eficiência | Cerca de 40 horas de recepção (516 contatos × 5 minutos), porque o primeiro contato e a confirmação saem da mão dela |
+| Risco | O diretor técnico aprova cada peça, com registro; o Guardião confere as regras antes |
+| **Payback** | **11 consultas a mais pagam a mensalidade (4.900 ÷ 450), menos de 2 por médico** |
+
+**Para a Jalecon (por clínica Pro, por mês)**
+
+| | |
+|---|---|
+| Cobramos | R$ 4.900 |
 | Especialista (R$ 12 mil ÷ 16 clínicas) | R$ 750 |
 | IA e ferramentas | R$ 250 |
 | Impostos (Simples, perto de 10%) | cerca de R$ 470 |
@@ -52,9 +67,35 @@ O argumento: a clínica não troca um fornecedor pela Jalecon, troca três ou qu
 | Custo fixo (2 sócios, 1 desenvolvedor, ferramentas) | R$ 32 mil |
 | **Clínicas para pagar a operação** | **32.000 ÷ 3.430 ≈ 10** |
 
-**O número que ainda é chute:** 16 clínicas por especialista (Ficha 3). Se forem 12, o especialista custa R$ 1.000 por clínica, sobram R$ 3.180 (65%) e são 11 clínicas. O piloto mede esse número; a meta do pedido (slide 9) é ficar dentro do teto de R$ 1.470.
+**Recorrência (LTV, CAC e payback):**
+- LTV ≈ R$ 82 mil: R$ 3.430 × 24 meses. São 24 meses se perdermos 4% das clínicas por mês; agências com contrato mensal perdem de 1,6% a 4,4% (`referencias/benchmarks.md`).
+- CAC ≈ R$ 20 mil: vendedor e marketing custam R$ 13 mil por mês e fecham 2 clínicas a cada 3 meses. É o cenário conservador de `referencias/clinicas.md`.
+- LTV/CAC ≈ 4,1 (acima de 3 é saudável). A venda se paga em menos de 6 meses (20.000 ÷ 3.430); a mediana de SaaS B2B pequeno é de 8 a 11 meses.
+- Se a clínica ficar só 12 meses, o LTV/CAC cai para 2,1. Por isso o piloto mede cancelamentos.
+- Ideias simples para segurar a recorrência:
+  - contrato anual com desconto;
+  - implantação de uma mensalidade, que paga um quarto do CAC na entrada (agências cobram de R$ 1.500 a 6.000);
+  - troca de plano quando a clínica contrata mais médicos;
+  - o painel mostra todo mês quantas consultas vieram por canal.
 
-**CAC (se perguntarem):** cerca de R$ 20 mil por clínica no modelo (venda consultiva), recuperado em uns 6 meses de margem (20.000 ÷ 3.430). Também é estimativa.
+**O número que ainda é chute:** 16 clínicas por especialista (Ficha 3). Se forem 12, o especialista custa R$ 1.000 por clínica, sobram R$ 3.180 (65%) e são 11 clínicas.
+
+## O piloto (slide 7): custo × retorno, pelo triângulo de ferro
+
+Prazo e custo ficam fixos; o escopo é cortado para caber e responder à suposição fatal.
+
+| Ponta do triângulo | Piloto |
+|---|---|
+| Prazo (fixo) | 3 meses, 3 clínicas Pro (o mínimo da Ficha 3, que prevê 3 a 5 clínicas e 3 a 6 meses) |
+| Custo (fixo) | Cerca de R$ 25 mil: especialista em meio período (R$ 18 mil), IA e ferramentas (R$ 2,3 mil) e impostos (R$ 4,2 mil). O tempo do grupo é de cerca de 10 horas por semana |
+| Escopo (cortado) | Entram: WhatsApp que agenda, confirmação e lista de espera, conteúdo com o Guardião e painel por canal. Ficam para depois: site, identidade visual, anúncios e integração completa com o sistema de agenda (a Ficha 3 já deixa as integrações para depois) |
+
+**Retorno:**
+- Em dinheiro, as mensalidades somam R$ 44 mil (3 × 4.900 × 3), então o piloto se paga.
+- O retorno principal é a resposta à suposição fatal: a clínica ganha pelo menos 11 consultas a mais por mês?
+  - Se sim, ela renova e o modelo se sustenta.
+  - Se não, revemos preço e escopo, como prevê a Ficha 3.
+- De quebra, o piloto mede o chute da conta (horas do especialista por clínica) e os cancelamentos antes de pedirmos os R$ 250 mil.
 
 ## Perguntas prováveis da arguição
 

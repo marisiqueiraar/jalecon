@@ -15,7 +15,7 @@
 
 ## O que vamos mostrar
 
-**Pitch (8 min, 11 slides), na ordem pedida pela banca e só com o que está nas fichas:** problema e cliente (gestor de clínica de 5 a 10 médicos) → proposta de valor e Guardião → concorrência ("por que a Jalecon") → conta de padeiro (R$ 4.900 de preço, teto de R$ 1.470 de custo como na Ficha 3, R$ 3.430 de margem, 10 clínicas pagam a operação; o chute é 16 clínicas por especialista) → validação e aprendizado (médicos, gestores e pacientes) → pedido (3 a 5 clínicas para o piloto pago, como nas Fichas 3 e 4). Ordem, tempos, números e perguntas da arguição em `Roteiro_Pitch_8min.md`.
+**Pitch (8 min, 11 slides), na ordem pedida pela banca e só com o que está nas fichas:** problema e cliente (gestor de clínica de 5 a 10 médicos) → proposta de valor e Guardião → concorrência ("por que a Jalecon") → conta de padeiro (para a clínica: custo evitado, horas, risco e payback de 11 consultas por mês; para a Jalecon: teto de R$ 1.470, margem de R$ 3.430, LTV de R$ 82 mil, CAC de R$ 20 mil, payback em 6 meses) → o piloto pelo triângulo de ferro (3 meses, R$ 25 mil, escopo cortado para testar a suposição fatal) → validação e aprendizado (médicos, gestores e pacientes) → pedido (3 a 5 clínicas para o piloto pago, como nas Fichas 3 e 4). Ordem, tempos, números e perguntas da arguição em `Roteiro_Pitch_8min.md`.
 
 **MVP ao vivo (5 min):** o protótipo funcional da Ficha 3, num fluxo contínuo: diagnóstico da clínica → peça de um médico conferida pelo Guardião e aprovada pelo diretor técnico → WhatsApp respondendo e agendando → painel de contatos por canal e por médico.
 
