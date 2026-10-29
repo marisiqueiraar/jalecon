@@ -3,7 +3,8 @@
  * e grava na planilha "02 · Entrevistas v1 · placar".
  *
  * Onde cada resposta vai:
- *  1. Aba "Respostas · médicos (v2)" ou "Respostas · clínicas (v2)": a resposta completa, com os textos abertos.
+ *  1. Aba "Respostas · médicos (v2)", "Respostas · clínicas (v2)" ou "Respostas · pacientes": a resposta completa.
+ *     Pacientes só têm esta aba (não há placar automático).
  *  2. Aba "Entrevistas" (médicos) ou "Clínicas" (gestores): uma linha já codificada, que alimenta o placar.
  *     Respostas fora do filtro não chegam aqui (o formulário encerra antes de enviar).
  *
@@ -42,6 +43,7 @@ function doPost(e) {
     var agora = new Date();
     if (d.publico === "medicos") gravar_(ss, "Respostas · médicos (v2)", CAMPOS_MEDICOS, ABA_MEDICOS, LINHAS_MEDICOS, linhaMedico(d.r, agora), d.r, agora, [24]);
     else if (d.publico === "clinicas") gravar_(ss, "Respostas · clínicas (v2)", CAMPOS_CLINICAS, ABA_CLINICAS, LINHAS_CLINICAS, linhaClinica(d.r, agora), d.r, agora, []);
+    else if (d.publico === "pacientes") bruta_(ss, "Respostas · pacientes", ["Recebido em"], CAMPOS_PACIENTES, [agora], d.r);
     else return resposta_("publico invalido");
     return resposta_("ok");
   } finally {
@@ -54,14 +56,6 @@ function resposta_(t) { return ContentService.createTextOutput(t); }
 
 /* Grava a resposta completa e a linha do placar. pular: colunas (1 = A) com fórmula, que não podem ser sobrescritas. */
 function gravar_(ss, abaBruta, campos, abaPlacar, faixa, linha, r, agora, pular) {
-  var bruta = ss.getSheetByName(abaBruta) || ss.insertSheet(abaBruta);
-  var cab = ["Recebido em", "Lançada no placar"].concat(campos.map(function (c) { return c[1]; }));
-  if (bruta.getLastRow() === 0) {
-    bruta.appendRow(cab);
-    bruta.setFrozenRows(1);
-  } else if (bruta.getLastColumn() < cab.length) {
-    bruta.getRange(1, 1, 1, cab.length).setValues([cab]); /* campos novos entram no fim e ganham cabeçalho */
-  }
   var aba = ss.getSheetByName(abaPlacar);
   var col = aba.getRange(faixa[0], 1, faixa[1] - faixa[0] + 1, 1).getValues();
   var livre = -1;
@@ -76,7 +70,20 @@ function gravar_(ss, abaBruta, campos, abaPlacar, faixa, linha, r, agora, pular)
       ini = fim;
     }
   }
-  bruta.appendRow([agora, livre > 0 ? "Linha " + livre : "Placar cheio: lançar à mão"].concat(campos.map(function (c) { return seguro_(texto_(r[c[0]])); })));
+  bruta_(ss, abaBruta, ["Recebido em", "Lançada no placar"], campos, [agora, livre > 0 ? "Linha " + livre : "Placar cheio: lançar à mão"], r);
+}
+
+/* Aba com a resposta completa. Cria a aba e o cabeçalho na primeira resposta; campos novos entram no fim e ganham cabeçalho. */
+function bruta_(ss, nome, inicio, campos, valores, r) {
+  var bruta = ss.getSheetByName(nome) || ss.insertSheet(nome);
+  var cab = inicio.concat(campos.map(function (c) { return c[1]; }));
+  if (bruta.getLastRow() === 0) {
+    bruta.appendRow(cab);
+    bruta.setFrozenRows(1);
+  } else if (bruta.getLastColumn() < cab.length) {
+    bruta.getRange(1, 1, 1, cab.length).setValues([cab]);
+  }
+  bruta.appendRow(valores.concat(campos.map(function (c) { return seguro_(texto_(r[c[0]])); })));
 }
 
 /* Evita que um texto vire fórmula na planilha. */
@@ -108,6 +115,15 @@ var CAMPOS_CLINICAS = [
   ["p_caro_demais", "Caro demais (R$)"], ["piloto", "Piloto pago"], ["substitui", "Substitui ou soma"], ["condicao", "O que precisaria ser verdade"],
   ["chamar", "Quer ser chamado em novembro"], ["contato", "Contato"], ["achou", "Como achou o fornecedor"], ["agenda_sis", "Sistema de agenda"],
   ["fonte", "Origem principal dos pacientes novos"], ["redes_pct", "% de pacientes novos pelas redes (ponto médio)"]
+];
+
+var CAMPOS_PACIENTES = [
+  ["idade", "Idade"], ["uf", "Estado"], ["plano", "Plano de saúde"], ["tipo_medico", "Especialidade da última consulta"],
+  ["descobriu", "Como conheceu o médico"], ["checou", "Onde buscou informações antes de agendar"], ["marcou", "Como agendou"],
+  ["momento", "Momento do primeiro contato"], ["resposta", "Tempo até a primeira resposta"], ["confirmou", "Consulta confirmada antes"],
+  ["desistiu", "Desistiu por demora na resposta (12 meses)"], ["faltou", "Faltou sem desmarcar (12 meses)"], ["falta_motivo", "Por que faltou"],
+  ["prefere", "Como prefere agendar"], ["noite", "Mensagem às 22h: o que prefere"], ["assistente", "Aceita assistente virtual"],
+  ["pesa", "O que mais pesa na escolha (até 2)"], ["desconfia", "O que gera desconfiança nas redes"], ["segue_med", "Segue médicos e agendou pelo conteúdo"]
 ];
 
 /* Linha da aba "Entrevistas", colunas A a AD (X tem fórmula e é pulada na gravação). */
@@ -152,4 +168,4 @@ function linhaClinica(r, agora) {
 var EXTERNOS = ["Agência de marketing", "Freelancer ou social media", "Anúncios pagos"];
 
 /* Para testes fora do Google (node). */
-if (typeof module !== "undefined") module.exports = { linhaMedico: linhaMedico, linhaClinica: linhaClinica, CFM_MEDICOS: CFM_MEDICOS, CFM_CLINICAS: CFM_CLINICAS, gravar_: gravar_, CAMPOS_MEDICOS: CAMPOS_MEDICOS, CAMPOS_CLINICAS: CAMPOS_CLINICAS };
+if (typeof module !== "undefined") module.exports = { linhaMedico: linhaMedico, linhaClinica: linhaClinica, CFM_MEDICOS: CFM_MEDICOS, CFM_CLINICAS: CFM_CLINICAS, gravar_: gravar_, CAMPOS_MEDICOS: CAMPOS_MEDICOS, CAMPOS_CLINICAS: CAMPOS_CLINICAS, CAMPOS_PACIENTES: CAMPOS_PACIENTES, bruta_: bruta_ };

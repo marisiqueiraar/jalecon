@@ -4,7 +4,7 @@
  */
 (function () {
   "use strict";
-  /* PUB0 é a página aberta; no link único ("unica") a triagem troca PUB para "medicos" ou "clinicas". */
+  /* PUB0 é a página aberta; no link único ("unica") a triagem troca PUB para "medicos", "clinicas" ou "pacientes". */
   var PUB0 = document.body.getAttribute("data-publico"), PUB = PUB0;
   var P = window.PESQUISA[PUB];
   var ENDPOINT = window.PESQUISA_ENDPOINT || "";
@@ -92,6 +92,7 @@
       if (q.tipo === "nota") return;
       var vazio = v == null || v === "" || (Array.isArray(v) && !v.length);
       if (obrig(q) && vazio) { erros[q.id] = "Esta pergunta é obrigatória."; return; }
+      if (q.tipo === "checks" && q.max && !vazio && v.length > q.max) { erros[q.id] = "Assinale no máximo " + q.max + " opções."; return; }
       if (q.tipo === "number" && !vazio) {
         if (num(v) == null) erros[q.id] = "Utilize apenas números.";
         else if (q.min != null && num(v) < q.min) erros[q.id] = "O mínimo é " + q.min + ".";

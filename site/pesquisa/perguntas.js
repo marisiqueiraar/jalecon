@@ -4,7 +4,7 @@
  * Tipos: radio, checks, select, number, text, textarea. "se" mostra a pergunta (ou a página inteira) só quando a condição vale.
  * "obrig" e "rot" podem depender das respostas (função). "voltar" numa página mostra o botão de voltar.
  * "encerra" (radio) e "encerraSe" (número) terminam a pesquisa sem enviar: a pessoa está fora do público.
- * "nota" é só um texto entre as perguntas. A resposta "ns" (não sei) é enviada vazia: não entra nas medianas nem conta como "sim".
+ * "max" em checks limita quantas opções podem ser marcadas. "nota" é só um texto entre as perguntas. A resposta "ns" (não sei) é enviada vazia: não entra nas medianas nem conta como "sim".
  * Faixas (gasto, contatos, tempo de resposta) são enviadas como número: ponto médio ou limite da faixa.
  */
 (function (g) {
@@ -149,16 +149,72 @@
     }
   };
 
+  var OPS_IDADE = [["18 a 24", "18 a 24"], ["25 a 34", "25 a 34"], ["35 a 44", "35 a 44"], ["45 a 59", "45 a 59"], ["60 ou mais", "60 ou mais"]],
+    OPS_PLANO = [["Com reembolso", "Sim, com reembolso para consultas particulares"], ["Sem reembolso", "Sim, sem reembolso"], ["Não tem", "Não possuo"]],
+    OPS_TIPO = [["Clínico geral", "Clínico geral"], ["Dermatologista", "Dermatologista"], ["Ginecologista", "Ginecologista"], ["Ortopedista", "Ortopedista"], ["Cardiologista", "Cardiologista"], ["Psiquiatra", "Psiquiatra"], ["Pediatra", "Pediatra (consulta de um filho ou dependente)"], ["Outra", "Outra"], ["Prefiro não informar", "Prefiro não informar"]],
+    OPS_DESCOBRIU = [["Indicação de amigo ou familiar", "Indicação de amigo ou familiar"], ["Indicação de outro médico", "Indicação de outro médico"], ["Google", "Busca no Google"], ["Instagram ou outra rede", "Instagram ou outra rede social"], ["Doctoralia ou outro site", "Doctoralia ou outro site de agendamento"], ["Lista do plano", "Lista do plano de saúde"], ["Já era meu médico", "Já era meu médico"], ["Outro", "Outro"]],
+    OPS_CHECOU = [["Avaliações no Google", "Avaliações no Google"], ["Instagram do médico", "Perfil do médico no Instagram"], ["Avaliações na Doctoralia ou similar", "Avaliações na Doctoralia ou em site semelhante"], ["Site do médico ou da clínica", "Site do médico ou da clínica"], ["Perguntei a conhecidos", "Consulta a conhecidos"], ["CRM ou RQE", "Consulta ao CRM ou ao RQE"], ["Não busquei informações", "Não busquei informações"]],
+    OPS_MARCOU = [["WhatsApp", "Mensagem de WhatsApp"], ["Ligação", "Ligação telefônica"], ["Site ou aplicativo", "Site ou aplicativo de agendamento"], ["Direct do Instagram", "Mensagem direta no Instagram"], ["Pessoalmente", "Pessoalmente"], ["Outra pessoa agendou", "Outra pessoa agendou por mim"]],
+    OPS_MOMENTO = [["Dia útil, horário comercial", "Dia útil, em horário comercial"], ["Dia útil, à noite", "Dia útil, à noite (após as 19h)"], ["Fim de semana ou feriado", "Fim de semana ou feriado"], ["Não lembro", "Não me lembro"]],
+    OPS_RESPOSTA = [["Menos de 15 min", "Imediatamente (menos de 15 minutos)"], ["Até 1 hora", "Até 1 hora"], ["1 a 4 horas", "De 1 a 4 horas"], ["Dia seguinte ou mais", "No dia seguinte ou depois"], ["Sem resposta", "Não houve resposta e procurei outro médico"], ["Não lembro", "Não me lembro"]],
+    OPS_SIM_NAO_LEMBRO = [["sim", "Sim"], ["nao", "Não"], ["Não lembro", "Não me lembro"]],
+    OPS_DESISTIU = [["Mais de uma vez", "Sim, mais de uma vez"], ["Uma vez", "Sim, uma vez"], ["nao", "Não"]],
+    OPS_FALTA = [["Esqueci", "Esquecimento"], ["Imprevisto e difícil desmarcar", "Imprevisto, e era difícil desmarcar"], ["Melhorei", "Melhora dos sintomas"], ["Achei outro horário ou médico", "Encontrei outro horário ou outro médico"], ["Outro", "Outro motivo"]],
+    OPS_PREFERE = [["WhatsApp", "WhatsApp"], ["Ligação", "Ligação telefônica"], ["Site ou aplicativo", "Site ou aplicativo"], ["Direct do Instagram", "Mensagem direta no Instagram"], ["Tanto faz", "Indiferente"]],
+    OPS_NOITE = [["Assistente responde na hora", "Um assistente virtual responde de imediato e já oferece horários"], ["Aviso automático", "Uma mensagem automática informa que a recepção responderá no dia seguinte"], ["Tanto faz", "Indiferente, desde que respondam até o dia seguinte"]],
+    OPS_ASSISTENTE = [["sim", "Sim"], ["Sim, com opção de falar com pessoa", "Sim, desde que eu possa falar com uma pessoa quando quiser"], ["nao", "Não, prefiro falar com uma pessoa"]],
+    OPS_PESA = [["Indicação de confiança", "Indicação de alguém de confiança"], ["Avaliações de pacientes", "Avaliações de outros pacientes"], ["Formação", "Formação e especialização"], ["Conteúdo publicado", "Conteúdo que o médico publica"], ["Preço", "Valor da consulta"], ["Localização", "Localização"], ["Horário mais cedo", "Disponibilidade de horário mais próxima"], ["Facilidade para agendar", "Facilidade para agendar"]],
+    OPS_DESCONFIA = [["Promessa de resultado", "Promessa de resultado (\u201cresolva de vez\u201d, \u201cgarantido\u201d)"], ["Antes e depois", "Fotos de antes e depois"], ["Seguidores sem formação", "Muitos seguidores, sem informação sobre a formação"], ["Conteúdo pouco sério", "Conteúdo pouco sério (dancinhas, brincadeiras)"], ["Preço em destaque", "Preço em destaque ou promoções"], ["Nada disso", "Nenhum desses aspectos"]],
+    OPS_SEGUE = [["Sigo e já agendei", "Sigo e já agendei por esse motivo"], ["Sigo, nunca agendei", "Sigo, mas nunca agendei por esse motivo"], ["Não sigo", "Não sigo médicos"]];
+
+  /* Pacientes: o outro lado do mercado. Perguntas fechadas sobre a última consulta (o que a pessoa fez) e sobre
+   * preferências (o que diz querer), para comparar as duas. Anônima: não pede contato. */
+  var UFS = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"].map(function (u) { return [u, u]; });
+  var PACIENTES = {
+    titulo: "Pesquisa sobre a escolha e o agendamento de consultas médicas particulares",
+    intro: "Pesquisa acadêmica do Insper. São 4 páginas, com duração aproximada de 4 minutos. As respostas são anônimas e analisadas apenas de forma agregada, para fins acadêmicos.",
+    secoes: [
+      { titulo: "Perfil", perguntas: [
+        { id: "filtro", tipo: "radio", rot: "Nos últimos 12 meses, você teve ao menos uma consulta médica particular (paga diretamente ou com reembolso do plano de saúde)?", ops: SIM_NAO, obrig: true, encerra: "nao", se: function (r) { return !r.perfil; } },
+        { id: "idade", tipo: "radio", rot: "Qual é a sua faixa de idade?", ops: OPS_IDADE, obrig: true },
+        { id: "uf", tipo: "select", rot: "Em qual estado você reside?", ops: UFS, obrig: true },
+        { id: "plano", tipo: "radio", rot: "Você possui plano de saúde?", ops: OPS_PLANO, obrig: true }
+      ] },
+      { titulo: "Sua última consulta particular", texto: ["Considere a última consulta médica particular que você agendou."], perguntas: [
+        { id: "tipo_medico", tipo: "radio", rot: "Qual era a especialidade do médico?", ops: OPS_TIPO },
+        { id: "descobriu", tipo: "radio", rot: "Como você conheceu esse médico?", ops: OPS_DESCOBRIU, obrig: true },
+        { id: "checou", tipo: "checks", rot: "Antes de agendar, onde você buscou informações sobre o médico? Assinale todas que se aplicam.", ops: OPS_CHECOU, obrig: true, exclusivo: "Não busquei informações" },
+        { id: "marcou", tipo: "radio", rot: "Por qual meio a consulta foi agendada?", ops: OPS_MARCOU, obrig: true },
+        { id: "momento", tipo: "radio", rot: "Em que momento você fez o primeiro contato para agendar?", ops: OPS_MOMENTO, obrig: true },
+        { id: "resposta", tipo: "radio", rot: "Quanto tempo levou para receber a primeira resposta?", ops: OPS_RESPOSTA, obrig: true },
+        { id: "confirmou", tipo: "radio", rot: "O consultório ou a clínica confirmou a consulta antes da data (por mensagem ou ligação)?", ops: OPS_SIM_NAO_LEMBRO, obrig: true }
+      ] },
+      { titulo: "Experiências nos últimos 12 meses", voltar: true, perguntas: [
+        { id: "desistiu", tipo: "radio", rot: "Você desistiu de agendar com um médico, ou escolheu outro, porque a resposta demorou?", ops: OPS_DESISTIU, obrig: true },
+        { id: "faltou", tipo: "radio", rot: "Você deixou de comparecer a alguma consulta particular sem desmarcar?", ops: SIM_NAO, obrig: true },
+        { id: "falta_motivo", tipo: "checks", rot: "Por que deixou de comparecer? Assinale todos os motivos que se aplicam.", ops: OPS_FALTA, obrig: true, se: function (r) { return r.faltou === "sim"; } }
+      ] },
+      { titulo: "Preferências", voltar: true, perguntas: [
+        { id: "prefere", tipo: "radio", rot: "Se pudesse escolher, por qual meio preferiria agendar uma consulta?", ops: OPS_PREFERE, obrig: true },
+        { id: "noite", tipo: "radio", rot: "Imagine que você envia uma mensagem a uma clínica às 22h solicitando um horário. Qual resposta você preferiria?", ops: OPS_NOITE, obrig: true },
+        { id: "assistente", tipo: "radio", rot: "Você aceitaria agendar a consulta com um assistente virtual pelo WhatsApp?", ops: OPS_ASSISTENTE, obrig: true },
+        { id: "pesa", tipo: "checks", rot: "Quais fatores mais pesam na escolha de um médico particular? Assinale até 2.", ops: OPS_PESA, obrig: true, max: 2 },
+        { id: "desconfia", tipo: "checks", rot: "No perfil de um médico nas redes sociais, o que gera desconfiança? Assinale todas que se aplicam.", ops: OPS_DESCONFIA, obrig: true, exclusivo: "Nada disso" },
+        { id: "segue_med", tipo: "radio", rot: "Você segue médicos nas redes sociais? Já agendou consulta com um médico que conheceu pelo conteúdo dele?", ops: OPS_SEGUE, obrig: true }
+      ] }
+    ]
+  };
+
   /* Link único (/pesquisa/): uma pergunta de triagem abre a pesquisa certa. Quem é as duas coisas começa pela de
    * clínicas, que tem menos gente para responder, e recebe no fim o convite para a de médicos. */
   var UNICA = {
-    titulo: "Pesquisa sobre marketing médico em consultórios e clínicas",
-    intro: "Pesquisa acadêmica do Insper, com duração aproximada de 6 a 7 minutos. As respostas são confidenciais e analisadas apenas de forma agregada, para fins acadêmicos.",
+    titulo: "Pesquisa sobre a captação e o agendamento de consultas médicas particulares",
+    intro: "Pesquisa acadêmica do Insper, com duração aproximada de 4 a 7 minutos, conforme o perfil. As respostas são confidenciais e analisadas apenas de forma agregada, para fins acadêmicos.",
     triagem: true,
     secoes: [{ titulo: "Perfil do respondente", perguntas: [
-      { id: "perfil", tipo: "radio", rot: "Qual das opções abaixo descreve sua atuação?", ops: [["medicos", "Sou médico(a) e atendo pacientes particulares em consultório ao menos um período por semana"], ["clinicas", "Sou sócio(a), gestor(a) ou diretor(a) técnico(a) de uma clínica"], ["ambos", "Ambas as situações"], ["fora", "Nenhuma das situações acima"]], obrig: true, encerra: "fora" }
+      { id: "perfil", tipo: "radio", rot: "Qual das opções abaixo descreve sua atuação?", ops: [["medicos", "Sou médico(a) e atendo pacientes particulares em consultório ao menos um período por semana"], ["clinicas", "Sou sócio(a), gestor(a) ou diretor(a) técnico(a) de uma clínica"], ["ambos", "Ambas as situações"], ["pacientes", "Não atuo nessas funções, mas tive ao menos uma consulta médica particular nos últimos 12 meses"], ["fora", "Nenhuma das situações acima"]], obrig: true, encerra: "fora" }
     ] }],
-    segue: function (r) { return r.perfil === "medicos" ? "medicos" : "clinicas"; }
+    segue: function (r) { return r.perfil === "medicos" || r.perfil === "pacientes" ? r.perfil : "clinicas"; }
   };
 
   /* Campos derivados para a planilha. Os nomes antigos (agenda, escolha, piloto, parou, paga, quem, pesa) continuam
@@ -185,5 +241,5 @@
   function pagou(r) { return Array.isArray(r.pagou) && r.pagou.length > 0 && r.pagou.indexOf("nada") < 0; }
   function escolheu(r) { return !!r.preferida && r.preferida !== "Nenhuma"; }
 
-  g.PESQUISA = { medicos: MEDICOS, clinicas: CLINICAS, unica: UNICA };
+  g.PESQUISA = { medicos: MEDICOS, clinicas: CLINICAS, pacientes: PACIENTES, unica: UNICA };
 })(window);

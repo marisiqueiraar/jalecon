@@ -26,6 +26,7 @@ Além dos cortes, vamos medir a **distância entre o que se diz e o que se faz**
 
 ## 2. Público, amostra e cuidados
 
+- **Formato:** link enviado por WhatsApp e redes sociais, respondido à distância, só com perguntas fechadas.
 - **Quem responde:** adultos que tiveram ao menos uma consulta médica particular (paga do bolso ou com reembolso do plano) nos últimos 12 meses. Quem não teve é encerrado no filtro.
 - **Meta:** 80 a 150 respostas em 5 dias. É uma pesquisa curta (cerca de 4 minutos) e o público é fácil de alcançar.
 - **Como distribuir:**
@@ -37,7 +38,7 @@ Além dos cortes, vamos medir a **distância entre o que se diz e o que se faz**
   - não perguntamos diagnóstico; a especialidade é opcional e em categorias amplas;
   - a introdução diz que é uma pesquisa acadêmica e que os dados são analisados de forma agregada.
 
-## 3. Questionário (cerca de 4 minutos, 21 perguntas curtas)
+## 3. Questionário (cerca de 4 minutos, 20 perguntas fechadas)
 
 **Introdução:** "Pesquisa acadêmica do Insper sobre como as pessoas escolhem e marcam consultas com médicos particulares. Leva cerca de 4 minutos. As respostas são anônimas e analisadas apenas de forma agregada."
 
@@ -183,33 +184,15 @@ Ao abrir o bloco: "Pense na **última** consulta médica particular que você ma
 - Sigo, mas nunca marquei por isso
 - Não sigo médicos
 
-**D7.** (aberta, opcional) Conte o que tornaria marcar e ir a uma consulta particular mais fácil para você.
-
-## 4. Roteiro de conversa (5 a 8 pessoas, 15 minutos)
-
-As conversas completam o questionário com o porquê. Vale escolher perfis diferentes: alguém de 25 a 34 anos que usa muito Instagram, uma mãe ou um pai que marca para os filhos, alguém com mais de 50 anos e alguém de fora de São Paulo.
-
-1. **A última vez.** "Me conte a última vez que você precisou de um médico particular. O que aconteceu, desde quando percebeu que precisava até a consulta?" Deixe a pessoa contar, sem interromper.
-2. **Descoberta.** "Como chegou nesse nome? Considerou outros? Por que esse?"
-3. **Checagem.** "O que você olhou antes de marcar? Teve algo que quase fez você desistir?"
-4. **Contato.** "Como foi para marcar? Quanto tempo esperou? Se demorasse mais, o que teria feito?"
-5. **Comparecimento.** "Você recebeu lembrete? Já faltou a uma consulta? O que teria ajudado?"
-6. **Redes.** "Você segue médicos? O que faz você confiar ou desconfiar de um perfil?"
-7. **Ideal × real.** "Se pudesse desenhar o jeito ideal de achar e marcar um médico, como seria? E o que você fez de fato da última vez?" A diferença entre as duas respostas é o insight.
-8. **Assistente virtual.** "Uma clínica responde de madrugada com um assistente virtual que já marca. O que você acha?"
-
-**Regras:** perguntar sobre fatos passados, não sobre hipóteses ("o que você fez", não "o que você faria"). Não apresentar a Jalecon antes do fim. Anotar frases literais; elas servem para a banca e para a lauda.
-
-## 5. Como analisar
+## 4. Como analisar
 
 - **Placar das hipóteses:** P1 a P6 com o percentual obtido, o corte e "passa" ou "não passa", no mesmo formato da pesquisa com médicos e gestores.
 - **Distância entre o dito e o feito:** duas tabelas lado a lado.
   - D1 (como prefere marcar) × B4 (como marcou);
   - D4 e D6 (o que diz que pesa) × B2 e B3 (o que usou de fato).
 - **Cortes da amostra:** por idade (até 34 e 35 ou mais) e por plano de saúde (com reembolso × sem plano).
-- **Frases:** separar as três melhores falas das conversas e da pergunta aberta.
 
-## 6. Como entra no trabalho
+## 5. Como entra no trabalho
 
 | Onde | O que usar |
 |---|---|
@@ -220,11 +203,11 @@ As conversas completam o questionário com o porquê. Vale escolher perfis difer
 | Produto e piloto | Prioridade dos recursos: o que passar fica no plano Pro; o que falhar sai do discurso de venda |
 | Lauda individual | Reflexão sobre o método: ouvir os dois lados e a diferença entre o que as pessoas dizem e o que fazem |
 
-## 7. Cronograma
+## 6. Cronograma
 
 | Quando | O quê |
 |---|---|
 | Dia 1 | Revisar as perguntas com o grupo e colocar no ar |
-| Dias 1 a 5 | Coleta (meta de 80 a 150 respostas) e 5 a 8 conversas |
-| Dia 6 | Placar, tabelas e frases |
+| Dias 1 a 5 | Coleta (meta de 80 a 150 respostas) |
+| Dia 6 | Placar e tabelas |
 | Dia 7 | Atualizar o slide 2, o slide 8 e as respostas da arguição |
