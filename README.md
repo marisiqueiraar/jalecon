@@ -18,7 +18,7 @@ Projeto do Grupo 1 da disciplina Digital Innovation Strategy (Insper, 2026).
 |---|---|
 | `fichas/` | Ficha 3 como foi entregue (PDF) e Ficha 4 no modelo da disciplina (.docx). As Fichas 1 e 2 estão no Drive. |
 | `banca/` | Plano do pitch e do MVP ao vivo: deck de 8 minutos, roteiro da demo, vídeo de 60 segundos e perguntas da arguição. |
-| `validacao/` | Pesquisa com médicos e gestores (perguntas, critérios fixados antes, mensagens de WhatsApp) e o Apps Script que grava as respostas na planilha. |
+| `validacao/` | Pesquisa com médicos e gestores (perguntas, critérios fixados antes, mensagens de WhatsApp), o Apps Script que grava as respostas na planilha e o roteiro da pesquisa com pacientes. |
 | `referencias/` | Fontes para o pitch e a arguição: mercado e concorrência, o memorando que explica a saída do médico individual para clínicas, notas de pesquisa (concorrência, regulação, benchmarks) e a base de regras do Guardião. |
 | `site/` | Publicado na Vercel. O MVP (`index.html`, com o Guardião em `guardiao.js` e `guardiao-regras.js`), a pesquisa (`/pesquisa`), o manual da marca (`/marca`) e logos para baixar (`/arquivos`). |
 | `02_identidade/` | Logos e diretrizes de marca. |
