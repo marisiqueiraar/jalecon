@@ -23,6 +23,8 @@
   function aberta(i) { var sec = P.secoes[i]; return !!sec && (!sec.se || sec.se(S.r)); }
   /* Páginas condicionais à frente contam até a condição ser respondida, para o total não encolher no começo. */
   function paginas() { return P.secoes.map(function (s, i) { return i; }).filter(function (i) { return i > S.secao || aberta(i); }); }
+  /* Da primeira página de um questionário aberto pela triagem, voltar leva de novo à triagem. */
+  function podeVoltar() { return !P.secoes[S.secao].semVolta && (vizinha(-1) >= 0 || !!S.pub); }
   function vizinha(passo) { var i = S.secao + passo; while (i >= 0 && i < P.secoes.length && !aberta(i)) i += passo; return i; }
   function obrig(q) { return typeof q.obrig === "function" ? q.obrig(S.r) : !!q.obrig; }
   function rotulo(q) { return typeof q.rot === "function" ? q.rot(S.r) : q.rot; }
@@ -52,7 +54,7 @@
 
   function vSecao() {
     var sec = P.secoes[S.secao], pags = paginas(), n = pags.length, pos = pags.indexOf(S.secao) + 1;
-    var prox = P.secoes[vizinha(1)], ultima = !prox, aviso = sec.voltar && !(prox && prox.voltar);
+    var prox = P.secoes[vizinha(1)], ultima = !prox, aviso = prox && prox.semVolta;
     return (P.triagem ? "" : '<p class="passo">Página ' + pos + " de " + n + '</p><div class="barra" aria-hidden="true"><span style="width:' + (pos / n * 100) + '%"></span></div>') +
       '<h2 tabindex="-1">' + esc(sec.titulo) + "</h2>" +
       (S.secao === 0 && !S.pub ? '<p class="muted">' + esc(P.intro) + "</p>" : "") +
@@ -60,9 +62,9 @@
       '<form id="form" novalidate>' + visiveis(sec).map(campo).join("") +
       '<div class="hp" aria-hidden="true"><label>Não preencha<input name="site" tabindex="-1" autocomplete="off"></label></div>' +
       (Object.keys(erros).length ? '<p class="err" role="alert">Há perguntas obrigatórias sem resposta ou com preenchimento a corrigir.</p>' : "") +
-      '<div class="acoes">' + (sec.voltar ? '<button type="button" class="btn ghost" data-act="voltar">Voltar</button>' : "") +
+      '<div class="acoes">' + (podeVoltar() ? '<button type="button" class="btn ghost" data-act="voltar">Voltar</button>' : "") +
       '<button type="submit" class="btn">' + (ultima && !P.segue ? "Enviar respostas" : "Continuar") + "</button></div></form>" +
-      (aviso ? '<p class="small">Após esta página, não será possível retornar para alterar as respostas.</p>' : "");
+      (aviso ? '<p class="small">Depois de ver a proposta, não será possível voltar para alterar as respostas anteriores.</p>' : "");
   }
   function vFim() {
     var t = { enviado: ["Agradecemos sua participação", "Suas respostas foram enviadas com sucesso e contribuirão para o nosso estudo."],
@@ -114,6 +116,12 @@
       sec.perguntas.forEach(function (q) { if (fechada || (q.se && !q.se(S.r))) delete S.r[q.id]; });
     });
   }
+  /* Quem volta à triagem e troca de perfil não leva as respostas do outro questionário. */
+  function soDoPublico() {
+    var ok = {};
+    [window.PESQUISA[PUB0], P].forEach(function (p) { p.secoes.forEach(function (sec) { sec.perguntas.forEach(function (q) { ok[q.id] = 1; }); }); });
+    Object.keys(S.r).forEach(function (k) { if (!ok[k]) delete S.r[k]; });
+  }
   function payload() {
     var r = {};
     Object.keys(S.r).forEach(function (k) {
@@ -161,12 +169,16 @@
     if (!validar()) { render(); var f = app.querySelector('[aria-invalid="true"], fieldset[aria-describedby] input'); if (f) f.focus(); return; }
     if (foraDoPublico()) { S.fim = "fora"; render(); return; }
     if (vizinha(1) < P.secoes.length) { S.secao = vizinha(1); render(); return; }
-    if (P.segue) { S.pub = P.segue(S.r); usar(S.pub); S.secao = 0; render(); return; }
+    if (P.segue) { S.pub = P.segue(S.r); usar(S.pub); soDoPublico(); S.secao = 0; render(); return; }
     enviar();
   });
   app.addEventListener("click", function (ev) {
     var b = ev.target.closest("[data-act]"); if (!b) return;
-    if (b.dataset.act === "voltar") { S.secao = Math.max(0, vizinha(-1)); erros = {}; render(); }
+    if (b.dataset.act === "voltar") {
+      var i = vizinha(-1);
+      if (i >= 0) S.secao = i; else { S.pub = null; usar(PUB0); S.secao = 0; }
+      erros = {}; render();
+    }
     if (b.dataset.act === "reenviar") enviar();
     if (b.dataset.act === "corrigir") { S.fim = null; erros = {}; render(); }
   });
