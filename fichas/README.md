@@ -7,4 +7,4 @@
 | 3 | Modelo de negócio e MVP | Entregue (27/10) | `Ficha3_Grupo1_JalecON_entregue.pdf` |
 | 4 | Operação, rota e ecossistema | Preenchida, em revisão | `Ficha4_Grupo1_JalecON.docx` |
 
-A Ficha 4 segue a Ficha 3 entregue: planos por porte (R$ 2.900, 4.900 e 8.900), protótipo funcional como MVP, piloto pago com 3 a 5 clínicas e teto de R$ 1.470 de custo por clínica Pro. Números a confirmar pelo grupo: o pedido de cerca de R$ 250 mil, se o piloto bater as metas.
+A Ficha 4 segue a Ficha 3 entregue: planos por porte (R$ 2.900, 4.900 e 8.900), protótipo funcional como MVP, piloto pago com 3 a 5 clínicas e a conta de padeiro do pitch (R$ 1.600 de custo e 67% de margem por clínica Pro; meta de até 7,5 horas de especialista por clínica). Números a confirmar pelo grupo: o pedido de cerca de R$ 250 mil, se o piloto bater as metas.
