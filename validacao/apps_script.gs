@@ -55,9 +55,12 @@ function resposta_(t) { return ContentService.createTextOutput(t); }
 /* Grava a resposta completa e a linha do placar. pular: colunas (1 = A) com fórmula, que não podem ser sobrescritas. */
 function gravar_(ss, abaBruta, campos, abaPlacar, faixa, linha, r, agora, pular) {
   var bruta = ss.getSheetByName(abaBruta) || ss.insertSheet(abaBruta);
+  var cab = ["Recebido em", "Lançada no placar"].concat(campos.map(function (c) { return c[1]; }));
   if (bruta.getLastRow() === 0) {
-    bruta.appendRow(["Recebido em", "Lançada no placar"].concat(campos.map(function (c) { return c[1]; })));
+    bruta.appendRow(cab);
     bruta.setFrozenRows(1);
+  } else if (bruta.getLastColumn() < cab.length) {
+    bruta.getRange(1, 1, 1, cab.length).setValues([cab]); /* campos novos entram no fim e ganham cabeçalho */
   }
   var aba = ss.getSheetByName(abaPlacar);
   var col = aba.getRange(faixa[0], 1, faixa[1] - faixa[0] + 1, 1).getValues();
@@ -90,7 +93,7 @@ var CAMPOS_MEDICOS = [
   ["atrai", "O que atrai e o que deixa desconfiado"], ["ia", "Publicaria conteúdo com IA revisado"], ["preferida", "Opção preferida"],
   ["p_barato", "Barato demais (R$)"], ["p_bom", "Bom negócio (R$)"], ["p_caro", "Caro, mas consideraria (R$)"], ["p_caro_demais", "Caro demais (R$)"],
   ["contrataria", "Contrataria pelo preço"], ["condicao", "O que precisaria ser verdade"], ["chamar", "Quer ser chamado para piloto pago"],
-  ["contato", "Contato"]
+  ["contato", "Contato"], ["redes_pct", "% de pacientes novos pelas redes (ponto médio)"], ["posta", "Frequência de publicação"]
 ];
 
 var CAMPOS_CLINICAS = [
@@ -103,7 +106,8 @@ var CAMPOS_CLINICAS = [
   ["mede", "Mede conversão do WhatsApp"], ["preocupa", "O que mais preocupa (aberta)"], ["atrai", "O que atrai e o que deixa desconfiado"],
   ["peso", "O que mais pesa ao escolher"], ["p_barato", "Barato demais (R$)"], ["p_bom", "Bom negócio (R$)"], ["p_caro", "Caro, mas consideraria (R$)"],
   ["p_caro_demais", "Caro demais (R$)"], ["piloto", "Piloto pago"], ["substitui", "Substitui ou soma"], ["condicao", "O que precisaria ser verdade"],
-  ["chamar", "Quer ser chamado em novembro"], ["contato", "Contato"], ["achou", "Como achou o fornecedor"], ["agenda_sis", "Sistema de agenda"]
+  ["chamar", "Quer ser chamado em novembro"], ["contato", "Contato"], ["achou", "Como achou o fornecedor"], ["agenda_sis", "Sistema de agenda"],
+  ["fonte", "Origem principal dos pacientes novos"], ["redes_pct", "% de pacientes novos pelas redes (ponto médio)"]
 ];
 
 /* Linha da aba "Entrevistas", colunas A a AD (X tem fórmula e é pulada na gravação). */

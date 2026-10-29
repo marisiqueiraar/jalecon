@@ -15,17 +15,17 @@
 
 ## O que vamos mostrar
 
-**Pitch (8 min, cerca de 10 slides):** problema e cliente (clínica de 5 a 10 médicos) → proposta (captação e atendimento com conformidade CFM) → modelo e números (planos por porte, custo de entrega, teto de R$ 1.470 por clínica para 70% de margem) → validação (saída do médico individual para clínicas e o resultado da pesquisa) → pedido (3 a 5 clínicas para o piloto pago).
+**Pitch (8 min, 12 slides):** problema e cliente (clínica de 5 a 10 médicos) → oferta e Guardião → concorrência ("por que a Jalecon") → conta de padeiro (R$ 4.900 de preço, R$ 1.600 de custo, R$ 3.300 de margem, 10 clínicas pagam a operação; o chute é 7,5 horas de especialista por clínica) → o que aprendemos e validação → pedido (3 a 5 clínicas para o piloto pago). Ordem, tempos, números e perguntas da arguição em `Roteiro_Pitch_8min.md`.
 
 **MVP ao vivo (5 min):** o protótipo funcional da Ficha 3, num fluxo contínuo: diagnóstico da clínica → peça de um médico conferida pelo Guardião e aprovada pelo diretor técnico → WhatsApp respondendo e agendando → painel de contatos por canal e por médico.
 
 ## A fazer
 
 - [x] Demo ajustada para esse fluxo: modo banca em jalecon.vercel.app/?banca=1 e roteiro em `Roteiro_MVP_ao_vivo.md`
-- [ ] Deck de 8 min, recortado do deck atual (Drive, pasta 04 · Pitch)
-- [ ] Falas e tempo por slide
-- [ ] Números: planos, custo de entrega, margem, CAC, LTV e recuperação do CAC
+- [x] Deck de 8 min (Drive, pasta 04 · Pitch), com concorrência e conta de padeiro
+- [x] Falas e tempo por slide (notas do apresentador e `Roteiro_Pitch_8min.md`)
+- [x] Números: preço, custo de entrega, margem, equilíbrio e CAC (conta de padeiro)
 - [ ] Slide de validação com o placar final da pesquisa
 - [ ] Vídeo de 60 s do MVP (roteiro pronto em `Roteiro_MVP_ao_vivo.md`; falta gravar)
-- [ ] Perguntas prováveis da arguição, com respostas
+- [x] Perguntas prováveis da arguição, com respostas (inclui as do professor: conteúdo × pacientes e mercado de dois lados)
 - [ ] Ensaio cronometrado

@@ -10,7 +10,7 @@ Projeto do Grupo 1 da disciplina Digital Innovation Strategy (Insper, 2026).
 |---|---|---|---|
 | Fichas 1 a 4 | 40% | `fichas/` e Drive | 1, 2 e 3 entregues; 4 preenchida, em revisão do grupo |
 | Lauda ABNT | 20% | a criar | aguardando as instruções da disciplina |
-| Banca: pitch de 8 min, MVP ao vivo (5 min) e arguição (10 min) | 40% | `banca/` | a preparar; plano em `banca/README.md` |
+| Banca: pitch de 8 min, MVP ao vivo (5 min) e arguição (10 min) | 40% | `banca/` | deck, demo e roteiros prontos; falta validação final, vídeo e ensaio (`banca/README.md`) |
 
 ## Pastas
 
