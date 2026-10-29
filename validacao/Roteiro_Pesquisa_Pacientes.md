@@ -197,7 +197,7 @@ Ao abrir o bloco: "Pense na **última** consulta médica particular que você ma
 | Onde | O que usar |
 |---|---|
 | Pitch, slide 2 (problema) | Um número do lado do paciente, por exemplo: "X% já desistiram de um médico porque demoraram a responder" |
-| Pitch, slide 8 (validação) | Uma linha a mais no placar: "Paciente: P2 e P3 testadas com N pessoas" |
+| Pitch, slide 7 (validação) | Uma linha a mais no placar: "Paciente: P2 e P3 testadas com N pessoas" |
 | Arguição: "e o outro lado do mercado?" | O placar P1 a P6 e a distância entre o que o paciente diz e faz |
 | Arguição: "conteúdo traz paciente?" | P1 e D6, cruzados com a pergunta nova da pesquisa com médicos (parcela dos pacientes que chega pelas redes) |
 | Produto e piloto | Prioridade dos recursos: o que passar fica no plano Pro; o que falhar sai do discurso de venda |
@@ -210,4 +210,4 @@ Ao abrir o bloco: "Pense na **última** consulta médica particular que você ma
 | Dia 1 | Revisar as perguntas com o grupo e colocar no ar |
 | Dias 1 a 5 | Coleta (meta de 80 a 150 respostas) |
 | Dia 6 | Placar e tabelas |
-| Dia 7 | Atualizar o slide 2, o slide 8 e as respostas da arguição |
+| Dia 7 | Atualizar o slide 2, o slide 7 e as respostas da arguição |
