@@ -212,7 +212,12 @@
     intro: "Pesquisa acadêmica do Insper, com duração aproximada de 4 a 7 minutos, conforme o perfil. As respostas são confidenciais e analisadas apenas de forma agregada, para fins acadêmicos.",
     triagem: true,
     secoes: [{ titulo: "Perfil do respondente", perguntas: [
-      { id: "perfil", tipo: "radio", rot: "Qual das opções abaixo descreve sua atuação?", ops: [["medicos", "Sou médico(a) e atendo pacientes particulares em consultório ao menos um período por semana"], ["clinicas", "Sou sócio(a), gestor(a) ou diretor(a) técnico(a) de uma clínica"], ["ambos", "Ambas as situações"], ["pacientes", "Não atuo nessas funções, mas tive ao menos uma consulta médica particular nos últimos 12 meses"], ["fora", "Nenhuma das situações acima"]], obrig: true, encerra: "fora" }
+      { id: "perfil", tipo: "radio", rot: "Qual opção descreve melhor você hoje?", ops: [
+        ["medicos", "Médico(a) com consultório particular", "Atendo pacientes particulares ao menos um período por semana"],
+        ["clinicas", "Sócio(a) ou gestor(a) de clínica", "Participo da gestão ou sou diretor(a) técnico(a), mas não atendo em consultório"],
+        ["ambos", "Médico(a) e também sócio(a) ou gestor(a) de clínica", "Atendo em consultório e participo da gestão de uma clínica"],
+        ["pacientes", "Paciente", "Não trabalho nessas funções, mas fiz ao menos uma consulta particular nos últimos 12 meses (paga do próprio bolso ou com reembolso do plano)"],
+        ["fora", "Nenhuma das opções acima"]], obrig: true, encerra: "fora" }
     ] }],
     segue: function (r) { return r.perfil === "medicos" || r.perfil === "pacientes" ? r.perfil : "clinicas"; }
   };

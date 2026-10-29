@@ -39,7 +39,7 @@
       return '<fieldset class="q"' + (err ? ' aria-describedby="e-' + q.id + '"' : "") + "><legend>" + esc(rot) + opc + "</legend>" +
         '<div class="ops">' + q.ops.map(function (o, i) {
           var on = tipo === "radio" ? v === o[0] : Array.isArray(v) && v.indexOf(o[0]) >= 0;
-          return '<label class="op"><input type="' + tipo + '" name="' + q.id + '" value="' + esc(o[0]) + '" data-q="' + q.id + '"' + (on ? " checked" : "") + "><span>" + esc(o[1]) + "</span></label>";
+          return '<label class="op"><input type="' + tipo + '" name="' + q.id + '" value="' + esc(o[0]) + '" data-q="' + q.id + '"' + (on ? " checked" : "") + "><span>" + (o[2] ? "<b>" + esc(o[1]) + '</b><small class="desc">' + esc(o[2]) + "</small>" : esc(o[1])) + "</span></label>";
         }).join("") + "</div>" + msg + "</fieldset>";
     }
     var id = "f-" + q.id, inp;
