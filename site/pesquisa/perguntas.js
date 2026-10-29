@@ -2,7 +2,8 @@
  * Cada seção é uma página. A proposta só aparece depois da pergunta aberta sobre
  * o que trava ou preocupa, para medir se CFM, CRM ou diretor técnico aparecem sozinhos.
  * Tipos: radio, checks, select, number, text, textarea. "se" mostra a pergunta (ou a página inteira) só quando a condição vale.
- * "obrig" e "rot" podem depender das respostas (função). "voltar" numa página mostra o botão de voltar.
+ * "obrig" e "rot" podem depender das respostas (função). Toda página tem botão de voltar, menos a marcada com "semVolta":
+ * a proposta, para quem já a leu não reescrever a pergunta aberta anterior. Das páginas seguintes dá para voltar até ela.
  * "encerra" (radio) e "encerraSe" (número) terminam a pesquisa sem enviar: a pessoa está fora do público.
  * "max" em checks limita quantas opções podem ser marcadas. "nota" é só um texto entre as perguntas. A resposta "ns" (não sei) é enviada vazia: não entra nas medianas nem conta como "sim".
  * Faixas (gasto, contatos, tempo de resposta) são enviadas como número: ponto médio ou limite da faixa.
@@ -43,7 +44,7 @@
         { id: "posta", tipo: "radio", rot: "Com que frequência você publica conteúdo profissional nas redes sociais?", ops: [["semana", "Toda semana"], ["mes", "Algumas vezes por mês"], ["raro", "Raramente"], ["nunca", "Não publico"]], obrig: true },
         { id: "proximo", tipo: "radio", rot: "Você conhece pessoalmente algum integrante do grupo que lhe enviou esta pesquisa?", ops: SIM_NAO, obrig: true }
       ] },
-      { titulo: "Situação atual", voltar: true, perguntas: [
+      { titulo: "Situação atual", perguntas: [
         { id: "quer_mais", tipo: "radio", rot: "Você gostaria de atender mais pacientes particulares do que atende atualmente?", ops: SIM_NAO, obrig: true },
         { id: "vagas", tipo: "radio", rot: "Caso esses pacientes procurassem o consultório na próxima semana, haveria disponibilidade na sua agenda?", ops: [["sim", "Sim, há horários disponíveis"], ["talvez", "Seria necessário reorganizar a agenda"], ["nao", "Não, a agenda está completa"]], obrig: true, se: function (r) { return r.quer_mais === "sim"; } },
         { id: "pagou", tipo: "checks", rot: "Nos últimos 12 meses, você contratou algum destes serviços para divulgar seu trabalho? Assinale todos que se aplicam.", ops: [["Agência", "Agência de marketing"], ["Freelancer", "Profissional autônomo (freelancer)"], ["Doctoralia paga", "Doctoralia ou outra plataforma de agendamento paga"], ["Anúncio ou impulsionamento", "Anúncios ou impulsionamento de publicações"], ["Ferramenta paga", "Ferramenta ou software pago"], ["nada", "Não contratei nenhum destes serviços"]], obrig: true, exclusivo: "nada" },
@@ -53,7 +54,7 @@
         { id: "parou_motivo", tipo: "checks", rot: "Por que deixou de utilizá-lo? Assinale todos os motivos que se aplicam.", ops: [["Caro para o resultado", "Custo alto em relação ao resultado"], ["Não trouxe pacientes", "Não gerou novos pacientes"], ["Dava muito trabalho para mim", "Exigia muito do meu tempo"], ["O fornecedor sumiu ou demorava", "O fornecedor era pouco responsivo ou deixou de atender"], ["Medo de problema com o CRM", "Receio de infringir as normas do CRM"], ["Outro", "Outro motivo"]], obrig: true, se: function (r) { return pagou(r) && r.ainda === "nao"; } },
         { id: "trava", tipo: "textarea", rot: "O que mais dificulta a divulgação do seu trabalho hoje?", obrig: true }
       ] },
-      { titulo: "Propostas em estudo", texto: [
+      { titulo: "Propostas em estudo", semVolta: true, texto: [
         "Estamos avaliando duas propostas:",
         "(a) Uma plataforma que cria, com inteligência artificial, a identidade visual, o site e as publicações do médico. Os ajustes são feitos por conversa, e cada peça é verificada segundo as normas de publicidade médica do CFM antes da publicação.",
         "(b) Uma equipe de agentes de inteligência artificial, supervisionada por um especialista, que executa todo o trabalho: identidade visual, site, perfil no Google, publicações, anúncios e atendimento de pacientes pelo WhatsApp. O médico apenas aprova."
@@ -96,7 +97,7 @@
         { id: "particular", tipo: "radio", rot: "Qual a participação dos pacientes particulares no faturamento da clínica?", ops: [["30", "Menos da metade"], ["65", "Mais da metade"], ["90", "Quase a totalidade"], ["ns", "Não sei"]], obrig: true, encerra: "30" },
         { id: "proximo", tipo: "radio", rot: "Você conhece pessoalmente algum integrante do grupo que lhe enviou esta pesquisa?", ops: SIM_NAO, obrig: true }
       ] },
-      { titulo: "Marketing atual", voltar: true, perguntas: [
+      { titulo: "Marketing atual", perguntas: [
         { id: "quer_mais", tipo: "radio", rot: "A clínica tem interesse em atender mais pacientes particulares do que atende atualmente?", ops: SIM_NAO, obrig: true },
         { id: "vagas", tipo: "radio", rot: "Há disponibilidade na agenda dos profissionais para absorver novos pacientes?", ops: [["sim", "Sim, há horários disponíveis"], ["alguns", "Em parte: apenas alguns profissionais têm disponibilidade"], ["nao", "Não, as agendas estão completas"]], obrig: true, se: function (r) { return r.quer_mais === "sim"; } },
         { id: "investe", tipo: "radio", rot: "A clínica investe em marketing atualmente, ou investiu nos últimos 12 meses?", ops: SIM_NAO, obrig: true },
@@ -112,7 +113,7 @@
         { id: "dias", tipo: "radio", rot: "Quanto tempo decorreu entre o primeiro contato com o fornecedor e a contratação?", ops: [["30", "Até 30 dias"], ["60", "31 a 60 dias"], ["90", "61 a 90 dias"], ["120", "Mais de 90 dias"], ["ns", "Não lembro"]], obrig: true, se: investe },
         { id: "revisa", tipo: "radio", rot: "Atualmente, quem revisa as publicações e os anúncios antes da veiculação?", ops: [["Diretor técnico", "O(a) diretor(a) técnico(a)"], ["Sócio ou médico", "Um(a) sócio(a) ou médico(a) da clínica"], ["Agência ou freelancer", "A agência ou o profissional contratado"], ["Ninguém", "Não há revisão"], ["Não publicamos", "A clínica não faz publicações nem anúncios"], ["ns", "Não sei"]], obrig: true }
       ] },
-      { titulo: "Atendimento a pacientes", voltar: true, perguntas: [
+      { titulo: "Atendimento a pacientes", perguntas: [
         { id: "fonte", tipo: "radio", rot: "Qual é a principal origem dos pacientes novos da clínica?", ops: [["Indicação de pacientes", "Indicação de pacientes"], ["Indicação de colegas", "Indicação de colegas"], ["Convênio", "Convênios"], ["Google", "Busca no Google"], ["Instagram", "Instagram"], ["Doctoralia ou outra agenda on-line", "Doctoralia ou outra plataforma de agendamento"], ["Outro", "Outra origem"], ["Não sei", "Não sei"]], obrig: true },
         { id: "redes_pct", tipo: "radio", rot: "Aproximadamente, que parcela dos pacientes novos da clínica chega pelo Instagram ou por outras redes sociais?", ops: [["0", "Nenhum"], ["5", "Até 10%"], ["20", "10% a 30%"], ["45", "30% a 60%"], ["75", "Mais de 60%"], ["ns", "Não sei"]], obrig: true },
         { id: "contatos", tipo: "radio", rot: "Aproximadamente, quantos contatos de novos pacientes a clínica recebe por semana pelo WhatsApp?", ops: [["5", "Até 10"], ["20", "11 a 30"], ["65", "31 a 100"], ["150", "Mais de 100"], ["ns", "Não sei"]], obrig: true },
@@ -123,7 +124,7 @@
         { id: "agenda_outro", tipo: "text", rot: "Qual sistema?", se: function (r) { return r.agenda_sis === "Outro sistema"; } },
         { id: "preocupa", tipo: "textarea", rot: "Quais são as principais dificuldades ou preocupações em relação ao marketing da clínica?", obrig: true }
       ] },
-      { titulo: "Proposta em estudo", texto: [
+      { titulo: "Proposta em estudo", semVolta: true, texto: [
         "Estamos avaliando a seguinte proposta: uma equipe de marketing e atendimento operada por agentes de inteligência artificial e supervisionada por um especialista.",
         "O serviço inclui identidade visual, site e perfil no Google de cada médico, publicações e anúncios, além do atendimento de pacientes pelo WhatsApp 24 horas por dia, com agendamento direto na agenda da clínica.",
         "Nenhum conteúdo é publicado sem verificação segundo as normas de publicidade médica do CFM, com registro disponível ao diretor técnico, e um painel apresenta quantos contatos se converteram em consultas, por canal e por médico."
@@ -189,12 +190,12 @@
         { id: "resposta", tipo: "radio", rot: "Quanto tempo levou para receber a primeira resposta?", ops: OPS_RESPOSTA, obrig: true },
         { id: "confirmou", tipo: "radio", rot: "O consultório ou a clínica confirmou a consulta antes da data (por mensagem ou ligação)?", ops: OPS_SIM_NAO_LEMBRO, obrig: true }
       ] },
-      { titulo: "Experiências nos últimos 12 meses", voltar: true, perguntas: [
+      { titulo: "Experiências nos últimos 12 meses", perguntas: [
         { id: "desistiu", tipo: "radio", rot: "Você desistiu de agendar com um médico, ou escolheu outro, porque a resposta demorou?", ops: OPS_DESISTIU, obrig: true },
         { id: "faltou", tipo: "radio", rot: "Você deixou de comparecer a alguma consulta particular sem desmarcar?", ops: SIM_NAO, obrig: true },
         { id: "falta_motivo", tipo: "checks", rot: "Por que deixou de comparecer? Assinale todos os motivos que se aplicam.", ops: OPS_FALTA, obrig: true, se: function (r) { return r.faltou === "sim"; } }
       ] },
-      { titulo: "Preferências", voltar: true, perguntas: [
+      { titulo: "Preferências", perguntas: [
         { id: "prefere", tipo: "radio", rot: "Se pudesse escolher, por qual meio preferiria agendar uma consulta?", ops: OPS_PREFERE, obrig: true },
         { id: "noite", tipo: "radio", rot: "Imagine que você envia uma mensagem a uma clínica às 22h solicitando um horário. Qual resposta você preferiria?", ops: OPS_NOITE, obrig: true },
         { id: "assistente", tipo: "radio", rot: "Você aceitaria agendar a consulta com um assistente virtual pelo WhatsApp?", ops: OPS_ASSISTENTE, obrig: true },
@@ -212,7 +213,12 @@
     intro: "Pesquisa acadêmica do Insper, com duração aproximada de 4 a 7 minutos, conforme o perfil. As respostas são confidenciais e analisadas apenas de forma agregada, para fins acadêmicos.",
     triagem: true,
     secoes: [{ titulo: "Perfil do respondente", perguntas: [
-      { id: "perfil", tipo: "radio", rot: "Qual das opções abaixo descreve sua atuação?", ops: [["medicos", "Sou médico(a) e atendo pacientes particulares em consultório ao menos um período por semana"], ["clinicas", "Sou sócio(a), gestor(a) ou diretor(a) técnico(a) de uma clínica"], ["ambos", "Ambas as situações"], ["pacientes", "Não atuo nessas funções, mas tive ao menos uma consulta médica particular nos últimos 12 meses"], ["fora", "Nenhuma das situações acima"]], obrig: true, encerra: "fora" }
+      { id: "perfil", tipo: "radio", rot: "Qual opção descreve melhor você hoje?", ops: [
+        ["medicos", "Médico(a) com consultório particular", "Atendo pacientes particulares ao menos um período por semana"],
+        ["clinicas", "Sócio(a) ou gestor(a) de clínica", "Participo da gestão ou sou diretor(a) técnico(a), mas não atendo em consultório"],
+        ["ambos", "Médico(a) e também sócio(a) ou gestor(a) de clínica", "Atendo em consultório e participo da gestão de uma clínica"],
+        ["pacientes", "Paciente", "Não trabalho nessas funções, mas fiz ao menos uma consulta particular nos últimos 12 meses (paga do próprio bolso ou com reembolso do plano)"],
+        ["fora", "Nenhuma das opções acima"]], obrig: true, encerra: "fora" }
     ] }],
     segue: function (r) { return r.perfil === "medicos" || r.perfil === "pacientes" ? r.perfil : "clinicas"; }
   };
