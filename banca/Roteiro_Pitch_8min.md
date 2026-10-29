@@ -4,22 +4,25 @@
 
 A fala completa de cada slide está nas notas do apresentador. Aqui ficam a ordem, o tempo e os números que todos precisam saber de cor.
 
-## Ordem e tempo (cerca de 7:30, com 30 s de folga)
+## Ordem e tempo (cerca de 6:40, com folga para respirar)
 
-| # | Slide | Quem | Tempo | Mensagem em uma frase |
-|---|---|---|---|---|
-| 1 | Capa | Mariana | 0:15 | Captação e atendimento de pacientes para clínicas, dentro das regras do CFM. |
-| 2 | Problema | Vitor | 1:00 | A clínica gasta R$ 6,5 a 12,8 mil por mês, não sabe qual canal traz paciente, e o diretor técnico corre o risco no CRM. |
-| 3 | Oferta | Fabiana | 0:50 | Um fornecedor só, por porte; o Pro (5 a 10 médicos) custa R$ 4.900. |
-| 4 | Guardião | Fabiana | 0:45 | Nada vai ao ar sem conferência das regras e aprovação registrada do diretor técnico. |
-| 5 | Concorrência | Vitor | 0:45 | Hoje a clínica junta três ou quatro fornecedores e ninguém mede até a consulta. |
-| 6 | Conta de padeiro | Manuella | 1:00 | Cada clínica Pro deixa R$ 3.300 por mês; 10 clínicas pagam a operação. |
-| 7 | O que aprendemos | Alessandra | 0:50 | Os critérios fixados antes nos fizeram sair do médico individual para a clínica. |
-| 8 | Validação | Daniela | 0:50 | O que a pesquisa mostrou (atualizar na véspera). |
-| 9 | Equipe | Mariana | 0:20 | Seis pessoas e um especialista de marketing médico no piloto. |
-| 10 | Pedido | Daniela | 0:45 | 3 a 5 clínicas para um piloto pago de 3 a 6 meses. |
-| 11 | Demo | Mariana | 0:10 | Passa a palavra para o MVP ao vivo (`Roteiro_MVP_ao_vivo.md`). |
-| 12 | Fim | Mariana | — | Fica na tela durante a arguição. |
+A ordem segue o que a banca pede (Roteiro do Encontro 5: problema e cliente → proposta de valor → modelo e viabilidade → validação → pedido) e usa só o que está nas quatro fichas.
+
+| # | Slide | Quem | Tempo | Quesito da banca | De onde vem nas fichas |
+|---|---|---|---|---|---|
+| 1 | Capa | Mariana | 0:15 | — | — |
+| 2 | Problema e cliente | Vitor | 1:00 | 1. Problema e cliente (tarefa do cliente) | Ficha 1 (problema), Ficha 2 (tarefa, dores e ganhos), Ficha 3 (gestor de clínica) |
+| 3 | Proposta de valor | Fabiana | 0:50 | 2. Proposta de valor e segmento | Ficha 2 (proposta de valor), Ficha 3 (planos; começamos pelo Pro) |
+| 4 | Guardião | Fabiana | 0:45 | 2. Diferenciação e defesa | Ficha 3, seção 7 |
+| 5 | Concorrência | Vitor | 0:45 | 2. Diferenciação | Ficha 1, seção 5 (alternativas atuais) |
+| 6 | Conta de padeiro | Manuella | 1:00 | 3. Modelo e viabilidade | Ficha 3, seção 3; Ficha 4, seção 6 |
+| 7 | Validação e aprendizado | Alessandra | 0:50 | 5. Validação e aprendizado | Ficha 2, seções 6 e 7; Ficha 3, seções 5 e 6 |
+| 8 | Equipe | Mariana | 0:20 | 6. Pitch | Ficha 4, seção 3 |
+| 9 | Pedido | Daniela | 0:45 | Rota e pedido | Ficha 4, seções 4, 5 e 7 |
+| 10 | MVP ao vivo | Mariana | 0:10 | 4. MVP funcionando | Ficha 3, seção 4 (protótipo funcional) |
+| 11 | Fim | Mariana | — | Fica na tela durante a arguição | — |
+
+O piloto pago está nas fichas entregues (Ficha 3, seções 4 e 6; Ficha 4, seções 4 e 7) e é o pedido. Os modelos A, B e C e as contas de LTV/CAC vinham de análises arquivadas e saíram do deck.
 
 ## Por que a Jalecon (slide 5)
 
@@ -49,17 +52,17 @@ O argumento: a clínica não troca um fornecedor pela Jalecon, troca três ou qu
 | Custo fixo (2 sócios, 1 desenvolvedor, ferramentas) | R$ 32 mil |
 | **Clínicas para pagar a operação** | **32.000 ÷ 3.300 ≈ 10** |
 
-**O número que ainda é chute:** 16 clínicas por especialista, ou cerca de 7,5 horas por clínica por mês. Com 10 horas, o especialista custa R$ 1.000 por clínica, sobram R$ 3.050 e são 11 clínicas. O piloto mede esse número, e a meta do pedido (slide 10) é exatamente ele.
+**O número que ainda é chute:** 16 clínicas por especialista, ou cerca de 7,5 horas por clínica por mês. Com 10 horas, o especialista custa R$ 1.000 por clínica, sobram R$ 3.050 e são 11 clínicas. O piloto mede esse número, e a meta do pedido (slide 9) é exatamente ele.
 
 **CAC (se perguntarem):** cerca de R$ 20 mil por clínica no modelo (venda consultiva), recuperado em uns 6 meses de margem (20.000 ÷ 3.300). Também é estimativa.
 
 ## Perguntas prováveis da arguição
 
 **"Conteúdo traz paciente? Quantos pacientes vieram do Instagram?"** (o professor perguntou isso)
-Ainda não temos esse número medido. A pesquisa pergunta a origem principal dos pacientes novos e, desde 29/10, também a parcela que chega pelas redes e com que frequência o médico publica. Assim dá para comparar quem publica com quem não publica. Por isso o produto não vende conteúdo: vende contato que vira consulta, medido por canal. Se o Instagram não trouxer paciente para uma clínica, o painel mostra isso e o esforço vai para Google e WhatsApp.
+Ainda não temos esse número medido. A pesquisa pergunta aos médicos e gestores a origem dos pacientes novos e a parcela que chega pelas redes; aos pacientes, como conheceram e checaram o último médico e se já agendaram por causa do conteúdo. Por isso o produto não vende conteúdo: vende contato que vira consulta, medido por canal. Se o Instagram não trouxer paciente para uma clínica, o painel mostra isso e o esforço vai para Google e WhatsApp.
 
 **"É um mercado de dois lados: e o paciente?"**
-Quem paga é a clínica; o paciente é o usuário do outro lado (o WhatsApp que responde às 22h e agenda). Os dados públicos sobre como o paciente escolhe médico vêm quase todos de quem vende o serviço: a Doctoralia diz que 90% usam a internet para achar médico e 80% olham avaliações; um blog atribui à McKinsey que 70% pesquisam a clínica no Instagram, sem fonte rastreável. Por isso não pomos esses números no slide. Se der tempo, uma enquete curta entre conhecidos ("Como você encontrou seu último médico particular?") dá um dado próprio.
+Quem paga é a clínica; o paciente é o usuário do outro lado (o WhatsApp que responde às 22h e agenda). Por isso fizemos uma pesquisa com pacientes no mesmo link (roteiro em `validacao/Roteiro_Pesquisa_Pacientes.md`): canais, o que fizeram na última consulta e o que preferem. Os dados públicos vêm quase todos de quem vende o serviço (a Doctoralia diz que 90% usam a internet para achar médico), por isso não os pomos no slide.
 
 **"Por que uma clínica trocaria a agência de hoje?"**
 Porque ela não sabe se a agência traz paciente (só 24% têm processo para transformar contato em consulta) e porque o risco no CRM fica com o diretor técnico. A Jalecon custa menos que a agência típica e mede o resultado.
