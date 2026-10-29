@@ -46,15 +46,15 @@ O argumento: a clínica não troca um fornecedor pela Jalecon, troca três ou qu
 | Cobramos | R$ 4.900 (mídia à parte, paga pela clínica) |
 | Especialista (R$ 12 mil ÷ 16 clínicas) | R$ 750 |
 | IA e ferramentas | R$ 250 |
-| Impostos | R$ 600 |
-| **Custa entregar** | **R$ 1.600** |
-| **Sobra (margem de contribuição)** | **R$ 3.300 (67%)** |
+| Impostos (Simples, perto de 10%) | cerca de R$ 470 |
+| **Custa entregar (teto da Ficha 3)** | **até R$ 1.470** |
+| **Sobra (margem de contribuição)** | **R$ 3.430 (70%)** |
 | Custo fixo (2 sócios, 1 desenvolvedor, ferramentas) | R$ 32 mil |
-| **Clínicas para pagar a operação** | **32.000 ÷ 3.300 ≈ 10** |
+| **Clínicas para pagar a operação** | **32.000 ÷ 3.430 ≈ 10** |
 
-**O número que ainda é chute:** 16 clínicas por especialista, ou cerca de 7,5 horas por clínica por mês. Com 10 horas, o especialista custa R$ 1.000 por clínica, sobram R$ 3.050 e são 11 clínicas. O piloto mede esse número, e a meta do pedido (slide 9) é exatamente ele.
+**O número que ainda é chute:** 16 clínicas por especialista (Ficha 3). Se forem 12, o especialista custa R$ 1.000 por clínica, sobram R$ 3.180 (65%) e são 11 clínicas. O piloto mede esse número; a meta do pedido (slide 9) é ficar dentro do teto de R$ 1.470.
 
-**CAC (se perguntarem):** cerca de R$ 20 mil por clínica no modelo (venda consultiva), recuperado em uns 6 meses de margem (20.000 ÷ 3.300). Também é estimativa.
+**CAC (se perguntarem):** cerca de R$ 20 mil por clínica no modelo (venda consultiva), recuperado em uns 6 meses de margem (20.000 ÷ 3.430). Também é estimativa.
 
 ## Perguntas prováveis da arguição
 
@@ -70,8 +70,8 @@ Porque ela não sabe se a agência traz paciente (só 24% têm processo para tra
 **"E se o Guardião errar?"**
 Ele não decide sozinho: quem aprova é o diretor técnico, com registro. As regras estão em validação com um advogado de direito médico.
 
-**"A margem de 67% é real?"**
-É uma conta com um chute declarado: as horas do especialista por clínica. O piloto existe para medir isso. Com 10 horas em vez de 7,5, a margem cai para 62% e o equilíbrio vai de 10 para 11 clínicas.
+**"A margem de 70% é real?"**
+É o teto que fixamos na Ficha 3, com um chute declarado: quantas clínicas cada especialista atende. O piloto existe para medir isso. Com 12 clínicas por especialista em vez de 16, a margem cai para 65% e o equilíbrio vai de 10 para 11 clínicas.
 
 **"Quantas respostas a pesquisa teve?"**
 Dizer o número real, inclusive se for pequeno, antes de a banca perguntar. Em 28/10 eram 2 médicos e 0 gestores.
