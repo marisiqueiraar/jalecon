@@ -79,7 +79,7 @@
     S.fila = C.fila(S.diag, eq());
     S.agenda = C.agenda(eq());
     S.espera = C.ESPERA.map(function (e, i) { return { id: "e" + i, nome: e[0], pref: e[1], usado: false }; });
-    S.chat = A.novo(BANCA ? "noite" : "noite");
+    S.chat = A.novo("comercial");
     S.registro = []; S.eventos = []; S.estudio = {}; S.chatLog = [];
     if (!medico(S.medicoPapel)) S.medicoPapel = "m0";
   }
@@ -261,7 +261,7 @@
   ACOES["preparar-banca"] = function () {
     if (ACOES["demo-recomecar"]) { ACOES["demo-recomecar"](); return; }
     var ent = S.entrevista;
-    S = estadoInicial(); S.entrevista = ent; S.diag = C.diagExemplo(); S.diagFeito = true; preparar(); S.chat = A.novo("noite");
+    S = estadoInicial(); S.entrevista = ent; S.diag = C.diagExemplo(); S.diagFeito = true; preparar(); S.chat = A.novo("comercial");
     T.t0 = null; T.acumulado = 0;
     ir("raiox"); toast("Demo pronta: clínica de exemplo, sem nenhuma ação anterior.");
   };
@@ -316,7 +316,7 @@
   function iniciar() {
     carregar();
     if (S.diagFeito && !S.fila) preparar();
-    if (S.diagFeito && !S.chat) S.chat = A.novo("noite");
+    if (S.diagFeito && !S.chat) S.chat = A.novo("comercial");
     if (BANCA) { document.body.classList.add("banca"); if (!location.hash) location.replace("#/demo/0"); }
     render({ topo: true });
   }

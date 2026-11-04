@@ -10,6 +10,7 @@
   var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var anim = { tok: 0 };
 
+  var ANA = { paciente: "Ana Souza", sexo: "f", origem: "Chegou pelo Google, depois do post do Dr. Rafael.", primeira: "Oi! Vi o Dr. Rafael Lima no Google. Vocês atendem dor no joelho?" };
   var CENAS = [
     { id: "problema", curto: "O problema", tempo: "0:00", titulo: "Hoje, cada parte da captação está num fornecedor diferente", fala: "A agência faz os posts, a recepção cuida do WhatsApp e a agenda é outro sistema. Ninguém conversa com ninguém, e a Ana, que escreveu na hora do almoço, fica sem resposta." },
     { id: "estudio", curto: "Estúdio", tempo: "0:30", titulo: "A Jalecon cria o mês de cada médico", fala: "Os agentes montam a marca e os posts do Dr. Rafael, no tom dele. Nada vai ao ar ainda." },
@@ -30,7 +31,7 @@
     if (!S.diagFeito) { S.diag = C.diagExemplo(); S.diagFeito = true; J.preparar(); }
     if (!S.demo) S.demo = { visto: {}, aplicado: false, aprovado: false, chat: null, lembrete: null, vaga: null, espera: null, teste: null };
     var d = S.demo;
-    if (!d.chat) d.chat = AT.novo("almoco");
+    if (!d.chat || d.chat.v !== 3) d.chat = AT.novo("almoco", ANA);
     var m = J.eq()[0], e = J.est(m.id);
     if (!e.mes) J.gerar(m, e.prefs);
     return d;
@@ -116,29 +117,26 @@
     var d = dm(), ch = d.chat, pend = J.T.demoPend || 0;
     var msgs = '<div class="ph-dia">Hoje</div>' + ch.msgs.map(function (x, i) {
       var oculto = x.de === "a" && i >= ch.msgs.length - pend ? " oculto seq" : "";
-      return bolha(x.de === "p" ? "eu" : "ele", x.txt, "12:4" + Math.min(9, i), oculto) + (x.guarda ? '<div class="ph-guard' + (oculto ? " oculto seq" : "") + '">' + ICON.shield + "<span>" + esc(x.guarda) + "</span></div>" : "");
+      return bolha(x.de === "p" ? "eu" : "ele", x.txt, x.hora, oculto) + (x.guarda ? '<div class="ph-guard' + (oculto ? " oculto seq" : "") + '">' + ICON.shield + "<span>" + esc(x.guarda) + "</span></div>" : "");
     }).join("") + digitando(!pend);
-    var chips = "";
-    if (!ch.agendado || ch.estado !== "agendado") {
-      if (ch.estado === "slots" && ch.slots.length) chips = ch.slots.map(function (s, i) { return '<button type="button" class="ph-chip" data-act="demo-slot" data-i="' + i + '">' + esc(AT.fmtSlot(s)) + "</button>"; }).join("") + '<button type="button" class="ph-chip" data-act="demo-diz" data-txt="Será que é menisco? Quanto custa?">Será que é menisco? Quanto custa?</button>';
-      else if (ch.estado === "nome") chips = '<button type="button" class="ph-chip" data-act="demo-diz" data-txt="Ana Souza">Ana Souza</button>';
-      else if (!ch.msgs.length) chips = '<button type="button" class="ph-chip" data-act="demo-diz" data-txt="Oi! Vi o Dr. Rafael Lima no Google. Vocês atendem dor no joelho?">Oi! Vi o Dr. Rafael Lima no Google. Vocês atendem dor no joelho?</button>';
-      else chips = ['É para dor no joelho', 'Quero marcar uma consulta'].map(function (t) { return '<button type="button" class="ph-chip" data-act="demo-diz" data-txt="' + esc(t) + '">' + esc(t) + "</button>"; }).join("");
-    } else chips = '<span class="ph-ok">Consulta marcada. Siga para a véspera →</span>';
-    var rod = '<div class="ph-chips">' + chips + '</div><form class="ph-input" data-sub="demo-wa"><label class="sr" for="f-demo-wa">Mensagem da paciente</label><input id="f-demo-wa" name="msg" placeholder="Escreva como paciente…" autocomplete="off"' + (ch.estado === "agendado" ? " disabled" : "") + '><button type="submit" aria-label="Enviar">➤</button></form>';
-    return phone("12:41", "", wa(J.S.diag.nome, pend ? "digitando…" : "online · atendimento automático", msgs, rod));
+    var chips = ch.estado === "agendado" && ch.agradeceu ? '<span class="ph-ok">Consulta marcada. Siga para a véspera →</span>' :
+      ch.estado === "encerrado" ? '<span class="ph-ok">Conversa passada para a equipe. Use “Recomeçar” no topo para testar de novo.</span>' :
+      AT.opcoes(ch, ctxAt()).map(function (o) { return '<button type="button" class="ph-chip" ' + (o.slot != null ? 'data-act="demo-slot" data-i="' + o.slot + '"' : 'data-act="demo-diz" data-txt="' + esc(o.txt) + '"') + ">" + esc(o.rot || o.txt) + "</button>"; }).join("");
+    var fechado = ch.estado === "encerrado";
+    var rod = '<div class="ph-chips">' + chips + '</div><form class="ph-input" data-sub="demo-wa"><label class="sr" for="f-demo-wa">Mensagem da paciente</label><input id="f-demo-wa" name="msg" placeholder="Escreva como a Ana…" autocomplete="off"' + (fechado ? " disabled" : "") + '><button type="submit" aria-label="Enviar">➤</button></form>';
+    return phone("12:4" + Math.min(9, Math.floor(ch.msgs.length / 2)), "", wa(J.S.diag.nome, pend ? "digitando…" : "online", msgs, rod));
   }
   function telaVespera() {
     var d = dm(), ag = agendamentoAna(), m = J.medico(ag.medico), msgs, rod = "", nome = "Ana Souza", sub = "online";
     if (d.espera === "oferecido" || d.espera === "aceitou") {
       var v = d.vaga, mv = J.medico(v.medico);
       nome = J.S.diag.nome; sub = "para Marcos D., da lista de espera";
-      msgs = '<div class="ph-dia">Segunda, 18:02</div>' + bolha("ele", "Oi, Marcos! Abriu um horário amanhã, terça, às " + v.hora + ", com " + C.titulo(mv) + ". Quer ficar com ele? Responda 1 para sim ou 2 para não.", "18:02") +
+      msgs = '<div class="ph-dia">' + VESPERA[v.dia] + ', 18:02</div>' + bolha("ele", "Oi, Marcos! Abriu um horário amanhã, " + NOME_DIA[v.dia] + ", às " + v.hora + ", com " + C.titulo(mv) + ". Quer ficar com ele? Responda 1 para sim ou 2 para não.", "18:02") +
         (d.espera === "aceitou" ? bolha("eu", "1", "18:03") + bolha("ele", "Pronto, Marcos! Consulta confirmada amanhã às " + v.hora + ". Até lá.", "18:03") : "");
       if (d.espera === "oferecido") rod = '<div class="ph-chips"><button type="button" class="ph-chip" data-act="demo-espera-sim">1 · Quero o horário</button></div>';
       return phone("18:03", "", wa(nome, sub, msgs, rod, "#3D5A80"));
     }
-    msgs = '<div class="ph-dia">Segunda, 18:00</div>' + bolha("ele", "Oi, Ana! Lembrete: sua consulta com " + C.titulo(m) + " é amanhã, terça, às " + ag.hora + ", na " + J.S.diag.nome + ". Responda 1 para confirmar ou 2 se não puder ir.", "18:00");
+    msgs = '<div class="ph-dia">' + VESPERA[ag.dia] + ', 18:00</div>' + bolha("ele", "Oi, Ana! Lembrete: sua consulta com " + C.titulo(m) + " é amanhã, " + NOME_DIA[ag.dia] + ", às " + ag.hora + ", na " + J.S.diag.nome + ". Responda 1 para confirmar ou 2 se não puder ir.", "18:00");
     if (d.lembrete === "confirmou") msgs += bolha("eu", "1", "18:04") + bolha("ele", "Confirmado! Até amanhã, Ana.", "18:04");
     if (d.lembrete === "cancelou") msgs += bolha("eu", "2", "18:04") + bolha("ele", "Sem problema, Ana. Liberei o seu horário. Quando quiser remarcar, é só chamar aqui.", "18:04");
     if (!d.lembrete) rod = '<div class="ph-chips"><button type="button" class="ph-chip" data-act="demo-lembrete" data-r="confirmou">1 · Confirmo</button><button type="button" class="ph-chip" data-act="demo-lembrete" data-r="cancelou">2 · Não vou conseguir</button></div>';
@@ -219,21 +217,21 @@
     }).join("") + "</div>";
   }
   function painelWhatsapp() {
-    var d = dm(), ch = d.chat, m = rafa();
-    var res = AT.resumo(ch, ctxAt());
-    return '<div class="card"><div class="row between wrap"><b>Agenda de ' + esc(C.titulo(m)) + ' · terça</b><span class="pill ok">respondeu em ~4 s</span></div>' + faixaAgenda(m.id, "ter", function (c) { return c.demo === "ana" || c.status === "whatsapp"; }) +
-      '<h3 class="t" style="margin-top:6px">Resumo para a recepção</h3><table class="tb"><tbody>' + res.filter(function (x) { return x[0] !== "Canal"; }).map(function (x) { return '<tr><th style="width:42%">' + esc(x[0]) + "</th><td>" + esc(x[1]) + "</td></tr>"; }).join("") + "</tbody></table>" +
-      '<p class="small">Escreva no celular o que quiser: preço, convênio, “qual remédio posso tomar?”, “quero falar com uma pessoa”, “dor no peito”.</p></div>';
+    var d = dm(), ch = d.chat, m = rafa(), dia = ch.agendado ? ch.agendado.dia : "ter";
+    return '<div class="card"><div class="row between wrap"><b>Agenda de ' + esc(C.titulo(m)) + " · " + NOME_DIA[dia] + '</b><span class="pill ok">' + (ch.msgs.length ? "respondeu em ~4 s" : "aguardando a Ana") + "</span></div>" + faixaAgenda(m.id, dia, function (c) { return c.demo === "ana"; }) +
+      '<h3 class="t" style="margin-top:6px">Resumo para a recepção</h3><p class="resumo-rec">' + esc(AT.resumo(ch, ctxAt())) + "</p>" +
+      '<p class="small">O agente não pede exames nem detalhes de saúde além do motivo da consulta (LGPD). Se a paciente pedir, uma pessoa da recepção assume.</p>' +
+      '<p class="small">Teste os limites escrevendo no celular: “qual remédio posso tomar?”, “quero falar com uma pessoa” ou “estou com dor no peito”.</p></div>';
   }
   function painelVespera() {
-    var d = dm(), ag = agendamentoAna();
-    var conf = J.S.agenda.filter(function (c) { return c.dia === "ter" && (c.status === "confirmada" || c.status === "encaixe"); }).length;
-    var total = J.S.agenda.filter(function (c) { return c.dia === "ter"; }).length;
-    var html = '<div class="card"><div class="row between wrap"><b>Confirmações de terça</b><span class="pill ' + (d.lembrete ? "ok" : "warn") + '">' + (d.lembrete ? conf + " de " + total + " confirmadas" : "lembretes enviados às 18h") + "</span></div>";
+    var d = dm(), ag = agendamentoAna(), dia = ag.dia;
+    var conf = J.S.agenda.filter(function (c) { return c.dia === dia && (c.status === "confirmada" || c.status === "encaixe"); }).length;
+    var total = J.S.agenda.filter(function (c) { return c.dia === dia; }).length;
+    var html = '<div class="card"><div class="row between wrap"><b>Confirmações de ' + NOME_DIA[dia] + '</b><span class="pill ' + (d.lembrete ? "ok" : "warn") + '">' + (d.lembrete ? conf + " de " + total + " confirmadas" : "lembretes enviados às 18h") + "</span></div>";
     if (!d.lembrete) html += '<p class="muted">Responda no celular como a Ana: confirmar ou desmarcar.</p>';
     if (d.vaga) {
       var mv = J.medico(d.vaga.medico);
-      html += '<div class="vaga ' + (d.espera === "aceitou" ? "ok" : "") + '"><b>' + (d.espera === "aceitou" ? "Horário ocupado pela lista de espera" : "Horário vago: " + esc(d.vaga.dono) + " não vai") + "</b><span>Terça, " + esc(d.vaga.hora) + " · " + esc(C.titulo(mv)) + "</span></div>" + faixaAgenda(d.vaga.medico, "ter", function (c) { return c.hora === d.vaga.hora; });
+      html += '<div class="vaga ' + (d.espera === "aceitou" ? "ok" : "") + '"><b>' + (d.espera === "aceitou" ? "Horário ocupado pela lista de espera" : "Horário vago: " + esc(d.vaga.dono) + " não vai") + "</b><span>" + J.cap(NOME_DIA[d.vaga.dia]) + ", " + esc(d.vaga.hora) + " · " + esc(C.titulo(mv)) + "</span></div>" + faixaAgenda(d.vaga.medico, d.vaga.dia || "ter", function (c) { return c.hora === d.vaga.hora; });
       if (!d.espera) html += '<div class="row between wrap"><span>Lista de espera: <b>Marcos D.</b> · qualquer horário amanhã</span><button class="btn sm" type="button" data-act="demo-oferecer">Oferecer o horário</button></div>';
       if (d.espera === "oferecido") html += '<p class="small">Oferta enviada ao Marcos pelo WhatsApp. Responda no celular.</p>';
       if (d.espera === "aceitou") html += '<p class="ok-line">' + ICON.ok + "<b>Falta evitada.</b></p>";
@@ -407,46 +405,51 @@
   var EX = ["Sou a melhor dermatologista de São Paulo, resultado garantido e sem dor.", "Veja o antes e depois da nossa paciente!", "Consulta com 30% de desconto só esta semana.", "Dra. Ana Souza · MÉDICA · CRM-SP 123456 · Dermatologia · RQE 7890. Agende pelo link da bio."];
   A["demo-teste-ex"] = function (b) { dm().teste = EX[+b.dataset.i]; J.render(); };
   A["demo-teste-limpar"] = function () { dm().teste = ""; J.render(); var t = document.getElementById("f-demo-teste"); if (t) t.focus(); };
-  function falar(txt) {
-    var d = dm(), ch = d.chat, antes = ch.msgs.length;
-    var out = AT.responder(ch, txt, ctxAt());
-    J.T.demoPend = ch.msgs.filter(function (x, i) { return i >= antes && x.de === "a"; }).length;
+  /* ---------- conversa da demonstração: o mesmo agente da plataforma (atendimento.js) ---------- */
+  var NOME_DIA = AT.NOME_DIA;
+  var VESPERA = { seg: "Sexta", ter: "Segunda", qua: "Terça", qui: "Quarta", sex: "Quinta", "sáb": "Sexta" };
+  function gravarAna(out, ch) {
+    if (out.cancelou) J.S.agenda = J.S.agenda.filter(function (c) { return c.demo !== "ana"; });
     if (out.agendou && ch.agendado) {
       J.S.agenda = J.S.agenda.filter(function (c) { return c.demo !== "ana"; });
-      J.S.agenda.push({ id: "demo-ana", demo: "ana", medico: ch.agendado.medico, dia: ch.agendado.dia, hora: ch.agendado.hora, paciente: ch.agendado.paciente, status: "whatsapp", canal: "WhatsApp" });
-      J.evento("whatsapp", ch.agendado.paciente + " agendada pelo WhatsApp");
+      J.S.agenda.push({ id: "demo-ana", demo: "ana", medico: ch.agendado.medico, dia: ch.agendado.dia, hora: ch.agendado.hora, paciente: "Ana Souza", status: "whatsapp", canal: "WhatsApp" });
+      J.evento("whatsapp", "Ana Souza agendada pelo WhatsApp");
     }
-    if (out.cancelou) J.S.agenda = J.S.agenda.filter(function (c) { return c.demo !== "ana"; });
+  }
+  function falar(txt) {
+    var d = dm(), ch = d.chat, out = AT.responder(ch, txt, ctxAt());
+    gravarAna(out, ch);
+    J.T.demoPend = out.msgs.length;
     J.render();
     var i = document.getElementById("f-demo-wa"); if (i && !i.disabled && window.innerWidth > 960) i.focus({ preventScroll: true });
   }
   A["demo-diz"] = function (b) { falar(b.dataset.txt); };
   A["submit:demo-wa"] = function (f) { var v = f.msg.value.trim(); if (v) falar(v); };
   A["demo-slot"] = function (b) {
-    var d = dm(), ch = d.chat, antes = ch.msgs.length;
-    AT.escolherSlot(ch, +b.dataset.i, ctxAt());
-    J.T.demoPend = ch.msgs.filter(function (x, i) { return i >= antes && x.de === "a"; }).length;
+    var d = dm(), ch = d.chat, out = AT.escolherSlot(ch, +b.dataset.i, ctxAt());
+    gravarAna(out, ch);
+    J.T.demoPend = out.msgs.length;
     J.render();
   };
   A["demo-lembrete"] = function (b) {
     var S = J.S, d = dm(), ag = agendamentoAna();
     d.lembrete = b.dataset.r;
-    var outras = S.agenda.filter(function (c) { return c.dia === "ter" && c.status === "aguardando"; });
+    var outras = S.agenda.filter(function (c) { return c.dia === ag.dia && c.status === "aguardando" && c.demo !== "ana"; });
     if (d.lembrete === "cancelou") {
-      ag.status = "cancelou"; d.vaga = { medico: ag.medico, hora: ag.hora, dono: "Ana" };
+      ag.status = "cancelou"; d.vaga = { medico: ag.medico, dia: ag.dia, hora: ag.hora, dono: "Ana" };
       outras.forEach(function (c) { c.status = "confirmada"; });
     } else {
       ag.status = "confirmada";
       outras.forEach(function (c, i) { c.status = i === 0 ? "cancelou" : "confirmada"; });
-      if (outras[0]) d.vaga = { medico: outras[0].medico, hora: outras[0].hora, dono: outras[0].paciente };
+      if (outras[0]) d.vaga = { medico: outras[0].medico, dia: ag.dia, hora: outras[0].hora, dono: outras[0].paciente };
     }
-    J.evento("confirmacao", "Lembretes de terça respondidos");
-    J.render(); J.toast(d.vaga ? "Um horário de terça ficou vago. A lista de espera entra em ação." : "Confirmações registradas.");
+    J.evento("confirmacao", "Lembretes de " + NOME_DIA[ag.dia] + " respondidos");
+    J.render(); J.toast(d.vaga ? "Um horário de " + NOME_DIA[ag.dia] + " ficou vago. A lista de espera entra em ação." : "Confirmações registradas.");
   };
   A["demo-oferecer"] = function () { dm().espera = "oferecido"; J.render(); };
   A["demo-espera-sim"] = function () {
     var S = J.S, d = dm(), v = d.vaga;
-    var c = S.agenda.filter(function (x) { return x.dia === "ter" && x.medico === v.medico && x.hora === v.hora && x.status === "cancelou"; })[0];
+    var c = S.agenda.filter(function (x) { return x.dia === (v.dia || "ter") && x.medico === v.medico && x.hora === v.hora && x.status === "cancelou"; })[0];
     if (c) { c.paciente = "Marcos D."; c.status = "encaixe"; }
     var e = (S.espera || [])[0]; if (e) e.usado = true;
     d.espera = "aceitou"; J.evento("encaixe", "Marcos D. ocupou o horário vago");
