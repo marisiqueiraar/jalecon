@@ -520,17 +520,5 @@ table.conta tr.total td.n{font-size:26px;color:var(--fg)}
 .faq summary{font-size:15px}
 .faq p{margin-top:8px;color:var(--fg-2)}
 .prop-pe{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--fg-3);border-top:1px solid var(--line);padding-top:14px}
-.so-print{display:none}
 @media (max-width:1000px){.prop-hero{grid-template-columns:1fr}.prop-hero h1{font-size:36px}.passos{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.wfs,.kp3,.list.cols2,.hero-m{grid-template-columns:1fr}.passos{grid-template-columns:1fr}.hero-n{font-size:40px}.sec-h h2{font-size:24px}.prop-piloto{padding:18px}.topo-tit{display:none}}
-@media print{
-  body{background:#fff}
-  .topbar,.no-print,.toast{display:none!important}
-  .conteudo{padding:0;max-width:none}
-  .prop{gap:28px}
-  .prop-sec,.card{break-inside:avoid}
-  .so-print{display:grid;gap:10px}
-  .prop-num{box-shadow:none}
-  .faq details{border:0;padding:4px 0}
-  .faq details:not([open]) p{display:block}
-}

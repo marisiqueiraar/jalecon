@@ -171,7 +171,7 @@
     if (rt.nome === "proposta") {
       el.innerHTML = '<button class="brand-top" type="button" data-go="inicio" aria-label="Jalecon, ir para a plataforma">' + ICON.logo + "<span>jalecon</span></button>" +
         '<span class="topo-tit">Proposta para a ' + esc(S.diag.nome || "clínica") + '</span><span class="esp"></span>' +
-        '<button class="btn ghost sm" type="button" data-go="demo/0">Ver funcionando</button><button class="btn ghost sm" type="button" data-act="prop-pdf">Salvar em PDF</button><button class="btn sm" type="button" data-go="inicio">Explorar a plataforma</button>';
+        '<button class="btn ghost sm" type="button" data-go="demo/0">Ver funcionando</button><button class="btn sm" type="button" data-go="inicio">Explorar a plataforma</button>';
       return;
     }
     if (rt.nome === "demo" && g.JW.CENAS) {

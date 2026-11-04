@@ -104,7 +104,7 @@
       /* hero */
       '<section class="prop-hero"><div class="ph-txt"><span class="eyebrow">Proposta comercial · ' + esc(d.nome) + " · " + esc(k.plano.nome) + '</span><h1 tabindex="-1">Mais pacientes certos na agenda, sem arriscar o CRM.</h1>' +
       '<p class="lead">Uma equipe de captação e atendimento operada por agentes de IA e supervisionada por um especialista: a marca de cada médico, o WhatsApp que responde e agenda, a confirmação contra faltas e um painel de consultas por canal. Cada peça é checada pelo Guardião e aprovada pela diretora técnica.</p>' +
-      '<div class="row wrap no-print"><button class="btn" type="button" data-go="demo/0">Ver funcionando (5 min)</button><button class="btn ghost" type="button" data-act="prop-ir-piloto">Quero o piloto</button></div></div>' +
+      '<div class="row wrap"><button class="btn" type="button" data-go="demo/0">Ver funcionando (5 min)</button><button class="btn ghost" type="button" data-act="prop-ir-piloto">Quero o piloto</button></div></div>' +
       '<div class="prop-num" id="p-hero">' + heroNum(k) + "</div></section>" +
 
       /* problema */
@@ -121,13 +121,13 @@
 
       /* entregas */
       '<section class="prop-sec"><div class="sec-h"><span class="eyebrow">O que a clínica recebe</span><h2>Captação e atendimento num fornecedor só.</h2></div><div class="g3">' +
-      ENTREGAS.map(function (e, i) { return '<div class="card entrega"><span class="en">' + (i + 1) + "</span><h3 class=\"t\">" + esc(e[0]) + "</h3><p class=\"small\">" + esc(e[1]) + '</p><button class="link no-print" type="button" data-go="demo/' + idxCena(e[2]) + '">Ver funcionando</button></div>'; }).join("") + "</div></section>" +
+      ENTREGAS.map(function (e, i) { return '<div class="card entrega"><span class="en">' + (i + 1) + "</span><h3 class=\"t\">" + esc(e[0]) + "</h3><p class=\"small\">" + esc(e[1]) + '</p><button class="link" type="button" data-go="demo/' + idxCena(e[2]) + '">Ver funcionando</button></div>'; }).join("") + "</div></section>" +
 
       /* pessoas */
       '<section class="prop-sec"><div class="sec-h"><span class="eyebrow">Para cada pessoa da clínica</span><h2>Todo mundo ganha, e ninguém trabalha mais.</h2></div>' +
-      '<div class="tabs no-print" role="tablist">' + Object.keys(PESSOAS).map(function (k2) { return '<button type="button" role="tab" aria-selected="' + (pr.persona === k2) + '" class="' + (pr.persona === k2 ? "on" : "") + '" data-act="prop-pessoa" data-p="' + k2 + '">' + esc(PESSOAS[k2].rot) + "</button>"; }).join("") + "</div>" +
-      '<div class="card pessoa"><h3 class="t">' + esc(pessoa.t) + '</h3><ul class="list">' + pessoa.b.map(function (t) { return '<li><span style="color:var(--ok)">' + ICON.ok + "</span>" + esc(t) + "</li>"; }).join("") + '</ul><button class="link no-print" type="button" data-go="demo/' + idxCena(pessoa.cena) + '">Ver na demonstração</button></div>' +
-      '<div class="so-print">' + Object.keys(PESSOAS).filter(function (x) { return x !== pr.persona; }).map(function (x) { return '<div class="card"><h3 class="t">' + esc(PESSOAS[x].rot) + ": " + esc(PESSOAS[x].t) + '</h3><ul class="list">' + PESSOAS[x].b.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul></div>"; }).join("") + "</div></section>" +
+      '<div class="tabs" role="tablist">' + Object.keys(PESSOAS).map(function (k2) { return '<button type="button" role="tab" aria-selected="' + (pr.persona === k2) + '" class="' + (pr.persona === k2 ? "on" : "") + '" data-act="prop-pessoa" data-p="' + k2 + '">' + esc(PESSOAS[k2].rot) + "</button>"; }).join("") + "</div>" +
+      '<div class="card pessoa"><h3 class="t">' + esc(pessoa.t) + '</h3><ul class="list">' + pessoa.b.map(function (t) { return '<li><span style="color:var(--ok)">' + ICON.ok + "</span>" + esc(t) + "</li>"; }).join("") + '</ul><button class="link" type="button" data-go="demo/' + idxCena(pessoa.cena) + '">Ver na demonstração</button></div>' +
+      "</section>" +
 
       /* hoje × jalecon */
       '<section class="prop-sec"><div class="sec-h"><span class="eyebrow">Hoje × com a Jalecon</span><h2>A clínica troca três ou quatro fornecedores por um.</h2></div><div class="card"><div class="tb-wrap"><table class="tb"><thead><tr><th></th>' + conc.colunas.map(function (x) { return "<th>" + esc(x) + "</th>"; }).join("") + "</tr></thead><tbody>" +
@@ -174,7 +174,6 @@
   A["change:prop-subst"] = function (t) { estado().substitui = t.checked; atualizar(); J.salvar(); };
   A["prop-pessoa"] = function (b) { estado().persona = b.dataset.p; J.render(); };
   A["prop-ir-piloto"] = function () { var el = document.getElementById("piloto"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); };
-  A["prop-pdf"] = function () { try { window.print(); } catch (e) { J.toast("Use Ctrl+P (ou Cmd+P) para salvar em PDF."); } };
   A["submit:prop-piloto"] = function (f) {
     var d = J.S.diag, k = conta();
     var corpo = "Olá, Jalecon!\n\nQuero conversar sobre o piloto para a " + d.nome + " (" + d.medicos + " médicos, " + d.cidade + ").\n\nNome: " + f.nome.value + "\nCargo: " + f.cargo.value + "\nContato: " + f.contato.value + "\n\nEstimativa da proposta: " + k.cons + " consultas a mais por mês.";
