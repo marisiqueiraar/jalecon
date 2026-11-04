@@ -101,27 +101,43 @@
 
   /* =========================================================== WHATSAPP */
   function ctxAt() { return { diag: J.S.diag, eq: J.eq(), agenda: J.S.agenda }; }
+  function chatAtual() { var S = J.S; if (!S.chat || S.chat.v !== 3) S.chat = AT.novo("comercial"); return S.chat; }
   V.whatsapp = function () {
-    var S = J.S, ch = S.chat || (S.chat = AT.novo("noite")), H = AT.HORAS[ch.hora];
-    var msgs = ch.msgs.length ? ch.msgs.map(function (x) {
-      return '<div class="msg ' + (x.de === "p" ? "me" : "ai") + '">' + (x.de === "a" ? '<div class="de">Agente da clínica <span class="chk">' + (x.checado === "ok" ? "✓ Guardião" : "") + "</span></div>" : "") + esc(x.txt) + "</div>" + (x.guarda ? '<div class="guard">' + ICON.shield + "<span>" + esc(x.guarda) + "</span></div>" : "");
-    }).join("") : '<div class="msg ai"><div class="de">Agente da clínica</div>Olá! Aqui é o atendimento da ' + esc(S.diag.nome) + ". Como posso ajudar?</div>";
-    var chips = "";
-    if (ch.estado === "slots" && ch.slots.length) chips = ch.slots.map(function (s, i) { return '<button type="button" class="chip-btn" data-act="wa-slot" data-i="' + i + '">' + esc(AT.fmtSlot(s)) + "</button>"; }).join("");
-    else (AT.SUGESTOES[ch.estado] || AT.SUGESTOES.inicio).forEach(function (t) { chips += '<button type="button" class="chip-btn" data-act="wa-diz" data-txt="' + esc(t) + '">' + esc(t) + "</button>"; });
-    var fechado = ch.handoff && (ch.tipo === "urgencia" || ch.tipo === "crise");
-    var resumo = AT.resumo(ch, ctxAt());
-    return J.cab("Atendimento · WhatsApp da clínica", "O agente responde em segundos e agenda", "Você é o paciente: escreva o que quiser ou use as sugestões. O agente identifica o médico, informa valor e convênio, oferece horários livres da agenda real da demo e agenda. Não dá diagnóstico, orienta urgência e passa para uma pessoa quando pedem.") +
+    var S = J.S, ch = chatAtual(), H = AT.HORAS[ch.hora], pend = J.T.waPend || 0;
+    var msgs = ch.msgs.length ? ch.msgs.map(function (x, i) {
+      var oc = x.de === "a" && i >= ch.msgs.length - pend ? " oculto seq" : "";
+      return '<div class="msg ' + (x.de === "p" ? "me" : "ai") + oc + '">' + (x.de === "a" ? '<div class="de">Agente da clínica <span class="chk">' + (x.checado === "ok" ? "✓ Guardião" : "") + "</span></div>" : "") + esc(x.txt) + '<span class="msg-h">' + esc(x.hora || "") + "</span></div>" + (x.guarda ? '<div class="guard' + oc + '">' + ICON.shield + "<span>" + esc(x.guarda) + "</span></div>" : "");
+    }).join("") : '<p class="small wa-vazio">Escreva como paciente, ou use uma sugestão abaixo.</p>';
+    msgs += '<div class="msg ai digitando' + (pend ? "" : " oculto") + '" id="wa-dig" aria-label="digitando"><span><i></i><i></i><i></i></span></div>';
+    var fechado = ch.estado === "encerrado";
+    var chips = AT.opcoes(ch, ctxAt()).map(function (o) { return '<button type="button" class="chip-btn" ' + (o.slot != null ? 'data-act="wa-slot" data-i="' + o.slot + '"' : 'data-act="wa-diz" data-txt="' + esc(o.txt) + '"') + ">" + esc(o.rot || o.txt) + "</button>"; }).join("");
+    return J.cab("Atendimento · WhatsApp da clínica", "O agente responde em segundos, uma mensagem por vez", "Você é o paciente: escreva o que quiser ou use as sugestões. O agente confirma o médico, pergunta se é particular ou convênio, tira a dúvida sem dar diagnóstico e só então oferece os horários livres da agenda. Orienta urgência e passa para uma pessoa quando pedem.") +
       '<div class="row wrap"><span class="small">Quando o paciente escreve:</span><div class="seg" role="group" aria-label="Horário da conversa">' + Object.keys(AT.HORAS).map(function (k) { return '<button type="button" class="' + (ch.hora === k ? "on" : "") + '" data-act="wa-hora" data-hora="' + k + '" aria-pressed="' + (ch.hora === k) + '">' + esc(AT.HORAS[k].rot) + "</button>"; }).join("") + '</div><button class="btn ghost sm" type="button" data-act="wa-nova">Nova conversa</button></div>' +
-      '<div class="g-side"><div class="wa"><div class="wa-top"><div><b>' + esc(S.diag.nome) + '</b><br><span class="small">atendimento automático · supervisionado · ' + esc(H.rot) + '</span></div><span class="pill ok">responde em ~4 s</span></div>' +
+      '<div class="g-side"><div class="wa"><div class="wa-top"><div><b>' + esc(S.diag.nome) + '</b><br><span class="small" id="wa-status">' + (pend ? "digitando…" : "online · atendimento automático e supervisionado") + '</span></div><span class="pill ok">você é ' + esc(ch.paciente) + "</span></div>" +
       '<div class="chat" id="wa-chat" aria-live="polite" data-testid="chat">' + msgs + "</div>" +
-      '<div class="baixo">' + (fechado ? '<p class="small">Conversa encaminhada para a equipe. Comece uma nova conversa para testar outro caso.</p>' : '<div class="chips">' + chips + '</div><form class="composer" data-sub="wa"><label class="sr" for="f-wa">Mensagem do paciente</label><input id="f-wa" name="msg" placeholder="Escreva como paciente…" autocomplete="off"><button type="submit">Enviar</button></form>') + "</div></div>" +
-      '<div class="stack"><div class="card"><h2 class="t">Resumo para a recepção</h2><table class="tb"><tbody>' + resumo.map(function (x) { return "<tr><th style=\"width:40%\">" + esc(x[0]) + "</th><td>" + esc(x[1]) + "</td></tr>"; }).join("") + "</tbody></table>" +
-      (ch.agendado ? '<button class="btn sm" type="button" data-go="agenda">Ver na agenda</button>' : "") + '<p class="small">O agente não pede exames nem detalhes de saúde além do motivo da consulta (LGPD).</p></div>' +
-      '<div class="card plano"><h3 class="t">Teste os limites</h3><div class="chips">' + AT.SUGESTOES.teste.map(function (t) { return '<button type="button" class="chip-btn" data-act="wa-diz" data-txt="' + esc(t) + '"' + (fechado ? " disabled" : "") + ">" + esc(t) + "</button>"; }).join("") + '</div><p class="small">Na pesquisa com pacientes: 70% já desistiram de um médico por demora (P2); 85% aceitam assistente virtual, a maioria desde que possa falar com uma pessoa (P4); só 7% procuraram fora do horário comercial (P3).</p></div>' +
+      '<div class="baixo">' + (fechado ? '<p class="small">Conversa passada para a equipe. Comece uma nova conversa para testar outro caso.</p>' : '<div class="chips">' + chips + '</div><form class="composer" data-sub="wa"><label class="sr" for="f-wa">Mensagem do paciente</label><input id="f-wa" name="msg" placeholder="Escreva como ' + esc(ch.paciente.split(" ")[0]) + '…" autocomplete="off"><button type="submit">Enviar</button></form>') + "</div></div>" +
+      '<div class="stack"><div class="card"><h2 class="t">Resumo para a recepção</h2><p class="resumo-rec">' + esc(AT.resumo(ch, ctxAt())) + "</p>" +
+      (ch.agendado ? '<button class="btn sm" type="button" data-go="agenda/' + esc(ch.agendado.dia) + '">Ver na agenda</button>' : "") + '<p class="small">O agente não pede exames nem detalhes de saúde além do motivo da consulta (LGPD).</p></div>' +
+      '<div class="card plano"><h3 class="t">Teste os limites</h3><div class="chips">' + AT.TESTE.map(function (t) { return '<button type="button" class="chip-btn" data-act="wa-diz" data-txt="' + esc(t) + '"' + (fechado ? " disabled" : "") + ">" + esc(t) + "</button>"; }).join("") + '</div><p class="small">Na pesquisa com pacientes: 70% já desistiram de um médico por demora (P2); 85% aceitam assistente virtual, a maioria desde que possa falar com uma pessoa (P4); só 7% procuraram fora do horário comercial (P3).</p></div>' +
       J.sim("Simulação: na versão real, o agente usa IA com as regras da clínica e do CFM, ligado ao WhatsApp Business, e uma pessoa supervisiona.") + "</div></div>";
   };
-  D.whatsapp = function () { var c = document.getElementById("wa-chat"); if (c) c.scrollTop = c.scrollHeight; };
+  D.whatsapp = function () {
+    var c = document.getElementById("wa-chat"); if (c) c.scrollTop = c.scrollHeight;
+    if (!J.T.waPend) return;
+    var tk = (J.T.waTok = (J.T.waTok || 0) + 1), dig = document.getElementById("wa-dig"), oc = Array.prototype.slice.call(document.querySelectorAll("#wa-chat .seq.oculto"));
+    var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    (function passo() {
+      if (tk !== J.T.waTok) return;
+      if (!oc.length) { J.T.waPend = 0; if (dig) dig.classList.add("oculto"); var st = document.getElementById("wa-status"); if (st) st.textContent = "online · atendimento automático e supervisionado"; return; }
+      setTimeout(function () {
+        if (tk !== J.T.waTok) return;
+        oc.shift().classList.remove("oculto");
+        if (oc[0] && oc[0].classList.contains("guard")) oc.shift().classList.remove("oculto");
+        if (c) c.scrollTop = c.scrollHeight;
+        passo();
+      }, RM ? 0 : 900);
+    })();
+  };
   function aposResposta(out) {
     var S = J.S, ch = S.chat;
     if (out.cancelou) { S.agenda = S.agenda.filter(function (c) { return !(c.status === "whatsapp" && c.medico === out.cancelou.medico && c.dia === out.cancelou.dia && c.hora === out.cancelou.hora); }); }
@@ -131,13 +147,15 @@
       J.toast("Consulta gravada na agenda de " + C.titulo(J.medico(ch.agendado.medico)) + ".");
     }
     if (ch.handoff && !ch._logado) { ch._logado = true; J.evento("handoff", "Conversa passada para a equipe"); }
+    J.T.waPend = (out.msgs || []).length;
   }
-  A["submit:wa"] = function (f) { var v = f.msg.value.trim(); if (!v) return; var out = AT.responder(J.S.chat, v, ctxAt()); aposResposta(out); J.render(); var i = document.getElementById("f-wa"); if (i) i.focus(); };
-  A["wa-diz"] = function (b) { var out = AT.responder(J.S.chat, b.dataset.txt, ctxAt()); aposResposta(out); J.render(); };
-  A["wa-slot"] = function (b) { AT.escolherSlot(J.S.chat, +b.dataset.i, ctxAt()); J.render(); var i = document.getElementById("f-wa"); if (i) i.focus(); };
-  A["wa-hora"] = function (b) { var S = J.S; logar(); S.chat = AT.novo(b.dataset.hora); J.render(); };
-  A["wa-nova"] = function () { logar(); J.S.chat = AT.novo(J.S.chat ? J.S.chat.hora : "noite"); J.render(); };
-  function logar() { var ch = J.S.chat; if (ch && ch.msgs.length) J.S.chatLog.push({ hora: ch.hora, agendado: !!ch.agendado, handoff: ch.handoff, tipo: ch.tipo, n: ch.msgs.length }); }
+  function focar() { var i = document.getElementById("f-wa"); if (i) i.focus({ preventScroll: true }); }
+  A["submit:wa"] = function (f) { var v = f.msg.value.trim(); if (!v) return; aposResposta(AT.responder(chatAtual(), v, ctxAt())); J.render(); focar(); };
+  A["wa-diz"] = function (b) { aposResposta(AT.responder(chatAtual(), b.dataset.txt, ctxAt())); J.render(); };
+  A["wa-slot"] = function (b) { aposResposta(AT.escolherSlot(chatAtual(), +b.dataset.i, ctxAt())); J.render(); focar(); };
+  A["wa-hora"] = function (b) { logar(); J.S.chat = AT.novo(b.dataset.hora); J.T.waPend = 0; J.render(); };
+  A["wa-nova"] = function () { logar(); J.S.chat = AT.novo(J.S.chat ? J.S.chat.hora : "comercial"); J.T.waPend = 0; J.render(); };
+  function logar() { var ch = J.S.chat; if (ch && ch.msgs.length) J.S.chatLog.push({ hora: ch.hora, agendado: !!ch.agendado, handoff: ch.handoff, n: ch.msgs.length }); }
 
   /* =========================================================== AGENDA */
   var ROT = { confirmada: "confirmada", aguardando: "aguardando confirmação", nova: "nova", whatsapp: "nova · pelo WhatsApp", cancelou: "cancelou", encaixe: "encaixe da lista de espera", faltou: "faltou" };

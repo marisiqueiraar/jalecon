@@ -569,3 +569,8 @@ table.conta tr.total td.n{font-size:26px;color:var(--fg)}
 @media (max-width:560px){.forn{grid-template-columns:1fr}}
 .resumo-rec{font-size:15.5px;line-height:1.5;background:var(--app);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .ph-msg{font-size:13.5px}
+.msg .msg-h{display:block;text-align:right;font-size:10.5px;opacity:.6;margin-top:2px}
+.msg.digitando span{display:flex;gap:4px;padding:3px 2px}
+.msg.digitando i{width:7px;height:7px;border-radius:50%;background:var(--fg-3);animation:dig 1s infinite}
+.msg.digitando i:nth-child(2){animation-delay:.15s}.msg.digitando i:nth-child(3){animation-delay:.3s}
+.wa-vazio{text-align:center;padding:24px 0}
