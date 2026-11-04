@@ -22,6 +22,7 @@
     chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
     ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
     warn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>',
+    brush: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>',
     play: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor"/></svg>',
     menu: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     logo: '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="#2A3058"/><polygon points="24,36 37,36 50,64 44,76" fill="#F7F8FA"/><polygon points="44,76 50,64 67,24 80,24" fill="#E8A27C"/></svg>'
@@ -131,7 +132,7 @@
   /* ---------- menu ---------- */
   var MENU = [
     { grupo: "", itens: [["demo", "Ver funcionando", ICON.play], ["proposta", "Proposta para a clínica", ICON.coin], ["inicio", "Visão geral", ICON.home]] },
-    { grupo: "Ciclo Jalecon", itens: [["anamnese", "Anamnese e raio-x", 1], ["estudio", "Estúdio", 2], ["revisao-ia", "IA revisa IA", 3], ["revisao", "Médico revisa", 4], ["aprovacao", "Guardião e aprovação", 5], ["pulso", "Pulso: painel", 6]] },
+    { grupo: "Ciclo Jalecon", itens: [["anamnese", "Anamnese e raio-x", 1], ["estudio", "Estúdio", 2], ["editor", "Editor de artes", ICON.brush], ["revisao-ia", "IA revisa IA", 3], ["revisao", "Médico revisa", 4], ["aprovacao", "Guardião e aprovação", 5], ["pulso", "Pulso: painel", 6]] },
     { grupo: "Atendimento", itens: [["whatsapp", "WhatsApp que agenda", ICON.chat], ["agenda", "Agenda e faltas", ICON.cal]] },
     { grupo: "Guardião", itens: [["guardiao-teste", "Testar o Guardião", ICON.test], ["biblioteca", "Biblioteca normativa", ICON.book], ["registro", "Trilha de auditoria", ICON.list]] },
     { grupo: "Clínica", itens: [["medicos", "Médicos e identidades", ICON.team], ["planos", "Planos", ICON.tag]] },

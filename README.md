@@ -36,18 +36,19 @@ Plataforma web (não app). A porta de entrada é a **demonstração guiada** ("V
 
 | Bloco | Telas | De onde vem |
 |---|---|---|
-| Ciclo Jalecon | 1 Anamnese e raio-x · 2 Estúdio (marca, conteúdo do mês, site, Google, campanha) · 3 IA revisa IA · 4 Médico revisa (conversa com o Redator, preferências aprendidas) · 5 Guardião e aprovação do diretor técnico · 6 Pulso (painel por canal e por médico) | Slides "A solução" e "Como funciona" |
+| Ciclo Jalecon | 1 Anamnese e raio-x · 2 Estúdio (marca, conteúdo do mês, **editor de artes**, site, Google, campanha) · 3 IA revisa IA · 4 Médico revisa (conversa com o Redator, preferências aprendidas) · 5 Guardião e aprovação do diretor técnico · 6 Pulso (painel por canal e por médico) | Slides "A solução" e "Como funciona" |
 | Atendimento | WhatsApp em que você escreve como paciente (agenda, preço, convênio, recusa de diagnóstico, urgência, passagem para pessoa) · Agenda com confirmação e lista de espera | Slides "Proposta de valor" e "MVP ao vivo"; Ficha 3, seção 4 |
 | Guardião | Teste ao vivo · Biblioteca normativa (39 regras, 12 em validação) · Trilha de auditoria exportável | Slide "Guardião" |
 | Bastidores · banca | Validação (placar calculado das respostas da pesquisa, dito × feito, resumo para o slide) · Viabilidade (conta de padeiro editável, concorrência) · Piloto e pedido | Fichas 3 e 4; slides de viabilidade, piloto, validação e pedido |
 
+- **Editor de artes:** um editor no estilo Canva dentro do Estúdio: 5 modelos (foto inteira, foto e faixa, moldura, só texto, dica numerada), 3 formatos (post, carrossel, stories), foto enviada pelo médico (arrastar para enquadrar e zoom; a foto não sai do navegador), cores e fontes da identidade, textos com o Guardião ao vivo, assinatura do médico e da clínica travadas, origem da foto checada (paciente identificável bloqueia) e envio para a diretora técnica com a arte na fila. Baixa em PNG.
 - **Ver como:** gestor, diretor técnico ou médico. Só o diretor técnico aprova; só o médico autor revisa a própria peça.
 - **Modo banca:** `jalecon.vercel.app/?banca=1` abre direto na demonstração guiada (roteiro em `banca/Roteiro_MVP_ao_vivo.md`).
 - **Modo entrevista:** `?entrevista=1` ou a chave no menu esconde os preços.
 - **Premissas do raio-x:** editáveis e com a fonte de cada uma. O padrão usa a pesquisa com pacientes (7% dos contatos fora do horário, P3); a hipótese do pitch (35%) fica a um clique.
 - **Dados da pesquisa:** `site/pesquisa-dados.js` guarda só campos fechados e anonimizados da planilha "02 · Entrevistas v1 · placar das hipóteses" (coleta até 03/11). Para atualizar, troque os registros e o placar se recalcula.
 
-Arquivos: `web-jornada.js` (demonstração guiada), `web-proposta.js` (proposta comercial), `web-base.js` (núcleo, menu, papéis, banca), `web-ciclo.js`, `web-operacao.js`, `web-banca.js` (telas), `web.css`; motores sem IA paga em `guardiao.js`, `conteudo.js` (Estúdio), `revisao.js` (conversa com o Redator), `critica.js` (IA revisa IA), `atendimento.js` (WhatsApp), `clinica-dados.js`, `negocio.js` e `pesquisa-dados.js`.
+Arquivos: `web-jornada.js` (demonstração guiada), `web-proposta.js` (proposta comercial), `web-editor.js` (editor de artes), `web-base.js` (núcleo, menu, papéis, banca), `web-ciclo.js`, `web-operacao.js`, `web-banca.js` (telas), `web.css`; motores sem IA paga em `guardiao.js`, `conteudo.js` (Estúdio), `revisao.js` (conversa com o Redator), `critica.js` (IA revisa IA), `atendimento.js` (WhatsApp), `clinica-dados.js`, `negocio.js` e `pesquisa-dados.js`.
 
 ## Rodar localmente
 

@@ -194,7 +194,7 @@
       '<div class="row wrap"><button class="btn ghost sm" type="button" data-act="gerar" data-m="' + m.id + '">Gerar de novo</button></div></div>' +
       '<div class="stack"><div class="card">' + arte(p, m, id) + '<div class="row between"><b>Texto</b>' + J.resumoG(res) + '</div><div class="texto">' + G.destacar(res) + "</div>" +
       '<h3 class="t">Quem fez o quê</h3><ol class="timeline">' + p.timeline.map(function (t) { return '<li class="' + (t.tipo || "") + '"><span><span class="ag ag-' + esc(t.ag) + '" style="width:22px;height:22px;font-size:10px;border-radius:6px;display:inline-grid;margin-right:6px">' + esc(t.ag.charAt(0)) + "</span><b>" + esc(t.ag) + "</b> " + esc(t.txt) + "</span></li>"; }).join("") + "</ol>" +
-      '<div class="row wrap"><button class="btn sm" type="button" data-go="revisao-ia/' + esc(p.key) + '">IA revisa IA</button><button class="btn ghost sm" type="button" data-go="revisao/' + esc(p.key) + '">Médico revisa</button></div></div></div></div>';
+      '<div class="row wrap"><button class="btn sm" type="button" data-go="editor/' + m.id + "/" + esc(p.key) + '">Editar a arte</button><button class="btn ghost sm" type="button" data-go="revisao-ia/' + esc(p.key) + '">IA revisa IA</button><button class="btn ghost sm" type="button" data-go="revisao/' + esc(p.key) + '">Médico revisa</button></div></div></div></div>';
   }
   function siteTexto(m, d) {
     var e = CT.ESP[m.esp], per = CT.perfil(d);
@@ -227,7 +227,7 @@
   }
   V.estudio = function (arg) {
     var S = J.S, ms = J.eq(), m = J.medico(arg) || (S.papel === "medico" ? J.medico(S.medicoPapel) : null) || ms[0], e = est(m.id);
-    var abas = [["identidade", "Marca"], ["calendario", "Conteúdo do mês"], ["site", "Site"], ["google", "Google"], ["campanha", "Campanha"]];
+    var abas = [["identidade", "Marca"], ["calendario", "Conteúdo do mês"], ["editor", "Editor de artes"], ["site", "Site"], ["google", "Google"], ["campanha", "Campanha"]];
     var corpo = { identidade: abaIdentidade, calendario: abaCalendario, site: abaSite, google: abaGoogle, campanha: abaCampanha }[e.aba] || abaIdentidade;
     return J.cab("Passo 2 do ciclo · Estúdio", "Agentes criam marca, site e conteúdo de cada médico", "Estrategista, Redator e Designer trabalham com a especialidade e o tom de cada médico. O Guardião checa tudo antes de seguir para a revisão.") +
       '<div class="chips" role="group" aria-label="Médico">' + ms.map(function (x) { var id = idt(x); return '<button type="button" class="chip-btn' + (x.id === m.id ? " on" : "") + '" data-go="estudio/' + x.id + '" aria-pressed="' + (x.id === m.id) + '"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:' + id.cores[1] + ';margin-right:6px"></span>' + esc(C.titulo(x)) + " · " + esc(id.familia) + "</button>"; }).join("") + "</div>" +
@@ -235,7 +235,7 @@
       '<div class="tabs" role="tablist">' + abas.map(function (a) { return '<button type="button" role="tab" aria-selected="' + (e.aba === a[0]) + '" class="' + (e.aba === a[0] ? "on" : "") + '" data-act="aba-estudio" data-m="' + m.id + '" data-aba="' + a[0] + '">' + a[1] + "</button>"; }).join("") + "</div>" + corpo(m, e);
   };
   function cap(s) { return J.cap(s); }
-  A["aba-estudio"] = function (b) { est(b.dataset.m).aba = b.dataset.aba; J.render(); };
+  A["aba-estudio"] = function (b) { if (b.dataset.aba === "editor") { J.ir("editor/" + b.dataset.m); return; } est(b.dataset.m).aba = b.dataset.aba; J.render(); };
   A.tom = function (b) { var r = J.rotaAtual(), m = J.medico(r.arg) || J.eq()[0]; est(m.id).tom = b.dataset.tom; J.render(); J.toast("Tom ajustado. O próximo mês sai nesse tom."); };
   A.variacao = function () { var r = J.rotaAtual(), m = J.medico(r.arg) || J.eq()[0], e = est(m.id); e.variacao = (e.variacao + 1) % 3; J.render(); };
   A.gerar = function (b) { var m = J.medico(b.dataset.m); var e = est(m.id); gerar(m, e.prefs); e.aba = "calendario"; J.render(); J.toast("Mês gerado: " + e.mes.pecas.length + " peças, todas checadas pelo Guardião."); };
@@ -384,6 +384,7 @@
       J.cab(p.formato + " · " + J.autorNome(p) + " · " + (p.origem || ""), p.titulo, "") +
       J.exigePapel("diretor", "Só o diretor técnico aprova ou devolve esta peça.") +
       '<div class="g-side"><div class="card"><div class="row between"><h2 class="t">Texto</h2><span id="resumo-g">' + J.resumoG(res) + "</span></div>" +
+      (p.arte ? '<img class="arte-fila" src="' + p.arte + '" alt="Arte enviada pelo editor">' + (p.fotoOrigem ? '<p class="small">Foto: ' + esc(p.fotoOrigem) + "</p>" : "") : "") +
       '<div class="texto" id="texto-marcado" aria-label="Texto com os trechos marcados pelo Guardião">' + G.destacar(res) + "</div>" +
       (aberto ? '<label class="lbl" for="f-texto">Editar o texto</label><textarea class="ta" id="f-texto" data-in="peca-texto" data-id="' + p.id + '">' + esc(p.texto) + "</textarea>" : "") +
       '<p class="disclaimer">Checagem automática. Não substitui parecer jurídico; a responsabilidade ética continua com o médico e com o diretor técnico.</p>' +

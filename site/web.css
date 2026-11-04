@@ -522,3 +522,36 @@ table.conta tr.total td.n{font-size:26px;color:var(--fg)}
 .prop-pe{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--fg-3);border-top:1px solid var(--line);padding-top:14px}
 @media (max-width:1000px){.prop-hero{grid-template-columns:1fr}.prop-hero h1{font-size:36px}.passos{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.wfs,.kp3,.list.cols2,.hero-m{grid-template-columns:1fr}.passos{grid-template-columns:1fr}.hero-n{font-size:40px}.sec-h h2{font-size:24px}.prop-piloto{padding:18px}.topo-tit{display:none}}
+
+/* ---------- editor de artes ---------- */
+.editor{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.ed-palco{display:grid;gap:14px;align-content:start;position:sticky;top:72px}
+.ed-canvas{position:relative;justify-self:center;width:100%;max-width:560px;background:var(--surface-2);border-radius:14px;padding:14px;display:grid;place-items:center}
+.ed-canvas.Stories{max-width:360px}.ed-canvas.Carrossel{max-width:480px}
+.ed-canvas canvas{width:100%;height:auto;border-radius:6px;box-shadow:0 12px 30px rgba(14,16,32,.18);display:block;max-width:100%}
+.ed-canvas.arrasta canvas{cursor:grab;touch-action:none}
+.ed-canvas.arrasta canvas:active{cursor:grabbing}
+.ed-dica{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);background:rgba(17,24,39,.75);color:#fff;font-size:12px;border-radius:999px;padding:4px 10px;pointer-events:none}
+.ed-ctrl{display:grid;gap:12px}
+.ed-ctrl .card{gap:10px}
+.wrap-seg{flex-wrap:wrap}
+.wrap-seg button{flex:1 1 auto}
+.ed-layouts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.ed-lay{display:grid;gap:4px;justify-items:center;background:none;border:1px solid var(--line);border-radius:10px;padding:6px 4px;font-size:11px;color:var(--fg-2)}
+.ed-lay.on{border-color:var(--apricot);box-shadow:inset 0 0 0 1px var(--apricot);color:var(--fg);font-weight:700}
+.ed-lay i{width:40px;height:40px;border-radius:5px;background:var(--surface-2);position:relative;overflow:hidden;display:block}
+.lay-foto i{background:linear-gradient(180deg,var(--sage),var(--fg-2))}
+.lay-faixa i{background:linear-gradient(180deg,var(--sage) 0 56%,var(--ink) 56%)}
+.lay-moldura i{background:var(--ink)}.lay-moldura i::after{content:"";position:absolute;inset:6px 6px 16px;border-radius:4px;background:var(--sage)}
+.lay-texto i{background:var(--ink)}.lay-texto i::after{content:"";position:absolute;left:6px;top:12px;width:14px;height:3px;background:var(--apricot)}
+.lay-dica i{background:var(--ink)}.lay-dica i::after{content:"3";position:absolute;left:6px;top:2px;color:var(--apricot);font-family:var(--display);font-weight:600;font-size:22px}
+.ed-drop{display:grid;gap:2px;border:2px dashed var(--line);border-radius:12px;padding:14px;text-align:center;cursor:pointer;background:var(--app)}
+.ed-drop.on,.ed-drop:hover{border-color:var(--apricot)}
+.ed-cores{display:flex;gap:8px}
+.ed-cor{width:40px;height:40px;border-radius:10px;border:2px solid var(--line)}
+.ed-cor.on{outline:3px solid var(--apricot);outline-offset:2px}
+.ed-sig{display:flex;gap:8px;align-items:flex-start;font-size:13px;background:var(--ok-bg);color:var(--fg);border-radius:10px;padding:8px 10px}
+.ed-sig svg{width:18px;height:18px;flex:0 0 18px;color:var(--ok)}
+.arte-fila{width:100%;max-width:320px;border-radius:10px;border:1px solid var(--line)}
+@media (max-width:1000px){.editor{grid-template-columns:1fr}.ed-palco{position:static}}
+@media (max-width:480px){.ed-layouts{grid-template-columns:repeat(3,minmax(0,1fr))}}

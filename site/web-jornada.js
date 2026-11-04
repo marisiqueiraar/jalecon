@@ -167,7 +167,7 @@
     var ags = [["Estrategista", "escolheu os temas pela especialidade: joelho, coluna, ombro"], ["Redator", "escreveu 8 posts no tom próximo e leve do Dr. Rafael"], ["Designer", "aplicou a identidade " + id.familia + ": paleta e tipografia próprias"], ["Clareza", "e Ciência, os revisores, leram tudo antes do médico"], ["Guardião", "checou as " + G.regras.length + " regras e marcou o que não pode ir ao ar"]];
     return '<div class="card"><div class="row">' + '<span class="mono" style="background:' + id.cores[0] + ";color:" + id.cores[3] + ";font-family:'" + esc(id.fontes.titulo) + "',serif\">" + esc(id.iniciais) + "</span><div><b>" + esc(C.titulo(m)) + '</b><br><span class="small">Ortopedia · identidade ' + esc(id.familia) + '</span></div><div class="swatches" style="margin-left:auto;width:140px">' + id.cores.map(function (c) { return '<div style="background:' + c + '"></div>'; }).join("") + "</div></div>" +
       '<ol class="agentes">' + ags.map(function (a) { return '<li class="seq' + o + '"><span class="ag ag-' + a[0] + '">' + a[0].charAt(0) + "</span><span><b>" + a[0] + "</b> " + esc(a[1]) + "</span></li>"; }).join("") + "</ol>" +
-      '<p class="small">Cada médico da clínica recebe a própria marca. <button class="link" type="button" data-go="medicos">Ver as 6 identidades</button></p></div>';
+      '<p class="small">Cada médico da clínica recebe a própria marca. <button class="link" type="button" data-go="medicos">Ver as 6 identidades</button> · <button class="link" type="button" data-go="editor/' + m.id + '">Abrir o editor de artes</button></p></div>';
   }
   function painelGuardiao() {
     var d = dm(), f = p1(), res = G.analisar(f.texto, J.opcoesPeca(f)), nb = bloqueadas(), total = pecasMes().length + 1;
