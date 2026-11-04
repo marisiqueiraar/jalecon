@@ -4,6 +4,12 @@
 
 A fala completa de cada slide está nas notas do apresentador. Aqui ficam a ordem, o tempo e os números que todos precisam saber de cor.
 
+## A frase que amarra o pitch
+
+> "Hoje a clínica tem uma agência que não fala com a recepção, um robô que não sabe o que o post prometeu e uma agenda que ninguém liga ao anúncio. A Jalecon junta tudo e mostra qual post, de qual médico, virou consulta."
+
+A grande questão do negócio é se a clínica troca três ou quatro fornecedores por um só: dela dependem o custo evitado da conta de padeiro e a vantagem dos dados. O WhatsApp é a porta de entrada (é onde a dor está mais provada e o retorno aparece primeiro), não o produto. Na pesquisa com gestores, a pergunta "substitui ou soma" teve 1 "não sei" e 1 "soma": as próximas entrevistas devem aprofundar o porquê, e o piloto passa a medir quantas clínicas cancelaram ou reduziram outro fornecedor (meta: 2 de 3).
+
 ## Ordem e tempo (cerca de 7:35)
 
 A ordem segue o que a banca pede (Roteiro do Encontro 5: problema e cliente → proposta de valor → modelo e viabilidade → validação → pedido) e usa só o que está nas quatro fichas. A lógica é a da disciplina, Lean Startup: o piloto é o menor experimento que pode derrubar a ideia.

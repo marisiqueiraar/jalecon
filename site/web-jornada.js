@@ -11,15 +11,15 @@
   var anim = { tok: 0 };
 
   var CENAS = [
-    { id: "problema", curto: "O problema", tempo: "0:00", titulo: "Hoje, a paciente escreve e ninguém responde", fala: "Ana quer marcar com um ortopedista. Escreve para a clínica na hora do almoço e fica sem resposta." },
+    { id: "problema", curto: "O problema", tempo: "0:00", titulo: "Hoje, cada parte da captação está num fornecedor diferente", fala: "A agência faz os posts, a recepção cuida do WhatsApp e a agenda é outro sistema. Ninguém conversa com ninguém, e a Ana, que escreveu na hora do almoço, fica sem resposta." },
     { id: "estudio", curto: "Estúdio", tempo: "0:30", titulo: "A Jalecon cria o mês de cada médico", fala: "Os agentes montam a marca e os posts do Dr. Rafael, no tom dele. Nada vai ao ar ainda." },
     { id: "medico", curto: "Médico revisa", tempo: "0:50", titulo: "O médico ajusta em dois minutos, conversando", fala: "O Dr. Rafael recebe o mês no celular e pede o que quer mudar, do jeito dele. Cada pedido vira preferência: no mês seguinte, o texto já sai assim." },
     { id: "guardiao", curto: "Guardião", tempo: "1:10", titulo: "O Guardião barra o que fere o CFM", fala: "Um post promete curar a dor de vez. O Guardião bloqueia, explica a regra e sugere a troca. Só a diretora técnica aprova." },
     { id: "teste", curto: "Sua vez", tempo: "2:00", titulo: "Teste o Guardião com qualquer frase", fala: "Peça uma frase de anúncio a alguém da banca e digite. O resultado aparece enquanto você escreve." },
-    { id: "google", curto: "Google", tempo: "2:40", titulo: "A paciente encontra o médico no Google", fala: "Ana pesquisa no celular. Acha o perfil do Dr. Rafael, com nome, CRM e RQE, e toca em agendar." },
+    { id: "google", curto: "Google", tempo: "2:40", titulo: "Ana vê o post e procura o médico no Google", fala: "Ana viu o post do Dr. Rafael sobre dor no joelho. Pesquisa o nome dele, acha o perfil com nome, CRM e RQE e toca em agendar." },
     { id: "whatsapp", curto: "WhatsApp", tempo: "3:00", titulo: "O agente responde em segundos e agenda", fala: "Ana escreve como escreveria para qualquer clínica. O agente não dá diagnóstico, informa o valor e marca na agenda do médico." },
     { id: "vespera", curto: "Véspera", tempo: "3:50", titulo: "Na véspera, a confirmação evita a falta", fala: "Cada paciente recebe o lembrete. Quem não pode ir libera o horário, e a lista de espera ocupa a vaga." },
-    { id: "pulso", curto: "Resultado", tempo: "4:30", titulo: "O gestor vê o que funcionou", fala: "Contatos e consultas por canal e por médico, e o resumo da semana no WhatsApp do gestor." }
+    { id: "pulso", curto: "Do post à consulta", tempo: "4:30", titulo: "Do post à consulta, num lugar só", fala: "Como a Jalecon cuida de tudo, o gestor vê qual post, de qual médico, virou paciente e quanto rendeu. Nenhuma agência enxerga a agenda, e nenhum robô sabe qual post trouxe o paciente." }
   ];
   J.CENAS = CENAS;
   function idx(id) { for (var i = 0; i < CENAS.length; i++) if (CENAS[i].id === id) return i; return 0; }
@@ -104,7 +104,7 @@
   }
   function veredito(res) { return res.liberado ? "Liberado: pode ir para a diretora técnica" : "Bloqueado: " + res.hits.filter(function (h) { return h.gravidade === "bloqueia"; }).map(function (h) { return h.regra.rotulo; }).join(", "); }
   function telaGoogle(vis) {
-    var m = rafa(), d = J.dm(m), cp = CT.campanha(d, "clinica"), q = "ortopedista joelho são paulo";
+    var m = rafa(), d = J.dm(m), cp = CT.campanha(d, "clinica"), q = "dr rafael lima ortopedista";
     var corpo = '<div class="ph-g"><div class="ph-g-busca"><span id="ph-q" data-q="' + esc(q) + '">' + (vis ? esc(q) : "") + '</span><i class="cursor"></i></div><div class="ph-g-res seq' + (vis ? "" : " oculto") + '">' +
       '<div class="ph-ad"><small>Patrocinado</small><b>' + esc(cp.titulo) + "</b><span>" + esc(cp.descricao) + "</span></div>" +
       '<div class="ph-gmb"><b>' + esc(C.titulo(m)) + " · Ortopedista</b><span class=\"ph-est\">4,8 ★★★★★ (12)</span><span>Ortopedista em " + esc(J.S.diag.cidade) + " · " + esc(J.S.diag.nome) + '</span><span class="ph-aberto">Aberto · fecha às 19h</span>' +
@@ -147,8 +147,8 @@
   function telaPulso() {
     var P = C.painel(J.S.diag, J.eq(), J.S.prem), s4 = P.semanas[3], top = P.canais.slice().sort(function (a, b) { return b.agendados - a.agendados; }).slice(0, 3);
     var faltaPct = Math.round(P.r.jalecon.faltaPct * 100);
-    var txt = "Resumo da semana da " + J.S.diag.nome + ":\n" + s4.contatos + " contatos novos, " + s4.consultas + " consultas.\nCanais que mais agendaram: " + top.map(function (c) { return c.nome + " (" + c.agendados + " no mês)"; }).join(", ") + ".\nFaltas: " + faltaPct + "% (eram " + J.S.diag.faltas + "%).\n" + aprovadasN() + " peças aprovadas pela diretora técnica, todas checadas pelo Guardião.";
-    var msgs = '<div class="ph-dia">Sexta, 18:00</div>' + '<div class="ph-msg ele"><span style="white-space:pre-line">' + esc(txt) + '</span><small>18:00</small></div>' + bolha("eu", "Ótimo! Manda o detalhe por médico?", "18:06") + bolha("ele", "Está no painel da Jalecon, na aba Pulso, com contatos e consultas de cada médico.", "18:06");
+    var txt = "Resumo da semana da " + J.S.diag.nome + ":\n" + s4.contatos + " contatos novos, " + s4.consultas + " consultas.\nCanais que mais agendaram: " + top.map(function (c) { return c.nome + " (" + c.agendados + " no mês)"; }).join(", ") + ".\nFaltas: " + faltaPct + "% (eram " + J.S.diag.faltas + "%).\n" + aprovadasN() + " peças aprovadas pela diretora técnica, todas checadas pelo Guardião." + (J.S.demo && J.S.demo.chat && J.S.demo.chat.agendado ? "\nDestaque: a consulta da Ana veio do post do dia 12 do Dr. Rafael, passou pelo Google e foi marcada no WhatsApp em segundos." : "");
+    var msgs = '<div class="ph-dia">Sexta, 18:00</div>' + '<div class="ph-msg ele"><span style="white-space:pre-line">' + esc(txt) + '</span><small>18:00</small></div>' + bolha("eu", "Ótimo! Quais posts mais trouxeram paciente?", "18:06") + bolha("ele", "Está no painel da Jalecon, na aba Pulso: consultas por post, por canal e por médico.", "18:06");
     return phone("18:06", "", wa("Jalecon · resumo da clínica", "para o gestor da " + J.S.diag.nome, msgs, "", "#2A3058"));
   }
   function aprovadasN() { return (J.S.registro || []).filter(function (x) { return x.tipo === "ok"; }).reduce(function (s, x) { return s + (x.n || 1); }, 0); }
@@ -160,7 +160,12 @@
       '<p class="big-n"><b>' + fmt(r.perdidos) + "</b> contatos por mês se perdem antes da consulta</p>" +
       '<div class="mini-k"><span><b>' + fmt(r.contatos) + "</b>contatos novos por mês</span><span><b>" + esc(C.rotulo(C.RESPOSTA, d.resposta)) + "</b>para a primeira resposta</span><span><b>" + d.faltas + "%</b>de faltas</span></div>" +
       '<p class="small">Na nossa pesquisa com pacientes, 70% já desistiram de um médico porque demoraram a responder.</p>' +
-      '<button class="link" type="button" data-go="raiox">Ver o raio-x completo</button></div>';
+      '<button class="link" type="button" data-go="raiox">Ver o raio-x completo</button></div>' + fornecedores();
+  }
+  function fornecedores() {
+    var d = J.S.diag;
+    var l = [["Agência", C.brl(+d.gastoAgencia || 0) + "/mês", "Faz os posts. Não vê o WhatsApp nem a agenda."], ["Anúncios", C.brl(+d.gastoAnuncios || 0) + "/mês", "Trazem cliques. Ninguém sabe quais viram consulta."], ["Atendimento", C.brl(+d.gastoOutros || 0) + "/mês", "Responde quando dá. Não sabe o que o post prometeu."], ["Agenda", "outro sistema", "Marca a consulta. Não sabe de onde veio o paciente."]];
+    return '<div class="card"><span class="eyebrow">Hoje: quatro fornecedores que não conversam</span><div class="forn">' + l.map(function (x) { return '<div><b>' + esc(x[0]) + '</b><span class="num">' + esc(x[1]) + '</span><small>' + esc(x[2]) + "</small></div>"; }).join("") + '</div><p class="small">Com a Jalecon, os quatro viram um só, e a clínica passa a saber qual post virou consulta.</p></div>';
   }
   function painelEstudio(vis) {
     var m = rafa(), id = J.idt(m), o = vis ? "" : " oculto";
@@ -235,18 +240,34 @@
     }
     return html + '<p class="small">Na pesquisa, todos os pacientes que faltaram (8 de 8) disseram que esqueceram ou que era difícil desmarcar.</p></div>';
   }
-  function painelPulso() {
-    var S = J.S, P = C.painel(S.diag, J.eq(), S.prem), r = P.r, maxC = Math.max.apply(null, P.canais.map(function (c) { return c.agendados; }));
-    var ev = [];
-    if (S.demo && S.demo.aprovado) ev.push(aprovadasN() + " peças aprovadas e publicadas, com registro");
-    if (S.agenda.some(function (c) { return c.demo === "ana" && c.status !== "cancelou"; }) || (S.demo && S.demo.chat && S.demo.chat.agendado)) ev.push("Ana achou o Dr. Rafael no Google e marcou pelo WhatsApp em segundos");
-    if (S.demo && S.demo.lembrete) ev.push("Lembretes de terça enviados e respondidos");
-    if (S.demo && S.demo.espera === "aceitou") ev.push("1 falta evitada pela lista de espera");
-    return (ev.length ? '<div class="card live"><span class="eyebrow">Nesta demonstração</span><ul class="list">' + ev.map(function (t) { return '<li><span style="color:var(--ok)">' + ICON.ok + "</span>" + esc(t) + "</li>"; }).join("") + "</ul></div>" : "") +
-      '<div class="card"><span class="eyebrow">Mês 3 do piloto (simulado)</span><div class="mini-k"><span><b>+' + fmt(r.consultasAMais) + "</b>consultas a mais por mês (meta: 11)</span><span><b>" + fmt(r.jalecon.compareceram) + "</b>pacientes novos atendidos</span><span><b>" + J.pct(r.jalecon.faltaPct) + "</b>de faltas (eram " + S.diag.faltas + "%)</span></div>" +
-      '<h3 class="t">Consultas por canal</h3><div class="stack">' + P.canais.map(function (c) { return '<div><div class="row between small"><span>' + esc(c.nome) + '</span><b class="num">' + c.agendados + '</b></div><div class="bar ap"><span style="width:' + (c.agendados / maxC * 100) + '%"></span></div></div>'; }).join("") + "</div>" +
-      '<div class="row wrap"><button class="btn" type="button" data-go="pulso">Abrir o painel completo</button><button class="btn ghost" type="button" data-go="inicio">Explorar a plataforma</button></div></div>';
+  function jornadaAna() {
+    var S = J.S, d = S.demo || {}, f = p1(), ag = S.agenda.filter(function (c) { return c.demo === "ana"; })[0], ch = d.chat || {};
+    var titulo = f ? f.texto.split(/[.!\n]/)[0] : "Dor no joelho";
+    var marcou = !!(ag || ch.agendado), slot = ag || ch.agendado;
+    var ticket = +S.diag.ticket || 450;
+    var passos = [
+      [d.aprovado, "12/11 · Post publicado", "“" + titulo + "”, do Dr. Rafael, aprovado pela diretora técnica com registro"],
+      [d.aprovado, "Ana vê o post", "No Instagram do Dr. Rafael. Ela conta ao agente como conheceu o médico, e a resposta fica ligada ao post."],
+      [marcou, "Pesquisa no Google", "Acha o perfil do Dr. Rafael e toca em Agendar pelo WhatsApp"],
+      [marcou, "WhatsApp, 12:41", "Resposta em cerca de 4 segundos. Consulta marcada" + (slot ? " para " + AT.fmtSlot(slot) : "")],
+      [!!d.lembrete, "Véspera", d.lembrete === "cancelou" ? "Ana desmarcou e o horário foi para a lista de espera" : "Ana confirmou pelo lembrete"],
+      [marcou && d.lembrete !== "cancelou", "Consulta", C.brl(ticket) + " atribuídos ao post do dia 12 e ao Dr. Rafael"]
+    ];
+    return '<div class="card live"><span class="eyebrow">A jornada da Ana, no painel</span><ol class="jornada">' + passos.map(function (p) { return '<li class="' + (p[0] ? "ok" : "pend") + '"><b>' + esc(p[1]) + "</b><span>" + esc(p[2]) + "</span></li>"; }).join("") + "</ol>" +
+      '<p class="small">' + (marcou ? "Uma agência não vê a agenda, e um robô de WhatsApp não sabe qual post trouxe a paciente. Juntos na Jalecon, viram uma linha só." : "Faça as cenas anteriores (Guardião e WhatsApp) para a jornada se completar.") + "</p></div>";
   }
+  function postsQueRendem() {
+    var m = rafa(), id = J.idt(m), f = p1(), ticket = +J.S.diag.ticket || 450;
+    var lista = [f].concat(pecasMes()).filter(Boolean).slice(0, 6).map(function (p, i) {
+      var n = [9, 6, 4, 3, 2, 1][i] + (i === 0 && J.S.demo && J.S.demo.chat && J.S.demo.chat.agendado ? 1 : 0);
+      return { tit: p.texto.split(/[.!\n]/)[0], n: n };
+    }).sort(function (a, b) { return b.n - a.n; });
+    var max = lista[0] ? lista[0].n : 1;
+    return '<div class="card"><span class="eyebrow">Posts do Dr. Rafael que mais viraram consulta · mês 3 do piloto (simulado)</span><div class="stack">' + lista.map(function (x) { return '<div><div class="row between small"><span>' + esc(x.tit.length > 58 ? x.tit.slice(0, 56) + "…" : x.tit) + '</span><b class="num">' + x.n + " · " + C.brl(x.n * ticket) + '</b></div><div class="bar ap"><span style="width:' + (x.n / max * 100) + '%"></span></div></div>'; }).join("") + "</div>" +
+      '<p class="small">O Estrategista usa isso no mês seguinte: mais temas que viram consulta, menos temas que só dão curtida.</p>' +
+      '<div class="row wrap"><button class="btn" type="button" data-go="proposta">Ver a proposta para a clínica →</button><button class="btn ghost" type="button" data-go="pulso">Abrir o painel completo</button></div></div>';
+  }
+  function painelPulso() { return jornadaAna() + postsQueRendem(); }
 
   /* ---------- cena do médico ---------- */
   function pecaMed() { return pecasMes()[0]; }

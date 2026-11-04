@@ -2,6 +2,8 @@
 
 Projeto do Grupo 1 da disciplina Digital Innovation Strategy (Insper, 2026).
 
+**A grande questão:** a clínica troca três ou quatro fornecedores (agência, anúncios, atendimento, agenda) por um só? O WhatsApp é a porta de entrada; o produto é a captação inteira num lugar só, medida do post à consulta. O piloto mede consultas a mais e fornecedores trocados.
+
 **O que é (Fichas 2 e 3, entregues):** uma equipe de captação e atendimento para clínicas de 5 a 10 médicos, operada por agentes de IA e supervisionada por um especialista: conteúdo de cada médico, WhatsApp com agendamento e painel de contatos por canal e por médico, com cada peça conferida nas regras do CFM pelo Guardião e aprovada pelo diretor técnico. Planos por porte: Essencial R$ 2.900, Pro R$ 4.900 e Rede R$ 8.900 por mês. O MVP é o protótipo funcional publicado em jalecon.vercel.app, a ser validado num piloto pago com 3 a 5 clínicas.
 
 ## O que vale nota (e é só nisso que trabalhamos)

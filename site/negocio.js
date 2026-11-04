@@ -42,9 +42,11 @@
     metas: [
       { id: "consultas", rot: "Consultas a mais por clínica por mês", meta: 11, tipo: "min", unid: "" },
       { id: "custo", rot: "Custo de entrega por clínica (R$/mês)", meta: 1470, tipo: "max", unid: "R$" },
-      { id: "cancelamentos", rot: "Clínicas que cancelaram", meta: 0, tipo: "max", unid: "" }
+      { id: "cancelamentos", rot: "Clínicas que cancelaram a Jalecon", meta: 0, tipo: "max", unid: "" },
+      { id: "fornecedores", rot: "Clínicas que cancelaram ou reduziram outro fornecedor (de 3)", meta: 2, tipo: "min", unid: "" }
     ],
-    suposicao: "A clínica ganha 11 consultas a mais por mês? Se sim, renova e escalamos. Se não, revemos preço e escopo (Ficha 3)."
+    suposicao: "A clínica ganha 11 consultas a mais por mês e troca os fornecedores atuais pela Jalecon? Se as duas coisas acontecem, renova e escalamos.",
+    grandeQuestao: "A clínica troca três ou quatro fornecedores por um só? Toda a conta de custo evitado e a vantagem dos dados dependem disso."
   };
   function avaliarPiloto(obs) {
     return PILOTO.metas.map(function (m) {

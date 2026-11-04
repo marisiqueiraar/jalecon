@@ -22,8 +22,8 @@
 
   /* Gestores de clínica (Ficha 3): aba "Respostas · clínicas (v2)", 2 respostas até a coleta. */
   var CLINICAS = [
-    { esp: "Dermatologia", medicos: 8, prox: "N", pagaInsatisfeita: "S", querTem: "S", contatos: 20, respondeNoite: "N", resposta: 60, decisores: 2, dias: 60, cfm: "N", crmPesa: "S", dtRevisa: "N", caro: 3000, piloto: "Talvez", mede: "N", gasto: 1750 },
-    { esp: "Dor", medicos: 5, prox: "N", pagaInsatisfeita: "S", querTem: "S", contatos: 5, respondeNoite: "S", resposta: 15, decisores: 3, dias: 30, cfm: "N", crmPesa: "N", dtRevisa: "S", caro: null, piloto: "Talvez", mede: "S", gasto: 7500 }
+    { esp: "Dermatologia", medicos: 8, prox: "N", pagaInsatisfeita: "S", querTem: "S", contatos: 20, respondeNoite: "N", resposta: 60, decisores: 2, dias: 60, cfm: "N", crmPesa: "S", dtRevisa: "N", caro: 3000, piloto: "Talvez", mede: "N", gasto: 1750, subst: "Não sabe" },
+    { esp: "Dor", medicos: 5, prox: "N", pagaInsatisfeita: "S", querTem: "S", contatos: 5, respondeNoite: "S", resposta: 15, decisores: 3, dias: 30, cfm: "N", crmPesa: "N", dtRevisa: "S", caro: null, piloto: "Talvez", mede: "S", gasto: 7500, subst: "Soma" }
   ];
 
   /* Pacientes (o outro lado do mercado): aba "Respostas · pacientes", 27 respostas. */
@@ -106,6 +106,7 @@
         { id: "H2c", hip: "Preço: R$ 2.900 a R$ 8.900, fora mídia", indicador: "Mediana do “caro, mas consideraria” (5 a 10 médicos) e piloto pago (só “Sim”)", corte: "≥ R$ 3.500 e ≥ 40%", valor: brl(caro) + " e " + pct(pil), situacao: sit((caro || 0) >= 3500 && pil >= 0.4, (caro != null && caro < 2500) || pil === 0), tendencia: (caro || 0) >= 3500 && pil >= 0.4 ? "passa" : "nao_passa" },
         { id: "H3c", hip: "Conformidade pesa para a clínica", indicador: "Citam CFM, CRM ou diretor técnico sozinhos", corte: "≥ 40%", valor: pct(cfm) + " (" + pesa + " de " + n + " escolhem o CRM ou têm o diretor técnico revisando)", situacao: sit(cfm >= 0.4, cfm === 0 && pesa === 0), tendencia: cfm >= 0.4 ? "passa" : pesa ? "inconclusivo" : "nao_passa" },
         { id: "H9c", hip: "WhatsApp: a clínica perde pacientes no atendimento", indicador: "Mais de 10 contatos por semana e não respondem à noite ou demoram mais de 1 hora", corte: "≥ 60%", valor: pct(wa), situacao: sit(wa >= 0.6, wa < 0.2), tendencia: wa >= 0.6 ? "passa" : "nao_passa" },
+        { id: "Ref", hip: "Fornecedor único: a clínica troca os atuais pela Jalecon", indicador: "A Jalecon substituiria os fornecedores atuais ou somaria a eles?", corte: "Referência (sem corte fixado antes)", valor: L.map(function (x) { return x.subst; }).join(" · "), situacao: "referencia" },
         { id: "H10c", hip: "Compra rápida: poucos decisores", indicador: "1 ou 2 decisores e até 60 dias na última contratação", corte: "≥ 60%", valor: pct(compra), situacao: sit(compra >= 0.6, compra < 0.5), tendencia: compra >= 0.6 ? "passa" : "nao_passa" }
       ],
       decisao: n < min ? "Faltam " + (min - n) + " respostas de gestores para o placar valer (mínimo de " + min + "). Até lá, o resultado é indicativo. Se dor ou preço falharem, o pivô para clínicas sai da mesa." : "Placar fechado."
