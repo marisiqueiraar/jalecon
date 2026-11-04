@@ -122,7 +122,7 @@
     if (d.mede !== "sim") out.push("A clínica não sabe quantos contatos viram consulta, nem qual canal traz paciente.");
     if (d.faltas >= 15) out.push("As faltas passam de 10% e não há lista de espera para ocupar o horário.");
     if (!d.diretor || !d.diretorCrm) out.push("O diretor técnico não revisa a publicidade antes de ir ao ar, e responde por ela no CRM.");
-    if ((+d.gastoAgencia || 0) + (+d.gastoOutros || 0) > 0) out.push("Agência, atendimento e agenda estão em fornecedores diferentes, que não conversam.");
+    if ((+d.gastoAgencia || 0) + (+d.gastoOutros || 0) > 0) out.push("Agência, atendimento e agenda estão em soluções diferentes, que nem sempre se conectam.");
     return out;
   }
 

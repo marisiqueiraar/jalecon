@@ -12,7 +12,7 @@
 
   var ANA = { paciente: "Ana Souza", sexo: "f", origem: "Chegou pelo Google, depois do post do Dr. Rafael.", primeira: "Oi! Vi o Dr. Rafael Lima no Google. Vocês atendem dor no joelho?" };
   var CENAS = [
-    { id: "problema", curto: "O problema", tempo: "0:00", titulo: "Hoje, cada parte da captação está num fornecedor diferente", fala: "A agência faz os posts, a recepção cuida do WhatsApp e a agenda é outro sistema. Ninguém conversa com ninguém, e a Ana, que escreveu na hora do almoço, fica sem resposta." },
+    { id: "problema", curto: "O problema", tempo: "0:00", titulo: "Hoje, a captação da clínica passa por várias soluções que nem sempre se conectam", fala: "A agência cuida dos posts, a recepção cuida do WhatsApp e a agenda é outro sistema. São boas soluções, mas nem sempre conectadas, e a Ana, que escreveu na hora do almoço, fica sem resposta." },
     { id: "estudio", curto: "Estúdio", tempo: "0:30", titulo: "A Jalecon cria o mês de cada médico", fala: "Os agentes montam a marca e os posts do Dr. Rafael, no tom dele. Nada vai ao ar ainda." },
     { id: "medico", curto: "Médico revisa", tempo: "0:50", titulo: "O médico ajusta em dois minutos, conversando", fala: "O Dr. Rafael recebe o mês no celular e pede o que quer mudar, do jeito dele. Cada pedido vira preferência: no mês seguinte, o texto já sai assim." },
     { id: "guardiao", curto: "Guardião", tempo: "1:10", titulo: "O Guardião barra o que fere o CFM", fala: "Um post promete curar a dor de vez. O Guardião bloqueia, explica a regra e sugere a troca. Só a diretora técnica aprova." },
@@ -162,8 +162,8 @@
   }
   function fornecedores() {
     var d = J.S.diag;
-    var l = [["Agência", C.brl(+d.gastoAgencia || 0) + "/mês", "Faz os posts. Não vê o WhatsApp nem a agenda."], ["Anúncios", C.brl(+d.gastoAnuncios || 0) + "/mês", "Trazem cliques. Ninguém sabe quais viram consulta."], ["Atendimento", C.brl(+d.gastoOutros || 0) + "/mês", "Responde quando dá. Não sabe o que o post prometeu."], ["Agenda", "outro sistema", "Marca a consulta. Não sabe de onde veio o paciente."]];
-    return '<div class="card"><span class="eyebrow">Hoje: quatro fornecedores que não conversam</span><div class="forn">' + l.map(function (x) { return '<div><b>' + esc(x[0]) + '</b><span class="num">' + esc(x[1]) + '</span><small>' + esc(x[2]) + "</small></div>"; }).join("") + '</div><p class="small">Com a Jalecon, os quatro viram um só, e a clínica passa a saber qual post virou consulta.</p></div>';
+    var l = [["Agência", C.brl(+d.gastoAgencia || 0) + "/mês", "Cuida dos posts. O que acontece no WhatsApp e na agenda fica com outras equipes."], ["Anúncios", C.brl(+d.gastoAnuncios || 0) + "/mês", "Trazem cliques. Saber quais viram consulta depende de cruzar dados à mão."], ["Atendimento", C.brl(+d.gastoOutros || 0) + "/mês", "Responde no horário da equipe. Nem sempre sabe de qual post o paciente veio."], ["Agenda", "outro sistema", "Organiza as consultas. A origem do paciente costuma ficar de fora."]];
+    return '<div class="card"><span class="eyebrow">Hoje: várias soluções, cada uma cuidando de uma parte</span><div class="forn">' + l.map(function (x) { return '<div><b>' + esc(x[0]) + '</b><span class="num">' + esc(x[1]) + '</span><small>' + esc(x[2]) + "</small></div>"; }).join("") + '</div><p class="small">A Jalecon conecta essas partes num lugar só, e a clínica passa a ver qual post virou consulta.</p></div>';
   }
   function painelEstudio(vis) {
     var m = rafa(), id = J.idt(m), o = vis ? "" : " oculto";
