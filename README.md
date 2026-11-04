@@ -32,7 +32,7 @@ Projeto do Grupo 1 da disciplina Digital Innovation Strategy (Insper, 2026).
 
 ## O MVP: versão web para clínicas
 
-Plataforma web (não app) com todas as funções do pitch e das fichas para testar. Menu lateral em quatro blocos:
+Plataforma web (não app). A porta de entrada é a **demonstração guiada** ("Ver funcionando", `#/demo/0`): uma história em 8 cenas, com um celular mostrando o que o paciente e o gestor veem (WhatsApp sem resposta, Instagram do médico, post barrado pelo Guardião, busca no Google, conversa que agenda, lembrete da véspera com lista de espera e resumo da semana) e, ao lado, o que acontece na clínica. Atrás dela, a plataforma completa, com menu lateral em quatro blocos:
 
 | Bloco | Telas | De onde vem |
 |---|---|---|
@@ -42,12 +42,12 @@ Plataforma web (não app) com todas as funções do pitch e das fichas para test
 | Bastidores · banca | Validação (placar calculado das respostas da pesquisa, dito × feito, resumo para o slide) · Viabilidade (conta de padeiro editável, concorrência) · Piloto e pedido | Fichas 3 e 4; slides de viabilidade, piloto, validação e pedido |
 
 - **Ver como:** gestor, diretor técnico ou médico. Só o diretor técnico aprova; só o médico autor revisa a própria peça.
-- **Modo banca:** `jalecon.vercel.app/?banca=1` troca o menu pelo roteiro de 5 minutos com cronômetro (`banca/Roteiro_MVP_ao_vivo.md`).
+- **Modo banca:** `jalecon.vercel.app/?banca=1` abre direto na demonstração guiada (roteiro em `banca/Roteiro_MVP_ao_vivo.md`).
 - **Modo entrevista:** `?entrevista=1` ou a chave no menu esconde os preços.
 - **Premissas do raio-x:** editáveis e com a fonte de cada uma. O padrão usa a pesquisa com pacientes (7% dos contatos fora do horário, P3); a hipótese do pitch (35%) fica a um clique.
 - **Dados da pesquisa:** `site/pesquisa-dados.js` guarda só campos fechados e anonimizados da planilha "02 · Entrevistas v1 · placar das hipóteses" (coleta até 03/11). Para atualizar, troque os registros e o placar se recalcula.
 
-Arquivos: `web-base.js` (núcleo, menu, papéis, banca), `web-ciclo.js`, `web-operacao.js`, `web-banca.js` (telas), `web.css`; motores sem IA paga em `guardiao.js`, `conteudo.js` (Estúdio), `revisao.js` (conversa com o Redator), `critica.js` (IA revisa IA), `atendimento.js` (WhatsApp), `clinica-dados.js`, `negocio.js` e `pesquisa-dados.js`.
+Arquivos: `web-jornada.js` (demonstração guiada), `web-base.js` (núcleo, menu, papéis, banca), `web-ciclo.js`, `web-operacao.js`, `web-banca.js` (telas), `web.css`; motores sem IA paga em `guardiao.js`, `conteudo.js` (Estúdio), `revisao.js` (conversa com o Redator), `critica.js` (IA revisa IA), `atendimento.js` (WhatsApp), `clinica-dados.js`, `negocio.js` e `pesquisa-dados.js`.
 
 ## Rodar localmente
 

@@ -25,6 +25,7 @@
   };
 
   var HORAS = {
+    almoco: { rot: "Segunda, 12:40", periodo: "boa tarde", fora: false },
     comercial: { rot: "Segunda, 14:10", periodo: "boa tarde", fora: false },
     noite: { rot: "Segunda, 22:47", periodo: "boa noite", fora: true },
     sabado: { rot: "Sábado, 10:05", periodo: "bom dia", fora: true }

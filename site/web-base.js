@@ -22,6 +22,7 @@
     chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
     ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
     warn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>',
+    play: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor"/></svg>',
     menu: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     logo: '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="#2A3058"/><polygon points="24,36 37,36 50,64 44,76" fill="#F7F8FA"/><polygon points="44,76 50,64 67,24 80,24" fill="#E8A27C"/></svg>'
   };
@@ -46,7 +47,7 @@
   }
   var S = estadoInicial();
   var T = { erros: {}, toastTimer: null, t0: null, acumulado: 0, confirmar: false, foco: false };
-  var BANCA = false, MENU_BANCA = true;
+  var BANCA = false, MENU_BANCA = false;
 
   function salvar() { try { localStorage.setItem(CHAVE, JSON.stringify(S)); } catch (e) { /* sem armazenamento: segue sem lembrar */ } }
   function carregar() {
@@ -129,7 +130,7 @@
 
   /* ---------- menu ---------- */
   var MENU = [
-    { grupo: "", itens: [["inicio", "Visão geral", ICON.home]] },
+    { grupo: "", itens: [["demo", "Ver funcionando", ICON.play], ["inicio", "Visão geral", ICON.home]] },
     { grupo: "Ciclo Jalecon", itens: [["anamnese", "Anamnese e raio-x", 1], ["estudio", "Estúdio", 2], ["revisao-ia", "IA revisa IA", 3], ["revisao", "Médico revisa", 4], ["aprovacao", "Guardião e aprovação", 5], ["pulso", "Pulso: painel", 6]] },
     { grupo: "Atendimento", itens: [["whatsapp", "WhatsApp que agenda", ICON.chat], ["agenda", "Agenda e faltas", ICON.cal]] },
     { grupo: "Guardião", itens: [["guardiao-teste", "Testar o Guardião", ICON.test], ["biblioteca", "Biblioteca normativa", ICON.book], ["registro", "Trilha de auditoria", ICON.list]] },
@@ -151,19 +152,6 @@
   function renderSide() {
     var el = document.getElementById("side"), r = rotaAtual(), cur = ALIAS[r.nome] || r.nome;
     var topo = '<button class="brand" type="button" data-go="inicio">' + ICON.logo + "<span>jalecon<small>para clínicas · versão web</small></span></button>";
-    if (BANCA && MENU_BANCA) {
-      el.innerHTML = topo + '<div class="grupo"><h2>Demo da banca · 5 minutos</h2>' +
-        '<div class="crono-box"><span id="crono" class="crono">0:00</span><span class="small" style="color:#9DA2BC">de 5:00</span></div>' +
-        '<div class="row wrap" style="padding:0 6px"><button class="btn-side" type="button" data-act="crono" id="crono-bt">Iniciar</button><button class="btn-side ghost" type="button" data-act="crono-zerar">Zerar</button></div></div>' +
-        '<button class="btn-side" type="button" data-act="preparar-banca">Preparar a demo (começa do zero)</button>' +
-        '<div class="grupo" style="gap:6px">' + PASSOS_BANCA.map(function (p, i) {
-          var rr = rotaAtual(), on = ((rr.nome + (rr.arg ? "/" + rr.arg : "")) === p.rota);
-          return '<button type="button" class="passo-b' + (on ? " on" : "") + '" data-banca="' + i + '"' + (on ? ' aria-current="step"' : "") + "><b>" + (i + 1) + '</b><span><span>' + esc(p.rot) + '</span><span class="fala">' + esc(p.fala) + '</span></span><span class="tm">' + p.tempo + "</span></button>";
-        }).join("") + "</div>" +
-        '<div class="rodape"><button type="button" data-act="menu-completo">Ver o menu completo</button><span>Dados fictícios. Guardião, raio-x, aprovação, WhatsApp e agenda rodam no navegador.</span></div>';
-      atualizarCrono();
-      return;
-    }
     var pend = S.fila ? pendentes() : 0;
     el.innerHTML = topo + MENU.map(function (gr) {
       return '<nav class="grupo" aria-label="' + esc(gr.grupo || "Início") + '">' + (gr.grupo ? "<h2>" + esc(gr.grupo) + "</h2>" : "") + gr.itens.map(function (it) {
@@ -174,12 +162,20 @@
       }).join("") + "</nav>";
     }).join("") +
       '<div class="rodape"><label class="switch"><input type="checkbox" data-act-change="entrevista"' + (S.entrevista ? " checked" : "") + '><span><b>Modo entrevista</b><br>Esconde preços e planos, para não ancorar a pergunta de preço.</span></label>' +
-      (BANCA ? '<button type="button" data-act="menu-banca">Voltar ao roteiro da banca</button>' : "") +
+      '<button type="button" data-go="demo/0">Voltar à demonstração</button>' +
       '<button type="button" data-act="recomecar" id="bt-recomecar">Recomeçar a demo do zero</button><span>Projeto acadêmico · Grupo 1 · Digital Innovation Strategy · Insper · 2026</span></div>';
   }
 
   function renderTopo() {
-    var el = document.getElementById("topbar"), ms = S.diagFeito ? eq() : [];
+    var el = document.getElementById("topbar"), ms = S.diagFeito ? eq() : [], rt = rotaAtual();
+    if (rt.nome === "demo" && g.JW.CENAS) {
+      var n = parseInt(rt.arg, 10) || 0;
+      el.innerHTML = '<button class="brand-top" type="button" data-go="inicio" aria-label="Jalecon, ir para a plataforma">' + ICON.logo + "<span>jalecon</span></button>" +
+        '<nav class="cenas" aria-label="Cenas da demonstração">' + g.JW.CENAS.map(function (c, i) { return '<button type="button" class="' + (i === n ? "on" : i < n ? "feita" : "") + '" data-act="demo-ir" data-n="' + i + '"' + (i === n ? ' aria-current="step"' : "") + "><b>" + (i + 1) + "</b><span>" + esc(c.curto) + "</span></button>"; }).join("") + "</nav>" +
+        '<button class="btn ghost sm" type="button" data-act="demo-recomecar">Recomeçar</button><button class="btn sm" type="button" data-go="inicio">Explorar a plataforma</button>';
+      atualizarCrono();
+      return;
+    }
     var clin = S.diagFeito ? "<b>" + esc(S.diag.nome) + "</b><span>" + esc(C.PLANOS[C.planoPara(+S.diag.medicos)].nome) + " · " + ms.length + " médicos · " + esc(S.diag.cidade) + "</span>" : "<b>Nenhuma clínica carregada</b><span>Faça a anamnese ou use a clínica de exemplo</span>";
     var papeis = S.diagFeito ? '<div class="papel"><span class="rot">Ver como</span><div class="seg" role="group" aria-label="Ver a plataforma como">' +
       [["gestor", "Gestor"], ["diretor", "Diretor técnico"], ["medico", "Médico"]].map(function (p) { return '<button type="button" data-act="papel" data-papel="' + p[0] + '" class="' + (S.papel === p[0] ? "on" : "") + '" aria-pressed="' + (S.papel === p[0]) + '">' + p[1] + "</button>"; }).join("") +
@@ -189,7 +185,7 @@
   }
 
   var VIEWS = {}, ACOES = {}, INPUTS = {}, DEPOIS = {};
-  var LIVRES = ["inicio", "anamnese", "guardiao-teste", "biblioteca", "validacao", "viabilidade", "piloto", "planos", "revisao-ia"];
+  var LIVRES = ["demo", "inicio", "anamnese", "guardiao-teste", "biblioteca", "validacao", "viabilidade", "piloto", "planos", "revisao-ia"];
 
   function render(opts) {
     opts = opts || {};
@@ -199,6 +195,7 @@
     if (!S.diagFeito && LIVRES.indexOf(r.nome) < 0) html = semClinica();
     else html = v(r.arg);
     var y = window.scrollY;
+    document.body.classList.toggle("modo-demo", r.nome === "demo");
     main.innerHTML = html;
     renderSide(); renderTopo();
     if (opts.topo) window.scrollTo(0, 0); else window.scrollTo(0, y);
@@ -255,6 +252,7 @@
   ACOES.crono = function () { if (T.t0) { T.acumulado += Date.now() - T.t0; T.t0 = null; } else T.t0 = Date.now(); atualizarCrono(); };
   ACOES["crono-zerar"] = function () { T.t0 = null; T.acumulado = 0; atualizarCrono(); };
   ACOES["preparar-banca"] = function () {
+    if (ACOES["demo-recomecar"]) { ACOES["demo-recomecar"](); return; }
     var ent = S.entrevista;
     S = estadoInicial(); S.entrevista = ent; S.diag = C.diagExemplo(); S.diagFeito = true; preparar(); S.chat = A.novo("noite");
     T.t0 = null; T.acumulado = 0;
@@ -312,7 +310,7 @@
     carregar();
     if (S.diagFeito && !S.fila) preparar();
     if (S.diagFeito && !S.chat) S.chat = A.novo("noite");
-    if (BANCA) { document.body.classList.add("banca"); setInterval(atualizarCrono, 1000); if (!location.hash) location.replace("#/raiox"); }
+    if (BANCA) { document.body.classList.add("banca"); if (!location.hash) location.replace("#/demo/0"); }
     render({ topo: true });
   }
 
