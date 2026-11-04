@@ -4,7 +4,7 @@ O MVP é o protótipo funcional descrito na Ficha 3, agora como versão web (men
 
 **Endereço:** https://jalecon.vercel.app/?banca=1 (abre direto na demonstração guiada; sem `?banca=1`, o botão "Ver funcionando" leva ao mesmo lugar).
 
-A demonstração conta uma história só, em 8 cenas. À direita, um celular mostra o que o paciente (ou o gestor) vê; à esquerda, o que acontece na clínica. Para avançar: botão da cena seguinte, a barra de cenas no topo ou as setas do teclado. A plataforma completa (Estúdio, IA revisa IA, revisão do médico, biblioteca normativa, agenda, validação, viabilidade e piloto) fica em "Explorar a plataforma", para a arguição.
+A demonstração conta uma história só, em 9 cenas. À direita, um celular mostra o que o paciente (ou o gestor) vê; à esquerda, o que acontece na clínica. Para avançar: botão da cena seguinte, a barra de cenas no topo ou as setas do teclado. A plataforma completa (Estúdio, IA revisa IA, revisão do médico, biblioteca normativa, agenda, validação, viabilidade e piloto) fica em "Explorar a plataforma", para a arguição.
 
 ## Antes de começar (no intervalo das 20h15)
 
@@ -14,18 +14,19 @@ A demonstração conta uma história só, em 8 cenas. À direita, um celular mos
 4. Deixar o vídeo de 60 segundos aberto numa segunda aba, como plano B.
 5. Combinar quem clica e quem fala. Sugestão: uma pessoa clica e outra narra.
 
-## As 8 cenas (cerca de 5 minutos)
+## As 9 cenas (cerca de 5 minutos)
 
 | Cena | O que clicar | O que falar (curto) |
 |---|---|---|
 | 1. O problema | Nada: as mensagens da Ana aparecem sozinhas no celular. | "Esta é a Ana. Ela escreve para a clínica na hora do almoço e ninguém responde. No dia seguinte, já marcou em outro lugar. Na nossa pesquisa, 70% dos pacientes já desistiram de um médico por demora. O raio-x mostra que esta clínica perde 175 contatos por mês assim." |
 | 2. Estúdio | Nada: os agentes trabalham e o Instagram do Dr. Rafael se preenche. | "A Jalecon cria o mês de cada médico, com marca própria e no tom dele. Antes de ir ao ar, tudo passa pelos revisores e pelo Guardião, que já marcou o que não pode ser publicado." |
-| 3. Guardião | **Aplicar as sugestões do Guardião** e depois **Aprovar o mês como diretora técnica**. | "Este post promete eliminar a dor de vez. O Guardião bloqueia, explica a regra do CFM e sugere a troca. Só a diretora técnica aprova, e a decisão fica registrada: é a proteção dela no CRM." |
-| 4. Sua vez | Pedir uma frase a alguém da banca e digitar. | "Alguém nos dita uma frase de anúncio?" Se ninguém sugerir, usar os exemplos. O celular mostra o resultado enquanto se digita. |
-| 5. Google | Nada até a busca terminar; depois tocar em **Agendar pelo WhatsApp** no celular. | "A Ana pesquisa no Google e acha o perfil do Dr. Rafael, com nome, CRM e RQE, que a Jalecon criou e mantém." |
-| 6. WhatsApp | No celular: tocar na primeira mensagem, escolher um horário e tocar em "Ana Souza". | "O agente responde em segundos, não dá diagnóstico, informa o valor e marca direto na agenda do médico. À esquerda, o horário aparece na agenda e a recepção recebe o resumo." Se a banca quiser, digitar "qual remédio posso tomar?" ou "dor no peito". |
-| 7. Véspera | No celular: **1 · Confirmo**. À esquerda: **Oferecer o horário**. No celular do Marcos: **1 · Quero o horário**. | "Na véspera, cada paciente recebe o lembrete. Quem não pode ir libera o horário, e a lista de espera ocupa a vaga. Na pesquisa, todos os que faltaram disseram que esqueceram ou que era difícil desmarcar." |
-| 8. Resultado | Nada. | "O gestor vê o que funcionou: consultas por canal e por médico, e recebe o resumo da semana no WhatsApp. A métrica do piloto é esta: 11 consultas a mais por mês pagam a mensalidade." |
+| 3. Médico revisa | No celular do médico: **mais curto** e **mais acolhedor**. | "O Dr. Rafael não escreve nem posta: recebe o mês no celular e pede ajustes em português. Cada pedido vira preferência, e o mês seguinte já sai assim. É o que nenhuma agência faz." |
+| 4. Guardião | **Aplicar as sugestões do Guardião** e depois **Aprovar o mês como diretora técnica**. | "Este post promete eliminar a dor de vez. O Guardião bloqueia, explica a regra do CFM e sugere a troca. Só a diretora técnica aprova, e a decisão fica registrada: é a proteção dela no CRM." |
+| 5. Sua vez | Pedir uma frase a alguém da banca e digitar. | "Alguém nos dita uma frase de anúncio?" Se ninguém sugerir, usar os exemplos. O celular mostra o resultado enquanto se digita. |
+| 6. Google | Nada até a busca terminar; depois tocar em **Agendar pelo WhatsApp** no celular. | "A Ana pesquisa no Google e acha o perfil do Dr. Rafael, com nome, CRM e RQE, que a Jalecon criou e mantém." |
+| 7. WhatsApp | No celular: tocar na primeira mensagem, escolher um horário e tocar em "Ana Souza". | "O agente responde em segundos, não dá diagnóstico, informa o valor e marca direto na agenda do médico. À esquerda, o horário aparece na agenda e a recepção recebe o resumo." Se a banca quiser, digitar "qual remédio posso tomar?" ou "dor no peito". |
+| 8. Véspera | No celular: **1 · Confirmo**. À esquerda: **Oferecer o horário**. No celular do Marcos: **1 · Quero o horário**. | "Na véspera, cada paciente recebe o lembrete. Quem não pode ir libera o horário, e a lista de espera ocupa a vaga. Na pesquisa, todos os que faltaram disseram que esqueceram ou que era difícil desmarcar." |
+| 9. Resultado | Nada. | "O gestor vê o que funcionou: consultas por canal e por médico, e recebe o resumo da semana no WhatsApp. A métrica do piloto é esta: 11 consultas a mais por mês pagam a mensalidade." No fim, o botão "Ver a proposta para a clínica" abre a proposta comercial, para a arguição. |
 
 ## Sobre a cena das 22h47
 

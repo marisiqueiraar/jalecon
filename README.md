@@ -32,7 +32,7 @@ Projeto do Grupo 1 da disciplina Digital Innovation Strategy (Insper, 2026).
 
 ## O MVP: versão web para clínicas
 
-Plataforma web (não app). A porta de entrada é a **demonstração guiada** ("Ver funcionando", `#/demo/0`): uma história em 8 cenas, com um celular mostrando o que o paciente e o gestor veem (WhatsApp sem resposta, Instagram do médico, post barrado pelo Guardião, busca no Google, conversa que agenda, lembrete da véspera com lista de espera e resumo da semana) e, ao lado, o que acontece na clínica. Atrás dela, a plataforma completa, com menu lateral em quatro blocos:
+Plataforma web (não app). A porta de entrada é a **demonstração guiada** ("Ver funcionando", `#/demo/0`): uma história em 9 cenas, com um celular mostrando o que o paciente, o médico e o gestor veem (WhatsApp sem resposta, Instagram do médico, o médico revisando pelo celular, post barrado pelo Guardião, busca no Google, conversa que agenda, lembrete da véspera com lista de espera e resumo da semana) e, ao lado, o que acontece na clínica. Ao lado dela, a **proposta comercial** (`#/proposta`), para quem vai comprar: gerada ao vivo a partir da anamnese, com quanto a clínica perde hoje (de cada 100 contatos, quantos viram paciente), a conta do retorno em cenário conservador ou base, o que cada pessoa da clínica ganha (gestor, diretora técnica, médicos, recepção e pacientes), implantação em 30 dias, segurança, evidências da pesquisa, investimento, oferta de piloto e perguntas frequentes; salva em PDF. Atrás delas, a plataforma completa, com menu lateral em quatro blocos:
 
 | Bloco | Telas | De onde vem |
 |---|---|---|
@@ -47,7 +47,7 @@ Plataforma web (não app). A porta de entrada é a **demonstração guiada** ("V
 - **Premissas do raio-x:** editáveis e com a fonte de cada uma. O padrão usa a pesquisa com pacientes (7% dos contatos fora do horário, P3); a hipótese do pitch (35%) fica a um clique.
 - **Dados da pesquisa:** `site/pesquisa-dados.js` guarda só campos fechados e anonimizados da planilha "02 · Entrevistas v1 · placar das hipóteses" (coleta até 03/11). Para atualizar, troque os registros e o placar se recalcula.
 
-Arquivos: `web-jornada.js` (demonstração guiada), `web-base.js` (núcleo, menu, papéis, banca), `web-ciclo.js`, `web-operacao.js`, `web-banca.js` (telas), `web.css`; motores sem IA paga em `guardiao.js`, `conteudo.js` (Estúdio), `revisao.js` (conversa com o Redator), `critica.js` (IA revisa IA), `atendimento.js` (WhatsApp), `clinica-dados.js`, `negocio.js` e `pesquisa-dados.js`.
+Arquivos: `web-jornada.js` (demonstração guiada), `web-proposta.js` (proposta comercial), `web-base.js` (núcleo, menu, papéis, banca), `web-ciclo.js`, `web-operacao.js`, `web-banca.js` (telas), `web.css`; motores sem IA paga em `guardiao.js`, `conteudo.js` (Estúdio), `revisao.js` (conversa com o Redator), `critica.js` (IA revisa IA), `atendimento.js` (WhatsApp), `clinica-dados.js`, `negocio.js` e `pesquisa-dados.js`.
 
 ## Rodar localmente
 

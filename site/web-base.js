@@ -130,7 +130,7 @@
 
   /* ---------- menu ---------- */
   var MENU = [
-    { grupo: "", itens: [["demo", "Ver funcionando", ICON.play], ["inicio", "Visão geral", ICON.home]] },
+    { grupo: "", itens: [["demo", "Ver funcionando", ICON.play], ["proposta", "Proposta para a clínica", ICON.coin], ["inicio", "Visão geral", ICON.home]] },
     { grupo: "Ciclo Jalecon", itens: [["anamnese", "Anamnese e raio-x", 1], ["estudio", "Estúdio", 2], ["revisao-ia", "IA revisa IA", 3], ["revisao", "Médico revisa", 4], ["aprovacao", "Guardião e aprovação", 5], ["pulso", "Pulso: painel", 6]] },
     { grupo: "Atendimento", itens: [["whatsapp", "WhatsApp que agenda", ICON.chat], ["agenda", "Agenda e faltas", ICON.cal]] },
     { grupo: "Guardião", itens: [["guardiao-teste", "Testar o Guardião", ICON.test], ["biblioteca", "Biblioteca normativa", ICON.book], ["registro", "Trilha de auditoria", ICON.list]] },
@@ -168,6 +168,12 @@
 
   function renderTopo() {
     var el = document.getElementById("topbar"), ms = S.diagFeito ? eq() : [], rt = rotaAtual();
+    if (rt.nome === "proposta") {
+      el.innerHTML = '<button class="brand-top" type="button" data-go="inicio" aria-label="Jalecon, ir para a plataforma">' + ICON.logo + "<span>jalecon</span></button>" +
+        '<span class="topo-tit">Proposta para a ' + esc(S.diag.nome || "clínica") + '</span><span class="esp"></span>' +
+        '<button class="btn ghost sm" type="button" data-go="demo/0">Ver funcionando</button><button class="btn ghost sm" type="button" data-act="prop-pdf">Salvar em PDF</button><button class="btn sm" type="button" data-go="inicio">Explorar a plataforma</button>';
+      return;
+    }
     if (rt.nome === "demo" && g.JW.CENAS) {
       var n = parseInt(rt.arg, 10) || 0;
       el.innerHTML = '<button class="brand-top" type="button" data-go="inicio" aria-label="Jalecon, ir para a plataforma">' + ICON.logo + "<span>jalecon</span></button>" +
@@ -185,7 +191,7 @@
   }
 
   var VIEWS = {}, ACOES = {}, INPUTS = {}, DEPOIS = {};
-  var LIVRES = ["demo", "inicio", "anamnese", "guardiao-teste", "biblioteca", "validacao", "viabilidade", "piloto", "planos", "revisao-ia"];
+  var LIVRES = ["demo", "proposta", "inicio", "anamnese", "guardiao-teste", "biblioteca", "validacao", "viabilidade", "piloto", "planos", "revisao-ia"];
 
   function render(opts) {
     opts = opts || {};
@@ -195,7 +201,7 @@
     if (!S.diagFeito && LIVRES.indexOf(r.nome) < 0) html = semClinica();
     else html = v(r.arg);
     var y = window.scrollY;
-    document.body.classList.toggle("modo-demo", r.nome === "demo");
+    document.body.classList.toggle("modo-demo", r.nome === "demo" || r.nome === "proposta");
     main.innerHTML = html;
     renderSide(); renderTopo();
     if (opts.topo) window.scrollTo(0, 0); else window.scrollTo(0, y);

@@ -13,6 +13,7 @@
   var CENAS = [
     { id: "problema", curto: "O problema", tempo: "0:00", titulo: "Hoje, a paciente escreve e ninguém responde", fala: "Ana quer marcar com um ortopedista. Escreve para a clínica na hora do almoço e fica sem resposta." },
     { id: "estudio", curto: "Estúdio", tempo: "0:30", titulo: "A Jalecon cria o mês de cada médico", fala: "Os agentes montam a marca e os posts do Dr. Rafael, no tom dele. Nada vai ao ar ainda." },
+    { id: "medico", curto: "Médico revisa", tempo: "0:50", titulo: "O médico ajusta em dois minutos, conversando", fala: "O Dr. Rafael recebe o mês no celular e pede o que quer mudar, do jeito dele. Cada pedido vira preferência: no mês seguinte, o texto já sai assim." },
     { id: "guardiao", curto: "Guardião", tempo: "1:10", titulo: "O Guardião barra o que fere o CFM", fala: "Um post promete curar a dor de vez. O Guardião bloqueia, explica a regra e sugere a troca. Só a diretora técnica aprova." },
     { id: "teste", curto: "Sua vez", tempo: "2:00", titulo: "Teste o Guardião com qualquer frase", fala: "Peça uma frase de anúncio a alguém da banca e digite. O resultado aparece enquanto você escreve." },
     { id: "google", curto: "Google", tempo: "2:40", titulo: "A paciente encontra o médico no Google", fala: "Ana pesquisa no celular. Acha o perfil do Dr. Rafael, com nome, CRM e RQE, e toca em agendar." },
@@ -21,6 +22,7 @@
     { id: "pulso", curto: "Resultado", tempo: "4:30", titulo: "O gestor vê o que funcionou", fala: "Contatos e consultas por canal e por médico, e o resumo da semana no WhatsApp do gestor." }
   ];
   J.CENAS = CENAS;
+  function idx(id) { for (var i = 0; i < CENAS.length; i++) if (CENAS[i].id === id) return i; return 0; }
 
   /* ---------- estado da demonstração ---------- */
   function dm() {
@@ -106,7 +108,7 @@
     var corpo = '<div class="ph-g"><div class="ph-g-busca"><span id="ph-q" data-q="' + esc(q) + '">' + (vis ? esc(q) : "") + '</span><i class="cursor"></i></div><div class="ph-g-res seq' + (vis ? "" : " oculto") + '">' +
       '<div class="ph-ad"><small>Patrocinado</small><b>' + esc(cp.titulo) + "</b><span>" + esc(cp.descricao) + "</span></div>" +
       '<div class="ph-gmb"><b>' + esc(C.titulo(m)) + " · Ortopedista</b><span class=\"ph-est\">4,8 ★★★★★ (12)</span><span>Ortopedista em " + esc(J.S.diag.cidade) + " · " + esc(J.S.diag.nome) + '</span><span class="ph-aberto">Aberto · fecha às 19h</span>' +
-      '<div class="ph-gbts"><button type="button" class="ph-gbt prim" data-act="demo-ir" data-n="5">Agendar pelo WhatsApp</button><span class="ph-gbt">Ligar</span><span class="ph-gbt">Rotas</span><span class="ph-gbt">Site</span></div>' +
+      '<div class="ph-gbts"><button type="button" class="ph-gbt prim" data-act="demo-ir" data-n="' + idx("whatsapp") + '">Agendar pelo WhatsApp</button><span class="ph-gbt">Ligar</span><span class="ph-gbt">Rotas</span><span class="ph-gbt">Site</span></div>' +
       '<small class="ph-crm">' + esc(G.assinatura(CT.perfil(d))) + "</small></div></div></div>";
     return phone("12:38", "", corpo);
   }
@@ -192,7 +194,7 @@
   function painelGoogle() {
     return '<div class="card"><span class="eyebrow">O que a clínica fez para isso acontecer</span><ul class="list">' +
       ["Perfil no Google de cada médico, com endereço, horário e botão de agendar ligado ao WhatsApp da clínica", "Site do médico gerado no Estúdio, com nome, CRM e RQE no rodapé", "Anúncio de pesquisa segmentado por palavra e região, nunca por condição de saúde"].map(function (t) { return '<li><span style="color:var(--ok)">' + ICON.ok + "</span>" + esc(t) + "</li>"; }).join("") +
-      '</ul><p class="small">Na pesquisa, 41% dos pacientes checaram o médico no Instagram e muitos olharam as avaliações no Google antes de marcar.</p><button class="btn" type="button" data-act="demo-ir" data-n="5">Tocar em “Agendar pelo WhatsApp” →</button></div>';
+      '</ul><p class="small">Na pesquisa, 41% dos pacientes checaram o médico no Instagram e muitos olharam as avaliações no Google antes de marcar.</p><button class="btn" type="button" data-act="demo-ir" data-n="' + idx("whatsapp") + '">Tocar em “Agendar pelo WhatsApp” →</button></div>';
   }
   function agendamentoAna() {
     var S = J.S, d = dm(), ch = d.chat;
@@ -246,15 +248,56 @@
       '<div class="row wrap"><button class="btn" type="button" data-go="pulso">Abrir o painel completo</button><button class="btn ghost" type="button" data-go="inicio">Explorar a plataforma</button></div></div>';
   }
 
+  /* ---------- cena do médico ---------- */
+  function pecaMed() { return pecasMes()[0]; }
+  function ctxRev(p) { var m = rafa(), e = J.est(m.id); return { perfil: CT.perfil(J.dm(m)), tom: e.tom, glossario: e.mes.glossario, seed: p.chat.length, opcoesGuardiao: CT.opcoesGuardiao(J.dm(m), "peca") }; }
+  function telaMedico() {
+    var p = pecaMed(), m = rafa(), id = J.idt(m), pend = J.T.demoPend || 0;
+    var tit = p.texto.split("\n")[0];
+    var cartao = '<div class="ph-msg ele"><span>Dr. Rafael, o seu mês de novembro está pronto: 8 posts, já revisados pela IA e checados pelo Guardião. Este é o do dia ' + p.dia + ':</span><div class="ph-mini" style="background:' + id.cores[0] + ";color:" + id.cores[3] + ";font-family:'" + esc(id.fontes.titulo) + "',serif\">" + esc(tit) + '</div><span style="white-space:pre-line;font-size:12px">' + esc(p.texto.split("\n\n").slice(1, 3).join("\n\n")) + "</span><small>08:10</small></div>";
+    var msgs = '<div class="ph-dia">Hoje</div>' + cartao + p.chat.map(function (x, i) {
+      var oculto = x.de !== "eu" && i >= p.chat.length - pend ? " oculto seq" : "";
+      return bolha(x.de === "eu" ? "eu" : "ele", x.txt, "08:1" + Math.min(9, i + 1), oculto);
+    }).join("") + digitando(!pend);
+    var chips = ["mais curto", "mais acolhedor", "mais técnico", "adicione chamada para agendar"].map(function (t) { return '<button type="button" class="ph-chip" data-act="demo-med" data-txt="' + esc(t) + '">' + esc(t) + "</button>"; }).join("");
+    var rod = '<div class="ph-chips">' + chips + '</div><form class="ph-input" data-sub="demo-med"><label class="sr" for="f-demo-med">Pedido do médico</label><input id="f-demo-med" name="msg" placeholder="Peça do seu jeito…" autocomplete="off"><button type="submit" aria-label="Enviar">➤</button></form>';
+    return phone("08:12", "", wa("Jalecon · seu conteúdo", pend ? "digitando…" : "Redator da Jalecon", msgs, rod, "#24423A"));
+  }
+  function painelMedico() {
+    var p = pecaMed(), m = rafa(), e = J.est(m.id), res = G.analisar(p.texto, CT.opcoesGuardiao(J.dm(m), "peca"));
+    var mudou = p.texto !== p.original;
+    return '<div class="card"><div class="row between wrap"><b>Post do dia ' + p.dia + " · " + esc(p.formato) + "</b>" + J.resumoG(res) + "</div>" +
+      (mudou ? '<div class="g2"><div><span class="small">Antes</span><div class="texto antes">' + esc(p.original) + '</div></div><div><span class="small">Depois</span><div class="texto">' + esc(p.texto) + "</div></div></div>" : '<div class="texto">' + esc(p.texto) + "</div>") +
+      '<h3 class="t">O que a IA aprendeu com o Dr. Rafael</h3>' + (e.prefs.length ? '<div class="prefs">' + e.prefs.map(function (x) { return "<span>" + esc(x.rot) + "</span>"; }).join("") + "</div>" : '<p class="small">Nada ainda. Peça um ajuste no celular.</p>') +
+      '<p class="small">O médico não escreve, não posta e não fala com agência: lê, pede ajustes em português e aprova. Toda peça sai com o nome, o CRM e o RQE dele.</p></div>';
+  }
+  function pedirMed(txt) {
+    var p = pecaMed(), m = rafa(), e = J.est(m.id), antes = p.chat.length;
+    p.chat.push({ de: "eu", txt: txt });
+    var it = window.Revisao.entender(txt), r = window.Revisao.executar(it, p.texto, ctxRev(p));
+    if (r.erro) p.chat.push({ de: "ia", txt: r.erro });
+    else {
+      if (r.mudou) { p.hist.push(p.texto); p.texto = r.texto; p.timeline.push({ ag: "Médico", txt: "pediu: “" + txt + "”" }); }
+      p.chat.push({ de: "ia", txt: r.msg + (r.pref ? " Vou lembrar disso nos próximos meses." : "") });
+      if (r.pref && !e.prefs.some(function (x) { return x.rot === r.pref.rot; })) e.prefs.push(r.pref);
+    }
+    J.T.demoPend = p.chat.length - antes - 1;
+    J.render();
+  }
+  A["demo-med"] = function (b) { pedirMed(b.dataset.txt); };
+  A["submit:demo-med"] = function (f) { var v = f.msg.value.trim(); if (v) pedirMed(v); };
+
   /* ---------- tela da cena ---------- */
   V.demo = function (arg) {
     var d = dm(), n = Math.max(0, Math.min(CENAS.length - 1, parseInt(arg, 10) || 0)), c = CENAS[n], vis = !!d.visto[c.id];
-    var esq = [painelProblema, function () { return painelEstudio(vis); }, painelGuardiao, painelTeste, painelGoogle, painelWhatsapp, painelVespera, painelPulso][n]();
-    var dir = [function () { return telaProblema(vis); }, function () { return telaInstagram(vis, false); }, telaGuardiao, telaTeste, function () { return telaGoogle(vis); }, telaWhatsapp, telaVespera, telaPulso][n]();
-    var prox = n < CENAS.length - 1 ? '<button class="btn" type="button" data-act="demo-ir" data-n="' + (n + 1) + '">' + esc(CENAS[n + 1].curto) + " →</button>" : '<button class="btn" type="button" data-go="inicio">Explorar a plataforma completa</button>';
+    var ESQ = { problema: painelProblema, estudio: function () { return painelEstudio(vis); }, medico: painelMedico, guardiao: painelGuardiao, teste: painelTeste, google: painelGoogle, whatsapp: painelWhatsapp, vespera: painelVespera, pulso: painelPulso };
+    var DIR = { problema: function () { return telaProblema(vis); }, estudio: function () { return telaInstagram(vis, false); }, medico: telaMedico, guardiao: telaGuardiao, teste: telaTeste, google: function () { return telaGoogle(vis); }, whatsapp: telaWhatsapp, vespera: telaVespera, pulso: telaPulso };
+    var LEG = { problema: "No celular da Ana, a paciente", estudio: "No Instagram do Dr. Rafael", medico: "No celular do Dr. Rafael", guardiao: "No Instagram do Dr. Rafael", teste: "No Instagram do Dr. Rafael", google: "No celular da Ana, a paciente", whatsapp: "No celular da Ana, a paciente", vespera: (d.espera === "oferecido" || d.espera === "aceitou") ? "No celular do Marcos, da lista de espera" : "No celular da Ana, a paciente", pulso: "No celular do gestor" };
+    var esq = ESQ[c.id](), dir = DIR[c.id]();
+    var prox = n < CENAS.length - 1 ? '<button class="btn" type="button" data-act="demo-ir" data-n="' + (n + 1) + '">' + esc(CENAS[n + 1].curto) + " →</button>" : '<button class="btn" type="button" data-go="proposta">Ver a proposta para a clínica →</button>';
     return '<div class="demo"><div class="demo-esq"><span class="eyebrow">Cena ' + (n + 1) + " de " + CENAS.length + " · " + esc(c.curto) + "</span><h1 tabindex=\"-1\">" + esc(c.titulo) + '</h1><p class="lead">' + esc(c.fala) + "</p>" + esq +
       '<div class="row wrap demo-nav">' + (n ? '<button class="btn ghost" type="button" data-act="demo-ir" data-n="' + (n - 1) + '">← Voltar</button>' : "") + prox + "</div></div>" +
-      '<div class="demo-dir"><span class="ph-legenda-ext">' + (n === 7 ? "No celular do gestor" : n === 6 && (d.espera === "oferecido" || d.espera === "aceitou") ? "No celular do Marcos, da lista de espera" : n === 1 || n === 2 || n === 3 ? "No Instagram do Dr. Rafael" : "No celular da Ana, a paciente") + "</span>" + dir + "</div></div>";
+      '<div class="demo-dir"><span class="ph-legenda-ext">' + LEG[c.id] + "</span>" + dir + "</div></div>";
   };
 
   /* ---------- animações (só na primeira vez em cada cena) ---------- */
@@ -285,11 +328,11 @@
     if (c.id === "problema" && !d.visto.problema) revelar(".phone .seq.oculto", 1100, marca);
     else if (c.id === "estudio" && !d.visto.estudio) { revelar(".agentes .seq.oculto", 450, function () { revelar(".ph-tile.oculto", 140, marca); }); }
     else if (c.id === "google" && !d.visto.google) digitarBusca(function () { revelar(".ph-g-res.oculto", 0, marca); });
-    else if (c.id === "whatsapp" && J.T.demoPend) {
+    else if ((c.id === "whatsapp" || c.id === "medico") && J.T.demoPend) {
       var tk = ++anim.tok, dig = document.getElementById("ph-digitando"), ocultos = Array.prototype.slice.call(document.querySelectorAll("#ph-chat .seq.oculto"));
       var passo = function () {
         if (tk !== anim.tok) return;
-        if (!ocultos.length) { J.T.demoPend = 0; if (dig) dig.classList.add("oculto"); var s = document.querySelector(".ph-wa-top small"); if (s) s.textContent = "online · atendimento automático"; return; }
+        if (!ocultos.length) { J.T.demoPend = 0; if (dig) dig.classList.add("oculto"); var s = document.querySelector(".ph-wa-top small"); if (s) s.textContent = c.id === "medico" ? "Redator da Jalecon" : "online · atendimento automático"; return; }
         if (dig) dig.classList.remove("oculto");
         if (chat) chat.scrollTop = chat.scrollHeight;
         setTimeout(function () {
