@@ -73,10 +73,10 @@ Viabilidade não é faturamento. A conta começa pela clínica (custo evitado, e
 | Custo fixo (2 sócios, 1 desenvolvedor, ferramentas) | R$ 32 mil |
 | **Clínicas para pagar a operação** | **32.000 ÷ 2.654 ≈ 13** |
 
-**Recorrência (LTV, CAC e payback), pela conta do Modelo C:**
+**Recorrência (LTV, CAC e payback do CAC), pela conta do Modelo C:**
 - LTV ≈ R$ 109 mil: R$ 2.654 ÷ 2,5% de clínicas que cancelam por mês (40 meses em média), mais a taxa de implantação de R$ 4.900, menos R$ 1.800 de custo de implantação. Agências com contrato mensal perdem de 1,6% a 4,4% das clínicas por mês (`referencias/benchmarks.md`).
 - CAC ≈ R$ 20,5 mil: o CAC total do ano 5 do Modelo C (mídia, vendas, marketing e comissões, divididos pelas clínicas novas).
-- LTV/CAC ≈ 5,3 (corte: 3). A venda se paga em 7,7 meses (20.550 ÷ 2.654; corte: 12); a mediana de SaaS B2B pequeno é de 8 a 11 meses.
+- LTV/CAC ≈ 5,3 (corte: 3). O payback do CAC é de 7,7 meses (20.550 ÷ 2.654; corte: 12); a mediana de SaaS B2B pequeno é de 8 a 11 meses.
 - Se a clínica ficar só 12 meses, o LTV/CAC cai para 1,7; com 24 meses, fica em 3,4. Por isso o piloto mede cancelamentos.
 - Ideias simples para segurar a recorrência:
   - contrato anual com desconto;
