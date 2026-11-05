@@ -3,33 +3,48 @@
  */
 (function (g) {
   "use strict";
+  /* Jalecon: mesma conta do Modelo C (arquivo_v0/v1_analises/financeiro/build_model_clinicas.py, aba "Unidade"),
+   * plano Clínica Pro, cenário base. É o que aparece no slide "Economia por plano" do deck:
+   *   contribuição = mensalidade × (1 − impostos − meios de pagamento) − custo direto − especialista ÷ clínicas
+   *   LTV = contribuição ÷ churn + taxa de implantação − custo de implantação (sem receita de expansão)
+   *   LTV/CAC e recuperação do CAC usam o CAC total do ano 5 (mídia, vendas, marketing e comissões). */
   var BASE = {
     preco: 4900,            // Clínica Pro
     ticket: 450,            // consulta particular
     medicos: 6,
     custoEvitadoMin: 6500, custoEvitadoMax: 12800, // agência + secretária com IA + atendente de WhatsApp
     horasRecepcao: 40,
-    salarioEspecialista: 11000, // R$ 10 a 12 mil
+    salarioEspecialista: 12000, // gerente de conta sênior (Modelo C)
     clinicasPorEspecialista: 16, // o número que ainda é chute
-    outrosCusto: 782.5,     // IA, WhatsApp, agenda, ferramentas e impostos: completa o teto de R$ 1.470 no cenário base
-    teto: 1470,
+    custoDireto: 550,       // IA, API do WhatsApp, site, design e agenda por clínica
+    impostos: 0.163,        // lucro presumido sobre a receita
+    meiosPg: 0.03,          // meios de pagamento
+    churnPct: 2.5,          // clínicas que cancelam por mês (%)
+    implantacao: 1800,      // custo de implantar uma clínica nova
+    cac: 20550,             // CAC total do ano 5
+    teto: 1470,             // teto de custo de entrega da Ficha 3
+    corteMargem: 0.70, corteLtvCac: 3, cortePayback: 12, // critérios fixados antes (plano v1)
     custoFixo: 32000,
-    meses: 24,              // vida da clínica no LTV
-    cac: 20000,
-    horasMes: 160
+    horasMes: 120           // horas produtivas do especialista
   };
   function conta(p) {
     p = Object.assign({}, BASE, p || {});
     var especialista = p.salarioEspecialista / p.clinicasPorEspecialista;
-    var custo = especialista + p.outrosCusto;
-    var margem = p.preco - custo;
-    var margemPct = margem / p.preco;
-    var ltv = margem * p.meses;
+    var custo = especialista + p.custoDireto;              // custo de entrega por clínica
+    var liquida = p.preco * (1 - p.impostos - p.meiosPg);   // receita depois de impostos e meios de pagamento
+    var margem = liquida - custo;                           // contribuição mensal
+    var margemPct = margem / liquida;                       // margem bruta do plano
+    var churn = p.churnPct / 100;
+    var vida = 1 / churn;
+    var ltv = margem / churn + p.preco - p.implantacao;     // taxa de implantação = uma mensalidade
+    var folga = liquida * (1 - p.corteMargem) - p.custoDireto; // quanto o especialista pode custar por clínica para dar 70%
     return {
-      p: p, especialista: especialista, custo: custo, margem: margem, margemPct: margemPct,
+      p: p, especialista: especialista, custo: custo, liquida: liquida, margem: margem, margemPct: margemPct,
+      passaMargem: margemPct >= p.corteMargem,
+      clinicasPara70: folga > 0 ? Math.ceil(p.salarioEspecialista / folga) : null,
       dentroTeto: custo <= p.teto + 0.5,
       equilibrio: Math.ceil(p.custoFixo / Math.max(1, margem)),
-      ltv: ltv, ltvCac: ltv / p.cac, paybackCac: p.cac / Math.max(1, margem),
+      vida: vida, ltv: ltv, ltvCac: ltv / p.cac, paybackCac: p.cac / Math.max(1, margem),
       consultasPagam: Math.ceil(p.preco / p.ticket), porMedico: Math.ceil(p.preco / p.ticket) / p.medicos,
       horasPorClinica: p.horasMes / p.clinicasPorEspecialista
     };
@@ -60,7 +75,7 @@
     hoje: "3 a 5 clínicas de 5 a 10 médicos para o piloto pago de 3 a 6 meses (plano Pro, R$ 4.900 por mês), e apresentações a gestores e diretores técnicos.",
     depois: 250000,
     uso: [["Integrações de WhatsApp e agenda", 90000], ["Especialista em tempo integral", 72000], ["Conquista de clínicas", 30000], ["Reserva", 31000], ["Validação jurídica das regras", 15000], ["IA e ferramentas", 12000]],
-    objetivo: "10 clínicas pagantes: o ponto em que a margem de R$ 3.430 por clínica paga o custo fixo de R$ 32 mil por mês."
+    objetivo: "13 clínicas pagantes: o ponto em que a contribuição de cerca de R$ 2.650 por clínica, já sem impostos, paga o custo fixo de R$ 32 mil por mês."
   };
 
   /* Slide 5 do pitch ("Por que a Jalecon"): preços públicos dos sites (out/2026); fontes em referencias/concorrencia.md */
