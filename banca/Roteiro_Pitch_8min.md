@@ -29,7 +29,7 @@ A ordem segue o que a banca pede (Roteiro do Encontro 5: problema e cliente → 
 | 11 | MVP ao vivo | Mariana | 0:10 | 4. MVP funcionando | Ficha 3, seção 4 (protótipo funcional) |
 | 12 | Fim | Mariana | — | Fica na tela durante a arguição | — |
 
-O piloto pago está nas fichas entregues (Ficha 3, seções 4 e 6; Ficha 4, seções 4 e 7) e é o pedido. Os modelos A, B e C e as contas de LTV/CAC vinham de análises arquivadas e saíram do deck.
+O piloto pago está nas fichas entregues (Ficha 3, seções 4 e 6; Ficha 4, seções 4 e 7) e é o pedido. A conta da Jalecon segue o Modelo C no cenário base: os mesmos números dos slides Economia por plano e Viabilidade e da tela Viabilidade do site.
 
 ## Por que a Jalecon (slide 5)
 
@@ -65,26 +65,26 @@ Viabilidade não é faturamento. A conta começa pela clínica (custo evitado, e
 | | |
 |---|---|
 | Cobramos | R$ 4.900 |
+| Impostos (lucro presumido, 16,3%) e meios de pagamento (3%) | R$ 946 |
 | Especialista (R$ 12 mil ÷ 16 clínicas) | R$ 750 |
-| IA e ferramentas | R$ 250 |
-| Impostos (Simples, perto de 10%) | cerca de R$ 470 |
-| **Custa entregar (teto da Ficha 3)** | **até R$ 1.470** |
-| **Sobra (margem de contribuição)** | **R$ 3.430 (70%)** |
+| IA, WhatsApp, site, design e agenda | R$ 550 |
+| **Custa entregar (especialista + ferramentas; teto da Ficha 3: R$ 1.470)** | **R$ 1.300** |
+| **Sobra (contribuição)** | **R$ 2.654 (67% da receita sem impostos; corte: 70%)** |
 | Custo fixo (2 sócios, 1 desenvolvedor, ferramentas) | R$ 32 mil |
-| **Clínicas para pagar a operação** | **32.000 ÷ 3.430 ≈ 10** |
+| **Clínicas para pagar a operação** | **32.000 ÷ 2.654 ≈ 13** |
 
-**Recorrência (LTV, CAC e payback):**
-- LTV ≈ R$ 82 mil: R$ 3.430 × 24 meses. São 24 meses se perdermos 4% das clínicas por mês; agências com contrato mensal perdem de 1,6% a 4,4% (`referencias/benchmarks.md`).
-- CAC ≈ R$ 20 mil: vendedor e marketing custam R$ 13 mil por mês e fecham 2 clínicas a cada 3 meses. É o cenário conservador de `referencias/clinicas.md`.
-- LTV/CAC ≈ 4,1 (acima de 3 é saudável). A venda se paga em menos de 6 meses (20.000 ÷ 3.430); a mediana de SaaS B2B pequeno é de 8 a 11 meses.
-- Se a clínica ficar só 12 meses, o LTV/CAC cai para 2,1. Por isso o piloto mede cancelamentos.
+**Recorrência (LTV, CAC e payback do CAC), pela conta do Modelo C:**
+- LTV ≈ R$ 109 mil: R$ 2.654 ÷ 2,5% de clínicas que cancelam por mês (40 meses em média), mais a taxa de implantação de R$ 4.900, menos R$ 1.800 de custo de implantação. Agências com contrato mensal perdem de 1,6% a 4,4% das clínicas por mês (`referencias/benchmarks.md`).
+- CAC ≈ R$ 20,5 mil: o CAC total do ano 5 do Modelo C (mídia, vendas, marketing e comissões, divididos pelas clínicas novas).
+- LTV/CAC ≈ 5,3 (corte: 3). O payback do CAC é de 7,7 meses (20.550 ÷ 2.654; corte: 12); a mediana de SaaS B2B pequeno é de 8 a 11 meses.
+- Se a clínica ficar só 12 meses, o LTV/CAC cai para 1,7; com 24 meses, fica em 3,4. Por isso o piloto mede cancelamentos.
 - Ideias simples para segurar a recorrência:
   - contrato anual com desconto;
   - implantação de uma mensalidade, que paga um quarto do CAC na entrada (agências cobram de R$ 1.500 a 6.000);
   - troca de plano quando a clínica contrata mais médicos;
   - o painel mostra todo mês quantas consultas vieram por canal.
 
-**O número que ainda é chute:** 16 clínicas por especialista (Ficha 3). Se forem 12, o especialista custa R$ 1.000 por clínica, sobram R$ 3.180 (65%) e são 11 clínicas.
+**O número que ainda é chute:** 16 clínicas por especialista (Ficha 3). Se forem 12, o especialista custa R$ 1.000 por clínica, sobram R$ 2.404 (61%) e são 14 clínicas.
 
 ## O piloto (slide 7): custo × retorno, pelo triângulo de ferro
 
@@ -118,26 +118,26 @@ Porque ela não sabe se a agência traz paciente (só 24% têm processo para tra
 Ele não decide sozinho: quem aprova é o diretor técnico, com registro. As regras estão em validação com um advogado de direito médico.
 
 **"A margem de 70% é real?"**
-É o teto que fixamos na Ficha 3, com um chute declarado: quantas clínicas cada especialista atende. O piloto existe para medir isso. Com 12 clínicas por especialista em vez de 16, a margem cai para 65% e o equilíbrio vai de 10 para 11 clínicas.
+Ainda não. No cenário base, o custo de entregar fica dentro do teto da Ficha 3 (R$ 1.300 contra R$ 1.470), mas, depois de impostos, a margem do Pro é de 67%, abaixo do corte de 70% que fixamos antes. Chega lá com mais clínicas por especialista ou preço 20% maior. O chute declarado é quantas clínicas cada especialista atende, e o piloto existe para medir isso. Com 12 clínicas por especialista em vez de 16, a margem cai para 61% e o equilíbrio vai de 13 para 14 clínicas.
 
 **"O projeto para de pé? E as receitas e despesas?"**
-Na conta, sim; na evidência, ainda não. Por clínica Pro: R$ 4.900 de receita, até R$ 1.470 de custo de entrega e R$ 3.430 de margem (70%). Na empresa:
+Na conta, sim; na evidência, ainda não. Por clínica Pro: R$ 4.900 de receita, R$ 946 de impostos, R$ 1.300 de custo de entrega e R$ 2.654 de contribuição (67%). Na empresa:
 
-| | 10 clínicas | 20 clínicas |
+| | 13 clínicas | 20 clínicas |
 |---|---|---|
-| Receita por ano | R$ 588 mil | R$ 1,18 mi |
-| Custo de entrega | R$ 176 mil | R$ 353 mil |
+| Receita por ano | R$ 764 mil | R$ 1,18 mi |
+| Impostos e custo de entrega | R$ 350 mil | R$ 539 mil |
 | Custo fixo (R$ 32 mil por mês) | R$ 384 mil | R$ 384 mil |
-| Resultado antes de vender | ≈ zero (equilíbrio) | ≈ R$ 440 mil |
-| Custo de conquistar as clínicas (R$ 20 mil cada) | R$ 200 mil | mais R$ 200 mil pelas 10 novas |
+| Resultado antes de vender | ≈ R$ 30 mil (equilíbrio) | ≈ R$ 253 mil |
+| Custo de conquistar as clínicas (R$ 20,5 mil cada) | R$ 267 mil | mais R$ 144 mil pelas 7 novas |
 
 Onde a conta pode quebrar:
-- **Especialista:** com 8 clínicas por especialista, a margem cai para 55% e o equilíbrio vai para 12 clínicas.
-- **Imposto:** fora do Simples, a margem fica perto de 63% e o equilíbrio em 11 clínicas.
-- **Permanência:** se a clínica ficar só 12 meses, o LTV/CAC cai para 2,1.
+- **Especialista:** com 8 clínicas por especialista, a margem cai para 48% e o equilíbrio vai para 17 clínicas.
+- **Imposto:** a conta já usa lucro presumido (16,3%) e 3% de meios de pagamento. No Simples, perto de 10%, a margem chegaria a cerca de 70%.
+- **Permanência:** se a clínica ficar só 12 meses, o LTV/CAC cai para 1,7.
 - **Demanda:** ainda não testamos com gestores se a clínica ganha 11 consultas a mais por mês.
 
-Resposta curta: "A conta fecha com 10 clínicas, se cada especialista atender pelo menos 12 e a clínica ficar dois anos. O piloto existe para provar isso antes de pedirmos dinheiro."
+Resposta curta: "A conta fecha com 13 clínicas, se cada especialista atender pelo menos 12 e a clínica ficar uns dois anos. O piloto existe para provar isso antes de pedirmos dinheiro."
 
 **"O que impede de copiarem amanhã?"**
 Na tecnologia, quase nada: IA, a API do WhatsApp e integração com agenda qualquer um monta. A Ficha 3 já admite isso na seção 7. O concorrente mais perigoso é a Doctoralia, que tem a Feegow (agenda), os pacientes e as clínicas. O que protege precisa ser construído, e rápido:

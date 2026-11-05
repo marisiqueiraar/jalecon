@@ -57,38 +57,46 @@
     ["ticket", "Valor da consulta particular (R$)", 200, 1200, 10],
     ["clinicasPorEspecialista", "Clínicas por especialista (o número que ainda é chute)", 6, 30, 1],
     ["salarioEspecialista", "Custo do especialista (R$/mês)", 8000, 16000, 500],
-    ["outrosCusto", "IA, WhatsApp, agenda, ferramentas e impostos por clínica (R$)", 300, 1500, 10],
-    ["cac", "CAC: custo para conquistar uma clínica (R$)", 5000, 40000, 1000],
-    ["meses", "Meses que a clínica fica (LTV)", 6, 48, 1]
+    ["custoDireto", "IA, WhatsApp, site, design e agenda por clínica (R$/mês)", 200, 1500, 10],
+    ["churnPct", "Clínicas que cancelam por mês (churn)", 0.5, 6, 0.1],
+    ["cac", "CAC: custo total para conquistar uma clínica (R$)", 5000, 40000, 50]
   ];
+  function dec(v, n) { return String(Math.round(v * Math.pow(10, n)) / Math.pow(10, n)).replace(".", ","); }
+  function fmtCampo(id, v) { return id === "clinicasPorEspecialista" ? String(v) : id === "churnPct" ? dec(v, 1) + "%" : brl(v); }
+  function mil(v) { return "R$ " + dec(v / 1000, 1) + " mil"; }
   V.viabilidade = function () {
     var o = J.S.negocio, c = N.conta(o), p = c.p;
     var campos = CAMPOS.map(function (f) {
       var v = p[f[0]];
-      return '<div class="slider"><div class="row between"><label for="ng-' + f[0] + '" class="lbl" style="font-weight:600">' + esc(f[1]) + '</label><b id="nv-' + f[0] + '">' + (f[0] === "clinicasPorEspecialista" || f[0] === "meses" ? v : brl(v)) + "</b></div>" +
+      return '<div class="slider"><div class="row between"><label for="ng-' + f[0] + '" class="lbl" style="font-weight:600">' + esc(f[1]) + '</label><b id="nv-' + f[0] + '" style="white-space:nowrap">' + fmtCampo(f[0], v) + "</b></div>" +
         '<input type="range" id="ng-' + f[0] + '" min="' + f[2] + '" max="' + f[3] + '" step="' + f[4] + '" value="' + v + '" data-in="neg" data-id="' + f[0] + '"></div>';
     }).join("");
-    return J.cab("Bastidores · viabilidade", "Conta de padeiro: a clínica se paga com 11 consultas a mais por mês", "Viabilidade começa pela clínica (custo evitado, horas, risco e payback) e depois mostra a Jalecon (margem, equilíbrio, LTV e CAC). Os valores-base são os das Fichas 3 e 4; mexa e veja o que precisa ser verdade.") +
+    return J.cab("Bastidores · viabilidade", "Conta de padeiro: a clínica se paga com 11 consultas a mais por mês", "Viabilidade começa pela clínica (custo evitado, horas, risco e payback) e depois mostra a Jalecon (margem, LTV e CAC). Os números da Jalecon seguem o Modelo C no cenário base, os mesmos do slide Economia por plano; mexa e veja o que precisa ser verdade.") +
       '<div class="g-side"><div class="stack" id="viab-res">' + resViab(c) + "</div>" +
-      '<div class="card"><div class="row between"><h2 class="t">Premissas</h2><button class="btn ghost sm" type="button" data-act="neg-reset">Voltar à Ficha 4</button></div>' + campos + "</div></div>" +
+      '<div class="card"><div class="row between"><h2 class="t">Premissas</h2><button class="btn ghost sm" type="button" data-act="neg-reset">Voltar ao cenário base</button></div>' + campos +
+      '<p class="small">Fixos do modelo: impostos de ' + dec(p.impostos * 100, 1) + "% e meios de pagamento de " + dec(p.meiosPg * 100, 0) + "% sobre a receita, implantação de " + brl(p.implantacao) + " por clínica nova (a clínica paga uma mensalidade de taxa) e " + p.horasMes + " horas produtivas do especialista por mês.</p></div></div>" +
       '<div class="card"><h2 class="t">Por que a Jalecon: quem a clínica contrata hoje</h2><div class="tb-wrap"><table class="tb"><thead><tr><th></th>' + N.CONCORRENCIA.colunas.map(function (x) { return "<th>" + esc(x) + "</th>"; }).join("") + "</tr></thead><tbody>" +
       N.CONCORRENCIA.linhas.map(function (l) { return '<tr' + (l[0] === "Jalecon" ? ' class="destaque"' : "") + "><th>" + esc(l[0]) + "</th>" + l.slice(1).map(function (x) { return "<td>" + esc(x) + "</td>"; }).join("") + "</tr>"; }).join("") +
       '</tbody></table></div><p class="small">Preços públicos dos sites (out/2026); agências, faixa de mercado. A clínica não troca um fornecedor pela Jalecon, troca três ou quatro. O app é copiável; os dados de conversão, as preferências dos médicos e a biblioteca normativa curada, não.</p></div>';
   };
   function resViab(c) {
     var p = c.p;
+    var passaLtv = c.ltvCac >= p.corteLtvCac, passaPb = c.paybackCac <= p.cortePayback;
     return '<div class="g2"><div class="card"><span class="eyebrow">Clínica · custo × retorno</span><p>Paga ' + brl(p.preco) + ". Evita " + brl(p.custoEvitadoMin) + " a " + brl(p.custoEvitadoMax) + " de agência e atendimento e ganha cerca de " + p.horasRecepcao + ' horas de recepção por mês.</p></div>' +
-      '<div class="card"><span class="eyebrow">Clínica · payback</span><p><b class="num" style="font-family:var(--display);font-size:28px">' + c.consultasPagam + "</b> consultas a mais por mês (" + brl(p.ticket) + " cada) pagam a mensalidade: " + String(Math.round(c.porMedico * 10) / 10).replace(".", ",") + " por médico numa clínica de " + p.medicos + ".</p></div>" +
-      '<div class="card' + (c.dentroTeto ? "" : " alerta") + '"><span class="eyebrow">Jalecon · margem</span><p>Entregar custa <b>' + brl(c.custo) + "</b> por clínica (especialista " + brl(c.especialista) + " + " + brl(p.outrosCusto) + "). Sobram <b>" + brl(c.margem) + " (" + J.pct(c.margemPct) + ")</b>. " + (c.dentroTeto ? "Dentro do teto de " + brl(p.teto) + "." : "Acima do teto de " + brl(p.teto) + ": reduzir o escopo para marca, site e conteúdo (Ficha 3).") + "</p><p class=\"small\">Cerca de " + String(Math.round(c.horasPorClinica * 10) / 10).replace(".", ",") + " horas do especialista por clínica por mês.</p></div>" +
-      '<div class="card"><span class="eyebrow">Jalecon · equilíbrio, LTV e CAC</span><p><b>' + c.equilibrio + " clínicas</b> pagam o custo fixo de " + brl(p.custoFixo) + ". LTV de <b>" + brl(c.ltv) + "</b> (" + p.meses + " meses) e CAC de " + brl(p.cac) + ": a venda se paga em <b>" + Math.ceil(c.paybackCac) + " meses</b> (LTV/CAC " + String(Math.round(c.ltvCac * 10) / 10).replace(".", ",") + ").</p></div></div>";
+      '<div class="card"><span class="eyebrow">Clínica · payback</span><p><b class="num" style="font-family:var(--display);font-size:28px">' + c.consultasPagam + "</b> consultas a mais por mês (" + brl(p.ticket) + " cada) pagam a mensalidade: " + dec(c.porMedico, 1) + " por médico numa clínica de " + p.medicos + ".</p></div>" +
+      '<div class="card' + (c.dentroTeto && c.passaMargem ? "" : " alerta") + '"><span class="eyebrow">Jalecon · margem</span><p>Entregar custa <b>' + brl(c.custo) + "</b> por clínica (especialista " + brl(c.especialista) + " + IA e ferramentas " + brl(p.custoDireto) + "), " + (c.dentroTeto ? "dentro do teto de " + brl(p.teto) + " da Ficha 3." : "acima do teto de " + brl(p.teto) + ": reduzir o escopo para marca, site e conteúdo (Ficha 3).") +
+        " Depois de impostos e meios de pagamento, sobram <b>" + brl(c.margem) + "</b> por mês: margem bruta de <b>" + J.pct(c.margemPct) + "</b>" + (c.passaMargem ? ", acima do corte de 70%." : ", abaixo do corte de 70%: precisa de mais clínicas por especialista ou preço maior.") + "</p>" +
+        '<p class="small">Cerca de ' + dec(c.horasPorClinica, 1) + " horas do especialista por clínica por mês. " + c.equilibrio + " clínicas pagam o custo fixo de " + brl(p.custoFixo) + " por mês.</p></div>" +
+      '<div class="card' + (passaLtv && passaPb ? "" : " alerta") + '"><span class="eyebrow">Jalecon · LTV e CAC</span><p>A clínica fica em média <b>' + dec(c.vida, 0) + " meses</b> (churn de " + dec(p.churnPct, 1) + "% ao mês). LTV de <b>" + mil(c.ltv) + "</b> e CAC de " + brl(p.cac) + ": <b>LTV/CAC " + dec(c.ltvCac, 1) + "</b> (corte: " + p.corteLtvCac + ") e payback do CAC de <b>" + dec(c.paybackCac, 1) + " meses</b> (corte: " + p.cortePayback + ").</p>" +
+        '<p class="small">LTV = contribuição ÷ churn + taxa de implantação − custo de implantação, sem receita de expansão. CAC total do ano 5: mídia, vendas, marketing e comissões. Mesma conta do Modelo C.</p></div></div>';
   }
   I.neg = function (t) {
     var id = t.dataset.id, v = +t.value; J.S.negocio[id] = v;
-    var l = document.getElementById("nv-" + id); if (l) l.textContent = id === "clinicasPorEspecialista" || id === "meses" ? v : brl(v);
+    var l = document.getElementById("nv-" + id); if (l) l.textContent = fmtCampo(id, v);
     var box = document.getElementById("viab-res"); if (box) box.innerHTML = resViab(N.conta(J.S.negocio));
     return false;
   };
-  A["neg-reset"] = function () { J.S.negocio = {}; J.render(); J.toast("Valores da Ficha 4: R$ 4.900, 16 clínicas por especialista, custo de R$ 1.470."); };
+  A["neg-reset"] = function () { J.S.negocio = {}; J.render(); J.toast("Cenário base do Modelo C: R$ 4.900, 16 clínicas por especialista, churn de 2,5% e CAC de R$ 20.550."); };
 
   /* =========================================================== PILOTO */
   V.piloto = function () {
